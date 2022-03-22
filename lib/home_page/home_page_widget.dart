@@ -69,7 +69,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(4, 26, 4, 20),
+          padding: EdgeInsetsDirectional.fromSTEB(0, 26, 0, 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -139,7 +139,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.98,
+                    width: MediaQuery.of(context).size.width,
                     height: 60,
                     decoration: BoxDecoration(
                       color: Color(0x00F4F4F4),
@@ -150,50 +150,53 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: FlutterFlowChoiceChips(
-                            initiallySelected: choiceChipsValue != null
-                                ? [choiceChipsValue]
-                                : ['Adelaide Hills'],
-                            options: [
-                              ChipData('Adelaide Hills'),
-                              ChipData('Barossa Valley'),
-                              ChipData('McLaren Vale'),
-                              ChipData('Langhorn Creek')
-                            ],
-                            onChanged: (val) =>
-                                setState(() => choiceChipsValue = val.first),
-                            selectedChipStyle: ChipStyle(
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).black,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
-                              iconColor: Colors.white,
-                              iconSize: 18,
-                              labelPadding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 4, 10, 4),
-                              elevation: 8,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
+                            child: FlutterFlowChoiceChips(
+                              initiallySelected: choiceChipsValue != null
+                                  ? [choiceChipsValue]
+                                  : ['Adelaide Hills'],
+                              options: [
+                                ChipData('Adelaide Hills'),
+                                ChipData('Barossa Valley'),
+                                ChipData('McLaren Vale'),
+                                ChipData('Langhorn Creek')
+                              ],
+                              onChanged: (val) =>
+                                  setState(() => choiceChipsValue = val.first),
+                              selectedChipStyle: ChipStyle(
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).black,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                    ),
+                                iconColor: Colors.white,
+                                iconSize: 18,
+                                labelPadding:
+                                    EdgeInsetsDirectional.fromSTEB(10, 4, 6, 4),
+                                elevation: 8,
+                              ),
+                              unselectedChipStyle: ChipStyle(
+                                backgroundColor: Colors.white,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyText2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF262D34),
+                                    ),
+                                iconColor: Color(0xFF262D34),
+                                iconSize: 18,
+                                labelPadding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 4, 10, 4),
+                                elevation: 2,
+                              ),
+                              chipSpacing: 10,
+                              multiselect: false,
+                              initialized: choiceChipsValue != null,
                             ),
-                            unselectedChipStyle: ChipStyle(
-                              backgroundColor: Colors.white,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyText2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFF262D34),
-                                  ),
-                              iconColor: Color(0xFF262D34),
-                              iconSize: 18,
-                              labelPadding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 4, 10, 4),
-                              elevation: 2,
-                            ),
-                            chipSpacing: 14,
-                            multiselect: false,
-                            initialized: choiceChipsValue != null,
                           ),
                         ),
                       ],
@@ -327,7 +330,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     child: Text(
                                       listViewFeaturedVenuesRecord.name,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -490,7 +497,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       gridViewVenuesVenuesRecord.name,
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                   ),
                                 ),

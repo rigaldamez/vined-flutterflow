@@ -488,11 +488,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               8,
                                                                               0,
-                                                                              0,
+                                                                              4,
                                                                               0),
                                                                           child:
                                                                               Text(
-                                                                            listViewToursRecord.tourName,
+                                                                            listViewToursRecord.tourName.maybeHandleOverflow(
+                                                                              maxChars: 25,
+                                                                              replacement: '…',
+                                                                            ),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Poppins',
                                                                                   fontSize: 20,
@@ -515,6 +518,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           MainAxisSize
                                                                               .max,
                                                                       children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .people_outline,
+                                                                          color:
+                                                                              Colors.black,
+                                                                          size:
+                                                                              20,
+                                                                        ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               8,
@@ -523,7 +534,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                               0),
                                                                           child:
                                                                               Text(
-                                                                            functions.upperCaseString(rowRegionsRecord.name).maybeHandleOverflow(
+                                                                            listViewToursRecord.passengers.toString().maybeHandleOverflow(
                                                                                   maxChars: 25,
                                                                                   replacement: '…',
                                                                                 ),
@@ -549,6 +560,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           MainAxisSize
                                                                               .max,
                                                                       children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .calendar_today_outlined,
+                                                                          color:
+                                                                              Colors.black,
+                                                                          size:
+                                                                              20,
+                                                                        ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               8,
@@ -581,11 +600,19 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           MainAxisSize
                                                                               .max,
                                                                       children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .person_pin_circle_outlined,
+                                                                          color:
+                                                                              Colors.black,
+                                                                          size:
+                                                                              22,
+                                                                        ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               8,
                                                                               0,
-                                                                              0,
+                                                                              4,
                                                                               0),
                                                                           child:
                                                                               Text(
@@ -622,12 +649,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                                         alignment:
                                             AlignmentDirectional(-0.88, -0.58),
                                         child: Container(
-                                          width: 50,
-                                          height: 50,
+                                          width: 40,
+                                          height: 40,
                                           decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            borderRadius:
-                                                BorderRadius.circular(50),
+                                            color: FlutterFlowTheme.of(context)
+                                                .pinkLace,
+                                            shape: BoxShape.circle,
                                           ),
                                           child: Padding(
                                             padding:
@@ -639,29 +666,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Icon(
-                                                  Icons.people,
-                                                  color: Color(0xFFF4F4F4),
+                                                  Icons.directions_bus_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .black,
                                                   size: 18,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(4, 0, 0, 0),
-                                                  child: Text(
-                                                    listViewToursRecord
-                                                        .passengers
-                                                        .toString(),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFFF4F4F4),
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                  ),
                                                 ),
                                               ],
                                             ),

@@ -79,12 +79,10 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                 ),
               ),
               Expanded(
-                child: FutureBuilder<List<VenuesRecord>>(
-                  future: VenuesRecord.search(
-                    term: valueOrDefault<String>(
-                      widget.regionName,
-                      '*',
-                    ),
+                child: StreamBuilder<List<VenuesRecord>>(
+                  stream: queryVenuesRecord(
+                    queryBuilder: (venuesRecord) => venuesRecord
+                        .where('regionName', isEqualTo: widget.regionName),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -101,15 +99,6 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                       );
                     }
                     List<VenuesRecord> listViewVenuesRecordList = snapshot.data;
-                    // Customize what your widget looks like with no search results.
-                    if (snapshot.data.isEmpty) {
-                      return Container(
-                        height: 100,
-                        child: Center(
-                          child: Text('No results.'),
-                        ),
-                      );
-                    }
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -163,6 +152,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                         fontFamily: 'Poppins',
                                         color:
                                             FlutterFlowTheme.of(context).black,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                 ),
                               ),
