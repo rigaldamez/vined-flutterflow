@@ -258,12 +258,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 ],
               ),
               Expanded(
-                child: FutureBuilder<List<VenuesRecord>>(
-                  future: VenuesRecord.search(
-                    term: valueOrDefault<String>(
-                      choiceChipsValue,
-                      'Adelaide Hills',
-                    ),
+                child: StreamBuilder<List<VenuesRecord>>(
+                  stream: queryVenuesRecord(
+                    queryBuilder: (venuesRecord) => venuesRecord
+                        .where('regionName', isEqualTo: choiceChipsValue),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -281,15 +279,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     }
                     List<VenuesRecord> listViewFeaturedVenuesRecordList =
                         snapshot.data;
-                    // Customize what your widget looks like with no search results.
-                    if (snapshot.data.isEmpty) {
-                      return Container(
-                        height: 100,
-                        child: Center(
-                          child: Text('No results.'),
-                        ),
-                      );
-                    }
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.horizontal,
