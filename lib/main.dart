@@ -130,9 +130,9 @@ class _NavBarPageState extends State<NavBarPage> {
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 28,
         itemBorderRadius: 28,
-        margin: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-        width: MediaQuery.of(context).size.width * 1,
+        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        width: MediaQuery.of(context).size.width * 0.9,
         elevation: 40,
         items: [
           FloatingNavbarItem(

@@ -336,7 +336,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8, 4, 0, 0),
                                     child: Text(
-                                      listViewFeaturedVenuesRecord.name,
+                                      valueOrDefault<String>(
+                                        listViewFeaturedVenuesRecord.name,
+                                        'Default Value',
+                                      ),
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .subtitle2,
@@ -359,7 +362,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 10),
                     child: Text(
-                      choiceChipsValue,
+                      valueOrDefault<String>(
+                        choiceChipsValue,
+                        'Default Value',
+                      ),
                       style: FlutterFlowTheme.of(context).subtitle1.override(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w800,
@@ -398,7 +404,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     reverseDuration:
                                         Duration(milliseconds: 200),
                                     child: SeeAllCellarsWidget(
-                                      regionName: choiceChipsValue,
+                                      regionName: valueOrDefault<String>(
+                                        choiceChipsValue,
+                                        'Default Value',
+                                      ),
                                     ),
                                   ),
                                 );
@@ -493,7 +502,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 Align(
                                   alignment: AlignmentDirectional(-0.75, 0),
                                   child: Text(
-                                    gridViewVenuesVenuesRecord.name,
+                                    valueOrDefault<String>(
+                                      gridViewVenuesVenuesRecord.name,
+                                      'Default Value',
+                                    ),
                                     textAlign: TextAlign.center,
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
