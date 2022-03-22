@@ -327,7 +327,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                           clipBehavior:
                                               Clip.antiAliasWithSaveLayer,
                                           color: Color(0xFFF5F5F5),
-                                          elevation: 10,
+                                          elevation: 6,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(28),
@@ -371,268 +371,81 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.34,
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height *
-                                                                    0.2,
-                                                                child: Stack(
-                                                                  children: [
-                                                                    ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              28),
-                                                                      child: Image
-                                                                          .network(
-                                                                        rowRegionsRecord
-                                                                            .image,
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.34,
-                                                                        height: MediaQuery.of(context).size.height *
-                                                                            0.2,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.34,
-                                                                      height: MediaQuery.of(context)
-                                                                              .size
-                                                                              .height *
-                                                                          0.2,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0x56000000),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(28),
-                                                                      ),
-                                                                      child:
-                                                                          Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          rowRegionsRecord
-                                                                              .name,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                color: Color(0xFFF4F4F4),
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Column(
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8, 0, 0, 0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
+                                                                      .center,
                                                               children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          6,
-                                                                          0,
-                                                                          6),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
+                                                                Container(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.34,
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.2,
+                                                                  child: Stack(
                                                                     children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            8,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          listViewToursRecord
-                                                                              .tourName,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontSize: 20,
-                                                                                fontWeight: FontWeight.bold,
-                                                                              ),
+                                                                      ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(28),
+                                                                        child: Image
+                                                                            .network(
+                                                                          rowRegionsRecord
+                                                                              .image,
+                                                                          width:
+                                                                              MediaQuery.of(context).size.width * 0.34,
+                                                                          height:
+                                                                              MediaQuery.of(context).size.height * 0.2,
+                                                                          fit: BoxFit
+                                                                              .cover,
                                                                         ),
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          6),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            8,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          functions
-                                                                              .upperCaseString(rowRegionsRecord.name)
-                                                                              .maybeHandleOverflow(
-                                                                                maxChars: 25,
-                                                                                replacement: '…',
-                                                                              ),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                color: Color(0xFF333333),
-                                                                                fontSize: 14,
-                                                                              ),
+                                                                      Container(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            0.34,
+                                                                        height: MediaQuery.of(context).size.height *
+                                                                            0.2,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Color(0x56000000),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(28),
                                                                         ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          6),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            8,
-                                                                            0,
-                                                                            0,
-                                                                            0),
                                                                         child:
-                                                                            Text(
-                                                                          dateTimeFormat(
-                                                                              'MMMMEEEEd',
-                                                                              listViewToursRecord.tourDate),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontSize: 12,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            4,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          dateTimeFormat(
-                                                                              'jm',
-                                                                              listViewToursRecord.tourDate),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontSize: 12,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          6),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            8,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          listViewToursRecord
-                                                                              .pickupAddress
-                                                                              .maybeHandleOverflow(
-                                                                            maxChars:
-                                                                                25,
-                                                                            replacement:
-                                                                                '…',
+                                                                            Align(
+                                                                          alignment: AlignmentDirectional(
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            rowRegionsRecord.name,
+                                                                            textAlign:
+                                                                                TextAlign.center,
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFF4F4F4),
+                                                                                ),
                                                                           ),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontSize: 12,
-                                                                                fontWeight: FontWeight.w600,
-                                                                              ),
                                                                         ),
                                                                       ),
                                                                     ],
@@ -640,8 +453,176 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                 ),
                                                               ],
                                                             ),
-                                                          ),
-                                                        ],
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            6,
+                                                                            0,
+                                                                            6),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            listViewToursRecord.tourName,
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontSize: 20,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            6),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            functions.upperCaseString(rowRegionsRecord.name).maybeHandleOverflow(
+                                                                                  maxChars: 25,
+                                                                                  replacement: '…',
+                                                                                ),
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFF333333),
+                                                                                  fontSize: 14,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            6),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            dateTimeFormat('MMMMEEEEd',
+                                                                                listViewToursRecord.tourDate),
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontSize: 12,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              4,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            dateTimeFormat('jm',
+                                                                                listViewToursRecord.tourDate),
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontSize: 12,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            6),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            listViewToursRecord.pickupAddress.maybeHandleOverflow(
+                                                                              maxChars: 25,
+                                                                              replacement: '…',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontSize: 12,
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -653,7 +634,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.95, 0.9),
+                                            AlignmentDirectional(0.93, -0.73),
                                         child: Container(
                                           width: 50,
                                           height: 50,

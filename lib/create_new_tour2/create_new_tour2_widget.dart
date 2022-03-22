@@ -3,7 +3,6 @@ import '../create_new_tour3/create_new_tour3_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -181,7 +180,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.14,
+                                                0.16,
                                         height: 24,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFEEEEEE),
@@ -249,8 +248,8 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                   ),
                                 ),
                               ),
-                              FFButtonWidget(
-                                onPressed: () async {
+                              InkWell(
+                                onTap: () async {
                                   setState(() =>
                                       FFAppState().newTourNoOfPassengers =
                                           gridViewTransportPricingRecord
@@ -270,21 +269,12 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                     ),
                                   );
                                 },
-                                text: '',
-                                options: FFButtonOptions(
-                                  width: 80,
-                                  height: 80,
-                                  color: Colors.transparent,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(22),
                                   ),
-                                  borderRadius: 24,
                                 ),
                               ),
                             ],

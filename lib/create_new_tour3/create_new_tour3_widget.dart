@@ -367,135 +367,182 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                       },
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        decoration: BoxDecoration(),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                          child: StreamBuilder<List<ToursRecord>>(
-                            stream: queryToursRecord(
-                              queryBuilder: (toursRecord) => toursRecord
-                                  .where('uid', isEqualTo: currentUserReference)
-                                  .orderBy('tour_date', descending: true),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SpinKitDualRing(
-                                      color: FlutterFlowTheme.of(context)
-                                          .purplePastel,
-                                      size: 50,
-                                    ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: StreamBuilder<List<ToursRecord>>(
+                        stream: queryToursRecord(
+                          queryBuilder: (toursRecord) => toursRecord
+                              .where('uid', isEqualTo: currentUserReference)
+                              .orderBy('tour_date', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: SpinKitDualRing(
+                                  color:
+                                      FlutterFlowTheme.of(context).purplePastel,
+                                  size: 50,
+                                ),
+                              ),
+                            );
+                          }
+                          List<ToursRecord> listViewToursRecordList =
+                              snapshot.data;
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewToursRecordList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewToursRecord =
+                                  listViewToursRecordList[listViewIndex];
+                              return Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                );
-                              }
-                              List<ToursRecord> listViewToursRecordList =
-                                  snapshot.data;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewToursRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewToursRecord =
-                                      listViewToursRecordList[listViewIndex];
-                                  return Padding(
+                                  child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 6),
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFEEEEEE),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4, 4, 4, 4),
-                                        child: StreamBuilder<RegionsRecord>(
-                                          stream: RegionsRecord.getDocument(
-                                              listViewToursRecord.regionID),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50,
-                                                  height: 50,
-                                                  child: SpinKitDualRing(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                        4, 4, 4, 4),
+                                    child: StreamBuilder<RegionsRecord>(
+                                      stream: RegionsRecord.getDocument(
+                                          listViewToursRecord.regionID),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitDualRing(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .purplePastel,
-                                                    size: 50,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final rowRegionsRecord =
-                                                snapshot.data;
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .bottomToTop,
-                                                        duration: Duration(
-                                                            milliseconds: 200),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    200),
-                                                        child:
-                                                            EditTourPassengersWidget(
-                                                          tourID:
-                                                              listViewToursRecord
-                                                                  .reference,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    child: Image.network(
-                                                      rowRegionsRecord.image,
-                                                      width: 100,
-                                                      height: 100,
-                                                      fit: BoxFit.cover,
+                                                size: 50,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        final rowRegionsRecord = snapshot.data;
+                                        return Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    type: PageTransitionType
+                                                        .bottomToTop,
+                                                    duration: Duration(
+                                                        milliseconds: 200),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 200),
+                                                    child:
+                                                        EditTourPassengersWidget(
+                                                      tourID:
+                                                          listViewToursRecord
+                                                              .reference,
                                                     ),
                                                   ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                child: Image.network(
+                                                  rowRegionsRecord.image,
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(10, 4, 0, 4),
-                                                  child: Column(
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 4, 0, 4),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
                                                     children: [
-                                                      Row(
+                                                      Text(
+                                                        listViewToursRecord
+                                                            .tourName,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(10, 0,
+                                                                    0, 0),
+                                                        child: Text(
+                                                          listViewToursRecord
+                                                              .passengers
+                                                              .toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  StreamBuilder<RegionsRecord>(
+                                                    stream: RegionsRecord
+                                                        .getDocument(
+                                                            listViewToursRecord
+                                                                .regionID),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50,
+                                                            height: 50,
+                                                            child:
+                                                                SpinKitDualRing(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .purplePastel,
+                                                              size: 50,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final rowRegionsRecord =
+                                                          snapshot.data;
+                                                      return Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         children: [
                                                           Text(
-                                                            listViewToursRecord
-                                                                .tourName,
+                                                            rowRegionsRecord
+                                                                .name,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1,
@@ -509,519 +556,29 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                         0,
                                                                         0),
                                                             child: Text(
-                                                              listViewToursRecord
-                                                                  .passengers
-                                                                  .toString(),
+                                                              dateTimeFormat(
+                                                                  'yMMMd',
+                                                                  listViewToursRecord
+                                                                      .tourDate),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1,
                                                             ),
                                                           ),
                                                         ],
-                                                      ),
-                                                      StreamBuilder<
-                                                          RegionsRecord>(
-                                                        stream: RegionsRecord
-                                                            .getDocument(
-                                                                listViewToursRecord
-                                                                    .regionID),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50,
-                                                                height: 50,
-                                                                child:
-                                                                    SpinKitDualRing(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .purplePastel,
-                                                                  size: 50,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final rowRegionsRecord =
-                                                              snapshot.data;
-                                                          return Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                rowRegionsRecord
-                                                                    .name,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1,
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Text(
-                                                                  dateTimeFormat(
-                                                                      'MMMEd',
-                                                                      listViewToursRecord
-                                                                          .tourDate),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 8, 0, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            FFButtonWidget(
-                                                              onPressed:
-                                                                  () async {
-                                                                await Navigator
-                                                                    .push(
-                                                                  context,
-                                                                  PageTransition(
-                                                                    type: PageTransitionType
-                                                                        .bottomToTop,
-                                                                    duration: Duration(
-                                                                        milliseconds:
-                                                                            150),
-                                                                    reverseDuration:
-                                                                        Duration(
-                                                                            milliseconds:
-                                                                                150),
-                                                                    child:
-                                                                        AddVenueToTourWidget(
-                                                                      tourID: listViewToursRecord
-                                                                          .reference,
-                                                                      tourName:
-                                                                          listViewToursRecord
-                                                                              .tourName,
-                                                                      regionID:
-                                                                          rowRegionsRecord
-                                                                              .regionID,
-                                                                      venueCount:
-                                                                          listViewToursRecord
-                                                                              .venuesCount,
-                                                                      tourDate:
-                                                                          listViewToursRecord
-                                                                              .tourDate,
-                                                                      tourRecord:
-                                                                          listViewToursRecord,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                              text: 'Add Venue',
-                                                              options:
-                                                                  FFButtonOptions(
-                                                                width: 100,
-                                                                height: 30,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .black,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .subtitle2
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          12,
-                                                                    ),
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  width: 1,
-                                                                ),
-                                                                borderRadius:
-                                                                    20,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          4,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child:
-                                                                  FFButtonWidget(
-                                                                onPressed:
-                                                                    () async {
-                                                                  await Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    PageTransition(
-                                                                      type: PageTransitionType
-                                                                          .bottomToTop,
-                                                                      duration: Duration(
-                                                                          milliseconds:
-                                                                              150),
-                                                                      reverseDuration:
-                                                                          Duration(
-                                                                              milliseconds: 150),
-                                                                      child:
-                                                                          ViewTourDetailsWidget(
-                                                                        tourRef:
-                                                                            listViewToursRecord.reference,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                text:
-                                                                    'View Tour',
-                                                                options:
-                                                                    FFButtonOptions(
-                                                                  width: 100,
-                                                                  height: 30,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .black,
-                                                                  textStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .subtitle2
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            12,
-                                                                      ),
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    width: 1,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      20,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: StreamBuilder<List<ToursRecord>>(
-                      stream: queryToursRecord(
-                        queryBuilder: (toursRecord) => toursRecord
-                            .where('uid', isEqualTo: currentUserReference)
-                            .where('uid', isEqualTo: currentUserReference)
-                            .orderBy('tour_date', descending: true),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: SpinKitDualRing(
-                                color:
-                                    FlutterFlowTheme.of(context).purplePastel,
-                                size: 50,
-                              ),
-                            ),
-                          );
-                        }
-                        List<ToursRecord> listViewToursRecordList =
-                            snapshot.data;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewToursRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewToursRecord =
-                                listViewToursRecordList[listViewIndex];
-                            return Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      4, 4, 4, 4),
-                                  child: StreamBuilder<RegionsRecord>(
-                                    stream: RegionsRecord.getDocument(
-                                        listViewToursRecord.regionID),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: SpinKitDualRing(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .purplePastel,
-                                              size: 50,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      final rowRegionsRecord = snapshot.data;
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          InkWell(
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType
-                                                      .bottomToTop,
-                                                  duration: Duration(
-                                                      milliseconds: 200),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 200),
-                                                  child:
-                                                      EditTourPassengersWidget(
-                                                    tourID: listViewToursRecord
-                                                        .reference,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: Image.network(
-                                                rowRegionsRecord.image,
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 4, 0, 4),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      listViewToursRecord
-                                                          .tourName,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10, 0, 0, 0),
-                                                      child: Text(
-                                                        listViewToursRecord
-                                                            .passengers
-                                                            .toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                StreamBuilder<RegionsRecord>(
-                                                  stream:
-                                                      RegionsRecord.getDocument(
-                                                          listViewToursRecord
-                                                              .regionID),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50,
-                                                          height: 50,
-                                                          child:
-                                                              SpinKitDualRing(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .purplePastel,
-                                                            size: 50,
-                                                          ),
-                                                        ),
                                                       );
-                                                    }
-                                                    final rowRegionsRecord =
-                                                        snapshot.data;
-                                                    return Row(
+                                                    },
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 8, 0, 0),
+                                                    child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
                                                       children: [
-                                                        Text(
-                                                          rowRegionsRecord.name,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(10,
-                                                                      0, 0, 0),
-                                                          child: Text(
-                                                            dateTimeFormat(
-                                                                'yMMMd',
-                                                                listViewToursRecord
-                                                                    .tourDate),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 8, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      FFButtonWidget(
-                                                        onPressed: () async {
-                                                          await Navigator.push(
-                                                            context,
-                                                            PageTransition(
-                                                              type: PageTransitionType
-                                                                  .bottomToTop,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      150),
-                                                              reverseDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          150),
-                                                              child:
-                                                                  AddVenueToTourWidget(
-                                                                tourID:
-                                                                    listViewToursRecord
-                                                                        .reference,
-                                                                tourName:
-                                                                    listViewToursRecord
-                                                                        .tourName,
-                                                                regionID:
-                                                                    rowRegionsRecord
-                                                                        .regionID,
-                                                                venueCount:
-                                                                    listViewToursRecord
-                                                                        .venuesCount,
-                                                                tourDate:
-                                                                    listViewToursRecord
-                                                                        .tourDate,
-                                                                tourRecord:
-                                                                    listViewToursRecord,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                        text: 'Add Venue',
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 100,
-                                                          height: 30,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .black,
-                                                          textStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .subtitle2
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        12,
-                                                                  ),
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 1,
-                                                          ),
-                                                          borderRadius: 20,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    4, 0, 0, 0),
-                                                        child: FFButtonWidget(
+                                                        FFButtonWidget(
                                                           onPressed: () async {
                                                             await Navigator
                                                                 .push(
@@ -1037,15 +594,28 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                         milliseconds:
                                                                             150),
                                                                 child:
-                                                                    ViewTourDetailsWidget(
-                                                                  tourRef:
+                                                                    AddVenueToTourWidget(
+                                                                  tourID: listViewToursRecord
+                                                                      .reference,
+                                                                  tourName:
                                                                       listViewToursRecord
-                                                                          .reference,
+                                                                          .tourName,
+                                                                  regionID:
+                                                                      rowRegionsRecord
+                                                                          .regionID,
+                                                                  venueCount:
+                                                                      listViewToursRecord
+                                                                          .venuesCount,
+                                                                  tourDate:
+                                                                      listViewToursRecord
+                                                                          .tourDate,
+                                                                  tourRecord:
+                                                                      listViewToursRecord,
                                                                 ),
                                                               ),
                                                             );
                                                           },
-                                                          text: 'View Tour',
+                                                          text: 'Add Venue',
                                                           options:
                                                               FFButtonOptions(
                                                             width: 100,
@@ -1074,23 +644,83 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                             borderRadius: 20,
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      0, 0, 0),
+                                                          child: FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              await Navigator
+                                                                  .push(
+                                                                context,
+                                                                PageTransition(
+                                                                  type: PageTransitionType
+                                                                      .bottomToTop,
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          150),
+                                                                  reverseDuration:
+                                                                      Duration(
+                                                                          milliseconds:
+                                                                              150),
+                                                                  child:
+                                                                      ViewTourDetailsWidget(
+                                                                    tourRef:
+                                                                        listViewToursRecord
+                                                                            .reference,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            text: 'View Tour',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: 100,
+                                                              height: 30,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .black,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .subtitle2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12,
+                                                                      ),
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1,
+                                                              ),
+                                                              borderRadius: 20,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      },
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

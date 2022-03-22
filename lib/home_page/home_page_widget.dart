@@ -336,13 +336,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8, 4, 0, 0),
                                     child: Text(
-                                      valueOrDefault<String>(
-                                        listViewFeaturedVenuesRecord.name,
-                                        'Default Value',
-                                      ),
-                                      textAlign: TextAlign.start,
+                                      listViewFeaturedVenuesRecord.name,
                                       style: FlutterFlowTheme.of(context)
-                                          .subtitle2,
+                                          .bodyText1,
                                     ),
                                   ),
                                 ],
@@ -501,14 +497,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(-0.75, 0),
-                                  child: Text(
-                                    valueOrDefault<String>(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 2, 0, 0),
+                                    child: Text(
                                       gridViewVenuesVenuesRecord.name,
-                                      'Default Value',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ),
                               ],
