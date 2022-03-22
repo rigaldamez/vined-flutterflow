@@ -417,10 +417,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
               Expanded(
                 child: FutureBuilder<List<VenuesRecord>>(
                   future: VenuesRecord.search(
-                    term: valueOrDefault<String>(
-                      choiceChipsValue,
-                      'Adelaide Hills',
-                    ),
+                    term: choiceChipsValue,
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -492,15 +489,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   alignment: AlignmentDirectional(-0.75, 0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 2, 0, 0),
+                                        0, 8, 0, 0),
                                     child: Text(
                                       gridViewVenuesVenuesRecord.name,
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
                                             fontFamily: 'Poppins',
+                                            fontSize: 11,
                                             fontWeight: FontWeight.w500,
+                                            lineHeight: 1,
                                           ),
                                     ),
                                   ),

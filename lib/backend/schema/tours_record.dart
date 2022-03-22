@@ -53,6 +53,10 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
   int get venuesCount;
 
   @nullable
+  @BuiltValueField(wireName: 'guests_uid')
+  BuiltList<DocumentReference> get guestsUid;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -63,7 +67,8 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
     ..pricePp = 0.0
     ..region = ''
     ..venues = ListBuilder()
-    ..venuesCount = 0;
+    ..venuesCount = 0
+    ..guestsUid = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tours');
@@ -113,4 +118,5 @@ Map<String, dynamic> createToursRecordData({
           ..pricePp = pricePp
           ..region = region
           ..venues = null
-          ..venuesCount = venuesCount));
+          ..venuesCount = venuesCount
+          ..guestsUid = null));

@@ -76,24 +76,9 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 50,
-                      buttonSize: 46,
-                      fillColor: Color(0x00F4F4F4),
-                      icon: Icon(
-                        Icons.arrow_back_rounded,
-                        color: Colors.black,
-                        size: 24,
-                      ),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
-                    ).animated(
-                        [animationsMap['iconButtonOnPageLoadAnimation']]),
                     Text(
                       'Search',
                       style: FlutterFlowTheme.of(context).title1.override(
@@ -101,6 +86,21 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                             fontWeight: FontWeight.w900,
                           ),
                     ),
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 50,
+                      buttonSize: 46,
+                      fillColor: Color(0x00F4F4F4),
+                      icon: Icon(
+                        Icons.close_rounded,
+                        color: Colors.black,
+                        size: 28,
+                      ),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                    ).animated(
+                        [animationsMap['iconButtonOnPageLoadAnimation']]),
                   ],
                 ),
               ),
@@ -142,7 +142,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                               controller: textController,
                               obscureText: false,
                               decoration: InputDecoration(
-                                hintText: 'Enter  name...',
+                                hintText: 'Enter  venue name...',
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
