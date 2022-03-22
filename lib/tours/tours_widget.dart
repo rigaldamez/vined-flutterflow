@@ -317,7 +317,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.92,
                                   height:
-                                      MediaQuery.of(context).size.height * 1,
+                                      MediaQuery.of(context).size.height * 0.9,
                                   child: Stack(
                                     children: [
                                       Padding(
@@ -562,22 +562,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Poppins',
                                                                                   fontSize: 12,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              4,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                          child:
-                                                                              Text(
-                                                                            dateTimeFormat('jm',
-                                                                                listViewToursRecord.tourDate),
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Poppins',
-                                                                                  fontSize: 12,
+                                                                                  fontWeight: FontWeight.w600,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -610,8 +595,9 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Poppins',
+                                                                                  color: Color(0xFF333333),
                                                                                   fontSize: 12,
-                                                                                  fontWeight: FontWeight.w600,
+                                                                                  fontWeight: FontWeight.w500,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -634,7 +620,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.93, -0.73),
+                                            AlignmentDirectional(-0.88, -0.58),
                                         child: Container(
                                           width: 50,
                                           height: 50,

@@ -127,7 +127,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -400,10 +400,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     reverseDuration:
                                         Duration(milliseconds: 200),
                                     child: SeeAllCellarsWidget(
-                                      regionName: valueOrDefault<String>(
-                                        choiceChipsValue,
-                                        'Default Value',
-                                      ),
+                                      regionName: choiceChipsValue,
                                     ),
                                   ),
                                 );

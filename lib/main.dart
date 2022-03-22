@@ -133,7 +133,7 @@ class _NavBarPageState extends State<NavBarPage> {
         margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
         width: MediaQuery.of(context).size.width * 0.9,
-        elevation: 40,
+        elevation: 60,
         items: [
           FloatingNavbarItem(
             customWidget: Column(
