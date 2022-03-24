@@ -241,8 +241,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               context,
                               PageTransition(
                                 type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
+                                duration: Duration(milliseconds: 150),
+                                reverseDuration: Duration(milliseconds: 150),
                                 child: SeeAllCellarsWidget(
                                   regionName: choiceChipsValue,
                                 ),
@@ -396,9 +396,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   context,
                                   PageTransition(
                                     type: PageTransitionType.bottomToTop,
-                                    duration: Duration(milliseconds: 200),
+                                    duration: Duration(milliseconds: 150),
                                     reverseDuration:
-                                        Duration(milliseconds: 200),
+                                        Duration(milliseconds: 150),
                                     child: SeeAllCellarsWidget(
                                       regionName: choiceChipsValue,
                                     ),

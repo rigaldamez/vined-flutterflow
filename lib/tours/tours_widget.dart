@@ -272,10 +272,28 @@ class _ToursWidgetState extends State<ToursWidget> {
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 1,
-                              decoration: BoxDecoration(),
+                            InkWell(
+                              onTap: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Navigating to screen...',
+                                      style: TextStyle(
+                                        color: Color(0xFFEEEEEE),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).black,
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * 1,
+                                decoration: BoxDecoration(),
+                              ),
                             ),
                           ],
                         ),
@@ -324,12 +342,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 2, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 2, 0),
                   child: StreamBuilder<List<ToursRecord>>(
                     stream: queryToursRecord(
                       queryBuilder: (toursRecord) => toursRecord
                           .where('uid', isEqualTo: currentUserReference)
-                          .orderBy('tour_date'),
+                          .orderBy('tour_date', descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.

@@ -74,20 +74,6 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                     'Hello World',
                     style: FlutterFlowTheme.of(context).subtitle1,
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Text(
-                      'Hello World',
-                      style: FlutterFlowTheme.of(context).subtitle1,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Text(
-                      'Hello World',
-                      style: FlutterFlowTheme.of(context).subtitle1,
-                    ),
-                  ),
                 ],
               ),
               Padding(

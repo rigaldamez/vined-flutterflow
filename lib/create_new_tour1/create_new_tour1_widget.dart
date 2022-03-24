@@ -197,7 +197,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                         fontFamily: 'Poppins',
                                         color: FlutterFlowTheme.of(context)
                                             .cultured,
-                                        fontSize: 18,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
