@@ -223,6 +223,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                           .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
@@ -268,7 +269,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                   .override(
                                     fontFamily: 'Poppins',
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                             Container(
@@ -284,22 +285,46 @@ class _ToursWidgetState extends State<ToursWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 6, 10, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'My Tours',
-                      style: FlutterFlowTheme.of(context).subtitle1,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(30, 18, 20, 2),
+                      child: Text(
+                        'My tours ',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              Expanded(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.53,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F5F5),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 30,
+                      color: Color(0x4C000000),
+                    )
+                  ],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(42),
+                    topRight: Radius.circular(42),
+                  ),
+                ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 2, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 2, 0),
                   child: StreamBuilder<List<ToursRecord>>(
                     stream: queryToursRecord(
                       queryBuilder: (toursRecord) => toursRecord
@@ -340,7 +365,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.98,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.24,
+                                    MediaQuery.of(context).size.height * 0.18,
                                 child: Stack(
                                   children: [
                                     Padding(
@@ -349,8 +374,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       child: Card(
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFFF5F5F5),
-                                        elevation: 6,
+                                        color: Colors.white,
+                                        elevation: 2,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(28),
@@ -426,7 +451,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                               context)
                                                                           .size
                                                                           .height *
-                                                                      0.2,
+                                                                      0.14,
                                                                   child: Stack(
                                                                     children: [
                                                                       ClipRRect(
@@ -503,7 +528,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             0,
                                                                             6,
                                                                             0,
-                                                                            6),
+                                                                            4),
                                                                     child: Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
@@ -511,7 +536,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                       children: [
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8,
+                                                                              24,
                                                                               0,
                                                                               4,
                                                                               0),
@@ -523,7 +548,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Poppins',
-                                                                                  fontSize: 18,
+                                                                                  fontSize: 14,
                                                                                   fontWeight: FontWeight.bold,
                                                                                 ),
                                                                           ),
@@ -537,7 +562,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             0,
                                                                             0,
                                                                             0,
-                                                                            6),
+                                                                            4),
                                                                     child: Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
@@ -549,7 +574,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           color:
                                                                               Colors.black,
                                                                           size:
-                                                                              20,
+                                                                              16,
                                                                         ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -566,7 +591,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Poppins',
                                                                                   color: Color(0xFF333333),
-                                                                                  fontSize: 14,
+                                                                                  fontSize: 12,
                                                                                   fontWeight: FontWeight.w500,
                                                                                 ),
                                                                           ),
@@ -580,7 +605,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             0,
                                                                             0,
                                                                             0,
-                                                                            6),
+                                                                            4),
                                                                     child: Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
@@ -592,7 +617,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           color:
                                                                               Colors.black,
                                                                           size:
-                                                                              20,
+                                                                              16,
                                                                         ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -620,7 +645,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             0,
                                                                             0,
                                                                             0,
-                                                                            6),
+                                                                            4),
                                                                     child: Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
@@ -632,7 +657,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           color:
                                                                               Colors.black,
                                                                           size:
-                                                                              22,
+                                                                              16,
                                                                         ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(

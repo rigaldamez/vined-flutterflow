@@ -291,31 +291,34 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                final toursCreateData = createToursRecordData(
-                                  createdTime: getCurrentTimestamp,
-                                  uid: currentUserReference,
-                                  passengers:
-                                      FFAppState().newTourNoOfPassengers,
-                                  pickupAddress: placePickerValue.address,
-                                  tourDate: datePicked,
-                                  regionID: FFAppState().newTourRegionRef,
-                                  pricePp: FFAppState().newTourPricePP,
-                                  pickupLatlng: functions.createGeoPoint(
-                                      getJsonField(
-                                        (rowGETGeolocationFORAddressResponse
-                                                ?.jsonBody ??
-                                            ''),
-                                        r'''$.results[0].geometry.location.lat''',
-                                      ),
-                                      getJsonField(
-                                        (rowGETGeolocationFORAddressResponse
-                                                ?.jsonBody ??
-                                            ''),
-                                        r'''$.results[0].geometry.location.lng''',
-                                      )),
-                                  region: FFAppState().newTourRegionName,
-                                  tourName: FFAppState().newTourName,
-                                );
+                                final toursCreateData = {
+                                  ...createToursRecordData(
+                                    createdTime: getCurrentTimestamp,
+                                    uid: currentUserReference,
+                                    passengers:
+                                        FFAppState().newTourNoOfPassengers,
+                                    pickupAddress: placePickerValue.address,
+                                    tourDate: datePicked,
+                                    regionID: FFAppState().newTourRegionRef,
+                                    pricePp: FFAppState().newTourPricePP,
+                                    pickupLatlng: functions.createGeoPoint(
+                                        getJsonField(
+                                          (rowGETGeolocationFORAddressResponse
+                                                  ?.jsonBody ??
+                                              ''),
+                                          r'''$.results[0].geometry.location.lat''',
+                                        ),
+                                        getJsonField(
+                                          (rowGETGeolocationFORAddressResponse
+                                                  ?.jsonBody ??
+                                              ''),
+                                          r'''$.results[0].geometry.location.lng''',
+                                        )),
+                                    region: FFAppState().newTourRegionName,
+                                    tourName: FFAppState().newTourName,
+                                  ),
+                                  'guests_uid': [currentUserReference],
+                                };
                                 await ToursRecord.collection
                                     .doc()
                                     .set(toursCreateData);

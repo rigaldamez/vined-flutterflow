@@ -130,7 +130,7 @@ class _NavBarPageState extends State<NavBarPage> {
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 28,
         itemBorderRadius: 28,
-        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
         width: MediaQuery.of(context).size.width * 0.9,
         elevation: 60,
@@ -147,7 +147,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   size: 24,
                 ),
                 Text(
-                  'Home',
+                  'Explore',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0

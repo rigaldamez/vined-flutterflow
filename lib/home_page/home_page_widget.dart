@@ -177,7 +177,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 iconSize: 18,
                                 labelPadding:
                                     EdgeInsetsDirectional.fromSTEB(10, 4, 6, 4),
-                                elevation: 8,
+                                elevation: 4,
                               ),
                               unselectedChipStyle: ChipStyle(
                                 backgroundColor: Colors.white,
@@ -290,56 +290,60 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         final listViewFeaturedVenuesRecord =
                             listViewFeaturedVenuesRecordList[
                                 listViewFeaturedIndex];
-                        return Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: 160,
-                          decoration: BoxDecoration(
-                            color: Color(0x00EEEEEE),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 0, 6, 0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0x00EEEEEE),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.26,
+                                  child: Stack(
                                     children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(34),
-                                        child: Image.network(
-                                          listViewFeaturedVenuesRecord.image,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.88,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.24,
-                                          fit: BoxFit.cover,
+                                      Hero(
+                                        tag: listViewFeaturedVenuesRecord.image,
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(34),
+                                          child: Image.network(
+                                            listViewFeaturedVenuesRecord.image,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.88,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.26,
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 4, 0, 0),
-                                    child: Text(
-                                      listViewFeaturedVenuesRecord.name,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 4, 0, 0),
+                                  child: Text(
+                                    listViewFeaturedVenuesRecord.name,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
-                                ],
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -459,7 +463,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         final gridViewVenuesVenuesRecord =
                             gridViewVenuesVenuesRecordList[gridViewVenuesIndex];
                         return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 1,
@@ -470,19 +474,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.network(
-                                      gridViewVenuesVenuesRecord.image,
-                                      width: MediaQuery.of(context).size.width,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.12,
-                                      fit: BoxFit.cover,
-                                    ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.network(
+                                    gridViewVenuesVenuesRecord.image,
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.12,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 Align(
