@@ -98,7 +98,6 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                               alignment: AlignmentDirectional(0, 0),
                               child: TextFormField(
                                 controller: tourNameTextFieldController,
-                                autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'eg; Wine Time Fun!',

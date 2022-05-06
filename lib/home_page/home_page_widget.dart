@@ -232,7 +232,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Nunito',
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.bold,
                                       useGoogleFonts: false,
                                     ),
                           ),
@@ -392,7 +392,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     .override(
                                       fontFamily: 'Nunito',
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.bold,
                                       useGoogleFonts: false,
                                     ),
                               ),

@@ -216,7 +216,7 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.directions_bus_rounded,
+                  Icons.location_on_outlined,
                   color: currentIndex == 3
                       ? FlutterFlowTheme.of(context).purplePastel
                       : Color(0xFFF4F4F4),
