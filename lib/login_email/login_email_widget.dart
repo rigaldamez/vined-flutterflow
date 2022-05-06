@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginEmailWidget extends StatefulWidget {
@@ -16,11 +15,11 @@ class LoginEmailWidget extends StatefulWidget {
 }
 
 class _LoginEmailWidgetState extends State<LoginEmailWidget> {
+  final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController emailTextFieldController;
   TextEditingController passwordTextField1Controller;
   bool passwordTextField1Visibility;
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -121,7 +120,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.emailAddress,
                           validator: (val) {
-                            if (val.isEmpty) {
+                            if (val == null || val.isEmpty) {
                               return 'Name your tour';
                             }
 
@@ -191,7 +190,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                           style: FlutterFlowTheme.of(context).bodyText1,
                           textAlign: TextAlign.start,
                           validator: (val) {
-                            if (val.isEmpty) {
+                            if (val == null || val.isEmpty) {
                               return 'Field is required';
                             }
 

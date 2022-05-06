@@ -70,9 +70,10 @@ abstract class VenuesRecord
           ..regionID = snapshot.data['regionID']
           ..image = snapshot.data['image']
           ..regionName = snapshot.data['regionName']
-          ..tastingFee = snapshot.data['tastingFee']
-          ..capacity = snapshot.data['capacity']
-          ..openDays = safeGet(() => ListBuilder(snapshot.data['openDays']))
+          ..tastingFee = snapshot.data['tastingFee']?.toDouble()
+          ..capacity = snapshot.data['capacity']?.round()
+          ..openDays =
+              safeGet(() => ListBuilder(snapshot.data['openDays']?.round()))
           ..maxCapacityEnforced = snapshot.data['maxCapacityEnforced']
           ..mustAcknowledgeTCs = snapshot.data['mustAcknowledgeTCs']
           ..reference = VenuesRecord.collection.doc(snapshot.objectID),

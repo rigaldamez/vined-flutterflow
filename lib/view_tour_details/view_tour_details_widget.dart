@@ -7,7 +7,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ViewTourDetailsWidget extends StatefulWidget {
@@ -37,11 +36,10 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
           if (!snapshot.hasData) {
             return Center(
               child: SizedBox(
-                width: 50,
-                height: 50,
-                child: SpinKitDualRing(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
                   color: FlutterFlowTheme.of(context).purplePastel,
-                  size: 50,
                 ),
               ),
             );
@@ -120,12 +118,11 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitDualRing(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
                                   color:
                                       FlutterFlowTheme.of(context).purplePastel,
-                                  size: 50,
                                 ),
                               ),
                             );
@@ -155,12 +152,11 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: SpinKitDualRing(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
                                           color: FlutterFlowTheme.of(context)
                                               .purplePastel,
-                                          size: 50,
                                         ),
                                       ),
                                     );

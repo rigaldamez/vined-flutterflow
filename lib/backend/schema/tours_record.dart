@@ -57,6 +57,10 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
   BuiltList<DocumentReference> get guestsUid;
 
   @nullable
+  @BuiltValueField(wireName: 'pickup_unit_number')
+  String get pickupUnitNumber;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -68,7 +72,8 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
     ..region = ''
     ..venues = ListBuilder()
     ..venuesCount = 0
-    ..guestsUid = ListBuilder();
+    ..guestsUid = ListBuilder()
+    ..pickupUnitNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tours');
@@ -103,6 +108,7 @@ Map<String, dynamic> createToursRecordData({
   double pricePp,
   String region,
   int venuesCount,
+  String pickupUnitNumber,
 }) =>
     serializers.toFirestore(
         ToursRecord.serializer,
@@ -119,4 +125,5 @@ Map<String, dynamic> createToursRecordData({
           ..region = region
           ..venues = null
           ..venuesCount = venuesCount
-          ..guestsUid = null));
+          ..guestsUid = null
+          ..pickupUnitNumber = pickupUnitNumber));

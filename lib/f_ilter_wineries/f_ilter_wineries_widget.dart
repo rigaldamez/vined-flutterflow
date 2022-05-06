@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FIlterWineriesWidget extends StatefulWidget {
@@ -17,8 +16,6 @@ class FIlterWineriesWidget extends StatefulWidget {
 
 class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
     with TickerProviderStateMixin {
-  TextEditingController textController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -33,6 +30,8 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
       ),
     ),
   };
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController textController;
 
   @override
   void initState() {
@@ -121,12 +120,11 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitDualRing(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
                                     color: FlutterFlowTheme.of(context)
                                         .purplePastel,
-                                    size: 50,
                                   ),
                                 ),
                               );
@@ -134,12 +132,12 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                             List<VenuesRecord> textFieldVenuesRecordList =
                                 snapshot.data;
                             return TextFormField(
+                              controller: textController,
                               onChanged: (_) => EasyDebounce.debounce(
                                 'textController',
                                 Duration(milliseconds: 2000),
                                 () => setState(() {}),
                               ),
-                              controller: textController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 hintText: 'Enter  venue name...',
@@ -193,11 +191,10 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: SpinKitDualRing(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
                             color: FlutterFlowTheme.of(context).purplePastel,
-                            size: 50,
                           ),
                         ),
                       );

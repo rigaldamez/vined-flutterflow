@@ -7,7 +7,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../see_all_cellars/see_all_cellars_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -51,12 +50,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
     return Scaffold(
       key: scaffoldKey,
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 1,
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width,
-          maxHeight: MediaQuery.of(context).size.height * 1,
-        ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -69,11 +62,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 26, 0, 20),
+          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
@@ -116,19 +109,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Wineries, Breweries and \nDistilleries',
+                      'Wineries, Breweries and  Distilleries',
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            color: Color(0xB3303030),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
                   ],
@@ -145,12 +139,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       color: Color(0x00F4F4F4),
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
                             child: FlutterFlowChoiceChips(
                               initiallySelected: choiceChipsValue != null
@@ -196,69 +191,76 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               chipSpacing: 10,
                               multiselect: false,
                               initialized: choiceChipsValue != null,
+                              alignment: WrapAlignment.start,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 2),
-                    child: Text(
-                      'Featured',
-                      style: FlutterFlowTheme.of(context).subtitle1.override(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w800,
-                          ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        'Featured',
+                        style: FlutterFlowTheme.of(context).subtitle1.override(
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.w800,
+                              useGoogleFonts: false,
+                            ),
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    decoration: BoxDecoration(),
-                    alignment: AlignmentDirectional(0, 0),
-                    child: Stack(
+                    Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(),
                       alignment: AlignmentDirectional(0, 0),
-                      children: [
-                        Text(
-                          'See All',
-                          style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 150),
-                                reverseDuration: Duration(milliseconds: 150),
-                                child: SeeAllCellarsWidget(
-                                  regionName: choiceChipsValue,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(),
+                      child: Stack(
+                        alignment: AlignmentDirectional(0, 0),
+                        children: [
+                          Text(
+                            'See All',
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: false,
+                                    ),
                           ),
-                        ),
-                      ],
+                          InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  duration: Duration(milliseconds: 150),
+                                  reverseDuration: Duration(milliseconds: 150),
+                                  child: SeeAllCellarsWidget(
+                                    regionName: choiceChipsValue,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Expanded(
                 child: StreamBuilder<List<VenuesRecord>>(
@@ -271,11 +273,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: SpinKitDualRing(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
                             color: FlutterFlowTheme.of(context).purplePastel,
-                            size: 50,
                           ),
                         ),
                       );
@@ -290,221 +291,201 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         final listViewFeaturedVenuesRecord =
                             listViewFeaturedVenuesRecordList[
                                 listViewFeaturedIndex];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 0, 6, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0x00EEEEEE),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.26,
-                                  child: Stack(
-                                    children: [
-                                      Hero(
-                                        tag: listViewFeaturedVenuesRecord.image,
-                                        transitionOnUserGestures: true,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(34),
-                                          child: Image.network(
-                                            listViewFeaturedVenuesRecord.image,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.88,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.26,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              child: Stack(
+                                children: [
+                                  Hero(
+                                    tag: listViewFeaturedVenuesRecord.image,
+                                    transitionOnUserGestures: true,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(34),
+                                      child: Image.network(
+                                        listViewFeaturedVenuesRecord.image,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.28,
+                                        fit: BoxFit.cover,
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 4, 0, 0),
-                                  child: Text(
-                                    listViewFeaturedVenuesRecord.name,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 4, 0, 0),
+                              child: Text(
+                                listViewFeaturedVenuesRecord.name,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                          ],
                         );
                       },
                     );
                   },
                 ),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 10),
-                    child: Text(
-                      valueOrDefault<String>(
-                        choiceChipsValue,
-                        'Default Value',
-                      ),
-                      style: FlutterFlowTheme.of(context).subtitle1.override(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 1,
+                  decoration: BoxDecoration(
+                    color: Color(0x07000000),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 40,
-                        decoration: BoxDecoration(),
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Stack(
-                          alignment: AlignmentDirectional(0, 0),
-                          children: [
-                            Text(
-                              'See All',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.bottomToTop,
-                                    duration: Duration(milliseconds: 150),
-                                    reverseDuration:
-                                        Duration(milliseconds: 150),
-                                    child: SeeAllCellarsWidget(
-                                      regionName: choiceChipsValue,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(),
-                              ),
-                            ),
-                          ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        valueOrDefault<String>(
+                          choiceChipsValue,
+                          'Default Value',
                         ),
+                        style: FlutterFlowTheme.of(context).subtitle1.override(
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.w800,
+                              useGoogleFonts: false,
+                            ),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 40,
+                          decoration: BoxDecoration(),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Stack(
+                            alignment: AlignmentDirectional(0, 0),
+                            children: [
+                              Text(
+                                'See All',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 150),
+                                      reverseDuration:
+                                          Duration(milliseconds: 150),
+                                      child: SeeAllCellarsWidget(
+                                        regionName: choiceChipsValue,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Expanded(
-                child: FutureBuilder<List<VenuesRecord>>(
-                  future: VenuesRecord.search(
-                    term: choiceChipsValue,
+                child: StreamBuilder<List<VenuesRecord>>(
+                  stream: queryVenuesRecord(
+                    queryBuilder: (venuesRecord) => venuesRecord
+                        .where('regionName', isEqualTo: choiceChipsValue),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: SpinKitDualRing(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
                             color: FlutterFlowTheme.of(context).purplePastel,
-                            size: 50,
                           ),
                         ),
                       );
                     }
-                    List<VenuesRecord> gridViewVenuesVenuesRecordList =
-                        snapshot.data;
-                    // Customize what your widget looks like with no search results.
-                    if (snapshot.data.isEmpty) {
-                      return Container(
-                        height: 100,
-                        child: Center(
-                          child: Text('No results.'),
-                        ),
-                      );
-                    }
-                    return GridView.builder(
+                    List<VenuesRecord> listViewVenuesRecordList = snapshot.data;
+                    return ListView.builder(
                       padding: EdgeInsets.zero,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0,
-                        childAspectRatio: 1.4,
-                      ),
-                      shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: gridViewVenuesVenuesRecordList.length,
-                      itemBuilder: (context, gridViewVenuesIndex) {
-                        final gridViewVenuesVenuesRecord =
-                            gridViewVenuesVenuesRecordList[gridViewVenuesIndex];
+                      itemCount: listViewVenuesRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewVenuesRecord =
+                            listViewVenuesRecordList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 1,
-                            decoration: BoxDecoration(
-                              color: Color(0x00EEEEEE),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    gridViewVenuesVenuesRecord.image,
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.12,
-                                    fit: BoxFit.cover,
-                                  ),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(34),
+                                child: Image.network(
+                                  listViewVenuesRecord.image,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 200,
+                                  fit: BoxFit.fill,
                                 ),
-                                Align(
-                                  alignment: AlignmentDirectional(-0.75, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 0, 0),
-                                    child: Text(
-                                      gridViewVenuesVenuesRecord.name,
-                                      textAlign: TextAlign.start,
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 4, 10, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      listViewVenuesRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 11,
                                             fontWeight: FontWeight.w500,
-                                            lineHeight: 1,
                                           ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         );
                       },

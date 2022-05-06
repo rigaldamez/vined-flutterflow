@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignupEmailWidget extends StatefulWidget {
@@ -16,13 +15,13 @@ class SignupEmailWidget extends StatefulWidget {
 }
 
 class _SignupEmailWidgetState extends State<SignupEmailWidget> {
+  final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController emailTextFieldController;
   TextEditingController passwordTextField1Controller;
   bool passwordTextField1Visibility;
   TextEditingController passwordTextField2Controller;
   bool passwordTextField2Visibility;
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -121,7 +120,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.emailAddress,
                           validator: (val) {
-                            if (val.isEmpty) {
+                            if (val == null || val.isEmpty) {
                               return 'Name your tour';
                             }
 
@@ -187,7 +186,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                           style: FlutterFlowTheme.of(context).bodyText1,
                           textAlign: TextAlign.start,
                           validator: (val) {
-                            if (val.isEmpty) {
+                            if (val == null || val.isEmpty) {
                               return 'Field is required';
                             }
 
@@ -253,7 +252,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                           style: FlutterFlowTheme.of(context).bodyText1,
                           textAlign: TextAlign.start,
                           validator: (val) {
-                            if (val.isEmpty) {
+                            if (val == null || val.isEmpty) {
                               return 'Name your tour';
                             }
 

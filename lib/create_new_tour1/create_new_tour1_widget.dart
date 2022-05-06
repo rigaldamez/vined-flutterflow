@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTour1Widget extends StatefulWidget {
@@ -53,21 +52,8 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
-                    icon: Icon(
-                      Icons.arrow_back_rounded,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                    onPressed: () async {
-                      Navigator.pop(context);
-                    },
-                  ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                     child: Text(
@@ -81,10 +67,31 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Select region',
-                      style: FlutterFlowTheme.of(context).subtitle1,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        'Select region',
+                        style: FlutterFlowTheme.of(context).subtitle1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 22,
+                            ),
+                      ),
+                    ),
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30,
+                      borderWidth: 1,
+                      buttonSize: 60,
+                      icon: Icon(
+                        Icons.clear_rounded,
+                        color: Colors.black,
+                        size: 26,
+                      ),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
                     ),
                   ],
                 ),
@@ -102,11 +109,10 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitDualRing(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
                               color: FlutterFlowTheme.of(context).purplePastel,
-                              size: 50,
                             ),
                           ),
                         );

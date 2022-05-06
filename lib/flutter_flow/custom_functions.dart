@@ -9,82 +9,13 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
-dynamic createItemState(
-  String aString,
-  int anInt,
-  double aDouble,
-) {
-  dynamic stateObject = {};
-  stateObject["aString"] = aString;
-  stateObject["anInt"] = anInt;
-
-  return stateObject;
-}
-
-dynamic setStateFieldString(
-  dynamic state,
-  String field,
-  String value,
-  String field2,
-  String value2,
-) {
-  state[field] = value;
-  state[field2] = value2;
-
-  return state;
-}
-
-dynamic setStateFieldInt(
-  String passengersLbl,
-  int passengersVal,
-  dynamic state,
-  String pricePPlbl,
-  double pricePPval,
-) {
-  state[passengersLbl] = passengersVal;
-  state[pricePPlbl] = pricePPval;
-  return state;
-}
-
-dynamic setStateFieldDbl(
-  String fieldLbl,
-  double fieldVal,
-  dynamic state,
-) {
-  state[fieldLbl] = fieldVal;
-  return state;
-}
-
-String getStateFieldString(
-  String field,
-  dynamic state,
-) {
-  // Add your function code here!
-  return state[field];
-}
-
-int getStateFieldInt(
-  String field,
-  dynamic state,
-) {
-  // Add your function code here!
-  return state[field];
-}
-
-double getStateFieldDbl(
-  String field,
-  dynamic state,
-) {
-  // Add your function code here!
-  return state[field];
-}
-
 String fortmatCurrency(
   double price,
   String currencySymbol,
 ) {
   //return '$currencySymbol$price.00';
   double num1 = double.parse((price).toStringAsFixed(2));
+  //return
   return '$currencySymbol$num1 pp';
 }
 

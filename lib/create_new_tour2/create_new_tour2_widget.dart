@@ -7,7 +7,6 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTour2Widget extends StatefulWidget {
@@ -64,7 +63,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                     icon: Icon(
                       Icons.arrow_back_rounded,
                       color: Colors.black,
-                      size: 30,
+                      size: 26,
                     ),
                     onPressed: () async {
                       setState(() => FFAppState().newTourRegionID = '');
@@ -76,20 +75,6 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                     FFAppState().newTourName,
                     style: FlutterFlowTheme.of(context).subtitle1,
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Text(
-                      FFAppState().newTourRegionID,
-                      style: FlutterFlowTheme.of(context).subtitle1,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Text(
-                      FFAppState().newTourRegionName,
-                      style: FlutterFlowTheme.of(context).subtitle1,
-                    ),
-                  ),
                 ],
               ),
               Padding(
@@ -97,9 +82,15 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(
-                      'No. of Passengers',
-                      style: FlutterFlowTheme.of(context).subtitle1,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        'No. of Passengers',
+                        style: FlutterFlowTheme.of(context).subtitle1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 22,
+                            ),
+                      ),
                     ),
                   ],
                 ),
@@ -117,11 +108,10 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitDualRing(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
                               color: FlutterFlowTheme.of(context).purplePastel,
-                              size: 50,
                             ),
                           ),
                         );

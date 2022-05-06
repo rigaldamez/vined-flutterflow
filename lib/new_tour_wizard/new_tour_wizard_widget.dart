@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -116,12 +115,11 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: SpinKitDualRing(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
                                           color: FlutterFlowTheme.of(context)
                                               .purplePastel,
-                                          size: 50,
                                         ),
                                       ),
                                     );

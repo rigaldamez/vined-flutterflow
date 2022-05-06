@@ -3,7 +3,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SeeAllCellarsWidget extends StatefulWidget {
@@ -89,11 +88,10 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: SpinKitDualRing(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
                             color: FlutterFlowTheme.of(context).purplePastel,
-                            size: 50,
                           ),
                         ),
                       );
