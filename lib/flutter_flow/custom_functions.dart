@@ -86,3 +86,24 @@ String upperCaseString(String str) {
   // Add your function code here!
   return str.toUpperCase();
 }
+
+String getDayMonthFromDate(DateTime date) {
+  // Get month from Date
+  return new DateFormat("d, MMMM").format(date);
+}
+
+String concatenateStrings(
+  String string1,
+  String string2,
+) {
+  // Concatenate two strings
+  if (string1.isNotEmpty && string2.isNotEmpty) {
+    return '${string1} ${string2}';
+  }
+  return string1.isNotEmpty ? string1 : string2;
+}
+
+String getTimeFromDate(DateTime date) {
+  // get time from date
+  return DateFormat.jm().format(date);
+}

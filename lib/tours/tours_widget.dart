@@ -5,17 +5,13 @@ import '../components/new_tour_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../tour_details/tour_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ToursWidget extends StatefulWidget {
-  const ToursWidget({
-    Key key,
-    this.state,
-  }) : super(key: key);
-
-  final dynamic state;
+  const ToursWidget({Key key}) : super(key: key);
 
   @override
   _ToursWidgetState createState() => _ToursWidgetState();
@@ -94,23 +90,21 @@ class _ToursWidgetState extends State<ToursWidget> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                      child: Text(
-                        'Your upcoming tours',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                    child: Text(
+                      'Your upcoming tours',
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF333333),
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 0),
@@ -184,14 +178,6 @@ class _ToursWidgetState extends State<ToursWidget> {
                             height: MediaQuery.of(context).size.height * 0.18,
                             child: Stack(
                               children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * 1,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 4, 0, 0),
@@ -355,7 +341,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                         BorderRadius.circular(
                                                             28),
                                                     border: Border.all(
-                                                      color: Color(0xFFEEEEEE),
+                                                      color: Color(0x4C333333),
                                                       width: 1,
                                                     ),
                                                   ),
@@ -528,7 +514,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                             children: [
                                                               Icon(
                                                                 Icons
-                                                                    .location_pin,
+                                                                    .pin_drop_outlined,
                                                                 color: Colors
                                                                     .black,
                                                                 size: 16,
@@ -604,6 +590,30 @@ class _ToursWidgetState extends State<ToursWidget> {
                                           ),
                                         ],
                                       ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.bottomToTop,
+                                        duration: Duration(milliseconds: 150),
+                                        reverseDuration:
+                                            Duration(milliseconds: 150),
+                                        child: TourDetailsWidget(
+                                          tourID: listViewToursRecord.reference,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height:
+                                        MediaQuery.of(context).size.height * 1,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(28),
                                     ),
                                   ),
                                 ),

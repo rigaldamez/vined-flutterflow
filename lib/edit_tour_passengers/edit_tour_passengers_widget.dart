@@ -14,9 +14,11 @@ class EditTourPassengersWidget extends StatefulWidget {
   const EditTourPassengersWidget({
     Key key,
     this.tourID,
+    this.tourName,
   }) : super(key: key);
 
   final DocumentReference tourID;
+  final String tourName;
 
   @override
   _EditTourPassengersWidgetState createState() =>

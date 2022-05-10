@@ -140,8 +140,8 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    14, 10, 0, 0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(14, 6, 0, 0),
                                 child: Text(
                                   listViewVenuesRecord.name,
                                   style: FlutterFlowTheme.of(context)
@@ -150,6 +150,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                         fontFamily: 'Poppins',
                                         color:
                                             FlutterFlowTheme.of(context).black,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),

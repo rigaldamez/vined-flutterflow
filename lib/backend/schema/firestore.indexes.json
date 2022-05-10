@@ -13,6 +13,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "selected_venues",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tourRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "reservationTime",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ]
 }

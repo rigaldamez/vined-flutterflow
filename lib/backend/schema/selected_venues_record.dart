@@ -32,12 +32,19 @@ abstract class SelectedVenuesRecord
   DateTime get addedDate;
 
   @nullable
+  String get bookingReference;
+
+  @nullable
+  DateTime get reservationTime;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(SelectedVenuesRecordBuilder builder) => builder
     ..isLunchVenue = false
-    ..tastingFee = 0.0;
+    ..tastingFee = 0.0
+    ..bookingReference = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('selected_venues');
@@ -68,6 +75,8 @@ Map<String, dynamic> createSelectedVenuesRecordData({
   bool isLunchVenue,
   double tastingFee,
   DateTime addedDate,
+  String bookingReference,
+  DateTime reservationTime,
 }) =>
     serializers.toFirestore(
         SelectedVenuesRecord.serializer,
@@ -77,4 +86,6 @@ Map<String, dynamic> createSelectedVenuesRecordData({
           ..addedByUid = addedByUid
           ..isLunchVenue = isLunchVenue
           ..tastingFee = tastingFee
-          ..addedDate = addedDate));
+          ..addedDate = addedDate
+          ..bookingReference = bookingReference
+          ..reservationTime = reservationTime));

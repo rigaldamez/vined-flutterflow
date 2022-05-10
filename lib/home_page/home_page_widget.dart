@@ -120,9 +120,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
-                            color: Color(0xB3303030),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF333333),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                     ),
                   ],
@@ -262,7 +262,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ],
                 ),
               ),
-              Expanded(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.28,
+                decoration: BoxDecoration(),
                 child: StreamBuilder<List<VenuesRecord>>(
                   stream: queryVenuesRecord(
                     queryBuilder: (venuesRecord) => venuesRecord
@@ -285,6 +288,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         snapshot.data;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
+                      primary: false,
+                      shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: listViewFeaturedVenuesRecordList.length,
                       itemBuilder: (context, listViewFeaturedIndex) {
@@ -298,7 +303,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                  EdgeInsetsDirectional.fromSTEB(8, 0, 4, 0),
                               child: Stack(
                                 children: [
                                   Hero(
@@ -310,10 +315,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         listViewFeaturedVenuesRecord.image,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.5,
+                                                0.4,
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.28,
+                                                0.24,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -339,16 +344,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       },
                     );
                   },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 1,
-                  decoration: BoxDecoration(
-                    color: Color(0x07000000),
-                  ),
                 ),
               ),
               Padding(
