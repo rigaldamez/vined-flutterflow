@@ -15,11 +15,9 @@ class TourDetailsWidget extends StatefulWidget {
   const TourDetailsWidget({
     Key key,
     this.tourID,
-    this.regionImagePath,
   }) : super(key: key);
 
   final DocumentReference tourID;
-  final String regionImagePath;
 
   @override
   _TourDetailsWidgetState createState() => _TourDetailsWidgetState();
@@ -99,8 +97,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                             ),
                             child: Stack(
                               children: [
-                                Image.asset(
-                                  'assets/images/two-girls-blackhat.jpg',
+                                Image.network(
+                                  containerRegionsRecord.image,
                                   width: double.infinity,
                                   height: 280,
                                   fit: BoxFit.cover,
@@ -221,12 +219,6 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.8,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: Image.network(
-                                widget.regionImagePath,
-                              ).image,
-                            ),
                             gradient: LinearGradient(
                               colors: [
                                 FlutterFlowTheme.of(context).purplePastel,

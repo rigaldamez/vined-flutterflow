@@ -328,13 +328,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 4, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(10, 4, 0, 0),
                               child: Text(
                                 listViewFeaturedVenuesRecord.name,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
