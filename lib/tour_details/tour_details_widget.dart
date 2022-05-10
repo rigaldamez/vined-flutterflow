@@ -99,8 +99,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                             ),
                             child: Stack(
                               children: [
-                                Image.network(
-                                  containerRegionsRecord.image,
+                                Image.asset(
+                                  'assets/images/two-girls-blackhat.jpg',
                                   width: double.infinity,
                                   height: 280,
                                   fit: BoxFit.cover,
