@@ -6,6 +6,7 @@ import 'regions_record.dart';
 import 'transport_pricing_record.dart';
 import 'tours_record.dart';
 import 'selected_venues_record.dart';
+import 'app_config_record.dart';
 
 import 'index.dart';
 
@@ -23,6 +24,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   TransportPricingRecord,
   ToursRecord,
   SelectedVenuesRecord,
+  AppConfigRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

@@ -26,3 +26,4 @@ export 'view_tour_details/view_tour_details_widget.dart'
 export 'profile/profile_widget.dart' show ProfileWidget;
 export 'tours/tours_widget.dart' show ToursWidget;
 export 'tour_details/tour_details_widget.dart' show TourDetailsWidget;
+export 'add_venue/add_venue_widget.dart' show AddVenueWidget;

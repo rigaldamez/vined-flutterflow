@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FIlterWineriesWidget extends StatefulWidget {
@@ -122,9 +123,10 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                 child: SizedBox(
                                   width: 20,
                                   height: 20,
-                                  child: CircularProgressIndicator(
+                                  child: SpinKitDualRing(
                                     color: FlutterFlowTheme.of(context)
                                         .purplePastel,
+                                    size: 20,
                                   ),
                                 ),
                               );
@@ -193,8 +195,9 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                         child: SizedBox(
                           width: 20,
                           height: 20,
-                          child: CircularProgressIndicator(
+                          child: SpinKitDualRing(
                             color: FlutterFlowTheme.of(context).purplePastel,
+                            size: 20,
                           ),
                         ),
                       );

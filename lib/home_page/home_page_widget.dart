@@ -6,7 +6,9 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../see_all_cellars/see_all_cellars_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -264,7 +266,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.28,
+                height: MediaQuery.of(context).size.height * 0.26,
                 decoration: BoxDecoration(),
                 child: StreamBuilder<List<VenuesRecord>>(
                   stream: queryVenuesRecord(
@@ -278,8 +280,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         child: SizedBox(
                           width: 20,
                           height: 20,
-                          child: CircularProgressIndicator(
+                          child: SpinKitDualRing(
                             color: FlutterFlowTheme.of(context).purplePastel,
+                            size: 20,
                           ),
                         ),
                       );
@@ -296,17 +299,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         final listViewFeaturedVenuesRecord =
                             listViewFeaturedVenuesRecordList[
                                 listViewFeaturedIndex];
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 4, 0),
-                              child: Stack(
-                                children: [
-                                  Hero(
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            color: Color(0xFFF5F5F5),
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(34),
+                            ),
+                            child: Stack(
+                              alignment: AlignmentDirectional(0, 0),
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      6, 6, 6, 6),
+                                  child: Hero(
                                     tag: listViewFeaturedVenuesRecord.image,
                                     transitionOnUserGestures: true,
                                     child: ClipRRect(
@@ -323,24 +331,63 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 4, 0, 0),
-                              child: Text(
-                                listViewFeaturedVenuesRecord.name,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0.9),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.12,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.transparent,
+                                          Color(0x80000000)
+                                        ],
+                                        stops: [0, 1],
+                                        begin: AlignmentDirectional(0, -1),
+                                        end: AlignmentDirectional(0, 1),
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(34),
+                                        bottomRight: Radius.circular(34),
+                                        topLeft: Radius.circular(0),
+                                        topRight: Radius.circular(0),
+                                      ),
                                     ),
-                              ),
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(),
+                                  child: Align(
+                                    alignment: AlignmentDirectional(-0.5, 0.7),
+                                    child: Text(
+                                      functions
+                                          .upperCaseString(
+                                              listViewFeaturedVenuesRecord.name)
+                                          .maybeHandleOverflow(
+                                            maxChars: 18,
+                                            replacement: '…',
+                                          ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .cultured,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         );
                       },
                     );
@@ -434,8 +481,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         child: SizedBox(
                           width: 20,
                           height: 20,
-                          child: CircularProgressIndicator(
+                          child: SpinKitDualRing(
                             color: FlutterFlowTheme.of(context).purplePastel,
+                            size: 20,
                           ),
                         ),
                       );
@@ -454,29 +502,80 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(34),
-                                child: Image.network(
-                                  listViewVenuesRecord.image,
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 200,
-                                  fit: BoxFit.fill,
+                              Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: Color(0xFFF5F5F5),
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(34),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10, 4, 10, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0, 0.9),
                                   children: [
-                                    Text(
-                                      listViewVenuesRecord.name,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w500,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          6, 6, 6, 6),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(34),
+                                        child: Image.network(
+                                          listViewVenuesRecord.image,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 200,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0.9),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6, 0, 6, 0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0x00F44336),
+                                                Color(0x66000000)
+                                              ],
+                                              stops: [0, 1],
+                                              begin:
+                                                  AlignmentDirectional(0, -1),
+                                              end: AlignmentDirectional(0, 1),
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(34),
+                                              bottomRight: Radius.circular(34),
+                                              topLeft: Radius.circular(0),
+                                              topRight: Radius.circular(0),
+                                            ),
                                           ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 4, 20, 20),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            functions.upperCaseString(
+                                                listViewVenuesRecord.name),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

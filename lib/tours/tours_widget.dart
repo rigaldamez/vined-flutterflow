@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tour_details/tour_details_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -20,8 +21,15 @@ class ToursWidget extends StatefulWidget {
 class _ToursWidgetState extends State<ToursWidget> {
   PagingController<DocumentSnapshot, ToursRecord> _pagingController;
   Query _pagingQuery;
+  List<StreamSubscription> _streamSubscriptions = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void dispose() {
+    _streamSubscriptions.forEach((s) => s?.cancel());
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +121,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                     final Query<Object> Function(Query<Object>) queryBuilder =
                         (toursRecord) => toursRecord
                             .where('uid', isEqualTo: currentUserReference)
-                            .orderBy('tour_date', descending: true);
+                            .orderBy('tour_date');
                     if (_pagingController != null) {
                       final query = queryBuilder(ToursRecord.collection);
                       if (query != _pagingQuery) {
                         // The query has changed
                         _pagingQuery = query;
-
+                        _streamSubscriptions.forEach((s) => s?.cancel());
+                        _streamSubscriptions.clear();
                         _pagingController.refresh();
                       }
                       return _pagingController;
@@ -131,15 +140,30 @@ class _ToursWidgetState extends State<ToursWidget> {
                       queryToursRecordPage(
                         queryBuilder: (toursRecord) => toursRecord
                             .where('uid', isEqualTo: currentUserReference)
-                            .orderBy('tour_date', descending: true),
+                            .orderBy('tour_date'),
                         nextPageMarker: nextPageMarker,
                         pageSize: 25,
-                        isStream: false,
+                        isStream: true,
                       ).then((page) {
                         _pagingController.appendPage(
                           page.data,
                           page.nextPageMarker,
                         );
+                        final streamSubscription =
+                            page.dataStream?.listen((data) {
+                          final itemIndexes = _pagingController.itemList
+                              .asMap()
+                              .map((k, v) => MapEntry(v.reference.id, k));
+                          data.forEach((item) {
+                            final index = itemIndexes[item.reference.id];
+                            if (index != null) {
+                              _pagingController.itemList
+                                  .replaceRange(index, index + 1, [item]);
+                            }
+                          });
+                          setState(() {});
+                        });
+                        _streamSubscriptions.add(streamSubscription);
                       });
                     });
                     return _pagingController;
@@ -153,8 +177,9 @@ class _ToursWidgetState extends State<ToursWidget> {
                       child: SizedBox(
                         width: 20,
                         height: 20,
-                        child: CircularProgressIndicator(
+                        child: SpinKitDualRing(
                           color: FlutterFlowTheme.of(context).purplePastel,
+                          size: 20,
                         ),
                       ),
                     ),
@@ -198,10 +223,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                             child: SizedBox(
                                               width: 20,
                                               height: 20,
-                                              child: CircularProgressIndicator(
+                                              child: SpinKitDualRing(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .purplePastel,
+                                                size: 20,
                                               ),
                                             ),
                                           );

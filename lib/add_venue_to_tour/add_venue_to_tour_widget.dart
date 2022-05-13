@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddVenueToTourWidget extends StatefulWidget {
@@ -51,8 +52,9 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
             child: SizedBox(
               width: 20,
               height: 20,
-              child: CircularProgressIndicator(
+              child: SpinKitDualRing(
                 color: FlutterFlowTheme.of(context).purplePastel,
+                size: 20,
               ),
             ),
           );
@@ -127,9 +129,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                 child: SizedBox(
                                   width: 20,
                                   height: 20,
-                                  child: CircularProgressIndicator(
+                                  child: SpinKitDualRing(
                                     color: FlutterFlowTheme.of(context)
                                         .purplePastel,
+                                    size: 20,
                                   ),
                                 ),
                               );
@@ -198,9 +201,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                               child: SizedBox(
                                 width: 20,
                                 height: 20,
-                                child: CircularProgressIndicator(
+                                child: SpinKitDualRing(
                                   color:
                                       FlutterFlowTheme.of(context).purplePastel,
+                                  size: 20,
                                 ),
                               ),
                             );

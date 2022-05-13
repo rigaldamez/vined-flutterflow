@@ -7,6 +7,7 @@ import '../login_email/login_email_widget.dart';
 import '../main.dart';
 import '../signup_email/signup_email_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 

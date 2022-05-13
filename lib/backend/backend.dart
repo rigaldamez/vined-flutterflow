@@ -10,6 +10,7 @@ import 'schema/regions_record.dart';
 import 'schema/transport_pricing_record.dart';
 import 'schema/tours_record.dart';
 import 'schema/selected_venues_record.dart';
+import 'schema/app_config_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -23,6 +24,7 @@ export 'schema/regions_record.dart';
 export 'schema/transport_pricing_record.dart';
 export 'schema/tours_record.dart';
 export 'schema/selected_venues_record.dart';
+export 'schema/app_config_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Stream<List<VenuesRecord>> queryVenuesRecord(
@@ -203,6 +205,36 @@ Future<FFFirestorePage<SelectedVenuesRecord>> querySelectedVenuesRecordPage({
     queryCollectionPage(
       SelectedVenuesRecord.collection,
       SelectedVenuesRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query AppConfigRecords (as a Stream and as a Future).
+Stream<List<AppConfigRecord>> queryAppConfigRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(AppConfigRecord.collection, AppConfigRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<AppConfigRecord>> queryAppConfigRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(AppConfigRecord.collection, AppConfigRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<FFFirestorePage<AppConfigRecord>> queryAppConfigRecordPage({
+  Query Function(Query) queryBuilder,
+  DocumentSnapshot nextPageMarker,
+  int pageSize,
+  bool isStream,
+}) =>
+    queryCollectionPage(
+      AppConfigRecord.collection,
+      AppConfigRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

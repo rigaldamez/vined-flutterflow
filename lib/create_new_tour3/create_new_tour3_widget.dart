@@ -15,6 +15,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTour3Widget extends StatefulWidget {
@@ -56,8 +57,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
             child: SizedBox(
               width: 20,
               height: 20,
-              child: CircularProgressIndicator(
+              child: SpinKitDualRing(
                 color: FlutterFlowTheme.of(context).purplePastel,
+                size: 20,
               ),
             ),
           );
@@ -195,29 +197,71 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 ],
                               ),
                             ),
-                            InkWell(
-                              onTap: () async {
-                                await DatePicker.showDateTimePicker(
-                                  context,
-                                  showTitleActions: true,
-                                  onConfirm: (date) {
-                                    setState(() => datePicked = date);
+                            StreamBuilder<List<AppConfigRecord>>(
+                              stream: queryAppConfigRecord(
+                                singleRecord: true,
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: SpinKitDualRing(
+                                        color: FlutterFlowTheme.of(context)
+                                            .purplePastel,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<AppConfigRecord>
+                                    containerAppConfigRecordList =
+                                    snapshot.data;
+                                // Return an empty Container when the document does not exist.
+                                if (snapshot.data.isEmpty) {
+                                  return Container();
+                                }
+                                final containerAppConfigRecord =
+                                    containerAppConfigRecordList.isNotEmpty
+                                        ? containerAppConfigRecordList.first
+                                        : null;
+                                return InkWell(
+                                  onTap: () async {
+                                    await DatePicker.showDateTimePicker(
+                                      context,
+                                      showTitleActions: true,
+                                      onConfirm: (date) {
+                                        setState(() => datePicked = date);
+                                      },
+                                      currentTime:
+                                          functions.getCurrentDateTimePlusAweek(
+                                              datePicked,
+                                              containerAppConfigRecord.days,
+                                              currentUserDocument
+                                                  ?.tourLeadTimeExempted),
+                                      minTime:
+                                          functions.getCurrentDateTimePlusAweek(
+                                              datePicked,
+                                              containerAppConfigRecord.days,
+                                              currentUserDocument
+                                                  ?.tourLeadTimeExempted),
+                                    );
                                   },
-                                  currentTime: functions
-                                      .getCurrentDateTimePlusAweek(datePicked),
-                                  minTime: functions
-                                      .getCurrentDateTimePlusAweek(datePicked),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    height: 60,
+                                    constraints: BoxConstraints(
+                                      maxWidth:
+                                          MediaQuery.of(context).size.width *
+                                              0.9,
+                                    ),
+                                    decoration: BoxDecoration(),
+                                  ),
                                 );
                               },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                height: 60,
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.9,
-                                ),
-                                decoration: BoxDecoration(),
-                              ),
                             ),
                           ],
                         ),
@@ -368,9 +412,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                               child: SizedBox(
                                 width: 20,
                                 height: 20,
-                                child: CircularProgressIndicator(
+                                child: SpinKitDualRing(
                                   color:
                                       FlutterFlowTheme.of(context).purplePastel,
+                                  size: 20,
                                 ),
                               ),
                             );
@@ -494,9 +539,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                               child: SizedBox(
                                 width: 20,
                                 height: 20,
-                                child: CircularProgressIndicator(
+                                child: SpinKitDualRing(
                                   color:
                                       FlutterFlowTheme.of(context).purplePastel,
+                                  size: 20,
                                 ),
                               ),
                             );
@@ -533,10 +579,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                             child: SizedBox(
                                               width: 20,
                                               height: 20,
-                                              child: CircularProgressIndicator(
+                                              child: SpinKitDualRing(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .purplePastel,
+                                                size: 20,
                                               ),
                                             ),
                                           );
@@ -628,10 +675,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                             width: 20,
                                                             height: 20,
                                                             child:
-                                                                CircularProgressIndicator(
+                                                                SpinKitDualRing(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .purplePastel,
+                                                              size: 20,
                                                             ),
                                                           ),
                                                         );
@@ -830,6 +878,67 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                         },
                       ),
                     ),
+                  ),
+                  StreamBuilder<List<AppConfigRecord>>(
+                    stream: queryAppConfigRecord(
+                      singleRecord: true,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: SpinKitDualRing(
+                              color: FlutterFlowTheme.of(context).purplePastel,
+                              size: 20,
+                            ),
+                          ),
+                        );
+                      }
+                      List<AppConfigRecord> rowAppConfigRecordList =
+                          snapshot.data;
+                      final rowAppConfigRecord =
+                          rowAppConfigRecordList.isNotEmpty
+                              ? rowAppConfigRecordList.first
+                              : null;
+                      return Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Lead Time: ',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                            child: Text(
+                              rowAppConfigRecord.days.toString(),
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Exempted:',
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                        child: AuthUserStreamWidget(
+                          child: Text(
+                            functions.boolString(
+                                currentUserDocument?.tourLeadTimeExempted),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
