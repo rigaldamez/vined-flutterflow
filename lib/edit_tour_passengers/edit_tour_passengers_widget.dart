@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -204,13 +203,6 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height * 1,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(28),
-                                ),
-                              ),
                               Material(
                                 color: Colors.transparent,
                                 elevation: 4,
@@ -234,8 +226,8 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                   ),
                                 ),
                               ),
-                              FFButtonWidget(
-                                onPressed: () async {
+                              InkWell(
+                                onTap: () async {
                                   final toursUpdateData = createToursRecordData(
                                     passengers: gridViewTransportPricingRecord
                                         .passengersLbl,
@@ -245,21 +237,13 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                   await widget.tourID.update(toursUpdateData);
                                   Navigator.pop(context);
                                 },
-                                text: '',
-                                options: FFButtonOptions(
-                                  width: 80,
-                                  height: 80,
-                                  color: Colors.transparent,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 1,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(28),
                                   ),
-                                  borderRadius: 24,
                                 ),
                               ),
                             ],

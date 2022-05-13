@@ -14,11 +14,9 @@ class EditTourDateBottomsheetWidget extends StatefulWidget {
   const EditTourDateBottomsheetWidget({
     Key key,
     this.tourID,
-    this.leadTimeDays,
   }) : super(key: key);
 
   final DocumentReference tourID;
-  final int leadTimeDays;
 
   @override
   _EditTourDateBottomsheetWidgetState createState() =>
@@ -171,49 +169,84 @@ class _EditTourDateBottomsheetWidgetState
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(0, 0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        await DatePicker.showDateTimePicker(
-                                          context,
-                                          showTitleActions: true,
-                                          onConfirm: (date) {
-                                            setState(() => datePicked = date);
+                                    child: StreamBuilder<List<AppConfigRecord>>(
+                                      stream: queryAppConfigRecord(
+                                        singleRecord: true,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child: SpinKitDualRing(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .purplePastel,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<AppConfigRecord>
+                                            buttonAppConfigRecordList =
+                                            snapshot.data;
+                                        final buttonAppConfigRecord =
+                                            buttonAppConfigRecordList.isNotEmpty
+                                                ? buttonAppConfigRecordList
+                                                    .first
+                                                : null;
+                                        return FFButtonWidget(
+                                          onPressed: () async {
+                                            await DatePicker.showDateTimePicker(
+                                              context,
+                                              showTitleActions: true,
+                                              onConfirm: (date) {
+                                                setState(
+                                                    () => datePicked = date);
+                                              },
+                                              currentTime: functions
+                                                  .getCurrentDateTimePlusAweek(
+                                                      getCurrentTimestamp,
+                                                      buttonAppConfigRecord
+                                                          .days,
+                                                      currentUserDocument
+                                                          ?.tourLeadTimeExempted),
+                                              minTime: functions
+                                                  .getCurrentDateTimePlusAweek(
+                                                      getCurrentTimestamp,
+                                                      buttonAppConfigRecord
+                                                          .days,
+                                                      currentUserDocument
+                                                          ?.tourLeadTimeExempted),
+                                            );
                                           },
-                                          currentTime: functions
-                                              .getCurrentDateTimePlusAweek(
-                                                  getCurrentTimestamp,
-                                                  widget.leadTimeDays,
-                                                  currentUserDocument
-                                                      ?.tourLeadTimeExempted),
-                                          minTime: functions
-                                              .getCurrentDateTimePlusAweek(
-                                                  getCurrentTimestamp,
-                                                  widget.leadTimeDays,
-                                                  currentUserDocument
-                                                      ?.tourLeadTimeExempted),
-                                        );
-                                      },
-                                      text: 'Select New Date',
-                                      options: FFButtonOptions(
-                                        width: 390,
-                                        height: 58,
-                                        color: Colors.white,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .subtitle2
-                                            .override(
-                                              fontFamily: 'Poppins',
+                                          text: 'Select New Date',
+                                          options: FFButtonOptions(
+                                            width: 390,
+                                            height: 58,
+                                            color: Colors.white,
+                                            textStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .subtitle2
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .black,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                            borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .black,
-                                              fontWeight: FontWeight.w600,
+                                              width: 1,
                                             ),
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .black,
-                                          width: 1,
-                                        ),
-                                        borderRadius: 34,
-                                      ),
+                                            borderRadius: 34,
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
