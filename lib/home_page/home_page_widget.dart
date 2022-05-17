@@ -1,12 +1,15 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../f_ilter_wineries/f_ilter_wineries_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../see_all_cellars/see_all_cellars_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -343,7 +346,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       gradient: LinearGradient(
                                         colors: [
                                           Colors.transparent,
-                                          Color(0x80000000)
+                                          Color(0xCD000000)
                                         ],
                                         stops: [0, 1],
                                         begin: AlignmentDirectional(0, -1),
@@ -382,6 +385,116 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                           ),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0.9, -0.64),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        100, 0, 0, 100),
+                                    child: Container(
+                                      height: 40,
+                                      child: Stack(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0, 0),
+                                            child: Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: Color(0x65000000),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: ToggleIcon(
+                                                onPressed: () async {
+                                                  final isFavouritedByElement =
+                                                      currentUserReference;
+                                                  final isFavouritedByUpdate =
+                                                      listViewFeaturedVenuesRecord
+                                                              .isFavouritedBy
+                                                              .toList()
+                                                              .contains(
+                                                                  isFavouritedByElement)
+                                                          ? FieldValue
+                                                              .arrayRemove([
+                                                              isFavouritedByElement
+                                                            ])
+                                                          : FieldValue
+                                                              .arrayUnion([
+                                                              isFavouritedByElement
+                                                            ]);
+                                                  final venuesUpdateData = {
+                                                    'is_favourited_by':
+                                                        isFavouritedByUpdate,
+                                                  };
+                                                  await listViewFeaturedVenuesRecord
+                                                      .reference
+                                                      .update(venuesUpdateData);
+                                                },
+                                                value:
+                                                    listViewFeaturedVenuesRecord
+                                                        .isFavouritedBy
+                                                        .toList()
+                                                        .contains(
+                                                            currentUserReference),
+                                                onIcon: Icon(
+                                                  Icons.bookmark_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .purplePastel,
+                                                  size: 16,
+                                                ),
+                                                offIcon: Icon(
+                                                  Icons.bookmark_border_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  size: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              if (listViewFeaturedVenuesRecord
+                                                  .isFavouritedBy
+                                                  .toList()
+                                                  .contains(
+                                                      currentUserReference)) {
+                                                final venuesUpdateData = {
+                                                  'is_favourited_by':
+                                                      FieldValue.arrayRemove([
+                                                    currentUserReference
+                                                  ]),
+                                                };
+                                                await listViewFeaturedVenuesRecord
+                                                    .reference
+                                                    .update(venuesUpdateData);
+                                              } else {
+                                                final venuesUpdateData = {
+                                                  'is_favourited_by':
+                                                      FieldValue.arrayUnion([
+                                                    currentUserReference
+                                                  ]),
+                                                };
+                                                await listViewFeaturedVenuesRecord
+                                                    .reference
+                                                    .update(venuesUpdateData);
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -501,6 +614,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -510,7 +624,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   borderRadius: BorderRadius.circular(34),
                                 ),
                                 child: Stack(
-                                  alignment: AlignmentDirectional(0, 0.9),
+                                  alignment: AlignmentDirectional(1, 0.9),
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -526,55 +640,187 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0.9),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            6, 0, 6, 0),
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Color(0x00F44336),
-                                                Color(0x66000000)
-                                              ],
-                                              stops: [0, 1],
-                                              begin:
-                                                  AlignmentDirectional(0, -1),
-                                              end: AlignmentDirectional(0, 1),
-                                            ),
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(34),
-                                              bottomRight: Radius.circular(34),
-                                              topLeft: Radius.circular(0),
-                                              topRight: Radius.circular(0),
-                                            ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          6, 0, 6, 0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color(0x00F44336),
+                                              Color(0xE6000000)
+                                            ],
+                                            stops: [0, 1],
+                                            begin: AlignmentDirectional(0, -1),
+                                            end: AlignmentDirectional(0, 1),
+                                          ),
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(34),
+                                            bottomRight: Radius.circular(34),
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(0),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 4, 20, 20),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            functions.upperCaseString(
-                                                listViewVenuesRecord.name),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontWeight: FontWeight.bold,
+                                          6, 0, 6, 0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 50,
+                                        decoration: BoxDecoration(),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 10, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                functions.upperCaseString(
+                                                    listViewVenuesRecord.name),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .cultured,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.9, -0.64),
+                                                child: Container(
+                                                  width: 50,
+                                                  child: Stack(
+                                                    children: [
+                                                      Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: Container(
+                                                          width: 34,
+                                                          height: 34,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0x7F000000),
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: ToggleIcon(
+                                                            onPressed:
+                                                                () async {
+                                                              final isFavouritedByElement =
+                                                                  currentUserReference;
+                                                              final isFavouritedByUpdate = listViewVenuesRecord
+                                                                      .isFavouritedBy
+                                                                      .toList()
+                                                                      .contains(
+                                                                          isFavouritedByElement)
+                                                                  ? FieldValue
+                                                                      .arrayRemove([
+                                                                      isFavouritedByElement
+                                                                    ])
+                                                                  : FieldValue
+                                                                      .arrayUnion([
+                                                                      isFavouritedByElement
+                                                                    ]);
+                                                              final venuesUpdateData =
+                                                                  {
+                                                                'is_favourited_by':
+                                                                    isFavouritedByUpdate,
+                                                              };
+                                                              await listViewVenuesRecord
+                                                                  .reference
+                                                                  .update(
+                                                                      venuesUpdateData);
+                                                            },
+                                                            value: listViewVenuesRecord
+                                                                .isFavouritedBy
+                                                                .toList()
+                                                                .contains(
+                                                                    currentUserReference),
+                                                            onIcon: Icon(
+                                                              Icons
+                                                                  .bookmark_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .purplePastel,
+                                                              size: 16,
+                                                            ),
+                                                            offIcon: Icon(
+                                                              Icons
+                                                                  .bookmark_border_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .cultured,
+                                                              size: 16,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          if (listViewVenuesRecord
+                                                              .isFavouritedBy
+                                                              .toList()
+                                                              .contains(
+                                                                  currentUserReference)) {
+                                                            final venuesUpdateData =
+                                                                {
+                                                              'is_favourited_by':
+                                                                  FieldValue
+                                                                      .arrayRemove([
+                                                                currentUserReference
+                                                              ]),
+                                                            };
+                                                            await listViewVenuesRecord
+                                                                .reference
+                                                                .update(
+                                                                    venuesUpdateData);
+                                                          } else {
+                                                            final venuesUpdateData =
+                                                                {
+                                                              'is_favourited_by':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                currentUserReference
+                                                              ]),
+                                                            };
+                                                            await listViewVenuesRecord
+                                                                .reference
+                                                                .update(
+                                                                    venuesUpdateData);
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          width: 34,
+                                                          height: 34,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ],

@@ -38,6 +38,10 @@ abstract class SelectedVenuesRecord
   DateTime get reservationTime;
 
   @nullable
+  @BuiltValueField(wireName: 'region_ID')
+  DocumentReference get regionID;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -77,6 +81,7 @@ Map<String, dynamic> createSelectedVenuesRecordData({
   DateTime addedDate,
   String bookingReference,
   DateTime reservationTime,
+  DocumentReference regionID,
 }) =>
     serializers.toFirestore(
         SelectedVenuesRecord.serializer,
@@ -88,4 +93,5 @@ Map<String, dynamic> createSelectedVenuesRecordData({
           ..tastingFee = tastingFee
           ..addedDate = addedDate
           ..bookingReference = bookingReference
-          ..reservationTime = reservationTime));
+          ..reservationTime = reservationTime
+          ..regionID = regionID));

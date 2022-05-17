@@ -395,10 +395,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0, 0.55),
                                     child: Text(
-                                      functions.isVenueOpen(
-                                          gridViewVenuesRecord.openDays
-                                              .toList(),
-                                          widget.tourRecord),
+                                      'Hello World',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(

@@ -64,19 +64,20 @@ bool isVenueAlreadyAdded(
   return false;
 }
 
-String isVenueOpen(
+bool isVenueOpen(
   List<int> openDays,
   ToursRecord tourRecord,
 ) {
   // Add your function code here!
+  return openDays.contains(tourRecord.tourDate.weekday) ? true : false;
 
-  for (var i = 0; i < openDays.length; i++) {
+  /*for (var i = 0; i < openDays.length; i++) {
     if (openDays[i] == tourRecord.tourDate.weekday) {
       return "Open";
     }
-  }
+  }*/
 
-  return "Closed";
+  //return "Closed";
 }
 
 bool meetsVenueCapacity(
@@ -84,11 +85,7 @@ bool meetsVenueCapacity(
   int venueCapacity,
 ) {
   // Add your function code here!
-  if (tourRecord.passengers <= venueCapacity) {
-    return true;
-  } else {
-    return false;
-  }
+  return tourRecord.passengers <= venueCapacity ? true : false;
 }
 
 String upperCaseString(String str) {
@@ -145,12 +142,12 @@ bool isArrayEmpty(List<DocumentReference> arrayList) {
     return arrayList.length == 0 ? true : false;
 }
 
-bool isTourStopsCountLessThanLimitAllowed(List<DocumentReference> venuesList) {
+bool isTourStopsCountLessThanLimitAllowed(
+  List<DocumentReference> venuesList,
+  AppConfigRecord venueLimit,
+) {
   // Check if venuesList count is less than 4, if true return true else false
-  if (venuesList.length < 4) {
-    return true;
-  }
-  return false;
+  return venuesList.length < venueLimit.itineraryVenueLimit ? true : false;
 }
 
 String boolString(bool boolVal) {
@@ -160,4 +157,10 @@ String boolString(bool boolVal) {
   } else {
     return 'false';
   }
+}
+
+bool isTourInDraftState(String stateString) {
+  // Add your function code here!
+
+  return stateString == "draft" ? true : false;
 }

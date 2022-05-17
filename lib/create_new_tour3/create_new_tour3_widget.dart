@@ -454,6 +454,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       region: FFAppState().newTourRegionName,
                                       tourName: FFAppState().newTourName,
                                       pickupUnitNumber: textController.text,
+                                      tourState: 'draft',
                                     ),
                                     'guests_uid': [currentUserReference],
                                   };

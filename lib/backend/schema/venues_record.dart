@@ -38,6 +38,14 @@ abstract class VenuesRecord
   bool get mustAcknowledgeTCs;
 
   @nullable
+  @BuiltValueField(wireName: 'region_Ref')
+  DocumentReference get regionRef;
+
+  @nullable
+  @BuiltValueField(wireName: 'is_favourited_by')
+  BuiltList<DocumentReference> get isFavouritedBy;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -50,7 +58,8 @@ abstract class VenuesRecord
     ..capacity = 0
     ..openDays = ListBuilder()
     ..maxCapacityEnforced = false
-    ..mustAcknowledgeTCs = false;
+    ..mustAcknowledgeTCs = false
+    ..isFavouritedBy = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('venues');
@@ -76,6 +85,9 @@ abstract class VenuesRecord
               safeGet(() => ListBuilder(snapshot.data['openDays']?.round()))
           ..maxCapacityEnforced = snapshot.data['maxCapacityEnforced']
           ..mustAcknowledgeTCs = snapshot.data['mustAcknowledgeTCs']
+          ..regionRef = safeGet(() => toRef(snapshot.data['region_Ref']))
+          ..isFavouritedBy = safeGet(() => ListBuilder(
+              snapshot.data['is_favourited_by'].map((s) => toRef(s))))
           ..reference = VenuesRecord.collection.doc(snapshot.objectID),
       );
 
@@ -113,6 +125,7 @@ Map<String, dynamic> createVenuesRecordData({
   int capacity,
   bool maxCapacityEnforced,
   bool mustAcknowledgeTCs,
+  DocumentReference regionRef,
 }) =>
     serializers.toFirestore(
         VenuesRecord.serializer,
@@ -125,4 +138,6 @@ Map<String, dynamic> createVenuesRecordData({
           ..capacity = capacity
           ..openDays = null
           ..maxCapacityEnforced = maxCapacityEnforced
-          ..mustAcknowledgeTCs = mustAcknowledgeTCs));
+          ..mustAcknowledgeTCs = mustAcknowledgeTCs
+          ..regionRef = regionRef
+          ..isFavouritedBy = null));

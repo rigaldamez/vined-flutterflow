@@ -18,12 +18,16 @@ abstract class AppConfigRecord
   String get vinedMessengerURL;
 
   @nullable
+  int get itineraryVenueLimit;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(AppConfigRecordBuilder builder) => builder
     ..days = 0
-    ..vinedMessengerURL = '';
+    ..vinedMessengerURL = ''
+    ..itineraryVenueLimit = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('app_config');
@@ -49,9 +53,11 @@ abstract class AppConfigRecord
 Map<String, dynamic> createAppConfigRecordData({
   int days,
   String vinedMessengerURL,
+  int itineraryVenueLimit,
 }) =>
     serializers.toFirestore(
         AppConfigRecord.serializer,
         AppConfigRecord((a) => a
           ..days = days
-          ..vinedMessengerURL = vinedMessengerURL));
+          ..vinedMessengerURL = vinedMessengerURL
+          ..itineraryVenueLimit = itineraryVenueLimit));
