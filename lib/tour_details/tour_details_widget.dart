@@ -71,7 +71,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
               ),
             );
           }
-          final containerToursRecord = snapshot.data;
+          final containerTourReffToursRecord = snapshot.data;
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -98,7 +98,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                     children: [
                       StreamBuilder<RegionsRecord>(
                         stream: RegionsRecord.getDocument(
-                            containerToursRecord.regionID),
+                            containerTourReffToursRecord.regionID),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -114,7 +114,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                               ),
                             );
                           }
-                          final containerRegionsRecord = snapshot.data;
+                          final containerRegionReffRegionsRecord =
+                              snapshot.data;
                           return Container(
                             width: double.infinity,
                             height: 220,
@@ -124,7 +125,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                             child: Stack(
                               children: [
                                 Image.network(
-                                  containerRegionsRecord.image,
+                                  containerRegionReffRegionsRecord.image,
                                   width: double.infinity,
                                   height: 280,
                                   fit: BoxFit.cover,
@@ -149,7 +150,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           AutoSizeText(
-                                            containerToursRecord.tourName,
+                                            containerTourReffToursRecord
+                                                .tourName,
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
@@ -219,7 +221,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            containerToursRecord.region,
+                                            containerTourReffToursRecord.region,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
                                                 .override(
@@ -284,14 +286,17 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                   );
                                 }
                                 List<AppConfigRecord>
-                                    columnAppConfigRecordList = snapshot.data;
+                                    columnAppConfigReffAppConfigRecordList =
+                                    snapshot.data;
                                 // Return an empty Container when the document does not exist.
                                 if (snapshot.data.isEmpty) {
                                   return Container();
                                 }
-                                final columnAppConfigRecord =
-                                    columnAppConfigRecordList.isNotEmpty
-                                        ? columnAppConfigRecordList.first
+                                final columnAppConfigReffAppConfigRecord =
+                                    columnAppConfigReffAppConfigRecordList
+                                            .isNotEmpty
+                                        ? columnAppConfigReffAppConfigRecordList
+                                            .first
                                         : null;
                                 return SingleChildScrollView(
                                   child: Column(
@@ -368,7 +373,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0),
                                                                   child: Text(
                                                                     functions.getDayMonthFromDate(
-                                                                        containerToursRecord
+                                                                        containerTourReffToursRecord
                                                                             .tourDate),
                                                                     textAlign:
                                                                         TextAlign
@@ -496,7 +501,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0,
                                                                           0),
                                                                   child: Text(
-                                                                    containerToursRecord
+                                                                    containerTourReffToursRecord
                                                                         .passengers
                                                                         .toString(),
                                                                     textAlign:
@@ -542,10 +547,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           child:
                                                               EditTourPassengersWidget(
                                                             tourID:
-                                                                containerToursRecord
+                                                                containerTourReffToursRecord
                                                                     .reference,
                                                             tourName:
-                                                                containerToursRecord
+                                                                containerTourReffToursRecord
                                                                     .tourName,
                                                           ),
                                                         ),
@@ -564,128 +569,170 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Container(
-                                              width: 70,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFEEEEEE),
-                                                borderRadius:
-                                                    BorderRadius.circular(24),
+                                            StreamBuilder<
+                                                List<SelectedVenuesRecord>>(
+                                              stream: querySelectedVenuesRecord(
+                                                queryBuilder:
+                                                    (selectedVenuesRecord) =>
+                                                        selectedVenuesRecord
+                                                            .where('tourRef',
+                                                                isEqualTo: widget
+                                                                    .tourID),
                                               ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      FaIcon(
-                                                        FontAwesomeIcons
-                                                            .dollarSign,
-                                                        color: Colors.black,
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 20,
+                                                      height: 20,
+                                                      child: SpinKitDualRing(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .purplePastel,
                                                         size: 20,
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    4, 0, 0, 0),
-                                                        child: Text(
-                                                          'ea',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
+                                                  );
+                                                }
+                                                List<SelectedVenuesRecord>
+                                                    containerSelectedVenuesSelectedVenuesRecordList =
+                                                    snapshot.data;
+                                                return Container(
+                                                  width: 70,
+                                                  height: 80,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFFEEEEEE),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 6, 0, 0),
-                                                    child: Container(
-                                                      width: 60,
-                                                      child: Stack(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0, 0),
-                                                        children: [
-                                                          Container(
-                                                            width: 100,
-                                                            height: 30,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .black,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          24),
+                                                  child: Container(
+                                                    width: 100,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFEEEEEE),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .dollarSign,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 20,
                                                             ),
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0, 0),
-                                                            child: Padding(
+                                                            Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           4,
-                                                                          4,
-                                                                          4,
+                                                                          0,
+                                                                          0,
                                                                           0),
                                                               child: Text(
-                                                                formatNumber(
-                                                                  containerToursRecord
-                                                                      .pricePp,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .custom,
-                                                                  currency:
-                                                                      '\$',
-                                                                  format: '',
-                                                                  locale: '',
-                                                                ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                'ea',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyText1
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .cultured,
-                                                                      fontSize:
-                                                                          12,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w600,
+                                                                              .bold,
                                                                     ),
                                                               ),
                                                             ),
+                                                          ],
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      6, 0, 0),
+                                                          child: Container(
+                                                            width: 60,
+                                                            child: Stack(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0, 0),
+                                                              children: [
+                                                                Container(
+                                                                  width: 100,
+                                                                  height: 30,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .black,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            24),
+                                                                  ),
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0, 0),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            4,
+                                                                            4,
+                                                                            4,
+                                                                            0),
+                                                                    child: Text(
+                                                                      functions.getPerPersonFee(
+                                                                          containerTourReffToursRecord
+                                                                              .pricePp,
+                                                                          containerSelectedVenuesSelectedVenuesRecordList
+                                                                              .toList(),
+                                                                          columnAppConfigReffAppConfigRecord
+                                                                              .platformTastingFee),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).cultured,
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                                );
+                                              },
                                             ),
                                             Container(
                                               width: 70,
@@ -785,9 +832,22 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             40, 20, 40, 0),
                                         child: Container(
                                           width: double.infinity,
-                                          height: 1,
+                                          height: 30,
                                           decoration: BoxDecoration(
                                             color: Color(0x32333333),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                columnAppConfigReffAppConfigRecord
+                                                    .itineraryVenueLimit
+                                                    .toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -835,7 +895,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             0, 0),
                                                     child: Text(
                                                       functions.getTimeFromDate(
-                                                          containerToursRecord
+                                                          containerTourReffToursRecord
                                                               .tourDate),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -862,7 +922,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                   ),
                                                   if (functions.isArrayEmpty(
-                                                          containerToursRecord
+                                                          containerTourReffToursRecord
                                                               .venues
                                                               .toList()) ??
                                                       true)
@@ -945,7 +1005,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             0,
                                                                             0),
                                                                 child: Text(
-                                                                  containerToursRecord
+                                                                  containerTourReffToursRecord
                                                                       .pickupAddress
                                                                       .maybeHandleOverflow(
                                                                     maxChars:
@@ -1107,9 +1167,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                         stream: querySelectedVenuesRecord(
                                           queryBuilder:
                                               (selectedVenuesRecord) =>
-                                                  selectedVenuesRecord.where(
-                                                      'tourRef',
-                                                      isEqualTo: widget.tourID),
+                                                  selectedVenuesRecord
+                                                      .where('tourRef',
+                                                          isEqualTo:
+                                                              widget.tourID)
+                                                      .orderBy(
+                                                          'reservationTime'),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -1128,7 +1191,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             );
                                           }
                                           List<SelectedVenuesRecord>
-                                              listViewSelectedVenuesRecordList =
+                                              listViewSelectedVenuesSelectedVenuesRecordList =
                                               snapshot.data;
                                           return ListView.builder(
                                             padding: EdgeInsets.zero,
@@ -1136,20 +1199,20 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
                                             itemCount:
-                                                listViewSelectedVenuesRecordList
+                                                listViewSelectedVenuesSelectedVenuesRecordList
                                                     .length,
-                                            itemBuilder:
-                                                (context, listViewIndex) {
-                                              final listViewSelectedVenuesRecord =
-                                                  listViewSelectedVenuesRecordList[
-                                                      listViewIndex];
+                                            itemBuilder: (context,
+                                                listViewSelectedVenuesIndex) {
+                                              final listViewSelectedVenuesSelectedVenuesRecord =
+                                                  listViewSelectedVenuesSelectedVenuesRecordList[
+                                                      listViewSelectedVenuesIndex];
                                               return Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(10, 0, 0, 0),
                                                 child:
                                                     StreamBuilder<VenuesRecord>(
                                                   stream: VenuesRecord.getDocument(
-                                                      listViewSelectedVenuesRecord
+                                                      listViewSelectedVenuesSelectedVenuesRecord
                                                           .venueRef),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -1168,7 +1231,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         ),
                                                       );
                                                     }
-                                                    final rowVenuesRecord =
+                                                    final rowSelectedVenueVenuesRecord =
                                                         snapshot.data;
                                                     return Row(
                                                       mainAxisSize:
@@ -1207,7 +1270,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       0, 0),
                                                               child: Text(
                                                                 functions.getTimeFromDate(
-                                                                    listViewSelectedVenuesRecord
+                                                                    listViewSelectedVenuesSelectedVenuesRecord
                                                                         .reservationTime),
                                                                 textAlign:
                                                                     TextAlign
@@ -1308,7 +1371,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               BorderRadius.circular(28),
                                                                           child:
                                                                               Image.network(
-                                                                            rowVenuesRecord.image,
+                                                                            rowSelectedVenueVenuesRecord.image,
                                                                             width:
                                                                                 double.infinity,
                                                                             height:
@@ -1439,7 +1502,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                                                           children: [
                                                                                             Text(
-                                                                                              functions.upperCaseString(rowVenuesRecord.name),
+                                                                                              functions.upperCaseString(rowSelectedVenueVenuesRecord.name),
                                                                                               textAlign: TextAlign.start,
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                     fontFamily: 'Poppins',
@@ -1449,7 +1512,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                                   ),
                                                                                             ),
                                                                                             Text(
-                                                                                              functions.concatenateStrings('Booking Reff:', listViewSelectedVenuesRecord.bookingReference),
+                                                                                              functions.concatenateStrings('Booking Reff:', listViewSelectedVenuesSelectedVenuesRecord.bookingReference),
                                                                                               textAlign: TextAlign.start,
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                     fontFamily: 'Poppins',
@@ -1485,168 +1548,183 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           );
                                         },
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 10, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 50,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .black,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Icon(
-                                                    Icons.access_time_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .cultured,
-                                                    size: 12,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 2,
-                                                  height: 90,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .black,
-                                                  ),
-                                                ),
-                                                if (functions.isArrayEmpty(
-                                                        containerToursRecord
-                                                            .venues
-                                                            .toList()) ??
-                                                    true)
+                                      if (functions
+                                              .isTourStopsCountLessThanLimitAllowed(
+                                                  containerTourReffToursRecord
+                                                      .venues
+                                                      .toList(),
+                                                  columnAppConfigReffAppConfigRecord) ??
+                                          true)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 10, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
                                                   Container(
-                                                    width: 8,
-                                                    height: 8,
+                                                    width: 50,
+                                                    height: 20,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .black,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(4, 0, 0, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.78,
-                                                    height: 80,
-                                                    decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              23),
+                                                              10),
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
                                                             0, 0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(20, 20,
-                                                                  20, 20),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          FFButtonWidget(
-                                                            onPressed:
-                                                                () async {
-                                                              await Navigator
-                                                                  .push(
-                                                                context,
-                                                                PageTransition(
-                                                                  type: PageTransitionType
-                                                                      .bottomToTop,
-                                                                  duration: Duration(
-                                                                      milliseconds:
-                                                                          150),
-                                                                  reverseDuration:
-                                                                      Duration(
-                                                                          milliseconds:
-                                                                              150),
-                                                                  child:
-                                                                      AddVenueWidget(
-                                                                    tourID: widget
-                                                                        .tourID,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                            text: 'Add a venue',
-                                                            options:
-                                                                FFButtonOptions(
-                                                              width: 120,
-                                                              height: 30,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .black,
-                                                              textStyle:
-                                                                  GoogleFonts
-                                                                      .getFont(
-                                                                'Poppins',
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                fontSize: 6,
-                                                              ),
-                                                              elevation: 8,
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                width: 1,
-                                                              ),
-                                                              borderRadius: 32,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                    child: Icon(
+                                                      Icons.access_time_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .cultured,
+                                                      size: 12,
                                                     ),
                                                   ),
+                                                  Container(
+                                                    width: 2,
+                                                    height: 90,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .black,
+                                                    ),
+                                                  ),
+                                                  if (functions.isArrayEmpty(
+                                                          containerTourReffToursRecord
+                                                              .venues
+                                                              .toList()) ??
+                                                      true)
+                                                    Container(
+                                                      width: 8,
+                                                      height: 8,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                    ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(4, 0, 0, 0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.78,
+                                                      height: 80,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(23),
+                                                      ),
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(20,
+                                                                    20, 20, 20),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                await Navigator
+                                                                    .push(
+                                                                  context,
+                                                                  PageTransition(
+                                                                    type: PageTransitionType
+                                                                        .bottomToTop,
+                                                                    duration: Duration(
+                                                                        milliseconds:
+                                                                            150),
+                                                                    reverseDuration:
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                150),
+                                                                    child:
+                                                                        AddVenueWidget(
+                                                                      tourID: widget
+                                                                          .tourID,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              text:
+                                                                  'Add a venue',
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                width: 120,
+                                                                height: 30,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .black,
+                                                                textStyle:
+                                                                    GoogleFonts
+                                                                        .getFont(
+                                                                  'Poppins',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontSize: 6,
+                                                                ),
+                                                                elevation: 8,
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  width: 1,
+                                                                ),
+                                                                borderRadius:
+                                                                    32,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
                                       if (!(functions.isArrayEmpty(
-                                              containerToursRecord.venues
+                                              containerTourReffToursRecord
+                                                  .venues
                                                   .toList())) ??
                                           true)
                                         Padding(

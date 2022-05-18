@@ -111,7 +111,16 @@ String concatenateStrings(
 
 String getTimeFromDate(DateTime date) {
   // get time from date
-  return DateFormat.jm().format(date);
+
+  if (date.year == 1970) {
+    return "TBC";
+  } else {
+    return DateFormat.jm().format(date);
+  }
+
+  //return if date == null ? "TBC" : DateFormat.jm().format(date);
+
+  //return DateFormat.jm().format(date);
 }
 
 String getLatestDateDayMonthValue(
@@ -163,4 +172,24 @@ bool isTourInDraftState(String stateString) {
   // Add your function code here!
 
   return stateString == "draft" ? true : false;
+}
+
+DateTime epochTime() {
+  // Add your function code here!
+  return DateTime(1970, 1, 1, 00, 00, 00);
+}
+
+String getPerPersonFee(
+  double transportFee,
+  List<SelectedVenuesRecord> selectedVenues,
+  double platformFee,
+) {
+  double totalPerPerson = transportFee;
+
+  for (var i = 0; i < selectedVenues.length; i++) {
+    totalPerPerson += selectedVenues[i].tastingFee + platformFee;
+    print(totalPerPerson);
+  }
+
+  return totalPerPerson.toString();
 }

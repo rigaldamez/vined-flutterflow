@@ -623,6 +623,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 '',
                                                                             regionID:
                                                                                 containerToursRecord.regionID,
+                                                                            reservationTime:
+                                                                                functions.epochTime(),
                                                                           );
                                                                           await SelectedVenuesRecord
                                                                               .collection

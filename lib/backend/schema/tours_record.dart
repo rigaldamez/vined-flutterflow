@@ -65,6 +65,9 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
   String get tourState;
 
   @nullable
+  double get platformTastingFee;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -78,7 +81,8 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
     ..venuesCount = 0
     ..guestsUid = ListBuilder()
     ..pickupUnitNumber = ''
-    ..tourState = '';
+    ..tourState = ''
+    ..platformTastingFee = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tours');
@@ -115,6 +119,7 @@ Map<String, dynamic> createToursRecordData({
   int venuesCount,
   String pickupUnitNumber,
   String tourState,
+  double platformTastingFee,
 }) =>
     serializers.toFirestore(
         ToursRecord.serializer,
@@ -133,4 +138,5 @@ Map<String, dynamic> createToursRecordData({
           ..venuesCount = venuesCount
           ..guestsUid = null
           ..pickupUnitNumber = pickupUnitNumber
-          ..tourState = tourState));
+          ..tourState = tourState
+          ..platformTastingFee = platformTastingFee));
