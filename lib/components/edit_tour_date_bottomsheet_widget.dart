@@ -210,16 +210,17 @@ class _EditTourDateBottomsheetWidgetState
                                                   .getCurrentDateTimePlusAweek(
                                                       getCurrentTimestamp,
                                                       buttonAppConfigRecord
-                                                          .days,
+                                                          .tourLeadTime,
                                                       currentUserDocument
                                                           ?.tourLeadTimeExempted),
-                                              minTime: functions
-                                                  .getCurrentDateTimePlusAweek(
-                                                      getCurrentTimestamp,
-                                                      buttonAppConfigRecord
-                                                          .days,
-                                                      currentUserDocument
-                                                          ?.tourLeadTimeExempted),
+                                              minTime:
+                                                  functions
+                                                      .getCurrentDateTimePlusAweek(
+                                                          getCurrentTimestamp,
+                                                          buttonAppConfigRecord
+                                                              .tourLeadTime,
+                                                          currentUserDocument
+                                                              ?.tourLeadTimeExempted),
                                             );
                                           },
                                           text: 'Select New Date',

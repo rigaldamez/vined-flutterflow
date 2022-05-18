@@ -104,7 +104,7 @@ String concatenateStrings(
 ) {
   // Concatenate two strings
   if (string1.isNotEmpty && string2.isNotEmpty) {
-    return '${string1} ${string2}';
+    return '$string1 $string2';
   }
   return string1.isNotEmpty ? string1 : string2;
 }
@@ -184,12 +184,15 @@ String getPerPersonFee(
   List<SelectedVenuesRecord> selectedVenues,
   double platformFee,
 ) {
+  final currencyFormatter = NumberFormat.currency(locale: 'AU');
   double totalPerPerson = transportFee;
 
   for (var i = 0; i < selectedVenues.length; i++) {
     totalPerPerson += selectedVenues[i].tastingFee + platformFee;
     print(totalPerPerson);
   }
+
+  //return currencyFormatter.format(totalPerPerson).toString();
 
   return totalPerPerson.toString();
 }

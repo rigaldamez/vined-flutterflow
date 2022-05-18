@@ -238,13 +238,15 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       currentTime:
                                           functions.getCurrentDateTimePlusAweek(
                                               datePicked,
-                                              containerAppConfigRecord.days,
+                                              containerAppConfigRecord
+                                                  .tourLeadTime,
                                               currentUserDocument
                                                   ?.tourLeadTimeExempted),
                                       minTime:
                                           functions.getCurrentDateTimePlusAweek(
                                               datePicked,
-                                              containerAppConfigRecord.days,
+                                              containerAppConfigRecord
+                                                  .tourLeadTime,
                                               currentUserDocument
                                                   ?.tourLeadTimeExempted),
                                     );
@@ -914,7 +916,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                             child: Text(
-                              rowAppConfigRecord.days.toString(),
+                              rowAppConfigRecord.tourLeadTime.toString(),
                               style: FlutterFlowTheme.of(context).bodyText1,
                             ),
                           ),

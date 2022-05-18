@@ -832,22 +832,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             40, 20, 40, 0),
                                         child: Container(
                                           width: double.infinity,
-                                          height: 30,
+                                          height: 1,
                                           decoration: BoxDecoration(
-                                            color: Color(0x32333333),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                columnAppConfigReffAppConfigRecord
-                                                    .itineraryVenueLimit
-                                                    .toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ],
+                                            color: Color(0x24333333),
                                           ),
                                         ),
                                       ),
