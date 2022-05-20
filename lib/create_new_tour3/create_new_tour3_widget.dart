@@ -240,15 +240,19 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                               datePicked,
                                               containerAppConfigRecord
                                                   .tourLeadTime,
-                                              currentUserDocument
-                                                  ?.tourLeadTimeExempted),
+                                              valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.tourLeadTimeExempted,
+                                                  false)),
                                       minTime:
                                           functions.getCurrentDateTimePlusAweek(
                                               datePicked,
                                               containerAppConfigRecord
                                                   .tourLeadTime,
-                                              currentUserDocument
-                                                  ?.tourLeadTimeExempted),
+                                              valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.tourLeadTimeExempted,
+                                                  false)),
                                     );
                                   },
                                   child: Container(
@@ -762,9 +766,6 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                   regionID:
                                                                       rowRegionsRecord
                                                                           .regionID,
-                                                                  venueCount:
-                                                                      listViewToursRecord
-                                                                          .venuesCount,
                                                                   tourDate:
                                                                       listViewToursRecord
                                                                           .tourDate,
@@ -935,8 +936,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                         padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                         child: AuthUserStreamWidget(
                           child: Text(
-                            functions.boolString(
-                                currentUserDocument?.tourLeadTimeExempted),
+                            functions.boolString(valueOrDefault(
+                                currentUserDocument?.tourLeadTimeExempted,
+                                false)),
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                         ),

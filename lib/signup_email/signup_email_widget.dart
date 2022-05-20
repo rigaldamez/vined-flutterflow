@@ -16,13 +16,13 @@ class SignupEmailWidget extends StatefulWidget {
 }
 
 class _SignupEmailWidgetState extends State<SignupEmailWidget> {
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController emailTextFieldController;
   TextEditingController passwordTextField1Controller;
   bool passwordTextField1Visibility;
   TextEditingController passwordTextField2Controller;
   bool passwordTextField2Visibility;
+  final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -275,8 +275,8 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
-                            if (passwordTextField1Controller.text !=
-                                passwordTextField2Controller.text) {
+                            if (passwordTextField1Controller?.text !=
+                                passwordTextField2Controller?.text) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(

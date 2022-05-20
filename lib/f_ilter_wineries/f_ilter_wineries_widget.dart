@@ -17,6 +17,8 @@ class FIlterWineriesWidget extends StatefulWidget {
 
 class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
     with TickerProviderStateMixin {
+  TextEditingController textController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -31,8 +33,6 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
       ),
     ),
   };
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  TextEditingController textController;
 
   @override
   void initState() {
@@ -161,7 +161,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                 suffixIcon: textController.text.isNotEmpty
                                     ? InkWell(
                                         onTap: () => setState(
-                                          () => textController.clear(),
+                                          () => textController?.clear(),
                                         ),
                                         child: Icon(
                                           Icons.clear,

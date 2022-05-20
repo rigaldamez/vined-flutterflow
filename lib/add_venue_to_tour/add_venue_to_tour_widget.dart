@@ -338,8 +338,6 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                             'venues': FieldValue.arrayUnion([
                                               gridViewVenuesRecord.reference
                                             ]),
-                                            'venuesCount':
-                                                FieldValue.increment(1),
                                           };
                                           await widget.tourID
                                               .update(toursUpdateData);

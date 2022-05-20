@@ -80,6 +80,35 @@ bool isVenueOpen(
   //return "Closed";
 }
 
+bool isVenueClosedOrExceedsCapacity(
+  List<int> openDays,
+  ToursRecord tourRecord,
+  int venueCapacity,
+) {
+  // Add your function code here!
+  return !openDays.contains(tourRecord.tourDate.weekday) ||
+          tourRecord.passengers > venueCapacity
+      ? true
+      : false;
+
+  /*for (var i = 0; i < openDays.length; i++) {
+    if (openDays[i] == tourRecord.tourDate.weekday) {
+      return "Open";
+    }
+  }*/
+
+  //return "Closed";
+}
+
+bool doesTourExceedsVenueCapacity(
+  ToursRecord tourRecord,
+  int venueCapacity,
+) {
+  // Add your function code here!
+
+  return tourRecord.passengers > venueCapacity ? true : false;
+}
+
 bool meetsVenueCapacity(
   ToursRecord tourRecord,
   int venueCapacity,
@@ -184,7 +213,7 @@ String getPerPersonFee(
   List<SelectedVenuesRecord> selectedVenues,
   double platformFee,
 ) {
-  final currencyFormatter = NumberFormat.currency(locale: 'AU');
+  //final currencyFormatter = NumberFormat.currency();
   double totalPerPerson = transportFee;
 
   for (var i = 0; i < selectedVenues.length; i++) {
@@ -192,7 +221,7 @@ String getPerPersonFee(
     print(totalPerPerson);
   }
 
-  //return currencyFormatter.format(totalPerPerson).toString();
+  return NumberFormat.simpleCurrency().format(totalPerPerson);
 
-  return totalPerPerson.toString();
+  //return totalPerPerson.toString();
 }

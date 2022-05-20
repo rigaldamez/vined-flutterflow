@@ -211,16 +211,19 @@ class _EditTourDateBottomsheetWidgetState
                                                       getCurrentTimestamp,
                                                       buttonAppConfigRecord
                                                           .tourLeadTime,
-                                                      currentUserDocument
-                                                          ?.tourLeadTimeExempted),
-                                              minTime:
-                                                  functions
-                                                      .getCurrentDateTimePlusAweek(
-                                                          getCurrentTimestamp,
-                                                          buttonAppConfigRecord
-                                                              .tourLeadTime,
+                                                      valueOrDefault(
                                                           currentUserDocument
-                                                              ?.tourLeadTimeExempted),
+                                                              ?.tourLeadTimeExempted,
+                                                          false)),
+                                              minTime:
+                                                  functions.getCurrentDateTimePlusAweek(
+                                                      getCurrentTimestamp,
+                                                      buttonAppConfigRecord
+                                                          .tourLeadTime,
+                                                      valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.tourLeadTimeExempted,
+                                                          false)),
                                             );
                                           },
                                           text: 'Select New Date',

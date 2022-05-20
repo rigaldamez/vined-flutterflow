@@ -16,11 +16,11 @@ class LoginEmailWidget extends StatefulWidget {
 }
 
 class _LoginEmailWidgetState extends State<LoginEmailWidget> {
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController emailTextFieldController;
   TextEditingController passwordTextField1Controller;
   bool passwordTextField1Visibility;
+  final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {

@@ -191,7 +191,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                 .text.isNotEmpty
                                             ? InkWell(
                                                 onTap: () => setState(
-                                                  () => textController.clear(),
+                                                  () => textController?.clear(),
                                                 ),
                                                 child: Icon(
                                                   Icons.clear,

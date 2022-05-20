@@ -23,8 +23,8 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController tourNameTextFieldController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {

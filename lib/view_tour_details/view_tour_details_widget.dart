@@ -260,8 +260,6 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                           final toursUpdateData = {
                                             'venues': FieldValue.arrayRemove(
                                                 [stackVenuesRecord.reference]),
-                                            'venuesCount':
-                                                FieldValue.increment(-1),
                                           };
                                           await widget.tourRef
                                               .update(toursUpdateData);

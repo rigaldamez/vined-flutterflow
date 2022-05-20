@@ -50,9 +50,6 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
   BuiltList<DocumentReference> get venues;
 
   @nullable
-  int get venuesCount;
-
-  @nullable
   @BuiltValueField(wireName: 'guests_uid')
   BuiltList<DocumentReference> get guestsUid;
 
@@ -78,7 +75,6 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
     ..pricePp = 0.0
     ..region = ''
     ..venues = ListBuilder()
-    ..venuesCount = 0
     ..guestsUid = ListBuilder()
     ..pickupUnitNumber = ''
     ..tourState = ''
@@ -116,7 +112,6 @@ Map<String, dynamic> createToursRecordData({
   LatLng pickupLatlng,
   double pricePp,
   String region,
-  int venuesCount,
   String pickupUnitNumber,
   String tourState,
   double platformTastingFee,
@@ -135,7 +130,6 @@ Map<String, dynamic> createToursRecordData({
           ..pricePp = pricePp
           ..region = region
           ..venues = null
-          ..venuesCount = venuesCount
           ..guestsUid = null
           ..pickupUnitNumber = pickupUnitNumber
           ..tourState = tourState
