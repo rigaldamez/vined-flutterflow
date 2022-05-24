@@ -417,9 +417,8 @@ class FFRoute {
                   child: SizedBox(
                     width: 20,
                     height: 20,
-                    child: SpinKitDualRing(
+                    child: CircularProgressIndicator(
                       color: FlutterFlowTheme.of(context).purplePastel,
-                      size: 20,
                     ),
                   ),
                 )

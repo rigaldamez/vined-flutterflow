@@ -7,7 +7,6 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditTourPassengersWidget extends StatefulWidget {
@@ -104,9 +103,8 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                           child: SizedBox(
                             width: 20,
                             height: 20,
-                            child: SpinKitDualRing(
+                            child: CircularProgressIndicator(
                               color: FlutterFlowTheme.of(context).purplePastel,
-                              size: 20,
                             ),
                           ),
                         );

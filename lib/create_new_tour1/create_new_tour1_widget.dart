@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTour1Widget extends StatefulWidget {
@@ -111,9 +110,8 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                           child: SizedBox(
                             width: 20,
                             height: 20,
-                            child: SpinKitDualRing(
+                            child: CircularProgressIndicator(
                               color: FlutterFlowTheme.of(context).purplePastel,
-                              size: 20,
                             ),
                           ),
                         );

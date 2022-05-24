@@ -6,7 +6,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -176,9 +175,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                       child: SizedBox(
                         width: 20,
                         height: 20,
-                        child: SpinKitDualRing(
+                        child: CircularProgressIndicator(
                           color: FlutterFlowTheme.of(context).purplePastel,
-                          size: 20,
                         ),
                       ),
                     ),
@@ -222,11 +220,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                                             child: SizedBox(
                                               width: 20,
                                               height: 20,
-                                              child: SpinKitDualRing(
+                                              child: CircularProgressIndicator(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .purplePastel,
-                                                size: 20,
                                               ),
                                             ),
                                           );

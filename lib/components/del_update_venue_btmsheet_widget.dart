@@ -9,7 +9,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DelUpdateVenueBtmsheetWidget extends StatefulWidget {
@@ -44,9 +43,8 @@ class _DelUpdateVenueBtmsheetWidgetState
             child: SizedBox(
               width: 20,
               height: 20,
-              child: SpinKitDualRing(
+              child: CircularProgressIndicator(
                 color: FlutterFlowTheme.of(context).purplePastel,
-                size: 20,
               ),
             ),
           );
@@ -143,10 +141,9 @@ class _DelUpdateVenueBtmsheetWidgetState
                                       child: SizedBox(
                                         width: 20,
                                         height: 20,
-                                        child: SpinKitDualRing(
+                                        child: CircularProgressIndicator(
                                           color: FlutterFlowTheme.of(context)
                                               .purplePastel,
-                                          size: 20,
                                         ),
                                       ),
                                     );
