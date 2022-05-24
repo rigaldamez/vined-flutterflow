@@ -132,7 +132,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                   size: 30,
                                 ),
                                 onPressed: () async {
-                                  Navigator.pop(context);
+                                  context.pop();
                                 },
                               ),
                               Text(

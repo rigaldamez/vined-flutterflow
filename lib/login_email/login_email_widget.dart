@@ -3,7 +3,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +69,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                       size: 30,
                     ),
                     onPressed: () async {
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                 ),
@@ -213,6 +212,8 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
+                            GoRouter.of(context).prepareAuthEvent();
+
                             final user = await signInWithEmail(
                               context,
                               emailTextFieldController.text,
@@ -222,16 +223,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                               return;
                             }
 
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: NavBarPage(initialPage: 'HomePage'),
-                              ),
-                              (r) => false,
-                            );
+                            context.goNamedAuth('HomePage', mounted);
                           },
                           text: 'Log in',
                           options: FFButtonOptions(

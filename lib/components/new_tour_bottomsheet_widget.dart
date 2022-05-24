@@ -1,4 +1,3 @@
-import '../create_new_tour1/create_new_tour1_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -159,18 +158,19 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                   } else {
                                     setState(() => FFAppState().newTourName =
                                         tourNameTextFieldController.text);
-                                    Navigator.pop(context);
+                                    context.pop();
                                   }
 
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.bottomToTop,
-                                      duration: Duration(milliseconds: 150),
-                                      reverseDuration:
-                                          Duration(milliseconds: 150),
-                                      child: CreateNewTour1Widget(),
-                                    ),
+                                  context.pushNamed(
+                                    'CreateNewTour1',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType:
+                                            PageTransitionType.bottomToTop,
+                                        duration: Duration(milliseconds: 150),
+                                      ),
+                                    },
                                   );
                                 },
                                 text: 'Create Tour',
@@ -249,7 +249,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                Navigator.pop(context);
+                                context.pop();
                               },
                               child: Container(
                                 width: 300,

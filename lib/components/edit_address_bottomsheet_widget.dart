@@ -255,7 +255,7 @@ class _EditAddressBottomsheetWidgetState
                                           )),
                                     );
                                     await widget.tourID.update(toursUpdateData);
-                                    Navigator.pop(context);
+                                    context.pop();
                                   },
                                   text: 'Save',
                                   options: FFButtonOptions(
@@ -296,7 +296,7 @@ class _EditAddressBottomsheetWidgetState
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        Navigator.pop(context);
+                                        context.pop();
                                       },
                                       child: Container(
                                         width: 300,

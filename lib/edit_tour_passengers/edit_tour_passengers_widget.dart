@@ -68,7 +68,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                       size: 30,
                     ),
                     onPressed: () async {
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                   Text(
@@ -235,7 +235,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                         gridViewTransportPricingRecord.price,
                                   );
                                   await widget.tourID.update(toursUpdateData);
-                                  Navigator.pop(context);
+                                  context.pop();
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,

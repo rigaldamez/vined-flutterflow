@@ -1,15 +1,12 @@
-import '../add_venue_to_tour/add_venue_to_tour_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
-import '../edit_tour_passengers/edit_tour_passengers_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/place.dart';
-import '../view_tour_details/view_tour_details_widget.dart';
 import 'dart:io';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -103,7 +100,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           size: 26,
                         ),
                         onPressed: () async {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                       ),
                       Padding(
@@ -486,23 +483,36 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       backgroundColor: Colors.black,
                                     ),
                                   );
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.bottomToTop,
-                                      duration: Duration(milliseconds: 150),
-                                      reverseDuration:
-                                          Duration(milliseconds: 150),
-                                      child: AddVenueToTourWidget(
-                                        tourID: createdTourID.reference,
-                                        tourName: FFAppState().newTourName,
-                                        regionID: FFAppState().newTourRegionID,
-                                        makeLunchStopBool: false,
-                                        venueCount: 0,
-                                        tourDate: datePicked,
-                                        tourRecord: createdTourID,
+                                  context.pushNamed(
+                                    'AddVenueToTour',
+                                    queryParams: {
+                                      'tourID': serializeParam(
+                                          createdTourID.reference,
+                                          ParamType.DocumentReference),
+                                      'tourName': serializeParam(
+                                          FFAppState().newTourName,
+                                          ParamType.String),
+                                      'regionID': serializeParam(
+                                          FFAppState().newTourRegionID,
+                                          ParamType.String),
+                                      'makeLunchStopBool':
+                                          serializeParam(false, ParamType.bool),
+                                      'venueCount':
+                                          serializeParam(0, ParamType.int),
+                                      'tourDate': serializeParam(
+                                          datePicked, ParamType.DateTime),
+                                      'tourRecord': serializeParam(
+                                          createdTourID, ParamType.Document),
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      'tourRecord': createdTourID,
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType:
+                                            PageTransitionType.bottomToTop,
+                                        duration: Duration(milliseconds: 150),
                                       ),
-                                    ),
+                                    },
                                   );
 
                                   setState(() {});
@@ -601,22 +611,15 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                    type: PageTransitionType
-                                                        .bottomToTop,
-                                                    duration: Duration(
-                                                        milliseconds: 200),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 200),
-                                                    child:
-                                                        EditTourPassengersWidget(
-                                                      tourID:
-                                                          listViewToursRecord
-                                                              .reference,
-                                                    ),
-                                                  ),
+                                                context.pushNamed(
+                                                  'EditTourPassengers',
+                                                  queryParams: {
+                                                    'tourID': serializeParam(
+                                                        listViewToursRecord
+                                                            .reference,
+                                                        ParamType
+                                                            .DocumentReference),
+                                                  }.withoutNulls,
                                                 );
                                               },
                                               child: ClipRRect(
@@ -743,36 +746,40 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                       children: [
                                                         FFButtonWidget(
                                                           onPressed: () async {
-                                                            await Navigator
-                                                                .push(
-                                                              context,
-                                                              PageTransition(
-                                                                type: PageTransitionType
-                                                                    .bottomToTop,
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        150),
-                                                                reverseDuration:
-                                                                    Duration(
-                                                                        milliseconds:
-                                                                            150),
-                                                                child:
-                                                                    AddVenueToTourWidget(
-                                                                  tourID: listViewToursRecord
-                                                                      .reference,
-                                                                  tourName:
-                                                                      listViewToursRecord
-                                                                          .tourName,
-                                                                  regionID:
-                                                                      rowRegionsRecord
-                                                                          .regionID,
-                                                                  tourDate:
-                                                                      listViewToursRecord
-                                                                          .tourDate,
-                                                                  tourRecord:
-                                                                      listViewToursRecord,
-                                                                ),
-                                                              ),
+                                                            context.pushNamed(
+                                                              'AddVenueToTour',
+                                                              queryParams: {
+                                                                'tourID': serializeParam(
+                                                                    listViewToursRecord
+                                                                        .reference,
+                                                                    ParamType
+                                                                        .DocumentReference),
+                                                                'tourName': serializeParam(
+                                                                    listViewToursRecord
+                                                                        .tourName,
+                                                                    ParamType
+                                                                        .String),
+                                                                'regionID': serializeParam(
+                                                                    rowRegionsRecord
+                                                                        .regionID,
+                                                                    ParamType
+                                                                        .String),
+                                                                'tourDate': serializeParam(
+                                                                    listViewToursRecord
+                                                                        .tourDate,
+                                                                    ParamType
+                                                                        .DateTime),
+                                                                'tourRecord':
+                                                                    serializeParam(
+                                                                        listViewToursRecord,
+                                                                        ParamType
+                                                                            .Document),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                'tourRecord':
+                                                                    listViewToursRecord,
+                                                              },
                                                             );
                                                           },
                                                           text: 'Add Venue',
@@ -812,26 +819,15 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                           child: FFButtonWidget(
                                                             onPressed:
                                                                 () async {
-                                                              await Navigator
-                                                                  .push(
-                                                                context,
-                                                                PageTransition(
-                                                                  type: PageTransitionType
-                                                                      .bottomToTop,
-                                                                  duration: Duration(
-                                                                      milliseconds:
-                                                                          150),
-                                                                  reverseDuration:
-                                                                      Duration(
-                                                                          milliseconds:
-                                                                              150),
-                                                                  child:
-                                                                      ViewTourDetailsWidget(
-                                                                    tourRef:
-                                                                        listViewToursRecord
-                                                                            .reference,
-                                                                  ),
-                                                                ),
+                                                              context.pushNamed(
+                                                                'ViewTourDetails',
+                                                                queryParams: {
+                                                                  'tourRef': serializeParam(
+                                                                      listViewToursRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference),
+                                                                }.withoutNulls,
                                                               );
                                                             },
                                                             text: 'View Tour',

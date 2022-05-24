@@ -266,7 +266,7 @@ class _EditTourDateBottomsheetWidgetState
                                   tourDate: datePicked,
                                 );
                                 await widget.tourID.update(toursUpdateData);
-                                Navigator.pop(context);
+                                context.pop();
                               },
                               text: 'Save',
                               options: FFButtonOptions(
@@ -307,7 +307,7 @@ class _EditTourDateBottomsheetWidgetState
                                 ),
                                 InkWell(
                                   onTap: () async {
-                                    Navigator.pop(context);
+                                    context.pop();
                                   },
                                   child: Container(
                                     width: 300,

@@ -65,7 +65,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                         size: 30,
                       ),
                       onPressed: () async {
-                        Navigator.pop(context);
+                        context.pop();
                       },
                     ),
                     Text(

@@ -5,7 +5,6 @@ import '../components/new_tour_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../tour_details/tour_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -621,17 +620,21 @@ class _ToursWidgetState extends State<ToursWidget> {
                                 ),
                                 InkWell(
                                   onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration: Duration(milliseconds: 150),
-                                        reverseDuration:
-                                            Duration(milliseconds: 150),
-                                        child: TourDetailsWidget(
-                                          tourID: listViewToursRecord.reference,
+                                    context.pushNamed(
+                                      'TourDetails',
+                                      queryParams: {
+                                        'tourID': serializeParam(
+                                            listViewToursRecord.reference,
+                                            ParamType.DocumentReference),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.bottomToTop,
+                                          duration: Duration(milliseconds: 150),
                                         ),
-                                      ),
+                                      },
                                     );
                                   },
                                   child: Container(

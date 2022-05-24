@@ -3,7 +3,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,7 +73,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                       size: 30,
                     ),
                     onPressed: () async {
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                 ),
@@ -275,6 +274,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
+                            GoRouter.of(context).prepareAuthEvent();
                             if (passwordTextField1Controller?.text !=
                                 passwordTextField2Controller?.text) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -296,16 +296,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                               return;
                             }
 
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: NavBarPage(initialPage: 'HomePage'),
-                              ),
-                              (r) => false,
-                            );
+                            context.goNamedAuth('HomePage', mounted);
                           },
                           text: 'Sign up',
                           options: FFButtonOptions(

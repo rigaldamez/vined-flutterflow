@@ -3,9 +3,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login_email/login_email_widget.dart';
-import '../main.dart';
-import '../signup_email/signup_email_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -55,7 +52,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   size: 30,
                 ),
                 onPressed: () async {
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
             ),
@@ -98,17 +95,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType
-                                                      .rightToLeft,
-                                                  duration: Duration(
-                                                      milliseconds: 150),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 150),
-                                                  child: LoginEmailWidget(),
-                                                ),
+                                              context.pushNamed(
+                                                'LoginEmail',
+                                                extra: <String, dynamic>{
+                                                  kTransitionInfoKey:
+                                                      TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                        PageTransitionType
+                                                            .rightToLeft,
+                                                    duration: Duration(
+                                                        milliseconds: 150),
+                                                  ),
+                                                },
                                               );
                                             },
                                             text: 'Log in with Email',
@@ -164,31 +163,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                               0, 0),
                                                       child: FFButtonWidget(
                                                         onPressed: () async {
+                                                          GoRouter.of(context)
+                                                              .prepareAuthEvent();
                                                           final user =
                                                               await signInWithApple(
                                                                   context);
                                                           if (user == null) {
                                                             return;
                                                           }
-                                                          await Navigator
-                                                              .pushAndRemoveUntil(
-                                                            context,
-                                                            PageTransition(
-                                                              type: PageTransitionType
-                                                                  .bottomToTop,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      200),
-                                                              reverseDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          200),
-                                                              child: NavBarPage(
-                                                                  initialPage:
-                                                                      'HomePage'),
-                                                            ),
-                                                            (r) => false,
-                                                          );
+                                                          context.goNamedAuth(
+                                                              'HomePage',
+                                                              mounted);
                                                         },
                                                         text:
                                                             'Continue with Facebook',
@@ -268,30 +253,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     AlignmentDirectional(0, 0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
+                                                    GoRouter.of(context)
+                                                        .prepareAuthEvent();
                                                     final user =
                                                         await signInWithGoogle(
                                                             context);
                                                     if (user == null) {
                                                       return;
                                                     }
-                                                    await Navigator
-                                                        .pushAndRemoveUntil(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .bottomToTop,
-                                                        duration: Duration(
-                                                            milliseconds: 200),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    200),
-                                                        child: NavBarPage(
-                                                            initialPage:
-                                                                'HomePage'),
-                                                      ),
-                                                      (r) => false,
-                                                    );
+                                                    context.goNamedAuth(
+                                                        'HomePage', mounted);
                                                   },
                                                   text: 'Continue with Google',
                                                   icon: Icon(
@@ -352,28 +323,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ? Container()
                                           : FFButtonWidget(
                                               onPressed: () async {
+                                                GoRouter.of(context)
+                                                    .prepareAuthEvent();
                                                 final user =
                                                     await signInWithApple(
                                                         context);
                                                 if (user == null) {
                                                   return;
                                                 }
-                                                await Navigator
-                                                    .pushAndRemoveUntil(
-                                                  context,
-                                                  PageTransition(
-                                                    type: PageTransitionType
-                                                        .bottomToTop,
-                                                    duration: Duration(
-                                                        milliseconds: 200),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 200),
-                                                    child: NavBarPage(
-                                                        initialPage:
-                                                            'HomePage'),
-                                                  ),
-                                                  (r) => false,
-                                                );
+                                                context.goNamedAuth(
+                                                    'HomePage', mounted);
                                               },
                                               text: 'Continue with Apple',
                                               icon: FaIcon(
@@ -468,17 +427,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType
-                                                      .rightToLeft,
-                                                  duration: Duration(
-                                                      milliseconds: 150),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 150),
-                                                  child: SignupEmailWidget(),
-                                                ),
+                                              context.pushNamed(
+                                                'SignupEmail',
+                                                extra: <String, dynamic>{
+                                                  kTransitionInfoKey:
+                                                      TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                        PageTransitionType
+                                                            .rightToLeft,
+                                                    duration: Duration(
+                                                        milliseconds: 150),
+                                                  ),
+                                                },
                                               );
                                             },
                                             text: 'Sign up with Email',
@@ -534,31 +495,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                               0, 0),
                                                       child: FFButtonWidget(
                                                         onPressed: () async {
+                                                          GoRouter.of(context)
+                                                              .prepareAuthEvent();
                                                           final user =
                                                               await signInWithApple(
                                                                   context);
                                                           if (user == null) {
                                                             return;
                                                           }
-                                                          await Navigator
-                                                              .pushAndRemoveUntil(
-                                                            context,
-                                                            PageTransition(
-                                                              type: PageTransitionType
-                                                                  .bottomToTop,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      200),
-                                                              reverseDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          200),
-                                                              child: NavBarPage(
-                                                                  initialPage:
-                                                                      'HomePage'),
-                                                            ),
-                                                            (r) => false,
-                                                          );
+                                                          context.goNamedAuth(
+                                                              'HomePage',
+                                                              mounted);
                                                         },
                                                         text:
                                                             'Sign up with Facebook',
@@ -638,30 +585,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     AlignmentDirectional(0, 0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
+                                                    GoRouter.of(context)
+                                                        .prepareAuthEvent();
                                                     final user =
                                                         await signInWithGoogle(
                                                             context);
                                                     if (user == null) {
                                                       return;
                                                     }
-                                                    await Navigator
-                                                        .pushAndRemoveUntil(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .bottomToTop,
-                                                        duration: Duration(
-                                                            milliseconds: 200),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    200),
-                                                        child: NavBarPage(
-                                                            initialPage:
-                                                                'HomePage'),
-                                                      ),
-                                                      (r) => false,
-                                                    );
+                                                    context.goNamedAuth(
+                                                        'HomePage', mounted);
                                                   },
                                                   text: 'Sign up with Google',
                                                   icon: Icon(
@@ -722,28 +655,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ? Container()
                                           : FFButtonWidget(
                                               onPressed: () async {
+                                                GoRouter.of(context)
+                                                    .prepareAuthEvent();
                                                 final user =
                                                     await signInWithApple(
                                                         context);
                                                 if (user == null) {
                                                   return;
                                                 }
-                                                await Navigator
-                                                    .pushAndRemoveUntil(
-                                                  context,
-                                                  PageTransition(
-                                                    type: PageTransitionType
-                                                        .bottomToTop,
-                                                    duration: Duration(
-                                                        milliseconds: 200),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 200),
-                                                    child: NavBarPage(
-                                                        initialPage:
-                                                            'HomePage'),
-                                                  ),
-                                                  (r) => false,
-                                                );
+                                                context.goNamedAuth(
+                                                    'HomePage', mounted);
                                               },
                                               text: 'Sign up with Apple',
                                               icon: FaIcon(

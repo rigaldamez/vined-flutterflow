@@ -1,9 +1,8 @@
-import '../add_venue/add_venue_widget.dart';
 import '../backend/backend.dart';
 import '../components/del_update_venue_btmsheet_widget.dart';
 import '../components/edit_address_bottomsheet_widget.dart';
 import '../components/edit_tour_date_bottomsheet_widget.dart';
-import '../edit_tour_passengers/edit_tour_passengers_widget.dart';
+import '../components/update_pickup_time_btmsheet_copy_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class TourDetailsWidget extends StatefulWidget {
   const TourDetailsWidget({
@@ -185,9 +185,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     color: Colors.white,
                                                     size: 14,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    await Share.share(
+                                                        'vined://vined.com${GoRouter.of(context).location}');
                                                   },
                                                 ),
                                                 FlutterFlowIconButton(
@@ -205,7 +205,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     size: 20,
                                                   ),
                                                   onPressed: () async {
-                                                    Navigator.pop(context);
+                                                    context.pop();
                                                   },
                                                 ),
                                               ],
@@ -534,29 +534,34 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   ),
                                                   InkWell(
                                                     onTap: () async {
-                                                      await Navigator.push(
-                                                        context,
-                                                        PageTransition(
-                                                          type:
-                                                              PageTransitionType
-                                                                  .bottomToTop,
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  150),
-                                                          reverseDuration:
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      150),
-                                                          child:
-                                                              EditTourPassengersWidget(
-                                                            tourID:
-                                                                containerTourReffToursRecord
-                                                                    .reference,
-                                                            tourName:
-                                                                containerTourReffToursRecord
-                                                                    .tourName,
+                                                      context.pushNamed(
+                                                        'EditTourPassengers',
+                                                        queryParams: {
+                                                          'tourID': serializeParam(
+                                                              containerTourReffToursRecord
+                                                                  .reference,
+                                                              ParamType
+                                                                  .DocumentReference),
+                                                          'tourName':
+                                                              serializeParam(
+                                                                  containerTourReffToursRecord
+                                                                      .tourName,
+                                                                  ParamType
+                                                                      .String),
+                                                        }.withoutNulls,
+                                                        extra: <String,
+                                                            dynamic>{
+                                                          kTransitionInfoKey:
+                                                              TransitionInfo(
+                                                            hasTransition: true,
+                                                            transitionType:
+                                                                PageTransitionType
+                                                                    .bottomToTop,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    150),
                                                           ),
-                                                        ),
+                                                        },
                                                       );
                                                     },
                                                     child: Container(
@@ -840,7 +845,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0,
                                                                           0),
                                                                   child: Text(
-                                                                    '0',
+                                                                    functions
+                                                                        .countNumberOfGuests(containerTourReffToursRecord
+                                                                            .guestsUid
+                                                                            .toList())
+                                                                        .toString(),
                                                                     textAlign:
                                                                         TextAlign
                                                                             .center,
@@ -952,6 +961,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .black,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          blurRadius: 4,
+                                                          color:
+                                                              Color(0x19EEEEEE),
+                                                          spreadRadius: 4,
+                                                        )
+                                                      ],
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
@@ -959,13 +976,17 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     alignment:
                                                         AlignmentDirectional(
                                                             0, 0),
-                                                    child: Text(
-                                                      functions.getTimeFromDate(
-                                                          containerTourReffToursRecord
-                                                              .tourDate),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                    child: Stack(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      children: [
+                                                        Text(
+                                                          functions.getTimeFromDate(
+                                                              containerTourReffToursRecord
+                                                                  .tourDate),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyText1
                                                               .override(
                                                                 fontFamily:
@@ -975,6 +996,49 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     .cultured,
                                                                 fontSize: 9,
                                                               ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () async {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return Padding(
+                                                                  padding: MediaQuery.of(
+                                                                          context)
+                                                                      .viewInsets,
+                                                                  child:
+                                                                      Container(
+                                                                    height: 200,
+                                                                    child:
+                                                                        UpdatePickupTimeBtmsheetCopyWidget(
+                                                                      tourReff:
+                                                                          widget
+                                                                              .tourID,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width: 100,
+                                                            height: 100,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                   Container(
@@ -1567,14 +1631,15 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                                 color: Color(0xFFF4F4F4),
                                                                                                 size: 14,
                                                                                               ),
-                                                                                              Padding(
-                                                                                                padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                                                                                                child: Icon(
-                                                                                                  Icons.dinner_dining,
-                                                                                                  color: FlutterFlowTheme.of(context).cultured,
-                                                                                                  size: 16,
+                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isLunchVenue ?? true)
+                                                                                                Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                                                                                  child: Icon(
+                                                                                                    Icons.dinner_dining,
+                                                                                                    color: FlutterFlowTheme.of(context).cultured,
+                                                                                                    size: 16,
+                                                                                                  ),
                                                                                                 ),
-                                                                                              ),
                                                                                             ],
                                                                                           ),
                                                                                         ),
@@ -1634,6 +1699,36 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             10,
                                                                             10),
                                                                 child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    await showModalBottomSheet(
+                                                                      isScrollControlled:
+                                                                          true,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) {
+                                                                        return Padding(
+                                                                          padding:
+                                                                              MediaQuery.of(context).viewInsets,
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                500,
+                                                                            child:
+                                                                                DelUpdateVenueBtmsheetWidget(
+                                                                              tourReff: widget.tourID,
+                                                                              venueReff: rowSelectedVenueVenuesRecord,
+                                                                              selectedVenue: listViewSelectedVenuesSelectedVenuesRecord.reference,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  },
                                                                   onLongPress:
                                                                       () async {
                                                                     await showModalBottomSheet(
@@ -1888,25 +1983,31 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             FFButtonWidget(
                                                               onPressed:
                                                                   () async {
-                                                                await Navigator
-                                                                    .push(
-                                                                  context,
-                                                                  PageTransition(
-                                                                    type: PageTransitionType
-                                                                        .bottomToTop,
-                                                                    duration: Duration(
-                                                                        milliseconds:
-                                                                            150),
-                                                                    reverseDuration:
-                                                                        Duration(
-                                                                            milliseconds:
-                                                                                150),
-                                                                    child:
-                                                                        AddVenueWidget(
-                                                                      tourID: widget
-                                                                          .tourID,
+                                                                context
+                                                                    .pushNamed(
+                                                                  'addVenue',
+                                                                  queryParams: {
+                                                                    'tourID': serializeParam(
+                                                                        widget
+                                                                            .tourID,
+                                                                        ParamType
+                                                                            .DocumentReference),
+                                                                  }.withoutNulls,
+                                                                  extra: <
+                                                                      String,
+                                                                      dynamic>{
+                                                                    kTransitionInfoKey:
+                                                                        TransitionInfo(
+                                                                      hasTransition:
+                                                                          true,
+                                                                      transitionType:
+                                                                          PageTransitionType
+                                                                              .bottomToTop,
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              150),
                                                                     ),
-                                                                  ),
+                                                                  },
                                                                 );
                                                               },
                                                               text:

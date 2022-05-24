@@ -1,6 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../create_new_tour2/create_new_tour2_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -82,7 +81,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                           size: 30,
                         ),
                         onPressed: () async {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                       ),
                       Padding(
@@ -172,17 +171,19 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                         alignment: AlignmentDirectional(0, 0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                duration:
-                                                    Duration(milliseconds: 150),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 150),
-                                                child: CreateNewTour2Widget(),
-                                              ),
+                                            context.pushNamed(
+                                              'CreateNewTour2',
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 150),
+                                                ),
+                                              },
                                             );
                                           },
                                           text: stackVenuesRecord.name,
@@ -266,7 +267,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                           await gridViewSelectedVenuesRecord
                                               .reference
                                               .delete();
-                                          Navigator.pop(context);
+                                          context.pop();
                                         },
                                         child: Container(
                                           width:

@@ -97,7 +97,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                         size: 28,
                       ),
                       onPressed: () async {
-                        Navigator.pop(context);
+                        context.pop();
                       },
                     ).animated(
                         [animationsMap['iconButtonOnPageLoadAnimation']]),

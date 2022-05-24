@@ -225,3 +225,21 @@ String getPerPersonFee(
 
   //return totalPerPerson.toString();
 }
+
+DateTime getBookingReservationTime(
+  DateTime tourDate,
+  DateTime reservationTimestamp,
+) {
+  return DateTime(tourDate.year, tourDate.month, tourDate.day,
+      reservationTimestamp.hour, reservationTimestamp.minute);
+}
+
+DateTime getTodayTimestampZeroMinutes() {
+  return DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
+      DateTime.now().hour, 0);
+}
+
+int countNumberOfGuests(List<DocumentReference> guestsList) {
+  // Add your function code here!
+  return guestsList.length;
+}

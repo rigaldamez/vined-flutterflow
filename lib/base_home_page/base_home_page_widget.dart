@@ -2,7 +2,6 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../onboarding/onboarding_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -116,14 +115,16 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
                             size: 28,
                           ),
                           onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: OnboardingWidget(),
-                              ),
+                            context.pushNamed(
+                              'Onboarding',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType:
+                                      PageTransitionType.bottomToTop,
+                                  duration: Duration(milliseconds: 200),
+                                ),
+                              },
                             );
                           },
                         ),

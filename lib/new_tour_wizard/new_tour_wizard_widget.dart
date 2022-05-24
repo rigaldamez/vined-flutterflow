@@ -66,7 +66,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                       size: 30,
                     ),
                     onPressed: () async {
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                   Padding(
@@ -188,21 +188,8 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                                 AlignmentDirectional(0, 0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                await Navigator
-                                                    .pushAndRemoveUntil(
-                                                  context,
-                                                  PageTransition(
-                                                    type: PageTransitionType
-                                                        .bottomToTop,
-                                                    duration: Duration(
-                                                        milliseconds: 200),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 200),
-                                                    child:
-                                                        NewTourWizardWidget(),
-                                                  ),
-                                                  (r) => false,
-                                                );
+                                                context
+                                                    .goNamed('NewTourWizard');
                                               },
                                               text: gridViewRegionsRecord.name,
                                               options: FFButtonOptions(

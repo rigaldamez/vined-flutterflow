@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../create_new_tour3/create_new_tour3_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -96,7 +95,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                         onPressed: () async {
                           setState(() => FFAppState().newTourRegionID = '');
                           setState(() => FFAppState().newTourRegionName = '');
-                          Navigator.pop(context);
+                          context.pop();
                         },
                       ),
                       Text(
@@ -289,17 +288,22 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                       setState(() => FFAppState()
                                               .newTourPricePP =
                                           gridViewTransportPricingRecord.price);
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          duration: Duration(milliseconds: 150),
-                                          reverseDuration:
-                                              Duration(milliseconds: 150),
-                                          child: CreateNewTour3Widget(
-                                            regionIDRef: widget.regionIDRef,
+                                      context.pushNamed(
+                                        'CreateNewTour3',
+                                        queryParams: {
+                                          'regionIDRef': serializeParam(
+                                              widget.regionIDRef,
+                                              ParamType.DocumentReference),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.rightToLeft,
+                                            duration:
+                                                Duration(milliseconds: 150),
                                           ),
-                                        ),
+                                        },
                                       );
                                     },
                                     child: Container(

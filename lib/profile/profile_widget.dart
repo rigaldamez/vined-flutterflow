@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/create_new_tour_empty_state_widget.dart';
-import '../create_new_tour1/create_new_tour1_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -202,15 +201,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             tourNameTextFieldController.text);
                                       }
 
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.bottomToTop,
-                                          duration: Duration(milliseconds: 150),
-                                          reverseDuration:
-                                              Duration(milliseconds: 150),
-                                          child: CreateNewTour1Widget(),
-                                        ),
+                                      context.pushNamed(
+                                        'CreateNewTour1',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.bottomToTop,
+                                            duration:
+                                                Duration(milliseconds: 150),
+                                          ),
+                                        },
                                       );
                                     },
                                     text: 'Create Tour',

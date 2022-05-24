@@ -1,13 +1,11 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../f_ilter_wineries/f_ilter_wineries_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../see_all_cellars/see_all_cellars_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -110,15 +108,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           size: 24,
                         ),
                         onPressed: () async {
-                          await Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.bottomToTop,
-                              duration: Duration(milliseconds: 150),
-                              reverseDuration: Duration(milliseconds: 150),
-                              child: FIlterWineriesWidget(),
-                            ),
-                          );
+                          context.pushNamed('FIlterWineries');
                         },
                       ).animated(
                           [animationsMap['iconButtonOnPageLoadAnimation']]),
@@ -165,51 +155,78 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
-                              child: FlutterFlowChoiceChips(
-                                initiallySelected: choiceChipsValue != null
-                                    ? [choiceChipsValue]
-                                    : ['Adelaide Hills'],
-                                options: [
-                                  ChipData('Adelaide Hills'),
-                                  ChipData('Barossa Valley'),
-                                  ChipData('McLaren Vale'),
-                                  ChipData('Langhorn Creek')
-                                ],
-                                onChanged: (val) => setState(
-                                    () => choiceChipsValue = val.first),
-                                selectedChipStyle: ChipStyle(
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).black,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
-                                  iconColor: Colors.white,
-                                  iconSize: 18,
-                                  labelPadding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 4, 6, 4),
-                                  elevation: 4,
+                              child: StreamBuilder<List<RegionsRecord>>(
+                                stream: queryRegionsRecord(
+                                  queryBuilder: (regionsRecord) => regionsRecord
+                                      .where('isServiced', isEqualTo: true),
                                 ),
-                                unselectedChipStyle: ChipStyle(
-                                  backgroundColor: Colors.white,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyText2
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF262D34),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: SpinKitDualRing(
+                                          color: FlutterFlowTheme.of(context)
+                                              .purplePastel,
+                                          size: 20,
+                                        ),
                                       ),
-                                  iconColor: Color(0xFF262D34),
-                                  iconSize: 18,
-                                  labelPadding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 4, 10, 4),
-                                  elevation: 2,
-                                ),
-                                chipSpacing: 10,
-                                multiselect: false,
-                                initialized: choiceChipsValue != null,
-                                alignment: WrapAlignment.start,
+                                    );
+                                  }
+                                  List<RegionsRecord>
+                                      choiceChipsRegionsRecordList =
+                                      snapshot.data;
+                                  return FlutterFlowChoiceChips(
+                                    initiallySelected: choiceChipsValue != null
+                                        ? [choiceChipsValue]
+                                        : ['Adelaide Hills'],
+                                    options: (choiceChipsRegionsRecordList
+                                                .map((e) => e.name)
+                                                .toList() ??
+                                            [])
+                                        .map((label) => ChipData(label))
+                                        .toList(),
+                                    onChanged: (val) => setState(
+                                        () => choiceChipsValue = val.first),
+                                    selectedChipStyle: ChipStyle(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).black,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
+                                      iconColor: Colors.white,
+                                      iconSize: 18,
+                                      labelPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              10, 4, 6, 4),
+                                      elevation: 4,
+                                    ),
+                                    unselectedChipStyle: ChipStyle(
+                                      backgroundColor: Colors.white,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyText2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF262D34),
+                                          ),
+                                      iconColor: Color(0xFF262D34),
+                                      iconSize: 18,
+                                      labelPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              10, 4, 10, 4),
+                                      elevation: 2,
+                                    ),
+                                    chipSpacing: 10,
+                                    multiselect: false,
+                                    initialized: choiceChipsValue != null,
+                                    alignment: WrapAlignment.start,
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -258,17 +275,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                             InkWell(
                               onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.bottomToTop,
-                                    duration: Duration(milliseconds: 150),
-                                    reverseDuration:
-                                        Duration(milliseconds: 150),
-                                    child: SeeAllCellarsWidget(
-                                      regionName: choiceChipsValue,
-                                    ),
-                                  ),
+                                context.pushNamed(
+                                  'SeeAllCellars',
+                                  queryParams: {
+                                    'regionName': serializeParam(
+                                        choiceChipsValue, ParamType.String),
+                                  }.withoutNulls,
                                 );
                               },
                               child: Container(
@@ -578,17 +590,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 InkWell(
                                   onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration: Duration(milliseconds: 150),
-                                        reverseDuration:
-                                            Duration(milliseconds: 150),
-                                        child: SeeAllCellarsWidget(
-                                          regionName: choiceChipsValue,
-                                        ),
-                                      ),
+                                    context.pushNamed(
+                                      'SeeAllCellars',
+                                      queryParams: {
+                                        'regionName': serializeParam(
+                                            choiceChipsValue, ParamType.String),
+                                      }.withoutNulls,
                                     );
                                   },
                                   child: Container(

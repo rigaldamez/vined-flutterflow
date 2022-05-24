@@ -11,6 +11,7 @@ import 'flutter_flow/internationalization.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
 void main() async {
@@ -36,19 +37,22 @@ class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.system;
 
   Stream<VinedFirebaseUser> userStream;
-  VinedFirebaseUser initialUser;
-  bool displaySplashImage = true;
+
+  AppStateNotifier _appStateNotifier;
+  GoRouter _router;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
 
   @override
   void initState() {
     super.initState();
+    _appStateNotifier = AppStateNotifier();
+    _router = createRouter(_appStateNotifier);
     userStream = vinedFirebaseUserStream()
-      ..listen((user) => initialUser ?? setState(() => initialUser = user));
+      ..listen((user) => _appStateNotifier.update(user));
     Future.delayed(
       Duration(seconds: 1),
-      () => setState(() => displaySplashImage = false),
+      () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
 
@@ -66,7 +70,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Vined',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
@@ -78,20 +82,8 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
-      home: initialUser == null || displaySplashImage
-          ? Center(
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: SpinKitDualRing(
-                  color: FlutterFlowTheme.of(context).purplePastel,
-                  size: 20,
-                ),
-              ),
-            )
-          : currentUser.loggedIn
-              ? NavBarPage()
-              : OnboardingWidget(),
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
   }
 }

@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../create_new_tour2/create_new_tour2_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -91,7 +90,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                         size: 26,
                       ),
                       onPressed: () async {
-                        Navigator.pop(context);
+                        context.pop();
                       },
                     ),
                   ],
@@ -140,15 +139,16 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 alignment: AlignmentDirectional(0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        duration: Duration(milliseconds: 150),
-                                        reverseDuration:
-                                            Duration(milliseconds: 150),
-                                        child: CreateNewTour2Widget(),
-                                      ),
+                                    context.pushNamed(
+                                      'CreateNewTour2',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.rightToLeft,
+                                          duration: Duration(milliseconds: 150),
+                                        ),
+                                      },
                                     );
                                   },
                                   text: gridViewRegionsRecord.name,
@@ -219,15 +219,16 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                       gridViewRegionsRecord.regionID);
                                   setState(() => FFAppState().newTourRegionRef =
                                       gridViewRegionsRecord.reference);
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      duration: Duration(milliseconds: 150),
-                                      reverseDuration:
-                                          Duration(milliseconds: 150),
-                                      child: CreateNewTour2Widget(),
-                                    ),
+                                  context.pushNamed(
+                                    'CreateNewTour2',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType:
+                                            PageTransitionType.rightToLeft,
+                                        duration: Duration(milliseconds: 150),
+                                      ),
+                                    },
                                   );
                                 },
                                 child: Container(
