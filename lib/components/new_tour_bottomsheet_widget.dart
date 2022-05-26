@@ -50,6 +50,20 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.12,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).black,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   child: Column(
@@ -229,34 +243,6 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                             ),
                             borderRadius: 40,
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                        child: Stack(
-                          alignment: AlignmentDirectional(0, 0),
-                          children: [
-                            Text(
-                              'Close',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                context.pop();
-                              },
-                              child: Container(
-                                width: 300,
-                                height: 40,
-                                decoration: BoxDecoration(),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],

@@ -27,3 +27,7 @@ export 'profile/profile_widget.dart' show ProfileWidget;
 export 'tours/tours_widget.dart' show ToursWidget;
 export 'tour_details/tour_details_widget.dart' show TourDetailsWidget;
 export 'add_venue/add_venue_widget.dart' show AddVenueWidget;
+export 'tour_chat/tour_chat_widget.dart' show TourChatWidget;
+export 'chat_screen_sample/chat_screen_sample_widget.dart'
+    show ChatScreenSampleWidget;
+export 'users/users_widget.dart' show UsersWidget;

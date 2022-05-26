@@ -251,6 +251,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 tourID: params.getParam(
                     'tourID', ParamType.DocumentReference, 'tours'),
               ),
+            ),
+            FFRoute(
+              name: 'tourChat',
+              path: 'tourChat',
+              requireAuth: true,
+              builder: (context, params) => TourChatWidget(
+                tourID: params.getParam(
+                    'tourID', ParamType.DocumentReference, 'tours'),
+              ),
+            ),
+            FFRoute(
+              name: 'chatScreen_sample',
+              path: 'chatScreenSample',
+              requireAuth: true,
+              asyncParams: {
+                'chatUser': getDoc('users', UsersRecord.serializer),
+              },
+              builder: (context, params) => ChatScreenSampleWidget(
+                chatUser: params.getParam('chatUser', ParamType.Document),
+                chatRef: params.getParam(
+                    'chatRef', ParamType.DocumentReference, 'chats'),
+              ),
+            ),
+            FFRoute(
+              name: 'users',
+              path: 'users',
+              requireAuth: true,
+              asyncParams: {
+                'tourReff': getDoc('tours', ToursRecord.serializer),
+              },
+              builder: (context, params) => UsersWidget(
+                tourID: params.getParam(
+                    'tourID', ParamType.DocumentReference, 'tours'),
+                tourReff: params.getParam('tourReff', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

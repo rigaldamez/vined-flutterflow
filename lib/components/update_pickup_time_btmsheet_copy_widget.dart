@@ -68,175 +68,192 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
             ),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+            padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.98,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Color(0x1A000000),
-                                width: 1,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.12,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).black,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.98,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Color(0x1A000000),
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.access_time_rounded,
-                                    color: Colors.black,
-                                    size: 24,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'Edit pickup time',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Row(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 0, 20, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.access_time_rounded,
+                                      color: Colors.black,
+                                      size: 24,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 20, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 10, 0, 0),
-                                                child: Text(
-                                                  dateTimeFormat(
-                                                      'jm', datePicked),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                ),
+                                              Text(
+                                                'Edit pickup time',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 4, 0, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: Text(
+                                                    dateTimeFormat(
+                                                        'jm', datePicked),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30,
+                                      borderWidth: 1,
+                                      buttonSize: 34,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).black,
+                                      icon: Icon(
+                                        Icons.edit_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .cultured,
+                                        size: 16,
+                                      ),
+                                      onPressed: () async {
+                                        await DatePicker.showTimePicker(
+                                          context,
+                                          showTitleActions: true,
+                                          onConfirm: (date) {
+                                            setState(() => datePicked = date);
+                                          },
+                                          currentTime: functions
+                                              .getTodayTimestampZeroMinutes(),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                              child: Stack(
+                                alignment: AlignmentDirectional(0, 0),
+                                children: [
+                                  Container(
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context).black,
+                                      borderRadius: BorderRadius.circular(28),
                                     ),
                                   ),
-                                  FlutterFlowIconButton(
-                                    borderColor: Colors.transparent,
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    buttonSize: 34,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).black,
-                                    icon: Icon(
-                                      Icons.edit_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).cultured,
-                                      size: 16,
-                                    ),
-                                    onPressed: () async {
-                                      await DatePicker.showTimePicker(
-                                        context,
-                                        showTitleActions: true,
-                                        onConfirm: (date) {
-                                          setState(() => datePicked = date);
-                                        },
-                                        currentTime: functions
-                                            .getTodayTimestampZeroMinutes(),
+                                  Text(
+                                    'Save',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .cultured,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      final toursUpdateData =
+                                          createToursRecordData(
+                                        tourDate:
+                                            functions.getBookingReservationTime(
+                                                containerToursRecord.tourDate,
+                                                datePicked),
                                       );
+                                      await widget.tourReff
+                                          .update(toursUpdateData);
+                                      context.pop();
                                     },
+                                    child: Container(
+                                      width: 300,
+                                      height: 50,
+                                      decoration: BoxDecoration(),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                            child: Stack(
-                              alignment: AlignmentDirectional(0, 0),
-                              children: [
-                                Container(
-                                  width: 300,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).black,
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                ),
-                                Text(
-                                  'Save',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .cultured,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    final toursUpdateData =
-                                        createToursRecordData(
-                                      tourDate:
-                                          functions.getBookingReservationTime(
-                                              containerToursRecord.tourDate,
-                                              datePicked),
-                                    );
-                                    await widget.tourReff
-                                        .update(toursUpdateData);
-                                    context.pop();
-                                  },
-                                  child: Container(
-                                    width: 300,
-                                    height: 50,
-                                    decoration: BoxDecoration(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

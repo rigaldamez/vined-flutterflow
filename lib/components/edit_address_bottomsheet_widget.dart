@@ -67,7 +67,7 @@ class _EditAddressBottomsheetWidgetState
             ),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+            padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
             child: FutureBuilder<ApiCallResponse>(
               future: GETGeolocationFORAddressCall.call(
                 address: placePickerValue.address,
@@ -91,223 +91,215 @@ class _EditAddressBottomsheetWidgetState
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 0, 0, 0),
-                                      child: Text(
-                                        'Pickup address',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: Padding(
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.12,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).black,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 10, 10, 20),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x00EEEEEE),
-                                      borderRadius: BorderRadius.circular(18),
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                        color: Color(0x19000000),
-                                      ),
-                                    ),
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 4),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.pin_drop,
-                                            color: Colors.black,
-                                            size: 24,
-                                          ),
-                                          Text(
-                                            placePickerValue.address,
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.94,
-                                  child: Stack(
+                                      0, 6, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 58,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(34),
-                                        ),
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: FlutterFlowPlacePicker(
-                                          iOSGoogleMapsApiKey:
-                                              'AIzaSyDMvQ-0VfFVRtzlYA-8oxKroXhswUCQCi0',
-                                          androidGoogleMapsApiKey:
-                                              'AIzaSyCf9LVmSv_NS1Yz34-f51SXiiHMhSlv72A',
-                                          webGoogleMapsApiKey:
-                                              'AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8',
-                                          onSelect: (place) => setState(
-                                              () => placePickerValue = place),
-                                          defaultText: 'Select Location',
-                                          icon: Icon(
-                                            Icons.place,
-                                            color: FlutterFlowTheme.of(context)
-                                                .black,
-                                            size: 16,
-                                          ),
-                                          buttonOptions: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: double.infinity,
-                                            color: Colors.transparent,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .black,
-                                                      fontSize: 14,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .black,
-                                              width: 2,
-                                            ),
-                                            borderRadius: 34,
-                                          ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 0, 0),
+                                        child: Text(
+                                          'Pickup address',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    final toursUpdateData =
-                                        createToursRecordData(
-                                      pickupAddress: placePickerValue.address,
-                                      pickupLatlng: functions.createGeoPoint(
-                                          getJsonField(
-                                            (columnGETGeolocationFORAddressResponse
-                                                    ?.jsonBody ??
-                                                ''),
-                                            r'''$.results[0].geometry.location.lat''',
-                                          ),
-                                          getJsonField(
-                                            (columnGETGeolocationFORAddressResponse
-                                                    ?.jsonBody ??
-                                                ''),
-                                            r'''$.results[0].geometry.location.lng''',
-                                          )),
-                                    );
-                                    await widget.tourID.update(toursUpdateData);
-                                    context.pop();
-                                  },
-                                  text: 'Save',
-                                  options: FFButtonOptions(
-                                    width: double.infinity,
-                                    height: 60,
-                                    color: FlutterFlowTheme.of(context).black,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Color(0xFFF5F5F5),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: 40,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                child: Stack(
+                                Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  children: [
-                                    Text(
-                                      'Cancel',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        context.pop();
-                                      },
-                                      child: Container(
-                                        width: 300,
-                                        height: 40,
-                                        decoration: BoxDecoration(),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 10, 10, 20),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x00EEEEEE),
+                                        borderRadius: BorderRadius.circular(18),
+                                        shape: BoxShape.rectangle,
+                                        border: Border.all(
+                                          color: Color(0x19000000),
+                                        ),
+                                      ),
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 4),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.pin_drop,
+                                              color: Colors.black,
+                                              size: 24,
+                                            ),
+                                            Text(
+                                              placePickerValue.address,
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 30, 0, 0),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.94,
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 58,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(34),
+                                          ),
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: FlutterFlowPlacePicker(
+                                            iOSGoogleMapsApiKey:
+                                                'AIzaSyDMvQ-0VfFVRtzlYA-8oxKroXhswUCQCi0',
+                                            androidGoogleMapsApiKey:
+                                                'AIzaSyCf9LVmSv_NS1Yz34-f51SXiiHMhSlv72A',
+                                            webGoogleMapsApiKey:
+                                                'AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8',
+                                            onSelect: (place) => setState(
+                                                () => placePickerValue = place),
+                                            defaultText: 'Select Location',
+                                            icon: Icon(
+                                              Icons.place,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .black,
+                                              size: 16,
+                                            ),
+                                            buttonOptions: FFButtonOptions(
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                              color: Colors.transparent,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black,
+                                                        fontSize: 14,
+                                                      ),
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black,
+                                                width: 2,
+                                              ),
+                                              borderRadius: 34,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 20, 0, 0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      final toursUpdateData =
+                                          createToursRecordData(
+                                        pickupAddress: placePickerValue.address,
+                                        pickupLatlng: functions.createGeoPoint(
+                                            getJsonField(
+                                              (columnGETGeolocationFORAddressResponse
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.results[0].geometry.location.lat''',
+                                            ),
+                                            getJsonField(
+                                              (columnGETGeolocationFORAddressResponse
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.results[0].geometry.location.lng''',
+                                            )),
+                                      );
+                                      await widget.tourID
+                                          .update(toursUpdateData);
+                                      context.pop();
+                                    },
+                                    text: 'Save',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 60,
+                                      color: FlutterFlowTheme.of(context).black,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0xFFF5F5F5),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                      borderRadius: 40,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 );

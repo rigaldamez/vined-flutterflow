@@ -10,7 +10,6 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key key}) : super(key: key);
@@ -21,10 +20,6 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
-  PagingController<DocumentSnapshot, VenuesRecord> _pagingController;
-  Query _pagingQuery;
-  List<StreamSubscription> _streamSubscriptions = [];
-
   String choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -50,12 +45,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
-  }
-
-  @override
-  void dispose() {
-    _streamSubscriptions.forEach((s) => s?.cancel());
-    super.dispose();
   }
 
   @override
@@ -374,7 +363,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         gradient: LinearGradient(
                                           colors: [
                                             Colors.transparent,
-                                            Color(0xCD000000)
+                                            Color(0xE6000000)
                                           ],
                                           stops: [0, 1],
                                           begin: AlignmentDirectional(0, -1),
@@ -613,297 +602,264 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 1,
                   decoration: BoxDecoration(),
-                  child: PagedListView<DocumentSnapshot<Object>, VenuesRecord>(
-                    pagingController: () {
-                      final Query<Object> Function(Query<Object>) queryBuilder =
-                          (venuesRecord) => venuesRecord.where('regionName',
-                              isEqualTo: choiceChipsValue);
-                      if (_pagingController != null) {
-                        final query = queryBuilder(VenuesRecord.collection);
-                        if (query != _pagingQuery) {
-                          // The query has changed
-                          _pagingQuery = query;
-                          _streamSubscriptions.forEach((s) => s?.cancel());
-                          _streamSubscriptions.clear();
-                          _pagingController.refresh();
-                        }
-                        return _pagingController;
-                      }
-
-                      _pagingController = PagingController(firstPageKey: null);
-                      _pagingQuery = queryBuilder(VenuesRecord.collection);
-                      _pagingController
-                          .addPageRequestListener((nextPageMarker) {
-                        queryVenuesRecordPage(
-                          queryBuilder: (venuesRecord) => venuesRecord
-                              .where('regionName', isEqualTo: choiceChipsValue),
-                          nextPageMarker: nextPageMarker,
-                          pageSize: 25,
-                          isStream: true,
-                        ).then((page) {
-                          _pagingController.appendPage(
-                            page.data,
-                            page.nextPageMarker,
-                          );
-                          final streamSubscription =
-                              page.dataStream?.listen((data) {
-                            final itemIndexes = _pagingController.itemList
-                                .asMap()
-                                .map((k, v) => MapEntry(v.reference.id, k));
-                            data.forEach((item) {
-                              final index = itemIndexes[item.reference.id];
-                              if (index != null) {
-                                _pagingController.itemList
-                                    .replaceRange(index, index + 1, [item]);
-                              }
-                            });
-                            setState(() {});
-                          });
-                          _streamSubscriptions.add(streamSubscription);
-                        });
-                      });
-                      return _pagingController;
-                    }(),
-                    padding: EdgeInsets.zero,
-                    primary: false,
-                    scrollDirection: Axis.vertical,
-                    builderDelegate: PagedChildBuilderDelegate<VenuesRecord>(
-                      // Customize what your widget looks like when it's loading the first page.
-                      firstPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).purplePastel,
+                  child: StreamBuilder<List<VenuesRecord>>(
+                    stream: queryVenuesRecord(
+                      queryBuilder: (venuesRecord) => venuesRecord
+                          .where('regionName', isEqualTo: choiceChipsValue),
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).purplePastel,
+                            ),
                           ),
-                        ),
-                      ),
-
-                      itemBuilder: (context, _, listViewIndex) {
-                        final listViewVenuesRecord =
-                            _pagingController.itemList[listViewIndex];
-                        return Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0xFFF5F5F5),
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34),
-                                ),
-                                child: Stack(
-                                  alignment: AlignmentDirectional(1, 0.9),
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 6, 6, 6),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(34),
-                                        child: Image.network(
-                                          listViewVenuesRecord.image,
+                        );
+                      }
+                      List<VenuesRecord> listViewVenuesRecordList =
+                          snapshot.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listViewVenuesRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewVenuesRecord =
+                              listViewVenuesRecordList[listViewIndex];
+                          return Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  color: Color(0xFFF5F5F5),
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(34),
+                                  ),
+                                  child: Stack(
+                                    alignment: AlignmentDirectional(1, 0.9),
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6, 6, 6, 6),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(34),
+                                          child: Image.network(
+                                            listViewVenuesRecord.image,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 200,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6, 0, 6, 0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Colors.transparent,
+                                                Color(0xE6000000)
+                                              ],
+                                              stops: [0, 1],
+                                              begin:
+                                                  AlignmentDirectional(0, -1),
+                                              end: AlignmentDirectional(0, 1),
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(34),
+                                              bottomRight: Radius.circular(34),
+                                              topLeft: Radius.circular(0),
+                                              topRight: Radius.circular(0),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6, 0, 6, 0),
+                                        child: Container(
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          height: 200,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 0, 6, 0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Color(0x00F44336),
-                                              Color(0xE6000000)
-                                            ],
-                                            stops: [0, 1],
-                                            begin: AlignmentDirectional(0, -1),
-                                            end: AlignmentDirectional(0, 1),
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(34),
-                                            bottomRight: Radius.circular(34),
-                                            topLeft: Radius.circular(0),
-                                            topRight: Radius.circular(0),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 0, 6, 0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 50,
-                                        decoration: BoxDecoration(),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 10, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                functions.upperCaseString(
-                                                    listViewVenuesRecord.name),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .cultured,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.9, -0.64),
-                                                child: Container(
-                                                  width: 50,
-                                                  child: Stack(
-                                                    children: [
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0, 0),
-                                                        child: Container(
-                                                          width: 34,
-                                                          height: 34,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0x7F000000),
-                                                            shape:
-                                                                BoxShape.circle,
+                                          height: 50,
+                                          decoration: BoxDecoration(),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  functions.upperCaseString(
+                                                      listViewVenuesRecord
+                                                          .name),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .cultured,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.9, -0.64),
+                                                  child: Container(
+                                                    width: 50,
+                                                    child: Stack(
+                                                      children: [
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0, 0),
+                                                          child: Container(
+                                                            width: 34,
+                                                            height: 34,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0x7F000000),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: ToggleIcon(
+                                                              onPressed:
+                                                                  () async {
+                                                                final isFavouritedByElement =
+                                                                    currentUserReference;
+                                                                final isFavouritedByUpdate = listViewVenuesRecord
+                                                                        .isFavouritedBy
+                                                                        .toList()
+                                                                        .contains(
+                                                                            isFavouritedByElement)
+                                                                    ? FieldValue
+                                                                        .arrayRemove([
+                                                                        isFavouritedByElement
+                                                                      ])
+                                                                    : FieldValue
+                                                                        .arrayUnion([
+                                                                        isFavouritedByElement
+                                                                      ]);
+                                                                final venuesUpdateData =
+                                                                    {
+                                                                  'is_favourited_by':
+                                                                      isFavouritedByUpdate,
+                                                                };
+                                                                await listViewVenuesRecord
+                                                                    .reference
+                                                                    .update(
+                                                                        venuesUpdateData);
+                                                              },
+                                                              value: listViewVenuesRecord
+                                                                  .isFavouritedBy
+                                                                  .toList()
+                                                                  .contains(
+                                                                      currentUserReference),
+                                                              onIcon: Icon(
+                                                                Icons
+                                                                    .favorite_rounded,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .purplePastel,
+                                                                size: 16,
+                                                              ),
+                                                              offIcon: Icon(
+                                                                Icons
+                                                                    .favorite_border_rounded,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .cultured,
+                                                                size: 16,
+                                                              ),
+                                                            ),
                                                           ),
-                                                          child: ToggleIcon(
-                                                            onPressed:
-                                                                () async {
-                                                              final isFavouritedByElement =
-                                                                  currentUserReference;
-                                                              final isFavouritedByUpdate = listViewVenuesRecord
-                                                                      .isFavouritedBy
-                                                                      .toList()
-                                                                      .contains(
-                                                                          isFavouritedByElement)
-                                                                  ? FieldValue
-                                                                      .arrayRemove([
-                                                                      isFavouritedByElement
-                                                                    ])
-                                                                  : FieldValue
-                                                                      .arrayUnion([
-                                                                      isFavouritedByElement
-                                                                    ]);
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () async {
+                                                            if (listViewVenuesRecord
+                                                                .isFavouritedBy
+                                                                .toList()
+                                                                .contains(
+                                                                    currentUserReference)) {
                                                               final venuesUpdateData =
                                                                   {
                                                                 'is_favourited_by':
-                                                                    isFavouritedByUpdate,
+                                                                    FieldValue
+                                                                        .arrayRemove([
+                                                                  currentUserReference
+                                                                ]),
                                                               };
                                                               await listViewVenuesRecord
                                                                   .reference
                                                                   .update(
                                                                       venuesUpdateData);
-                                                            },
-                                                            value: listViewVenuesRecord
-                                                                .isFavouritedBy
-                                                                .toList()
-                                                                .contains(
-                                                                    currentUserReference),
-                                                            onIcon: Icon(
-                                                              Icons
-                                                                  .favorite_rounded,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .purplePastel,
-                                                              size: 16,
-                                                            ),
-                                                            offIcon: Icon(
-                                                              Icons
-                                                                  .favorite_border_rounded,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .cultured,
-                                                              size: 16,
+                                                            } else {
+                                                              final venuesUpdateData =
+                                                                  {
+                                                                'is_favourited_by':
+                                                                    FieldValue
+                                                                        .arrayUnion([
+                                                                  currentUserReference
+                                                                ]),
+                                                              };
+                                                              await listViewVenuesRecord
+                                                                  .reference
+                                                                  .update(
+                                                                      venuesUpdateData);
+                                                            }
+                                                          },
+                                                          child: Container(
+                                                            width: 34,
+                                                            height: 34,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () async {
-                                                          if (listViewVenuesRecord
-                                                              .isFavouritedBy
-                                                              .toList()
-                                                              .contains(
-                                                                  currentUserReference)) {
-                                                            final venuesUpdateData =
-                                                                {
-                                                              'is_favourited_by':
-                                                                  FieldValue
-                                                                      .arrayRemove([
-                                                                currentUserReference
-                                                              ]),
-                                                            };
-                                                            await listViewVenuesRecord
-                                                                .reference
-                                                                .update(
-                                                                    venuesUpdateData);
-                                                          } else {
-                                                            final venuesUpdateData =
-                                                                {
-                                                              'is_favourited_by':
-                                                                  FieldValue
-                                                                      .arrayUnion([
-                                                                currentUserReference
-                                                              ]),
-                                                            };
-                                                            await listViewVenuesRecord
-                                                                .reference
-                                                                .update(
-                                                                    venuesUpdateData);
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: 34,
-                                                          height: 34,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ],
