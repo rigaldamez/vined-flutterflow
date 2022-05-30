@@ -42,7 +42,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
         onPressed: () async {
           final paymentResponse = await processStripePayment(
             amount: 100,
-            currency: 'AU',
+            currency: 'AUD',
             customerEmail: currentUserEmail,
             customerName: currentUserDisplayName,
             description: 'Wine tour',
@@ -944,7 +944,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
+                                            0, 20, 0, 1),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1308,7 +1308,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                     children: [
                                                                                       Container(
-                                                                                        width: 100,
+                                                                                        width: 200,
                                                                                         decoration: BoxDecoration(
                                                                                           color: Color(0xFFEEEEEE),
                                                                                         ),
