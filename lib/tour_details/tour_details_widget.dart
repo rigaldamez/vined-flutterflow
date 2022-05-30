@@ -1,4 +1,6 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/stripe/payment_manager.dart';
 import '../components/del_update_venue_btmsheet_widget.dart';
 import '../components/edit_address_bottomsheet_widget.dart';
 import '../components/edit_tour_date_bottomsheet_widget.dart';
@@ -28,6 +30,7 @@ class TourDetailsWidget extends StatefulWidget {
 }
 
 class _TourDetailsWidgetState extends State<TourDetailsWidget> {
+  String paymentId;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,8 +39,29 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          print('FloatingActionButton pressed ...');
+        onPressed: () async {
+          final paymentResponse = await processStripePayment(
+            amount: 100,
+            currency: 'AU',
+            customerEmail: currentUserEmail,
+            customerName: currentUserDisplayName,
+            description: 'Wine tour',
+            allowGooglePay: true,
+            allowApplePay: true,
+            buttonColor: FlutterFlowTheme.of(context).black,
+          );
+          if (paymentResponse.paymentId == null) {
+            if (paymentResponse.errorMessage != null) {
+              showSnackbar(
+                context,
+                'Error: ${paymentResponse.errorMessage}',
+              );
+            }
+            return;
+          }
+          paymentId = paymentResponse.paymentId;
+
+          setState(() {});
         },
         backgroundColor: FlutterFlowTheme.of(context).black,
         icon: Icon(
@@ -286,10 +310,6 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                 List<AppConfigRecord>
                                     columnAppConfigReffAppConfigRecordList =
                                     snapshot.data;
-                                // Return an empty Container when the document does not exist.
-                                if (snapshot.data.isEmpty) {
-                                  return Container();
-                                }
                                 final columnAppConfigReffAppConfigRecord =
                                     columnAppConfigReffAppConfigRecordList
                                             .isNotEmpty
@@ -1227,155 +1247,251 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               ),
                                                             ),
                                                           ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
+                                                          Stack(
                                                             children: [
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.7,
-                                                                height: 40,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Color(
-                                                                      0xFFEEEEEE),
-                                                                ),
-                                                                child: StreamBuilder<
-                                                                    List<
-                                                                        UsersRecord>>(
-                                                                  stream:
-                                                                      queryUsersRecord(
-                                                                    queryBuilder: (usersRecord) => usersRecord.where(
-                                                                        'uid',
-                                                                        isEqualTo:
-                                                                            containerTourReffToursRecord.driverUid),
-                                                                  ),
-                                                                  builder: (context,
-                                                                      snapshot) {
-                                                                    // Customize what your widget looks like when it's loading.
-                                                                    if (!snapshot
-                                                                        .hasData) {
-                                                                      return Center(
-                                                                        child:
-                                                                            SizedBox(
+                                                              if (functions.isStringNotEmpty(
+                                                                      containerTourReffToursRecord
+                                                                          .driverUid) ??
+                                                                  true)
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Container(
                                                                           width:
-                                                                              20,
+                                                                              MediaQuery.of(context).size.width * 0.7,
                                                                           height:
-                                                                              20,
-                                                                          child:
-                                                                              CircularProgressIndicator(
+                                                                              40,
+                                                                          decoration:
+                                                                              BoxDecoration(
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).purplePastel,
+                                                                                Color(0xFFEEEEEE),
+                                                                          ),
+                                                                          child:
+                                                                              StreamBuilder<List<UsersRecord>>(
+                                                                            stream:
+                                                                                queryUsersRecord(
+                                                                              queryBuilder: (usersRecord) => usersRecord.where('uid', isEqualTo: containerTourReffToursRecord.driverUid),
+                                                                            ),
+                                                                            builder:
+                                                                                (context, snapshot) {
+                                                                              // Customize what your widget looks like when it's loading.
+                                                                              if (!snapshot.hasData) {
+                                                                                return Center(
+                                                                                  child: SizedBox(
+                                                                                    width: 20,
+                                                                                    height: 20,
+                                                                                    child: CircularProgressIndicator(
+                                                                                      color: FlutterFlowTheme.of(context).purplePastel,
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                              List<UsersRecord> listViewUsersRecordList = snapshot.data;
+                                                                              return ListView.builder(
+                                                                                padding: EdgeInsets.zero,
+                                                                                scrollDirection: Axis.vertical,
+                                                                                itemCount: listViewUsersRecordList.length,
+                                                                                itemBuilder: (context, listViewIndex) {
+                                                                                  final listViewUsersRecord = listViewUsersRecordList[listViewIndex];
+                                                                                  return Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        width: 100,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Color(0xFFEEEEEE),
+                                                                                        ),
+                                                                                        child: Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: [
+                                                                                            ClipRRect(
+                                                                                              borderRadius: BorderRadius.circular(50),
+                                                                                              child: Image.network(
+                                                                                                'https://picsum.photos/seed/954/600',
+                                                                                                width: 20,
+                                                                                                height: 20,
+                                                                                                fit: BoxFit.cover,
+                                                                                              ),
+                                                                                            ),
+                                                                                            Padding(
+                                                                                              padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                                                                                              child: Text(
+                                                                                                listViewUsersRecord.displayName,
+                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                      fontFamily: 'Poppins',
+                                                                                                      fontSize: 12,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ),
+                                                                                            Padding(
+                                                                                              padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                                                                                              child: Text(
+                                                                                                '5.0',
+                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                      fontFamily: 'Poppins',
+                                                                                                      fontSize: 12,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ),
+                                                                                            Icon(
+                                                                                              Icons.star_rounded,
+                                                                                              color: Colors.black,
+                                                                                              size: 20,
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      Container(
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Color(0xFFEEEEEE),
+                                                                                        ),
+                                                                                        child: Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: [
+                                                                                            FlutterFlowIconButton(
+                                                                                              borderColor: Colors.transparent,
+                                                                                              borderRadius: 30,
+                                                                                              borderWidth: 1,
+                                                                                              buttonSize: 40,
+                                                                                              icon: Icon(
+                                                                                                Icons.message_outlined,
+                                                                                                color: Colors.black,
+                                                                                                size: 20,
+                                                                                              ),
+                                                                                              onPressed: () async {
+                                                                                                context.pushNamed(
+                                                                                                  'chatScreen_sample',
+                                                                                                  queryParams: {
+                                                                                                    'chatUser': serializeParam(listViewUsersRecord, ParamType.Document),
+                                                                                                  }.withoutNulls,
+                                                                                                  extra: <String, dynamic>{
+                                                                                                    'chatUser': listViewUsersRecord,
+                                                                                                    kTransitionInfoKey: TransitionInfo(
+                                                                                                      hasTransition: true,
+                                                                                                      transitionType: PageTransitionType.rightToLeft,
+                                                                                                      duration: Duration(milliseconds: 150),
+                                                                                                    ),
+                                                                                                  },
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
+                                                                            },
                                                                           ),
                                                                         ),
-                                                                      );
-                                                                    }
-                                                                    List<UsersRecord>
-                                                                        listViewUsersRecordList =
-                                                                        snapshot
-                                                                            .data;
-                                                                    return ListView
-                                                                        .builder(
-                                                                      padding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      scrollDirection:
-                                                                          Axis.vertical,
-                                                                      itemCount:
-                                                                          listViewUsersRecordList
-                                                                              .length,
-                                                                      itemBuilder:
-                                                                          (context,
-                                                                              listViewIndex) {
-                                                                        final listViewUsersRecord =
-                                                                            listViewUsersRecordList[listViewIndex];
-                                                                        return Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children: [
-                                                                            Container(
-                                                                              width: 100,
-                                                                              decoration: BoxDecoration(
-                                                                                color: Color(0xFFEEEEEE),
-                                                                              ),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  ClipRRect(
-                                                                                    borderRadius: BorderRadius.circular(50),
-                                                                                    child: Image.network(
-                                                                                      'https://picsum.photos/seed/954/600',
-                                                                                      width: 20,
-                                                                                      height: 20,
-                                                                                      fit: BoxFit.cover,
-                                                                                    ),
-                                                                                  ),
-                                                                                  Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
-                                                                                    child: Text(
-                                                                                      listViewUsersRecord.displayName,
-                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                            fontFamily: 'Poppins',
-                                                                                            fontSize: 12,
-                                                                                          ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                color: Color(0xFFEEEEEE),
-                                                                              ),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  FlutterFlowIconButton(
-                                                                                    borderColor: Colors.transparent,
-                                                                                    borderRadius: 30,
-                                                                                    borderWidth: 1,
-                                                                                    buttonSize: 40,
-                                                                                    icon: Icon(
-                                                                                      Icons.message_outlined,
-                                                                                      color: Colors.black,
-                                                                                      size: 20,
-                                                                                    ),
-                                                                                    onPressed: () async {
-                                                                                      context.pushNamed(
-                                                                                        'chatScreen_sample',
-                                                                                        queryParams: {
-                                                                                          'chatUser': serializeParam(listViewUsersRecord, ParamType.Document),
-                                                                                        }.withoutNulls,
-                                                                                        extra: <String, dynamic>{
-                                                                                          'chatUser': listViewUsersRecord,
-                                                                                          kTransitionInfoKey: TransitionInfo(
-                                                                                            hasTransition: true,
-                                                                                            transitionType: PageTransitionType.rightToLeft,
-                                                                                            duration: Duration(milliseconds: 150),
-                                                                                          ),
-                                                                                        },
-                                                                                      );
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        );
-                                                                      },
-                                                                    );
-                                                                  },
+                                                                      ],
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                              ),
+                                                              if (functions.isStringEmpty(
+                                                                      containerTourReffToursRecord
+                                                                          .driverUid) ??
+                                                                  true)
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              6,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Container(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            0.7,
+                                                                        height:
+                                                                            40,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Color(0xFFEEEEEE),
+                                                                        ),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              double.infinity,
+                                                                          height:
+                                                                              double.infinity,
+                                                                          child:
+                                                                              Stack(
+                                                                            alignment:
+                                                                                AlignmentDirectional(0, 0),
+                                                                            children: [
+                                                                              Column(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Choose  Driver',
+                                                                                    textAlign: TextAlign.center,
+                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                          fontFamily: 'Poppins',
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    'optional',
+                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                          fontFamily: 'Poppins',
+                                                                                          color: Color(0xFF8E8E8E),
+                                                                                          fontSize: 8,
+                                                                                        ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              InkWell(
+                                                                                onTap: () async {
+                                                                                  context.pushNamed(
+                                                                                    'selectDriver',
+                                                                                    queryParams: {
+                                                                                      'tourID': serializeParam(widget.tourID, ParamType.DocumentReference),
+                                                                                    }.withoutNulls,
+                                                                                    extra: <String, dynamic>{
+                                                                                      kTransitionInfoKey: TransitionInfo(
+                                                                                        hasTransition: true,
+                                                                                        transitionType: PageTransitionType.rightToLeft,
+                                                                                        duration: Duration(milliseconds: 150),
+                                                                                      ),
+                                                                                    },
+                                                                                  );
+                                                                                },
+                                                                                child: Container(
+                                                                                  width: 120,
+                                                                                  height: 100,
+                                                                                  decoration: BoxDecoration(
+                                                                                    borderRadius: BorderRadius.circular(23),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                             ],
                                                           ),
                                                         ],

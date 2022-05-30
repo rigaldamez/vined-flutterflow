@@ -2,7 +2,6 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -609,7 +608,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             addedByUid:
                                                                                 currentUserReference,
                                                                             isLunchVenue:
-                                                                                false,
+                                                                                functions.isLunchVenue(listViewVenuesRecord.reference, FFAppState().lunchVenueReff),
                                                                             tastingFee:
                                                                                 listViewVenuesRecord.tastingFee,
                                                                             addedDate:
@@ -722,53 +721,98 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                             shape:
                                                                 BoxShape.circle,
                                                           ),
-                                                          child: ToggleIcon(
-                                                            onPressed:
-                                                                () async {
-                                                              final isFavouritedByElement =
-                                                                  currentUserReference;
-                                                              final isFavouritedByUpdate = listViewVenuesRecord
-                                                                      .isFavouritedBy
-                                                                      .toList()
-                                                                      .contains(
-                                                                          isFavouritedByElement)
-                                                                  ? FieldValue
-                                                                      .arrayRemove([
-                                                                      isFavouritedByElement
-                                                                    ])
-                                                                  : FieldValue
-                                                                      .arrayUnion([
-                                                                      isFavouritedByElement
-                                                                    ]);
-                                                              final venuesUpdateData =
-                                                                  {
-                                                                'is_favourited_by':
-                                                                    isFavouritedByUpdate,
-                                                              };
-                                                              await listViewVenuesRecord
-                                                                  .reference
-                                                                  .update(
-                                                                      venuesUpdateData);
-                                                            },
-                                                            value: listViewVenuesRecord
-                                                                .isFavouritedBy
-                                                                .toList()
-                                                                .contains(
-                                                                    currentUserReference),
-                                                            onIcon: Icon(
-                                                              Icons
-                                                                  .food_bank_rounded,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .salmonPink,
-                                                              size: 18,
-                                                            ),
-                                                            offIcon: Icon(
-                                                              Icons
-                                                                  .food_bank_outlined,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 18,
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            height:
+                                                                double.infinity,
+                                                            child: Stack(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0, 0),
+                                                              children: [
+                                                                if (!(functions.isLunchVenue(
+                                                                        listViewVenuesRecord
+                                                                            .reference,
+                                                                        FFAppState()
+                                                                            .lunchVenueReff)) ??
+                                                                    true)
+                                                                  Icon(
+                                                                    Icons
+                                                                        .dinner_dining,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    size: 20,
+                                                                  ),
+                                                                if (functions.isLunchVenue(
+                                                                        listViewVenuesRecord
+                                                                            .reference,
+                                                                        FFAppState()
+                                                                            .lunchVenueReff) ??
+                                                                    true)
+                                                                  Icon(
+                                                                    Icons
+                                                                        .dinner_dining,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .salmonPink,
+                                                                    size: 20,
+                                                                  ),
+                                                                InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    if (functions.isLunchVenue(
+                                                                        listViewVenuesRecord
+                                                                            .reference,
+                                                                        FFAppState()
+                                                                            .lunchVenueReff)) {
+                                                                      setState(() =>
+                                                                          FFAppState().lunchVenueReff =
+                                                                              null);
+                                                                    } else {
+                                                                      setState(() =>
+                                                                          FFAppState().lunchVenueReff =
+                                                                              null);
+                                                                      setState(() => FFAppState()
+                                                                              .lunchVenueReff =
+                                                                          listViewVenuesRecord
+                                                                              .reference);
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                        SnackBar(
+                                                                          content:
+                                                                              Text(
+                                                                            'Contact venue to make a reservation. Cost at your own expense. Update itinerary with confirmed time.',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: FlutterFlowTheme.of(context).cultured,
+                                                                              fontWeight: FontWeight.w500,
+                                                                              fontSize: 12,
+                                                                            ),
+                                                                          ),
+                                                                          duration:
+                                                                              Duration(milliseconds: 4000),
+                                                                          backgroundColor:
+                                                                              FlutterFlowTheme.of(context).black,
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height: double
+                                                                        .infinity,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                         ),

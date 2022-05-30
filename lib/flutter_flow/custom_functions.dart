@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
@@ -34,11 +35,13 @@ DateTime getCurrentDateTimePlusAweek(
 }
 
 bool isStringNotEmpty(String aString) {
-  if (aString == "") {
+  return aString == null ? false : true;
+
+  /*if (aString == "") {
     return false;
   } else {
     return true;
-  }
+  }*/
 }
 
 LatLng createGeoPoint(
@@ -242,4 +245,22 @@ DateTime getTodayTimestampZeroMinutes() {
 int countNumberOfGuests(List<DocumentReference> guestsList) {
   // Add your function code here!
   return guestsList.length;
+}
+
+bool isLunchVenue(
+  DocumentReference selectedVenueReff,
+  DocumentReference localStateSelectedVenueReff,
+) {
+  // Add your function code here!
+  return selectedVenueReff == localStateSelectedVenueReff ? true : false;
+}
+
+bool isStringEmpty(String aString) {
+  // Add your function code here!
+  return aString.isEmpty;
+}
+
+double calculateTotalFee(int pperson) {
+  // Add your function code here!
+  return (pperson * 2).toDouble();
 }

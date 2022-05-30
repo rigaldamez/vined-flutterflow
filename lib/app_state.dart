@@ -31,6 +31,8 @@ class FFAppState {
   double newTourPricePP = 0.0;
 
   DocumentReference newTourRegionRef;
+
+  DocumentReference lunchVenueReff;
 }
 
 LatLng _latLngFromString(String val) {

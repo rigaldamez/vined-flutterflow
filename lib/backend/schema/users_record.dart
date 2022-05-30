@@ -38,6 +38,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   bool get tourLeadTimeExempted;
 
   @nullable
+  @BuiltValueField(wireName: 'driver_onboarded_market')
+  BuiltList<String> get driverOnboardedMarket;
+
+  @nullable
+  @BuiltValueField(wireName: 'is_driver')
+  bool get isDriver;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -48,7 +56,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..username = ''
-    ..tourLeadTimeExempted = false;
+    ..tourLeadTimeExempted = false
+    ..driverOnboardedMarket = ListBuilder()
+    ..isDriver = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -80,6 +90,7 @@ Map<String, dynamic> createUsersRecordData({
   String phoneNumber,
   String username,
   bool tourLeadTimeExempted,
+  bool isDriver,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -91,4 +102,6 @@ Map<String, dynamic> createUsersRecordData({
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
           ..username = username
-          ..tourLeadTimeExempted = tourLeadTimeExempted));
+          ..tourLeadTimeExempted = tourLeadTimeExempted
+          ..driverOnboardedMarket = null
+          ..isDriver = isDriver));

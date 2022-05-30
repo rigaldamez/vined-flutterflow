@@ -35,7 +35,7 @@ class AppStateNotifier extends ChangeNotifier {
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
 
   String getRedirectLocation() => _redirectLocation;
-  bool hasRedirect() => _redirectLocation == null;
+  bool hasRedirect() => _redirectLocation != null;
   void setRedirectLocationIfUnset(String loc) => _redirectLocation ??= loc;
   void clearRedirectLocation() => _redirectLocation = null;
 
@@ -285,6 +285,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 tourID: params.getParam(
                     'tourID', ParamType.DocumentReference, 'tours'),
                 tourReff: params.getParam('tourReff', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'selectDriver',
+              path: 'selectDriver',
+              requireAuth: true,
+              builder: (context, params) => SelectDriverWidget(
+                tourID: params.getParam(
+                    'tourID', ParamType.DocumentReference, 'tours'),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),

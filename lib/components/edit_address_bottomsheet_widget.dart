@@ -211,7 +211,7 @@ class _EditAddressBottomsheetWidgetState
                                                 'AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8',
                                             onSelect: (place) => setState(
                                                 () => placePickerValue = place),
-                                            defaultText: 'Select Location',
+                                            defaultText: 'Search Address',
                                             icon: Icon(
                                               Icons.place,
                                               color:
@@ -269,6 +269,12 @@ class _EditAddressBottomsheetWidgetState
                                                   ''),
                                               r'''$.results[0].geometry.location.lng''',
                                             )),
+                                        countryState: getJsonField(
+                                          (columnGETGeolocationFORAddressResponse
+                                                  ?.jsonBody ??
+                                              ''),
+                                          r'''$.results[0].address_components[4].short_name''',
+                                        ).toString(),
                                       );
                                       await widget.tourID
                                           .update(toursUpdateData);

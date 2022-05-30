@@ -177,6 +177,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                                 () => passwordTextField1Visibility =
                                     !passwordTextField1Visibility,
                               ),
+                              focusNode: FocusNode(skipTraversal: true),
                               child: Icon(
                                 passwordTextField1Visibility
                                     ? Icons.visibility_outlined

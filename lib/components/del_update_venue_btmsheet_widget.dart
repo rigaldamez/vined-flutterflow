@@ -472,14 +472,29 @@ class _DelUpdateVenueBtmsheetWidgetState
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      final toursUpdateData = {
-                                        'venues': FieldValue.arrayRemove(
-                                            [widget.venueReff.reference]),
-                                      };
-                                      await widget.tourReff
-                                          .update(toursUpdateData);
-                                      await widget.selectedVenue.delete();
-                                      context.pop();
+                                      if (functions.isLunchVenue(
+                                          widget.venueReff.reference,
+                                          FFAppState().lunchVenueReff)) {
+                                        final toursUpdateData = {
+                                          'venues': FieldValue.arrayRemove(
+                                              [widget.venueReff.reference]),
+                                        };
+                                        await widget.tourReff
+                                            .update(toursUpdateData);
+                                        await widget.selectedVenue.delete();
+                                        setState(() =>
+                                            FFAppState().lunchVenueReff = null);
+                                        context.pop();
+                                      } else {
+                                        final toursUpdateData = {
+                                          'venues': FieldValue.arrayRemove(
+                                              [widget.venueReff.reference]),
+                                        };
+                                        await widget.tourReff
+                                            .update(toursUpdateData);
+                                        await widget.selectedVenue.delete();
+                                        context.pop();
+                                      }
                                     },
                                     child: Container(
                                       width: 300,
