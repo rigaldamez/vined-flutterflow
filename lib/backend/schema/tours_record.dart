@@ -77,6 +77,46 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
   String get countryState;
 
   @nullable
+  @BuiltValueField(wireName: 'transport_fee_pp')
+  double get transportFeePp;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_tasting_fee_pp')
+  int get totalTastingFeePp;
+
+  @nullable
+  @BuiltValueField(wireName: 'large_group_venue_early_seating_count')
+  int get largeGroupVenueEarlySeatingCount;
+
+  @nullable
+  @BuiltValueField(wireName: 'sub_total')
+  int get subTotal;
+
+  @nullable
+  @BuiltValueField(wireName: 'discount_amount')
+  int get discountAmount;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_paid')
+  int get totalPaid;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_balance')
+  int get totalBalance;
+
+  @nullable
+  @BuiltValueField(wireName: 'promo_code')
+  String get promoCode;
+
+  @nullable
+  @BuiltValueField(wireName: 'promo_discount_percent')
+  double get promoDiscountPercent;
+
+  @nullable
+  @BuiltValueField(wireName: 'promo_code_submitted')
+  String get promoCodeSubmitted;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -92,7 +132,17 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
     ..tourState = ''
     ..platformTastingFee = 0.0
     ..driverUid = ''
-    ..countryState = '';
+    ..countryState = ''
+    ..transportFeePp = 0.0
+    ..totalTastingFeePp = 0
+    ..largeGroupVenueEarlySeatingCount = 0
+    ..subTotal = 0
+    ..discountAmount = 0
+    ..totalPaid = 0
+    ..totalBalance = 0
+    ..promoCode = ''
+    ..promoDiscountPercent = 0.0
+    ..promoCodeSubmitted = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tours');
@@ -132,6 +182,16 @@ Map<String, dynamic> createToursRecordData({
   DocumentReference driverReff,
   String driverUid,
   String countryState,
+  double transportFeePp,
+  int totalTastingFeePp,
+  int largeGroupVenueEarlySeatingCount,
+  int subTotal,
+  int discountAmount,
+  int totalPaid,
+  int totalBalance,
+  String promoCode,
+  double promoDiscountPercent,
+  String promoCodeSubmitted,
 }) =>
     serializers.toFirestore(
         ToursRecord.serializer,
@@ -153,4 +213,14 @@ Map<String, dynamic> createToursRecordData({
           ..platformTastingFee = platformTastingFee
           ..driverReff = driverReff
           ..driverUid = driverUid
-          ..countryState = countryState));
+          ..countryState = countryState
+          ..transportFeePp = transportFeePp
+          ..totalTastingFeePp = totalTastingFeePp
+          ..largeGroupVenueEarlySeatingCount = largeGroupVenueEarlySeatingCount
+          ..subTotal = subTotal
+          ..discountAmount = discountAmount
+          ..totalPaid = totalPaid
+          ..totalBalance = totalBalance
+          ..promoCode = promoCode
+          ..promoDiscountPercent = promoDiscountPercent
+          ..promoCodeSubmitted = promoCodeSubmitted));

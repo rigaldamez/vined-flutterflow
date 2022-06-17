@@ -107,7 +107,7 @@ bool doesTourExceedsVenueCapacity(
   ToursRecord tourRecord,
   int venueCapacity,
 ) {
-  // Add your function code here!
+  //return tourRecord != null && venueCapacity != null && tourRecord.passengers! > venueCapacity ? true : false;
 
   return tourRecord.passengers > venueCapacity ? true : false;
 }
@@ -229,6 +229,47 @@ String getPerPersonFee(
   //return totalPerPerson.toString();
 }
 
+int getPerPersonFeeAsInt(
+  double transportFee,
+  List<SelectedVenuesRecord> selectedVenues,
+  double platformFee,
+) {
+  //final currencyFormatter = NumberFormat.currency();
+  double totalPerPerson = transportFee;
+
+  for (var i = 0; i < selectedVenues.length; i++) {
+    totalPerPerson += selectedVenues[i].tastingFee + platformFee;
+    print(totalPerPerson);
+  }
+
+  return totalPerPerson.toInt();
+
+  //return totalPerPerson.toString();
+}
+
+int getPerPersonFeeAsInt2(
+  double transportFee,
+  List<SelectedVenuesRecord> selectedVenues,
+  double platformFee,
+  SelectedVenuesRecord lastSelectedVenue,
+) {
+  //final currencyFormatter = NumberFormat.currency();
+  double totalPerPerson = transportFee;
+
+  final List<SelectedVenuesRecord> venues = selectedVenues;
+
+  venues.add(lastSelectedVenue);
+
+  for (var i = 0; i < venues.length; i++) {
+    totalPerPerson += venues[i].tastingFee + platformFee;
+    print(totalPerPerson);
+  }
+
+  return totalPerPerson.toInt();
+
+  //return totalPerPerson.toString();
+}
+
 DateTime getBookingReservationTime(
   DateTime tourDate,
   DateTime reservationTimestamp,
@@ -260,7 +301,75 @@ bool isStringEmpty(String aString) {
   return aString.isEmpty;
 }
 
-double calculateTotalFee(int pperson) {
+int calculateTotalTastingFeePP(
+  List<SelectedVenuesRecord> selectedVenues,
+  double selectedVenueFee,
+) {
   // Add your function code here!
-  return (pperson * 2).toDouble();
+  int totalTastingFeePP = 0;
+
+  for (var i = 0; i < selectedVenues.length; i++) {
+    totalTastingFeePP += selectedVenues[i].tastingFee.toInt();
+    print(totalTastingFeePP);
+  }
+
+  return totalTastingFeePP + selectedVenueFee.toInt();
+}
+
+int deductFromTotalTastingFeePP(
+  int currentTastingFee,
+  SelectedVenuesRecord subtractValue,
+) {
+  // Add your function code here!
+  return currentTastingFee -
+      subtractValue.tastingFee.toInt(); //subtractValue.toInt();
+}
+
+int addtoTotalTastingFeePP(
+  int currentTastingFee,
+  double addValue,
+) {
+  // Add your function code here!
+  return currentTastingFee + addValue.toInt();
+}
+
+String setImagePath(
+  String tastingExperienceRecordImgPath,
+  String venueImgPath,
+) {
+  // Add your function code here!
+  return tastingExperienceRecordImgPath.isEmpty
+      ? venueImgPath
+      : tastingExperienceRecordImgPath;
+}
+
+bool isIntegerOneSmallOrEqualThanIntegerTwo(
+  int intergerOne,
+  int intergerTwo,
+) {
+  // Add your function code here!
+  return intergerOne <= intergerTwo ? true : false;
+}
+
+bool isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(
+  int intergerOne,
+  int intergerTwo,
+  bool arguement3,
+) {
+  // Add your function code here!
+  return intergerOne < intergerTwo || !arguement3 ? true : false;
+}
+
+String displayTastingExperienceDescription(String tastingDescription) {
+  // Add your function code here!
+  return tastingDescription == "" ? "Not applicable" : tastingDescription;
+}
+
+int getTourSubTotal(
+  int noOfPassengers,
+  double costPP,
+) {
+  // Add your function code here!
+  //int costpp = (costPP / 100).round();
+  return noOfPassengers * costPP.toInt();
 }

@@ -42,13 +42,33 @@ abstract class SelectedVenuesRecord
   DocumentReference get regionID;
 
   @nullable
+  @BuiltValueField(wireName: 'is_large_group_early_seating_only_venue')
+  bool get isLargeGroupEarlySeatingOnlyVenue;
+
+  @nullable
+  @BuiltValueField(wireName: 'is_lunch_venue_only')
+  bool get isLunchVenueOnly;
+
+  @nullable
+  @BuiltValueField(wireName: 'tasting_experience_description')
+  String get tastingExperienceDescription;
+
+  @nullable
+  @BuiltValueField(wireName: 'is_tasting_included')
+  bool get isTastingIncluded;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(SelectedVenuesRecordBuilder builder) => builder
     ..isLunchVenue = false
     ..tastingFee = 0.0
-    ..bookingReference = '';
+    ..bookingReference = ''
+    ..isLargeGroupEarlySeatingOnlyVenue = false
+    ..isLunchVenueOnly = false
+    ..tastingExperienceDescription = ''
+    ..isTastingIncluded = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('selected_venues');
@@ -82,6 +102,10 @@ Map<String, dynamic> createSelectedVenuesRecordData({
   String bookingReference,
   DateTime reservationTime,
   DocumentReference regionID,
+  bool isLargeGroupEarlySeatingOnlyVenue,
+  bool isLunchVenueOnly,
+  String tastingExperienceDescription,
+  bool isTastingIncluded,
 }) =>
     serializers.toFirestore(
         SelectedVenuesRecord.serializer,
@@ -94,4 +118,9 @@ Map<String, dynamic> createSelectedVenuesRecordData({
           ..addedDate = addedDate
           ..bookingReference = bookingReference
           ..reservationTime = reservationTime
-          ..regionID = regionID));
+          ..regionID = regionID
+          ..isLargeGroupEarlySeatingOnlyVenue =
+              isLargeGroupEarlySeatingOnlyVenue
+          ..isLunchVenueOnly = isLunchVenueOnly
+          ..tastingExperienceDescription = tastingExperienceDescription
+          ..isTastingIncluded = isTastingIncluded));

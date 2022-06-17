@@ -33,6 +33,12 @@ class FFAppState {
   DocumentReference newTourRegionRef;
 
   DocumentReference lunchVenueReff;
+
+  int perPersonTourCostTotal = 0;
+
+  String perPersonTourCostString = '';
+
+  int largeGroupVenueEarlySeatingSelectedCount = 0;
 }
 
 LatLng _latLngFromString(String val) {

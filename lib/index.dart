@@ -32,3 +32,4 @@ export 'chat_screen_sample/chat_screen_sample_widget.dart'
     show ChatScreenSampleWidget;
 export 'users/users_widget.dart' show UsersWidget;
 export 'select_driver/select_driver_widget.dart' show SelectDriverWidget;
+export 'submit_tour/submit_tour_widget.dart' show SubmitTourWidget;

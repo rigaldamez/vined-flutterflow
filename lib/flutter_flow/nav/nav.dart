@@ -135,19 +135,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Login',
               path: 'login',
-              requireAuth: true,
               builder: (context, params) => LoginWidget(),
             ),
             FFRoute(
               name: 'SignupEmail',
               path: 'signupEmail',
-              requireAuth: true,
               builder: (context, params) => SignupEmailWidget(),
             ),
             FFRoute(
               name: 'LoginEmail',
               path: 'loginEmail',
-              requireAuth: true,
               builder: (context, params) => LoginEmailWidget(),
             ),
             FFRoute(
@@ -238,9 +235,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'TourDetails',
               path: 'tourDetails',
               requireAuth: true,
+              asyncParams: {
+                'tourDocument': getDoc('tours', ToursRecord.serializer),
+              },
               builder: (context, params) => TourDetailsWidget(
                 tourID: params.getParam(
                     'tourID', ParamType.DocumentReference, 'tours'),
+                tourDocument:
+                    params.getParam('tourDocument', ParamType.Document),
               ),
             ),
             FFRoute(
@@ -248,8 +250,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'addVenue',
               requireAuth: true,
               builder: (context, params) => AddVenueWidget(
-                tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                tourReff: params.getParam(
+                    'tourReff', ParamType.DocumentReference, 'tours'),
               ),
             ),
             FFRoute(
@@ -294,6 +296,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SelectDriverWidget(
                 tourID: params.getParam(
                     'tourID', ParamType.DocumentReference, 'tours'),
+              ),
+            ),
+            FFRoute(
+              name: 'submitTour',
+              path: 'submitTour',
+              requireAuth: true,
+              asyncParams: {
+                'tourRecord': getDoc('tours', ToursRecord.serializer),
+              },
+              builder: (context, params) => SubmitTourWidget(
+                tourID: params.getParam(
+                    'tourID', ParamType.DocumentReference, 'tours'),
+                tourRecord: params.getParam('tourRecord', ParamType.Document),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),

@@ -50,6 +50,14 @@ abstract class VenuesRecord
   String get countryState;
 
   @nullable
+  @BuiltValueField(wireName: 'is_lunch_venue_only')
+  bool get isLunchVenueOnly;
+
+  @nullable
+  @BuiltValueField(wireName: 'large_group_early_seating_only')
+  bool get largeGroupEarlySeatingOnly;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -64,7 +72,9 @@ abstract class VenuesRecord
     ..maxCapacityEnforced = false
     ..mustAcknowledgeTCs = false
     ..isFavouritedBy = ListBuilder()
-    ..countryState = '';
+    ..countryState = ''
+    ..isLunchVenueOnly = false
+    ..largeGroupEarlySeatingOnly = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('venues');
@@ -94,6 +104,9 @@ abstract class VenuesRecord
           ..isFavouritedBy = safeGet(() => ListBuilder(
               snapshot.data['is_favourited_by'].map((s) => toRef(s))))
           ..countryState = snapshot.data['country_state']
+          ..isLunchVenueOnly = snapshot.data['is_lunch_venue_only']
+          ..largeGroupEarlySeatingOnly =
+              snapshot.data['large_group_early_seating_only']
           ..reference = VenuesRecord.collection.doc(snapshot.objectID),
       );
 
@@ -133,6 +146,8 @@ Map<String, dynamic> createVenuesRecordData({
   bool mustAcknowledgeTCs,
   DocumentReference regionRef,
   String countryState,
+  bool isLunchVenueOnly,
+  bool largeGroupEarlySeatingOnly,
 }) =>
     serializers.toFirestore(
         VenuesRecord.serializer,
@@ -148,4 +163,6 @@ Map<String, dynamic> createVenuesRecordData({
           ..mustAcknowledgeTCs = mustAcknowledgeTCs
           ..regionRef = regionRef
           ..isFavouritedBy = null
-          ..countryState = countryState));
+          ..countryState = countryState
+          ..isLunchVenueOnly = isLunchVenueOnly
+          ..largeGroupEarlySeatingOnly = largeGroupEarlySeatingOnly));

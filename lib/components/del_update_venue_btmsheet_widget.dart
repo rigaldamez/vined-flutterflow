@@ -15,13 +15,13 @@ class DelUpdateVenueBtmsheetWidget extends StatefulWidget {
   const DelUpdateVenueBtmsheetWidget({
     Key key,
     this.tourReff,
-    this.venueReff,
-    this.selectedVenue,
+    this.venueDoc,
+    this.selectedVenueReff,
   }) : super(key: key);
 
   final DocumentReference tourReff;
-  final VenuesRecord venueReff;
-  final DocumentReference selectedVenue;
+  final VenuesRecord venueDoc;
+  final DocumentReference selectedVenueReff;
 
   @override
   _DelUpdateVenueBtmsheetWidgetState createState() =>
@@ -94,81 +94,278 @@ class _DelUpdateVenueBtmsheetWidgetState
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(24),
-                                    child: Image.network(
-                                      widget.venueReff.image,
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
+                        child: StreamBuilder<SelectedVenuesRecord>(
+                          stream: SelectedVenuesRecord.getDocument(
+                              widget.selectedVenueReff),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .purplePastel,
                                   ),
-                                  Column(
+                                ),
+                              );
+                            }
+                            final columnSelectedVenuesRecord = snapshot.data;
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 6, 0, 0),
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Container(
-                                        width: 230,
-                                        height: 100,
-                                        decoration: BoxDecoration(),
-                                        alignment: AlignmentDirectional(-1, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
-                                          child: AutoSizeText(
-                                            functions.upperCaseString(
-                                                widget.venueReff.name),
-                                            textAlign: TextAlign.start,
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(24),
+                                        child: Image.network(
+                                          widget.venueDoc.image,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.cover,
                                         ),
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: 230,
+                                            height: 100,
+                                            decoration: BoxDecoration(),
+                                            alignment:
+                                                AlignmentDirectional(-1, 0),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(12, 0, 0, 0),
+                                              child: AutoSizeText(
+                                                functions.upperCaseString(
+                                                    widget.venueDoc.name),
+                                                textAlign: TextAlign.start,
+                                                maxLines: 2,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 20, 0, 20),
-                                child: StreamBuilder<SelectedVenuesRecord>(
-                                  stream: SelectedVenuesRecord.getDocument(
-                                      widget.selectedVenue),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context)
-                                                .purplePastel,
-                                          ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 20, 0, 20),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x00EEEEEE),
+                                        borderRadius: BorderRadius.circular(20),
+                                        shape: BoxShape.rectangle,
+                                        border: Border.all(
+                                          color: Color(0x19333333),
+                                          width: 1,
                                         ),
-                                      );
-                                    }
-                                    final containerSelectedVenuesRecord =
-                                        snapshot.data;
-                                    return Container(
+                                      ),
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 20, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                if (!(columnSelectedVenuesRecord
+                                                        .isLunchVenueOnly) ??
+                                                    true)
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.wine_bar_rounded,
+                                                        color: Colors.black,
+                                                        size: 24,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(16, 0,
+                                                                    0, 0),
+                                                        child: Container(
+                                                          width: 190,
+                                                          height: 70,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Tasting experience',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                functions.displayTastingExperienceDescription(
+                                                                    columnSelectedVenuesRecord
+                                                                        .tastingExperienceDescription),
+                                                                maxLines: 3,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          10,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        Icons.check_box_rounded,
+                                                        color: Colors.black,
+                                                        size: 24,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                if (columnSelectedVenuesRecord
+                                                        .isLunchVenueOnly ??
+                                                    true)
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.wine_bar_rounded,
+                                                        color: Colors.black,
+                                                        size: 24,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(16, 0,
+                                                                    0, 0),
+                                                        child: Container(
+                                                          width: 190,
+                                                          height: 70,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Tasting experience',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                'Not applicable',
+                                                                maxLines: 3,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          10,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        Icons
+                                                            .check_box_outline_blank_rounded,
+                                                        color:
+                                                            Colors.transparent,
+                                                        size: 24,
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 20),
+                                    child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       decoration: BoxDecoration(
@@ -253,16 +450,16 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     final selectedVenuesUpdateData =
                                                         createSelectedVenuesRecordData(
                                                       isLunchVenue:
-                                                          !containerSelectedVenuesRecord
+                                                          !columnSelectedVenuesRecord
                                                               .isLunchVenue,
                                                     );
-                                                    await containerSelectedVenuesRecord
+                                                    await columnSelectedVenuesRecord
                                                         .reference
                                                         .update(
                                                             selectedVenuesUpdateData);
                                                   },
                                                   value:
-                                                      containerSelectedVenuesRecord
+                                                      columnSelectedVenuesRecord
                                                           .isLunchVenue,
                                                   onIcon: Icon(
                                                     Icons.check_box,
@@ -281,84 +478,85 @@ class _DelUpdateVenueBtmsheetWidgetState
                                           ],
                                         ),
                                       ),
-                                    );
-                                  },
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.98,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: Color(0x1A000000),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 0, 30, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 220,
-                                      height: 100,
-                                      decoration: BoxDecoration(),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Icon(
-                                            Icons.access_time_rounded,
-                                            color: Colors.black,
-                                            size: 24,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20, 10, 20, 10),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Row(
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.98,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: Color(0x1A000000),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20, 0, 30, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 220,
+                                          height: 100,
+                                          decoration: BoxDecoration(),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(
+                                                Icons.access_time_rounded,
+                                                color: Colors.black,
+                                                size: 24,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(20, 10, 20, 10),
+                                                child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      'Reservation time',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          'Reservation time',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        dateTimeFormat(
-                                                            'jm', datePicked),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 4, 0, 0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            dateTimeFormat('jm',
+                                                                datePicked),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyText1
                                                                 .override(
                                                                   fontFamily:
@@ -367,145 +565,305 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                                       FontWeight
                                                                           .w600,
                                                                 ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FlutterFlowIconButton(
+                                          borderColor: Colors.transparent,
+                                          borderRadius: 30,
+                                          borderWidth: 1,
+                                          buttonSize: 34,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .black,
+                                          icon: Icon(
+                                            Icons.add,
+                                            color: FlutterFlowTheme.of(context)
+                                                .cultured,
+                                            size: 16,
+                                          ),
+                                          onPressed: () async {
+                                            await DatePicker.showTimePicker(
+                                              context,
+                                              showTitleActions: true,
+                                              onConfirm: (date) {
+                                                setState(
+                                                    () => datePicked = date);
+                                              },
+                                              currentTime: functions
+                                                  .getTodayTimestampZeroMinutes(),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 20, 0, 0),
+                                  child: Stack(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    children: [
+                                      Container(
+                                        width: 300,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .black,
+                                          borderRadius:
+                                              BorderRadius.circular(28),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Save',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .cultured,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          final selectedVenuesUpdateData =
+                                              createSelectedVenuesRecordData(
+                                            reservationTime: functions
+                                                .getBookingReservationTime(
+                                                    containerToursRecord
+                                                        .tourDate,
+                                                    datePicked),
+                                          );
+                                          await widget.selectedVenueReff
+                                              .update(selectedVenuesUpdateData);
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          width: 300,
+                                          height: 50,
+                                          decoration: BoxDecoration(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 20, 0, 0),
+                                  child:
+                                      StreamBuilder<List<SelectedVenuesRecord>>(
+                                    stream: querySelectedVenuesRecord(
+                                      queryBuilder: (selectedVenuesRecord) =>
+                                          selectedVenuesRecord.where('tourRef',
+                                              isEqualTo: widget.tourReff),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .purplePastel,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    FlutterFlowIconButton(
-                                      borderColor: Colors.transparent,
-                                      borderRadius: 30,
-                                      borderWidth: 1,
-                                      buttonSize: 34,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).black,
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: FlutterFlowTheme.of(context)
-                                            .cultured,
-                                        size: 16,
-                                      ),
-                                      onPressed: () async {
-                                        await DatePicker.showTimePicker(
-                                          context,
-                                          showTitleActions: true,
-                                          onConfirm: (date) {
-                                            setState(() => datePicked = date);
-                                          },
-                                          currentTime: functions
-                                              .getTodayTimestampZeroMinutes(),
                                         );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Stack(
-                                alignment: AlignmentDirectional(0, 0),
-                                children: [
-                                  Container(
-                                    width: 300,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context).black,
-                                      borderRadius: BorderRadius.circular(28),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Save',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.of(context)
-                                              .cultured,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      final selectedVenuesUpdateData =
-                                          createSelectedVenuesRecordData(
-                                        reservationTime:
-                                            functions.getBookingReservationTime(
-                                                containerToursRecord.tourDate,
-                                                datePicked),
-                                      );
-                                      await widget.selectedVenue
-                                          .update(selectedVenuesUpdateData);
-                                      context.pop();
-                                    },
-                                    child: Container(
-                                      width: 300,
-                                      height: 50,
-                                      decoration: BoxDecoration(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Stack(
-                                alignment: AlignmentDirectional(0, 0),
-                                children: [
-                                  Text(
-                                    'Remove venue',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      if (functions.isLunchVenue(
-                                          widget.venueReff.reference,
-                                          FFAppState().lunchVenueReff)) {
-                                        final toursUpdateData = {
-                                          'venues': FieldValue.arrayRemove(
-                                              [widget.venueReff.reference]),
-                                        };
-                                        await widget.tourReff
-                                            .update(toursUpdateData);
-                                        await widget.selectedVenue.delete();
-                                        setState(() =>
-                                            FFAppState().lunchVenueReff = null);
-                                        context.pop();
-                                      } else {
-                                        final toursUpdateData = {
-                                          'venues': FieldValue.arrayRemove(
-                                              [widget.venueReff.reference]),
-                                        };
-                                        await widget.tourReff
-                                            .update(toursUpdateData);
-                                        await widget.selectedVenue.delete();
-                                        context.pop();
                                       }
+                                      List<SelectedVenuesRecord>
+                                          containerSelectedVenuesRecordList =
+                                          snapshot.data;
+                                      return Container(
+                                        width: 300,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(28),
+                                        ),
+                                        child: Stack(
+                                          alignment: AlignmentDirectional(0, 0),
+                                          children: [
+                                            Text(
+                                              'Remove venue',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            ),
+                                            InkWell(
+                                              onTap: () async {
+                                                if (functions.isLunchVenue(
+                                                    widget.venueDoc.reference,
+                                                    FFAppState()
+                                                        .lunchVenueReff)) {
+                                                  final toursUpdateData = {
+                                                    ...createToursRecordData(
+                                                      totalTastingFeePp: functions
+                                                          .deductFromTotalTastingFeePP(
+                                                              containerToursRecord
+                                                                  .totalTastingFeePp,
+                                                              columnSelectedVenuesRecord),
+                                                      pricePp: functions
+                                                          .getPerPersonFeeAsInt(
+                                                              containerToursRecord
+                                                                  .transportFeePp,
+                                                              containerSelectedVenuesRecordList
+                                                                  .toList(),
+                                                              containerToursRecord
+                                                                  .platformTastingFee)
+                                                          .toDouble(),
+                                                      subTotal: functions.getTourSubTotal(
+                                                          containerToursRecord
+                                                              .passengers,
+                                                          functions
+                                                              .getPerPersonFeeAsInt(
+                                                                  containerToursRecord
+                                                                      .transportFeePp,
+                                                                  containerSelectedVenuesRecordList
+                                                                      .toList(),
+                                                                  containerToursRecord
+                                                                      .platformTastingFee)
+                                                              .toDouble()),
+                                                    ),
+                                                    'venues':
+                                                        FieldValue.arrayRemove([
+                                                      widget.venueDoc.reference
+                                                    ]),
+                                                  };
+                                                  await widget.tourReff
+                                                      .update(toursUpdateData);
+                                                  await widget.selectedVenueReff
+                                                      .delete();
+                                                  setState(() => FFAppState()
+                                                      .lunchVenueReff = null);
+                                                  Navigator.pop(context);
+                                                } else {
+                                                  if (columnSelectedVenuesRecord
+                                                      .isLargeGroupEarlySeatingOnlyVenue) {
+                                                    final toursUpdateData = {
+                                                      ...createToursRecordData(
+                                                        totalTastingFeePp: functions
+                                                            .deductFromTotalTastingFeePP(
+                                                                containerToursRecord
+                                                                    .totalTastingFeePp,
+                                                                columnSelectedVenuesRecord),
+                                                        pricePp: functions
+                                                            .getPerPersonFeeAsInt(
+                                                                containerToursRecord
+                                                                    .transportFeePp,
+                                                                containerSelectedVenuesRecordList
+                                                                    .toList(),
+                                                                containerToursRecord
+                                                                    .platformTastingFee)
+                                                            .toDouble(),
+                                                        subTotal: functions.getTourSubTotal(
+                                                            containerToursRecord
+                                                                .passengers,
+                                                            functions
+                                                                .getPerPersonFeeAsInt(
+                                                                    containerToursRecord
+                                                                        .transportFeePp,
+                                                                    containerSelectedVenuesRecordList
+                                                                        .toList(),
+                                                                    containerToursRecord
+                                                                        .platformTastingFee)
+                                                                .toDouble()),
+                                                      ),
+                                                      'venues': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .venueDoc.reference
+                                                      ]),
+                                                      'large_group_venue_early_seating_count':
+                                                          FieldValue.increment(
+                                                              -(1)),
+                                                    };
+                                                    await widget.tourReff
+                                                        .update(
+                                                            toursUpdateData);
+                                                    await widget
+                                                        .selectedVenueReff
+                                                        .delete();
+                                                    Navigator.pop(context);
+                                                  } else {
+                                                    final toursUpdateData = {
+                                                      ...createToursRecordData(
+                                                        totalTastingFeePp: functions
+                                                            .deductFromTotalTastingFeePP(
+                                                                containerToursRecord
+                                                                    .totalTastingFeePp,
+                                                                columnSelectedVenuesRecord),
+                                                        pricePp: functions
+                                                            .getPerPersonFeeAsInt(
+                                                                containerToursRecord
+                                                                    .transportFeePp,
+                                                                containerSelectedVenuesRecordList
+                                                                    .toList(),
+                                                                containerToursRecord
+                                                                    .platformTastingFee)
+                                                            .toDouble(),
+                                                        subTotal: functions.getTourSubTotal(
+                                                            containerToursRecord
+                                                                .passengers,
+                                                            functions
+                                                                .getPerPersonFeeAsInt(
+                                                                    containerToursRecord
+                                                                        .transportFeePp,
+                                                                    containerSelectedVenuesRecordList
+                                                                        .toList(),
+                                                                    containerToursRecord
+                                                                        .platformTastingFee)
+                                                                .toDouble()),
+                                                      ),
+                                                      'venues': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .venueDoc.reference
+                                                      ]),
+                                                    };
+                                                    await widget.tourReff
+                                                        .update(
+                                                            toursUpdateData);
+                                                    await widget
+                                                        .selectedVenueReff
+                                                        .delete();
+                                                    Navigator.pop(context);
+                                                  }
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 300,
+                                                height: 40,
+                                                decoration: BoxDecoration(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
                                     },
-                                    child: Container(
-                                      width: 300,
-                                      height: 40,
-                                      decoration: BoxDecoration(),
-                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ],

@@ -154,9 +154,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                               .map((k, v) => MapEntry(v.reference.id, k));
                           data.forEach((item) {
                             final index = itemIndexes[item.reference.id];
+                            final items = _pagingController.itemList;
                             if (index != null) {
+                              items.replaceRange(index, index + 1, [item]);
                               _pagingController.itemList
                                   .replaceRange(index, index + 1, [item]);
+                              _pagingController.itemList = {
+                                for (var item in items) item.reference: item
+                              }.values.toList();
                             }
                           });
                           setState(() {});
@@ -623,8 +628,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                                         'tourID': serializeParam(
                                             listViewToursRecord.reference,
                                             ParamType.DocumentReference),
+                                        'tourDocument': serializeParam(
+                                            listViewToursRecord,
+                                            ParamType.Document),
                                       }.withoutNulls,
                                       extra: <String, dynamic>{
+                                        'tourDocument': listViewToursRecord,
                                         kTransitionInfoKey: TransitionInfo(
                                           hasTransition: true,
                                           transitionType:

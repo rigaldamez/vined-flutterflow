@@ -15,6 +15,7 @@ import 'schema/tour_messages_record.dart';
 import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
 import 'schema/accepted_tours_record.dart';
+import 'schema/tasting_experiences_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -33,6 +34,7 @@ export 'schema/tour_messages_record.dart';
 export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
 export 'schema/accepted_tours_record.dart';
+export 'schema/tasting_experiences_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Stream<List<VenuesRecord>> queryVenuesRecord({
@@ -499,6 +501,52 @@ Future<FFFirestorePage<AcceptedToursRecord>> queryAcceptedToursRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     );
+
+/// Functions to query TastingExperiencesRecords (as a Stream and as a Future).
+Stream<List<TastingExperiencesRecord>> queryTastingExperiencesRecord({
+  DocumentReference parent,
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TastingExperiencesRecord.collection(parent),
+      TastingExperiencesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<TastingExperiencesRecord>> queryTastingExperiencesRecordOnce({
+  DocumentReference parent,
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TastingExperiencesRecord.collection(parent),
+      TastingExperiencesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<TastingExperiencesRecord>>
+    queryTastingExperiencesRecordPage({
+  DocumentReference parent,
+  Query Function(Query) queryBuilder,
+  DocumentSnapshot nextPageMarker,
+  int pageSize,
+  bool isStream,
+}) =>
+        queryCollectionPage(
+          TastingExperiencesRecord.collection(parent),
+          TastingExperiencesRecord.serializer,
+          queryBuilder: queryBuilder,
+          nextPageMarker: nextPageMarker,
+          pageSize: pageSize,
+          isStream: isStream,
+        );
 
 Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
     {Query Function(Query) queryBuilder,

@@ -238,7 +238,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                       );
                                       await widget.tourReff
                                           .update(toursUpdateData);
-                                      context.pop();
+                                      Navigator.pop(context);
                                     },
                                     child: Container(
                                       width: 300,
