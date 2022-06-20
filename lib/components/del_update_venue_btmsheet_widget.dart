@@ -693,9 +693,8 @@ class _DelUpdateVenueBtmsheetWidgetState
                                             0, 6, 0, 0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (functions.isBoolTrue(widget
-                                                .venueDoc
-                                                .largeGroupEarlySeatingOnly)) {
+                                            if (widget.venueDoc
+                                                .largeGroupEarlySeatingOnly) {
                                               final toursUpdateData = {
                                                 ...createToursRecordData(
                                                   totalTastingFeePp: functions

@@ -127,7 +127,7 @@ String upperCaseString(String str) {
 
 String getDayMonthFromDate(DateTime date) {
   // Get month from Date
-  return new DateFormat("d, MMMM").format(date);
+  return DateFormat("d, MMMM").format(date);
 }
 
 String concatenateStrings(
@@ -255,7 +255,6 @@ int getPerPersonFeeAsInt2(
 ) {
   //final currencyFormatter = NumberFormat.currency();
   double totalPerPerson = transportFee;
-
   final List<SelectedVenuesRecord> venues = selectedVenues;
 
   venues.add(lastSelectedVenue);
@@ -264,10 +263,7 @@ int getPerPersonFeeAsInt2(
     totalPerPerson += venues[i].tastingFee + platformFee;
     print(totalPerPerson);
   }
-
   return totalPerPerson.toInt();
-
-  //return totalPerPerson.toString();
 }
 
 DateTime getBookingReservationTime(
@@ -377,7 +373,7 @@ int getTourSubTotal(
 bool isBoolTrue(bool value) {
   // Add your function code here!
   if (value.toString() != "") {
-    return value == true ? true : false;
+    return value;
   }
   return false;
 }

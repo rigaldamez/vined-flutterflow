@@ -345,8 +345,8 @@ class _SelectExperienceBtmsheetWidgetState
                                             ),
                                           );
                                         } else {
-                                          if (widget
-                                              .isLargeGroupEarlySeatingOnlyVenue) {
+                                          if (widget.venueRec
+                                              .largeGroupEarlySeatingOnly) {
                                             final selectedVenuesCreateData =
                                                 createSelectedVenuesRecordData(
                                               venueRef:

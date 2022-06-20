@@ -669,6 +669,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                         tourReff: widget.tourReff,
                                                                                         regionReff: containerToursRecord.regionID,
                                                                                         tourDoc: containerToursRecord,
+                                                                                        isLargeGroupEarlySeatingOnlyVenue: false,
                                                                                       ),
                                                                                     ),
                                                                                   );
