@@ -1922,7 +1922,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           child:
                                                                               Container(
                                                                             height:
-                                                                                620,
+                                                                                650,
                                                                             child:
                                                                                 DelUpdateVenueBtmsheetWidget(
                                                                               tourReff: widget.tourID,

@@ -373,3 +373,11 @@ int getTourSubTotal(
   //int costpp = (costPP / 100).round();
   return noOfPassengers * costPP.toInt();
 }
+
+bool isBoolTrue(bool value) {
+  // Add your function code here!
+  if (value.toString() != "") {
+    return value == true ? true : false;
+  }
+  return false;
+}
