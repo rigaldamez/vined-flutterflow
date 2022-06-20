@@ -693,90 +693,10 @@ class _DelUpdateVenueBtmsheetWidgetState
                                             0, 6, 0, 0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            if (widget.venueDoc
-                                                .largeGroupEarlySeatingOnly) {
-                                              final toursUpdateData = {
-                                                ...createToursRecordData(
-                                                  totalTastingFeePp: functions
-                                                      .deductFromTotalTastingFeePP(
-                                                          containerToursRecord
-                                                              .totalTastingFeePp,
-                                                          columnSelectedVenuesRecord),
-                                                  pricePp: functions
-                                                      .getPerPersonFeeAsInt(
-                                                          containerToursRecord
-                                                              .transportFeePp,
-                                                          containerSelectedVenuesRecordList
-                                                              .toList(),
-                                                          containerToursRecord
-                                                              .platformTastingFee)
-                                                      .toDouble(),
-                                                  subTotal: functions.getTourSubTotal(
-                                                      containerToursRecord
-                                                          .passengers,
-                                                      functions
-                                                          .getPerPersonFeeAsInt(
-                                                              containerToursRecord
-                                                                  .transportFeePp,
-                                                              containerSelectedVenuesRecordList
-                                                                  .toList(),
-                                                              containerToursRecord
-                                                                  .platformTastingFee)
-                                                          .toDouble()),
-                                                ),
-                                                'venues':
-                                                    FieldValue.arrayRemove([
-                                                  widget.venueDoc.reference
-                                                ]),
-                                                'large_group_venue_early_seating_count':
-                                                    FieldValue.increment(-(1)),
-                                              };
-                                              await widget.tourReff
-                                                  .update(toursUpdateData);
-                                              await widget.selectedVenueReff
-                                                  .delete();
-                                              Navigator.pop(context);
-                                            } else {
-                                              final toursUpdateData = {
-                                                ...createToursRecordData(
-                                                  totalTastingFeePp: functions
-                                                      .deductFromTotalTastingFeePP(
-                                                          containerToursRecord
-                                                              .totalTastingFeePp,
-                                                          columnSelectedVenuesRecord),
-                                                  pricePp: functions
-                                                      .getPerPersonFeeAsInt(
-                                                          containerToursRecord
-                                                              .transportFeePp,
-                                                          containerSelectedVenuesRecordList
-                                                              .toList(),
-                                                          containerToursRecord
-                                                              .platformTastingFee)
-                                                      .toDouble(),
-                                                  subTotal: functions.getTourSubTotal(
-                                                      containerToursRecord
-                                                          .passengers,
-                                                      functions
-                                                          .getPerPersonFeeAsInt(
-                                                              containerToursRecord
-                                                                  .transportFeePp,
-                                                              containerSelectedVenuesRecordList
-                                                                  .toList(),
-                                                              containerToursRecord
-                                                                  .platformTastingFee)
-                                                          .toDouble()),
-                                                ),
-                                                'venues':
-                                                    FieldValue.arrayRemove([
-                                                  widget.venueDoc.reference
-                                                ]),
-                                              };
-                                              await widget.tourReff
-                                                  .update(toursUpdateData);
-                                              await widget.selectedVenueReff
-                                                  .delete();
-                                              Navigator.pop(context);
-                                            }
+                                            await columnSelectedVenuesRecord
+                                                .reference
+                                                .delete();
+                                            Navigator.pop(context);
                                           },
                                           text: 'Remove',
                                           options: FFButtonOptions(

@@ -171,20 +171,19 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                   } else {
                                     setState(() => FFAppState().newTourName =
                                         tourNameTextFieldController.text);
-                                    context.pop();
+                                    context.pushNamed(
+                                      'CreateNewTour1',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.bottomToTop,
+                                          duration: Duration(milliseconds: 150),
+                                        ),
+                                      },
+                                    );
+                                    return;
                                   }
-
-                                  context.pushNamed(
-                                    'CreateNewTour1',
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType:
-                                            PageTransitionType.bottomToTop,
-                                        duration: Duration(milliseconds: 150),
-                                      ),
-                                    },
-                                  );
                                 },
                                 text: 'Create Tour',
                                 options: FFButtonOptions(
