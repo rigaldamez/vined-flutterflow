@@ -289,8 +289,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   decoration: BoxDecoration(),
                   child: StreamBuilder<List<VenuesRecord>>(
                     stream: queryVenuesRecord(
-                      queryBuilder: (venuesRecord) => venuesRecord
-                          .where('regionName', isEqualTo: choiceChipsValue),
+                      queryBuilder: (venuesRecord) =>
+                          venuesRecord.where('regionName',
+                              isEqualTo: valueOrDefault<String>(
+                                choiceChipsValue,
+                                'Adelaide Hills',
+                              )),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -605,8 +609,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   decoration: BoxDecoration(),
                   child: StreamBuilder<List<VenuesRecord>>(
                     stream: queryVenuesRecord(
-                      queryBuilder: (venuesRecord) => venuesRecord
-                          .where('regionName', isEqualTo: choiceChipsValue),
+                      queryBuilder: (venuesRecord) =>
+                          venuesRecord.where('regionName',
+                              isEqualTo: valueOrDefault<String>(
+                                choiceChipsValue,
+                                'Adelaide Hills',
+                              )),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.

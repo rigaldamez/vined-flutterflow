@@ -658,17 +658,6 @@ class _DelUpdateVenueBtmsheetWidgetState
                                     ],
                                   ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      functions
-                                          .tourRefAsString(widget.tourReff),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                  ],
-                                ),
                                 StreamBuilder<List<SelectedVenuesRecord>>(
                                   stream: querySelectedVenuesRecord(
                                     queryBuilder: (selectedVenuesRecord) =>
@@ -858,77 +847,6 @@ class _DelUpdateVenueBtmsheetWidgetState
                                       ),
                                     );
                                   },
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      formatNumber(
-                                        containerToursRecord!.transportFeePp!,
-                                        formatType: FormatType.decimal,
-                                        decimalType: DecimalType.periodDecimal,
-                                        currency: '\$',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                    StreamBuilder<List<SelectedVenuesRecord>>(
-                                      stream: querySelectedVenuesRecord(
-                                        queryBuilder: (selectedVenuesRecord) =>
-                                            selectedVenuesRecord.where(
-                                                'tourRef',
-                                                isEqualTo: widget.tourReff),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                              child: CircularProgressIndicator(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .purplePastel,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        List<SelectedVenuesRecord>
-                                            containerSelectedVenuesRecordList =
-                                            snapshot.data!;
-                                        return Container(
-                                          width: 100,
-                                          height: 24,
-                                          decoration: BoxDecoration(),
-                                          alignment: AlignmentDirectional(0, 0),
-                                          child: Text(
-                                            containerSelectedVenuesRecordList
-                                                .length
-                                                .toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          containerToursRecord!
-                                              .platformTastingFee!,
-                                          formatType: FormatType.decimal,
-                                          decimalType:
-                                              DecimalType.periodDecimal,
-                                          currency: '\$',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ],
                             );
