@@ -11,15 +11,13 @@ abstract class TransportPricingRecord
   static Serializer<TransportPricingRecord> get serializer =>
       _$transportPricingRecordSerializer;
 
-  @nullable
-  double get price;
+  double? get price;
 
-  @nullable
-  int get passengersLbl;
+  int? get passengersLbl;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(TransportPricingRecordBuilder builder) =>
       builder
@@ -31,12 +29,12 @@ abstract class TransportPricingRecord
 
   static Stream<TransportPricingRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<TransportPricingRecord> getDocumentOnce(
           DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   TransportPricingRecord._();
   factory TransportPricingRecord(
@@ -46,15 +44,21 @@ abstract class TransportPricingRecord
   static TransportPricingRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createTransportPricingRecordData({
-  double price,
-  int passengersLbl,
-}) =>
-    serializers.toFirestore(
-        TransportPricingRecord.serializer,
-        TransportPricingRecord((t) => t
-          ..price = price
-          ..passengersLbl = passengersLbl));
+  double? price,
+  int? passengersLbl,
+}) {
+  final firestoreData = serializers.toFirestore(
+    TransportPricingRecord.serializer,
+    TransportPricingRecord(
+      (t) => t
+        ..price = price
+        ..passengersLbl = passengersLbl,
+    ),
+  );
+
+  return firestoreData;
+}

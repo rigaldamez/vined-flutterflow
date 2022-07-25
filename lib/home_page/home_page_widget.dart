@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key key}) : super(key: key);
+  const HomePageWidget({Key? key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -20,13 +20,14 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
-  String choiceChipsValue;
+  String? choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 200,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         opacity: 0,
@@ -99,7 +100,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           context.pushNamed('FIlterWineries');
                         },
                       ).animated(
-                          [animationsMap['iconButtonOnPageLoadAnimation']]),
+                          [animationsMap['iconButtonOnPageLoadAnimation']!]),
                     ],
                   ),
                 ),
@@ -164,19 +165,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   }
                                   List<RegionsRecord>
                                       choiceChipsRegionsRecordList =
-                                      snapshot.data;
+                                      snapshot.data!;
                                   return FlutterFlowChoiceChips(
                                     initiallySelected: choiceChipsValue != null
-                                        ? [choiceChipsValue]
+                                        ? [choiceChipsValue!]
                                         : ['Adelaide Hills'],
                                     options: (choiceChipsRegionsRecordList
-                                                .map((e) => e.name)
+                                                .map((e) => e!.name!)
                                                 .toList() ??
                                             [])
                                         .map((label) => ChipData(label))
                                         .toList(),
                                     onChanged: (val) => setState(
-                                        () => choiceChipsValue = val.first),
+                                        () => choiceChipsValue = val?.first),
                                     selectedChipStyle: ChipStyle(
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).black,
@@ -305,7 +306,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         );
                       }
                       List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                          snapshot.data;
+                          snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -332,12 +333,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         6, 6, 6, 6),
                                     child: Hero(
-                                      tag: listViewFeaturedVenuesRecord.image,
+                                      tag: listViewFeaturedVenuesRecord!.image!,
                                       transitionOnUserGestures: true,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(34),
                                         child: Image.network(
-                                          listViewFeaturedVenuesRecord.image,
+                                          listViewFeaturedVenuesRecord!.image!,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -389,7 +390,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       child: Text(
                                         functions
                                             .upperCaseString(
-                                                listViewFeaturedVenuesRecord
+                                                listViewFeaturedVenuesRecord!
                                                     .name)
                                             .maybeHandleOverflow(
                                               maxChars: 18,
@@ -433,9 +434,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     final isFavouritedByElement =
                                                         currentUserReference;
                                                     final isFavouritedByUpdate =
-                                                        listViewFeaturedVenuesRecord
-                                                                .isFavouritedBy
-                                                                .toList()
+                                                        listViewFeaturedVenuesRecord!
+                                                                .isFavouritedBy!
+                                                                .toList()!
                                                                 .contains(
                                                                     isFavouritedByElement)
                                                             ? FieldValue
@@ -450,14 +451,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       'is_favourited_by':
                                                           isFavouritedByUpdate,
                                                     };
-                                                    await listViewFeaturedVenuesRecord
+                                                    await listViewFeaturedVenuesRecord!
                                                         .reference
                                                         .update(
                                                             venuesUpdateData);
                                                   },
-                                                  value: listViewFeaturedVenuesRecord
-                                                      .isFavouritedBy
-                                                      .toList()
+                                                  value: listViewFeaturedVenuesRecord!
+                                                      .isFavouritedBy!
+                                                      .toList()!
                                                       .contains(
                                                           currentUserReference),
                                                   onIcon: Icon(
@@ -480,9 +481,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                if (listViewFeaturedVenuesRecord
-                                                    .isFavouritedBy
-                                                    .toList()
+                                                if (listViewFeaturedVenuesRecord!
+                                                    .isFavouritedBy!
+                                                    .toList()!
                                                     .contains(
                                                         currentUserReference)) {
                                                   final venuesUpdateData = {
@@ -491,7 +492,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       currentUserReference
                                                     ]),
                                                   };
-                                                  await listViewFeaturedVenuesRecord
+                                                  await listViewFeaturedVenuesRecord!
                                                       .reference
                                                       .update(venuesUpdateData);
                                                 } else {
@@ -501,7 +502,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       currentUserReference
                                                     ]),
                                                   };
-                                                  await listViewFeaturedVenuesRecord
+                                                  await listViewFeaturedVenuesRecord!
                                                       .reference
                                                       .update(venuesUpdateData);
                                                 }
@@ -539,7 +540,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Text(
                           valueOrDefault<String>(
-                            choiceChipsValue,
+                            choiceChipsValue!,
                             'Default Value',
                           ),
                           style:
@@ -621,7 +622,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         );
                       }
                       List<VenuesRecord> listViewVenuesRecordList =
-                          snapshot.data;
+                          snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -654,7 +655,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           borderRadius:
                                               BorderRadius.circular(34),
                                           child: Image.network(
-                                            listViewVenuesRecord.image,
+                                            listViewVenuesRecord!.image!,
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
@@ -709,7 +710,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               children: [
                                                 Text(
                                                   functions.upperCaseString(
-                                                      listViewVenuesRecord
+                                                      listViewVenuesRecord!
                                                           .name),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -751,9 +752,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   () async {
                                                                 final isFavouritedByElement =
                                                                     currentUserReference;
-                                                                final isFavouritedByUpdate = listViewVenuesRecord
-                                                                        .isFavouritedBy
-                                                                        .toList()
+                                                                final isFavouritedByUpdate = listViewVenuesRecord!
+                                                                        .isFavouritedBy!
+                                                                        .toList()!
                                                                         .contains(
                                                                             isFavouritedByElement)
                                                                     ? FieldValue
@@ -769,14 +770,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   'is_favourited_by':
                                                                       isFavouritedByUpdate,
                                                                 };
-                                                                await listViewVenuesRecord
+                                                                await listViewVenuesRecord!
                                                                     .reference
                                                                     .update(
                                                                         venuesUpdateData);
                                                               },
-                                                              value: listViewVenuesRecord
-                                                                  .isFavouritedBy
-                                                                  .toList()
+                                                              value: listViewVenuesRecord!
+                                                                  .isFavouritedBy!
+                                                                  .toList()!
                                                                   .contains(
                                                                       currentUserReference),
                                                               onIcon: Icon(
@@ -800,9 +801,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         ),
                                                         InkWell(
                                                           onTap: () async {
-                                                            if (listViewVenuesRecord
-                                                                .isFavouritedBy
-                                                                .toList()
+                                                            if (listViewVenuesRecord!
+                                                                .isFavouritedBy!
+                                                                .toList()!
                                                                 .contains(
                                                                     currentUserReference)) {
                                                               final venuesUpdateData =
@@ -813,7 +814,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   currentUserReference
                                                                 ]),
                                                               };
-                                                              await listViewVenuesRecord
+                                                              await listViewVenuesRecord!
                                                                   .reference
                                                                   .update(
                                                                       venuesUpdateData);
@@ -826,7 +827,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   currentUserReference
                                                                 ]),
                                                               };
-                                                              await listViewVenuesRecord
+                                                              await listViewVenuesRecord!
                                                                   .reference
                                                                   .update(
                                                                       venuesUpdateData);

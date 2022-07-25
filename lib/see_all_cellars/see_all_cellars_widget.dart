@@ -7,11 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SeeAllCellarsWidget extends StatefulWidget {
   const SeeAllCellarsWidget({
-    Key key,
+    Key? key,
     this.regionName,
   }) : super(key: key);
 
-  final String regionName;
+  final String? regionName;
 
   @override
   _SeeAllCellarsWidgetState createState() => _SeeAllCellarsWidgetState();
@@ -68,7 +68,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                       },
                     ),
                     Text(
-                      widget.regionName,
+                      widget.regionName!,
                       style: FlutterFlowTheme.of(context).subtitle1.override(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w800,
@@ -96,7 +96,8 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                         ),
                       );
                     }
-                    List<VenuesRecord> listViewVenuesRecordList = snapshot.data;
+                    List<VenuesRecord> listViewVenuesRecordList =
+                        snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -123,7 +124,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(34),
                                         child: Image.network(
-                                          listViewVenuesRecord.image,
+                                          listViewVenuesRecord!.image!,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -143,7 +144,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(14, 6, 0, 0),
                                 child: Text(
-                                  listViewVenuesRecord.name,
+                                  listViewVenuesRecord!.name!,
                                   style: FlutterFlowTheme.of(context)
                                       .subtitle2
                                       .override(

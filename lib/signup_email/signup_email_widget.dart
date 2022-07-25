@@ -7,18 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignupEmailWidget extends StatefulWidget {
-  const SignupEmailWidget({Key key}) : super(key: key);
+  const SignupEmailWidget({Key? key}) : super(key: key);
 
   @override
   _SignupEmailWidgetState createState() => _SignupEmailWidgetState();
 }
 
 class _SignupEmailWidgetState extends State<SignupEmailWidget> {
-  TextEditingController emailTextFieldController;
-  TextEditingController passwordTextField1Controller;
-  bool passwordTextField1Visibility;
-  TextEditingController passwordTextField2Controller;
-  bool passwordTextField2Visibility;
+  TextEditingController? emailTextFieldController;
+  TextEditingController? passwordTextField1Controller;
+  late bool passwordTextField1Visibility;
+  TextEditingController? passwordTextField2Controller;
+  late bool passwordTextField2Visibility;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -290,8 +290,8 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
 
                             final user = await createAccountWithEmail(
                               context,
-                              emailTextFieldController.text,
-                              passwordTextField1Controller.text,
+                              emailTextFieldController!.text,
+                              passwordTextField1Controller!.text,
                             );
                             if (user == null) {
                               return;
@@ -313,7 +313,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 34,
+                            borderRadius: BorderRadius.circular(34),
                           ),
                         ),
                       ],

@@ -16,21 +16,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTour3Widget extends StatefulWidget {
   const CreateNewTour3Widget({
-    Key key,
+    Key? key,
     this.regionIDRef,
   }) : super(key: key);
 
-  final DocumentReference regionIDRef;
+  final DocumentReference? regionIDRef;
 
   @override
   _CreateNewTour3WidgetState createState() => _CreateNewTour3WidgetState();
 }
 
 class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
-  DateTime datePicked;
-  TextEditingController textController;
+  DateTime? datePicked;
+  TextEditingController? textController;
   var placePickerValue = FFPlace();
-  ToursRecord createdTourID;
+  ToursRecord? createdTourID;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -59,7 +59,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
             ),
           );
         }
-        List<ToursRecord> createNewTour3ToursRecordList = snapshot.data;
+        List<ToursRecord> createNewTour3ToursRecordList = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Color(0xFFF5F5F5),
@@ -104,7 +104,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Text(
-                          FFAppState().newTourName,
+                          FFAppState().newTourName!,
                           style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
@@ -152,7 +152,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     ),
                                   ),
                                   Text(
-                                    dateTimeFormat('MMMMEEEEd', datePicked),
+                                    dateTimeFormat('MMMMEEEEd', datePicked!),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -165,7 +165,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         4, 0, 0, 0),
                                     child: Text(
-                                      dateTimeFormat('jm', datePicked),
+                                      dateTimeFormat('jm', datePicked!),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -212,15 +212,13 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 }
                                 List<AppConfigRecord>
                                     containerAppConfigRecordList =
-                                    snapshot.data;
+                                    snapshot.data!;
                                 // Return an empty Container when the document does not exist.
-                                if (snapshot.data.isEmpty) {
+                                if (snapshot.data!.isEmpty) {
                                   return Container();
                                 }
                                 final containerAppConfigRecord =
-                                    containerAppConfigRecordList.isNotEmpty
-                                        ? containerAppConfigRecordList.first
-                                        : null;
+                                    containerAppConfigRecordList.first;
                                 return InkWell(
                                   onTap: () async {
                                     await DatePicker.showDateTimePicker(
@@ -232,7 +230,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       currentTime:
                                           functions.getCurrentDateTimePlusAweek(
                                               datePicked,
-                                              containerAppConfigRecord
+                                              containerAppConfigRecord!
                                                   .tourLeadTime,
                                               valueOrDefault(
                                                   currentUserDocument
@@ -241,7 +239,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       minTime:
                                           functions.getCurrentDateTimePlusAweek(
                                               datePicked,
-                                              containerAppConfigRecord
+                                              containerAppConfigRecord!
                                                   .tourLeadTime,
                                               valueOrDefault(
                                                   currentUserDocument
@@ -283,7 +281,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                       ],
                     ),
                   ),
-                  if (functions.isStringNotEmpty(placePickerValue.address) ??
+                  if (functions.isStringNotEmpty(placePickerValue!.address) ??
                       true)
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -333,7 +331,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                         ],
                       ),
                     ),
-                  if (functions.isStringNotEmpty(placePickerValue.address) ??
+                  if (functions.isStringNotEmpty(placePickerValue!.address) ??
                       true)
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -343,7 +341,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                         children: [
                           Text(
                             valueOrDefault<String>(
-                              placePickerValue.address,
+                              placePickerValue!.address!,
                               'address',
                             ),
                             style:
@@ -368,8 +366,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                               'AIzaSyCf9LVmSv_NS1Yz34-f51SXiiHMhSlv72A',
                           webGoogleMapsApiKey:
                               'AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8',
-                          onSelect: (place) =>
-                              setState(() => placePickerValue = place),
+                          onSelect: (place) async {
+                            setState(() => placePickerValue = place);
+                          },
                           defaultText: 'Tap to set',
                           icon: Icon(
                             Icons.place,
@@ -391,19 +390,19 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                             borderSide: BorderSide(
                               color: Colors.transparent,
                             ),
-                            borderRadius: 34,
+                            borderRadius: BorderRadius.circular(34),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  if (functions.isStringNotEmpty(placePickerValue.address) ??
+                  if (functions.isStringNotEmpty(placePickerValue!.address) ??
                       true)
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: FutureBuilder<ApiCallResponse>(
                         future: GETGeolocationFORAddressCall.call(
-                          address: placePickerValue.address,
+                          address: placePickerValue!.address,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -420,7 +419,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                             );
                           }
                           final rowGETGeolocationFORAddressResponse =
-                              snapshot.data;
+                              snapshot.data!;
                           return Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -433,7 +432,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       uid: currentUserReference,
                                       passengers:
                                           FFAppState().newTourNoOfPassengers,
-                                      pickupAddress: placePickerValue.address,
+                                      pickupAddress: placePickerValue!.address,
                                       tourDate: datePicked,
                                       regionID: FFAppState().newTourRegionRef,
                                       pricePp: FFAppState().newTourPricePP,
@@ -452,7 +451,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                           )),
                                       region: FFAppState().newTourRegionName,
                                       tourName: FFAppState().newTourName,
-                                      pickupUnitNumber: textController.text,
+                                      pickupUnitNumber: textController!.text,
                                       tourState: 'draft',
                                     ),
                                     'guests_uid': [currentUserReference],
@@ -483,7 +482,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     'AddVenueToTour',
                                     queryParams: {
                                       'tourID': serializeParam(
-                                          createdTourID.reference,
+                                          createdTourID!.reference,
                                           ParamType.DocumentReference),
                                       'tourName': serializeParam(
                                           FFAppState().newTourName,
@@ -528,7 +527,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     color: Colors.transparent,
                                     width: 1,
                                   ),
-                                  borderRadius: 28,
+                                  borderRadius: BorderRadius.circular(28),
                                 ),
                               ),
                             ],
@@ -560,7 +559,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                             );
                           }
                           List<ToursRecord> listViewToursRecordList =
-                              snapshot.data;
+                              snapshot.data!;
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
@@ -583,7 +582,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                         4, 4, 4, 4),
                                     child: StreamBuilder<RegionsRecord>(
                                       stream: RegionsRecord.getDocument(
-                                          listViewToursRecord.regionID),
+                                          listViewToursRecord!.regionID!),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -599,7 +598,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                             ),
                                           );
                                         }
-                                        final rowRegionsRecord = snapshot.data;
+                                        final rowRegionsRecord = snapshot.data!;
                                         return Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -609,7 +608,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                   'EditTourPassengers',
                                                   queryParams: {
                                                     'tourID': serializeParam(
-                                                        listViewToursRecord
+                                                        listViewToursRecord!
                                                             .reference,
                                                         ParamType
                                                             .DocumentReference),
@@ -620,7 +619,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                 borderRadius:
                                                     BorderRadius.circular(20),
                                                 child: Image.network(
-                                                  rowRegionsRecord.image,
+                                                  rowRegionsRecord!.image!,
                                                   width: 100,
                                                   height: 100,
                                                   fit: BoxFit.cover,
@@ -642,8 +641,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
-                                                        listViewToursRecord
-                                                            .tourName,
+                                                        listViewToursRecord!
+                                                            .tourName!,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -655,8 +654,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                 .fromSTEB(10, 0,
                                                                     0, 0),
                                                         child: Text(
-                                                          listViewToursRecord
-                                                              .passengers
+                                                          listViewToursRecord!
+                                                              .passengers!
                                                               .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -668,8 +667,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                   StreamBuilder<RegionsRecord>(
                                                     stream: RegionsRecord
                                                         .getDocument(
-                                                            listViewToursRecord
-                                                                .regionID),
+                                                            listViewToursRecord!
+                                                                .regionID!),
                                                     builder:
                                                         (context, snapshot) {
                                                       // Customize what your widget looks like when it's loading.
@@ -688,7 +687,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                         );
                                                       }
                                                       final rowRegionsRecord =
-                                                          snapshot.data;
+                                                          snapshot.data!;
                                                       return Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -700,8 +699,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                 .center,
                                                         children: [
                                                           Text(
-                                                            rowRegionsRecord
-                                                                .name,
+                                                            rowRegionsRecord!
+                                                                .name!,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1,
@@ -717,8 +716,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                             child: Text(
                                                               dateTimeFormat(
                                                                   'yMMMd',
-                                                                  listViewToursRecord
-                                                                      .tourDate),
+                                                                  listViewToursRecord!
+                                                                      .tourDate!),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1,
@@ -743,22 +742,22 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                               'AddVenueToTour',
                                                               queryParams: {
                                                                 'tourID': serializeParam(
-                                                                    listViewToursRecord
+                                                                    listViewToursRecord!
                                                                         .reference,
                                                                     ParamType
                                                                         .DocumentReference),
                                                                 'tourName': serializeParam(
-                                                                    listViewToursRecord
+                                                                    listViewToursRecord!
                                                                         .tourName,
                                                                     ParamType
                                                                         .String),
                                                                 'regionID': serializeParam(
-                                                                    rowRegionsRecord
+                                                                    rowRegionsRecord!
                                                                         .regionID,
                                                                     ParamType
                                                                         .String),
                                                                 'tourDate': serializeParam(
-                                                                    listViewToursRecord
+                                                                    listViewToursRecord!
                                                                         .tourDate,
                                                                     ParamType
                                                                         .DateTime),
@@ -801,7 +800,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                   .transparent,
                                                               width: 1,
                                                             ),
-                                                            borderRadius: 20,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
                                                           ),
                                                         ),
                                                         Padding(
@@ -816,7 +818,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                 'ViewTourDetails',
                                                                 queryParams: {
                                                                   'tourRef': serializeParam(
-                                                                      listViewToursRecord
+                                                                      listViewToursRecord!
                                                                           .reference,
                                                                       ParamType
                                                                           .DocumentReference),
@@ -849,7 +851,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                     .transparent,
                                                                 width: 1,
                                                               ),
-                                                              borderRadius: 20,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
                                                             ),
                                                           ),
                                                         ),
@@ -890,11 +895,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                         );
                       }
                       List<AppConfigRecord> rowAppConfigRecordList =
-                          snapshot.data;
-                      final rowAppConfigRecord =
-                          rowAppConfigRecordList.isNotEmpty
-                              ? rowAppConfigRecordList.first
-                              : null;
+                          snapshot.data!;
+                      final rowAppConfigRecord = rowAppConfigRecordList.first;
                       return Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -905,7 +907,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                             child: Text(
-                              rowAppConfigRecord.tourLeadTime.toString(),
+                              rowAppConfigRecord!.tourLeadTime!.toString(),
                               style: FlutterFlowTheme.of(context).bodyText1,
                             ),
                           ),

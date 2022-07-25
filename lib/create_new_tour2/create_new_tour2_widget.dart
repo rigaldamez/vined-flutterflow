@@ -10,13 +10,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTour2Widget extends StatefulWidget {
   const CreateNewTour2Widget({
-    Key key,
+    Key? key,
     this.state,
     this.regionIDRef,
   }) : super(key: key);
 
   final dynamic state;
-  final DocumentReference regionIDRef;
+  final DocumentReference? regionIDRef;
 
   @override
   _CreateNewTour2WidgetState createState() => _CreateNewTour2WidgetState();
@@ -47,15 +47,12 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
               ),
             );
           }
-          List<AppConfigRecord> containerAppConfigRecordList = snapshot.data;
+          List<AppConfigRecord> containerAppConfigRecordList = snapshot.data!;
           // Return an empty Container when the document does not exist.
-          if (snapshot.data.isEmpty) {
+          if (snapshot.data!.isEmpty) {
             return Container();
           }
-          final containerAppConfigRecord =
-              containerAppConfigRecordList.isNotEmpty
-                  ? containerAppConfigRecordList.first
-                  : null;
+          final containerAppConfigRecord = containerAppConfigRecordList.first;
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -97,7 +94,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                         },
                       ),
                       Text(
-                        FFAppState().newTourName,
+                        FFAppState().newTourName!,
                         style: FlutterFlowTheme.of(context).subtitle1,
                       ),
                     ],
@@ -145,7 +142,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                           }
                           List<TransportPricingRecord>
                               gridViewTransportPricingRecordList =
-                              snapshot.data;
+                              snapshot.data!;
                           return GridView.builder(
                             padding: EdgeInsets.zero,
                             gridDelegate:
@@ -184,8 +181,8 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                         Align(
                                           alignment: AlignmentDirectional(0, 0),
                                           child: Text(
-                                            gridViewTransportPricingRecord
-                                                .passengersLbl
+                                            gridViewTransportPricingRecord!
+                                                .passengersLbl!
                                                 .toString(),
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
@@ -221,7 +218,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                                     .fromSTEB(0, 2, 0, 0),
                                                 child: AutoSizeText(
                                                   functions.fortmatCurrency(
-                                                      gridViewTransportPricingRecord
+                                                      gridViewTransportPricingRecord!
                                                           .price,
                                                       '\$'),
                                                   textAlign: TextAlign.center,
@@ -280,11 +277,12 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                     onTap: () async {
                                       setState(() =>
                                           FFAppState().newTourNoOfPassengers =
-                                              gridViewTransportPricingRecord
-                                                  .passengersLbl);
-                                      setState(() => FFAppState()
-                                              .newTourPricePP =
-                                          gridViewTransportPricingRecord.price);
+                                              gridViewTransportPricingRecord!
+                                                  .passengersLbl!);
+                                      setState(() =>
+                                          FFAppState().newTourPricePP =
+                                              gridViewTransportPricingRecord!
+                                                  .price!);
                                       context.pushNamed(
                                         'CreateNewTour3',
                                         queryParams: {
@@ -359,8 +357,8 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                await launchURL(
-                                    containerAppConfigRecord.vinedMessengerURL);
+                                await launchURL(containerAppConfigRecord!
+                                    .vinedMessengerURL!);
                               },
                               child: Container(
                                 width: double.infinity,

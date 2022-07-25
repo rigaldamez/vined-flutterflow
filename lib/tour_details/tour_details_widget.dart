@@ -17,13 +17,13 @@ import 'package:share_plus/share_plus.dart';
 
 class TourDetailsWidget extends StatefulWidget {
   const TourDetailsWidget({
-    Key key,
+    Key? key,
     this.tourID,
     this.tourDocument,
   }) : super(key: key);
 
-  final DocumentReference tourID;
-  final ToursRecord tourDocument;
+  final DocumentReference? tourID;
+  final ToursRecord? tourDocument;
 
   @override
   _TourDetailsWidgetState createState() => _TourDetailsWidgetState();
@@ -56,7 +56,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
             );
           }
           List<SelectedVenuesRecord>
-              floatingActionButtonSelectedVenuesRecordList = snapshot.data;
+              floatingActionButtonSelectedVenuesRecordList = snapshot.data!;
           return FloatingActionButton.extended(
             onPressed: () async {
               context.pushNamed(
@@ -97,7 +97,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
         },
       ),
       body: StreamBuilder<ToursRecord>(
-        stream: ToursRecord.getDocument(widget.tourID),
+        stream: ToursRecord.getDocument(widget.tourID!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -111,7 +111,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
               ),
             );
           }
-          final containerTourReffToursRecord = snapshot.data;
+          final containerTourReffToursRecord = snapshot.data!;
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -138,7 +138,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                     children: [
                       StreamBuilder<RegionsRecord>(
                         stream: RegionsRecord.getDocument(
-                            containerTourReffToursRecord.regionID),
+                            containerTourReffToursRecord!.regionID!),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -154,7 +154,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                             );
                           }
                           final containerRegionReffRegionsRecord =
-                              snapshot.data;
+                              snapshot.data!;
                           return Container(
                             width: double.infinity,
                             height: 220,
@@ -164,7 +164,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                             child: Stack(
                               children: [
                                 Image.network(
-                                  containerRegionReffRegionsRecord.image,
+                                  containerRegionReffRegionsRecord!.image!,
                                   width: double.infinity,
                                   height: 280,
                                   fit: BoxFit.cover,
@@ -189,8 +189,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           AutoSizeText(
-                                            containerTourReffToursRecord
-                                                .tourName,
+                                            containerTourReffToursRecord!
+                                                .tourName!,
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
@@ -260,7 +260,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            containerTourReffToursRecord.region,
+                                            containerTourReffToursRecord!
+                                                .region!,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
                                                 .override(
@@ -325,13 +326,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                 }
                                 List<AppConfigRecord>
                                     columnAppConfigReffAppConfigRecordList =
-                                    snapshot.data;
+                                    snapshot.data!;
                                 final columnAppConfigReffAppConfigRecord =
                                     columnAppConfigReffAppConfigRecordList
-                                            .isNotEmpty
-                                        ? columnAppConfigReffAppConfigRecordList
-                                            .first
-                                        : null;
+                                        .first;
                                 return SingleChildScrollView(
                                   primary: false,
                                   child: Column(
@@ -408,7 +406,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0),
                                                                   child: Text(
                                                                     functions.getDayMonthFromDate(
-                                                                        containerTourReffToursRecord
+                                                                        containerTourReffToursRecord!
                                                                             .tourDate),
                                                                     textAlign:
                                                                         TextAlign
@@ -536,8 +534,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0,
                                                                           0),
                                                                   child: Text(
-                                                                    containerTourReffToursRecord
-                                                                        .passengers
+                                                                    containerTourReffToursRecord!
+                                                                        .passengers!
                                                                         .toString(),
                                                                     textAlign:
                                                                         TextAlign
@@ -570,13 +568,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         'EditTourPassengers',
                                                         queryParams: {
                                                           'tourID': serializeParam(
-                                                              containerTourReffToursRecord
+                                                              containerTourReffToursRecord!
                                                                   .reference,
                                                               ParamType
                                                                   .DocumentReference),
                                                           'tourName':
                                                               serializeParam(
-                                                                  containerTourReffToursRecord
+                                                                  containerTourReffToursRecord!
                                                                       .tourName,
                                                                   ParamType
                                                                       .String),
@@ -638,7 +636,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                 }
                                                 List<SelectedVenuesRecord>
                                                     containerSelectedVenuesSelectedVenuesRecordList =
-                                                    snapshot.data;
+                                                    snapshot.data!;
                                                 return Container(
                                                   width: 70,
                                                   height: 80,
@@ -744,9 +742,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         child:
                                                                             Text(
                                                                           functions.getPerPersonFee(
-                                                                              containerTourReffToursRecord.transportFeePp,
+                                                                              containerTourReffToursRecord!.transportFeePp,
                                                                               containerSelectedVenuesSelectedVenuesRecordList.toList(),
-                                                                              containerTourReffToursRecord.platformTastingFee),
+                                                                              containerTourReffToursRecord!.platformTastingFee),
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)
@@ -878,8 +876,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0),
                                                                   child: Text(
                                                                     functions
-                                                                        .countNumberOfGuests(containerTourReffToursRecord
-                                                                            .guestsUid
+                                                                        .countNumberOfGuests(containerTourReffToursRecord!
+                                                                            .guestsUid!
                                                                             .toList())
                                                                         .toString(),
                                                                     textAlign:
@@ -1004,7 +1002,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       children: [
                                                         Text(
                                                           functions.getTimeFromDate(
-                                                              containerTourReffToursRecord
+                                                              containerTourReffToursRecord!
                                                                   .tourDate),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -1073,8 +1071,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                   ),
                                                   if (functions.isArrayEmpty(
-                                                          containerTourReffToursRecord
-                                                              .venues
+                                                          containerTourReffToursRecord!
+                                                              .venues!
                                                               .toList()) ??
                                                       true)
                                                     Container(
@@ -1180,8 +1178,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          containerTourReffToursRecord
-                                                                              .pickupAddress
+                                                                          containerTourReffToursRecord!
+                                                                              .pickupAddress!
                                                                               .maybeHandleOverflow(
                                                                             maxChars:
                                                                                 30,
@@ -1274,7 +1272,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             Stack(
                                                               children: [
                                                                 if (functions.isStringNotEmpty(
-                                                                        containerTourReffToursRecord
+                                                                        containerTourReffToursRecord!
                                                                             .driverUid) ??
                                                                     true)
                                                                   Row(
@@ -1301,7 +1299,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             child:
                                                                                 StreamBuilder<List<UsersRecord>>(
                                                                               stream: queryUsersRecord(
-                                                                                queryBuilder: (usersRecord) => usersRecord.where('uid', isEqualTo: containerTourReffToursRecord.driverUid),
+                                                                                queryBuilder: (usersRecord) => usersRecord.where('uid', isEqualTo: containerTourReffToursRecord!.driverUid),
                                                                               ),
                                                                               builder: (context, snapshot) {
                                                                                 // Customize what your widget looks like when it's loading.
@@ -1316,7 +1314,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                     ),
                                                                                   );
                                                                                 }
-                                                                                List<UsersRecord> listViewUsersRecordList = snapshot.data;
+                                                                                List<UsersRecord> listViewUsersRecordList = snapshot.data!;
                                                                                 return ListView.builder(
                                                                                   padding: EdgeInsets.zero,
                                                                                   scrollDirection: Axis.vertical,
@@ -1347,7 +1345,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                               Padding(
                                                                                                 padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
                                                                                                 child: Text(
-                                                                                                  listViewUsersRecord.displayName,
+                                                                                                  listViewUsersRecord!.displayName!,
                                                                                                   style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                         fontFamily: 'Poppins',
                                                                                                         fontSize: 12,
@@ -1421,7 +1419,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     ],
                                                                   ),
                                                                 if (functions.isStringEmpty(
-                                                                        containerTourReffToursRecord
+                                                                        containerTourReffToursRecord!
                                                                             .driverUid) ??
                                                                     true)
                                                                   Row(
@@ -1552,7 +1550,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           }
                                           List<SelectedVenuesRecord>
                                               listViewSelectedVenuesSelectedVenuesRecordList =
-                                              snapshot.data;
+                                              snapshot.data!;
                                           return ListView.builder(
                                             padding: EdgeInsets.zero,
                                             primary: false,
@@ -1572,8 +1570,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                 child:
                                                     StreamBuilder<VenuesRecord>(
                                                   stream: VenuesRecord.getDocument(
-                                                      listViewSelectedVenuesSelectedVenuesRecord
-                                                          .venueRef),
+                                                      listViewSelectedVenuesSelectedVenuesRecord!
+                                                          .venueRef!),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
                                                     if (!snapshot.hasData) {
@@ -1591,7 +1589,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       );
                                                     }
                                                     final rowSelectedVenueVenuesRecord =
-                                                        snapshot.data;
+                                                        snapshot.data!;
                                                     return Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1629,7 +1627,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       0, 0),
                                                               child: Text(
                                                                 functions.getTimeFromDate(
-                                                                    listViewSelectedVenuesSelectedVenuesRecord
+                                                                    listViewSelectedVenuesSelectedVenuesRecord!
                                                                         .reservationTime),
                                                                 textAlign:
                                                                     TextAlign
@@ -1724,8 +1722,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             BorderRadius.circular(28),
                                                                         child: Image
                                                                             .network(
-                                                                          rowSelectedVenueVenuesRecord
-                                                                              .image,
+                                                                          rowSelectedVenueVenuesRecord!
+                                                                              .image!,
                                                                           width:
                                                                               double.infinity,
                                                                           height:
@@ -1830,13 +1828,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                                                             children: [
-                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isTastingIncluded ?? true)
+                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord!.isTastingIncluded ?? true)
                                                                                                 Icon(
                                                                                                   Icons.wine_bar_rounded,
                                                                                                   color: Color(0xFFF4F4F4),
                                                                                                   size: 14,
                                                                                                 ),
-                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isLunchVenue ?? true)
+                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord!.isLunchVenue ?? true)
                                                                                                 Padding(
                                                                                                   padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                                                                                   child: Icon(
@@ -1862,7 +1860,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                                                         children: [
                                                                                           Text(
-                                                                                            functions.upperCaseString(rowSelectedVenueVenuesRecord.name),
+                                                                                            functions.upperCaseString(rowSelectedVenueVenuesRecord!.name),
                                                                                             textAlign: TextAlign.start,
                                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                   fontFamily: 'Poppins',
@@ -1872,7 +1870,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                                 ),
                                                                                           ),
                                                                                           Text(
-                                                                                            functions.concatenateStrings('Booking Reff:', listViewSelectedVenuesSelectedVenuesRecord.bookingReference),
+                                                                                            functions.concatenateStrings('Booking Reff:', listViewSelectedVenuesSelectedVenuesRecord!.bookingReference),
                                                                                             textAlign: TextAlign.start,
                                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                   fontFamily: 'Poppins',
@@ -1927,7 +1925,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 DelUpdateVenueBtmsheetWidget(
                                                                               tourReff: widget.tourID,
                                                                               venueDoc: rowSelectedVenueVenuesRecord,
-                                                                              selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord.reference,
+                                                                              selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord!.reference,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1957,7 +1955,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 DelUpdateVenueBtmsheetWidget(
                                                                               tourReff: widget.tourID,
                                                                               venueDoc: rowSelectedVenueVenuesRecord,
-                                                                              selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord.reference,
+                                                                              selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord!.reference,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1984,11 +1982,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 ),
                                                               ),
                                                               if (functions.isVenueClosedOrExceedsCapacity(
-                                                                      rowSelectedVenueVenuesRecord
-                                                                          .openDays
+                                                                      rowSelectedVenueVenuesRecord!
+                                                                          .openDays!
                                                                           .toList(),
                                                                       containerTourReffToursRecord,
-                                                                      rowSelectedVenueVenuesRecord
+                                                                      rowSelectedVenueVenuesRecord!
                                                                           .capacity) ??
                                                                   true)
                                                                 Padding(
@@ -2034,7 +2032,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                               ),
                                                                         ),
-                                                                        if (!(functions.isVenueOpen(rowSelectedVenueVenuesRecord.openDays.toList(),
+                                                                        if (!(functions.isVenueOpen(rowSelectedVenueVenuesRecord!.openDays!.toList(),
                                                                                 containerTourReffToursRecord)) ??
                                                                             true)
                                                                           Align(
@@ -2051,7 +2049,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             ),
                                                                           ),
                                                                         if (functions.doesTourExceedsVenueCapacity(containerTourReffToursRecord,
-                                                                                rowSelectedVenueVenuesRecord.capacity) ??
+                                                                                rowSelectedVenueVenuesRecord!.capacity) ??
                                                                             true)
                                                                           Text(
                                                                             'Exceeds capacity',
@@ -2078,8 +2076,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       ),
                                       if (functions
                                               .isTourStopsCountLessThanLimitAllowed(
-                                                  containerTourReffToursRecord
-                                                      .venues
+                                                  containerTourReffToursRecord!
+                                                      .venues!
                                                       .toList(),
                                                   columnAppConfigReffAppConfigRecord) ??
                                           true)
@@ -2132,8 +2130,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                   ),
                                                   if (functions.isArrayEmpty(
-                                                          containerTourReffToursRecord
-                                                              .venues
+                                                          containerTourReffToursRecord!
+                                                              .venues!
                                                               .toList()) ??
                                                       true)
                                                     Container(
@@ -2243,7 +2241,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   width: 1,
                                                                 ),
                                                                 borderRadius:
-                                                                    32,
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            32),
                                                               ),
                                                             ),
                                                           ],
@@ -2257,8 +2257,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           ),
                                         ),
                                       if (!(functions.isArrayEmpty(
-                                              containerTourReffToursRecord
-                                                  .venues
+                                              containerTourReffToursRecord!
+                                                  .venues!
                                                   .toList())) ??
                                           true)
                                         Padding(

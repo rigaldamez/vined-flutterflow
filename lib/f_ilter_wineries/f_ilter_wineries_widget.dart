@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FIlterWineriesWidget extends StatefulWidget {
-  const FIlterWineriesWidget({Key key}) : super(key: key);
+  const FIlterWineriesWidget({Key? key}) : super(key: key);
 
   @override
   _FIlterWineriesWidgetState createState() => _FIlterWineriesWidgetState();
@@ -16,13 +16,14 @@ class FIlterWineriesWidget extends StatefulWidget {
 
 class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
     with TickerProviderStateMixin {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 200,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         opacity: 0,
@@ -99,7 +100,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                         context.pop();
                       },
                     ).animated(
-                        [animationsMap['iconButtonOnPageLoadAnimation']]),
+                        [animationsMap['iconButtonOnPageLoadAnimation']!]),
                   ],
                 ),
               ),
@@ -113,7 +114,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                         child: FutureBuilder<List<VenuesRecord>>(
                           future: VenuesRecord.search(
-                            term: textController.text,
+                            term: textController!.text,
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -130,7 +131,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                               );
                             }
                             List<VenuesRecord> textFieldVenuesRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             return TextFormField(
                               controller: textController,
                               onChanged: (_) => EasyDebounce.debounce(
@@ -156,7 +157,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                   borderRadius: BorderRadius.circular(34),
                                 ),
                                 filled: true,
-                                suffixIcon: textController.text.isNotEmpty
+                                suffixIcon: textController!.text.isNotEmpty
                                     ? InkWell(
                                         onTap: () => setState(
                                           () => textController?.clear(),
@@ -182,7 +183,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                 child: FutureBuilder<List<VenuesRecord>>(
                   future: VenuesRecord.search(
                     term: valueOrDefault<String>(
-                      textController.text,
+                      textController!.text,
                       '*',
                     ),
                   ),
@@ -200,9 +201,9 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                       );
                     }
                     List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     // Customize what your widget looks like with no search results.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container(
                         height: 100,
                         child: Center(
@@ -238,7 +239,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(34),
                                         child: Image.network(
-                                          listViewFeaturedVenuesRecord.image,
+                                          listViewFeaturedVenuesRecord!.image!,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -256,7 +257,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8, 4, 0, 0),
                                     child: Text(
-                                      listViewFeaturedVenuesRecord.name,
+                                      listViewFeaturedVenuesRecord!.name!,
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .subtitle2,

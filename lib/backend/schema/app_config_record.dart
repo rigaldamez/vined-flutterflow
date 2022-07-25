@@ -11,32 +11,25 @@ abstract class AppConfigRecord
   static Serializer<AppConfigRecord> get serializer =>
       _$appConfigRecordSerializer;
 
-  @nullable
-  String get vinedMessengerURL;
+  String? get vinedMessengerURL;
 
-  @nullable
-  int get itineraryVenueLimit;
+  int? get itineraryVenueLimit;
 
-  @nullable
-  double get platformTastingFee;
+  double? get platformTastingFee;
 
-  @nullable
-  int get tourLeadTime;
+  int? get tourLeadTime;
 
-  @nullable
-  String get vinedWebsiteURL;
+  String? get vinedWebsiteURL;
 
-  @nullable
   @BuiltValueField(wireName: 'large_group_threshold')
-  int get largeGroupThreshold;
+  int? get largeGroupThreshold;
 
-  @nullable
   @BuiltValueField(wireName: 'large_group_venues_early_seating_threshold')
-  int get largeGroupVenuesEarlySeatingThreshold;
+  int? get largeGroupVenuesEarlySeatingThreshold;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(AppConfigRecordBuilder builder) => builder
     ..vinedMessengerURL = ''
@@ -52,11 +45,11 @@ abstract class AppConfigRecord
 
   static Stream<AppConfigRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<AppConfigRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   AppConfigRecord._();
   factory AppConfigRecord([void Function(AppConfigRecordBuilder) updates]) =
@@ -65,26 +58,32 @@ abstract class AppConfigRecord
   static AppConfigRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createAppConfigRecordData({
-  String vinedMessengerURL,
-  int itineraryVenueLimit,
-  double platformTastingFee,
-  int tourLeadTime,
-  String vinedWebsiteURL,
-  int largeGroupThreshold,
-  int largeGroupVenuesEarlySeatingThreshold,
-}) =>
-    serializers.toFirestore(
-        AppConfigRecord.serializer,
-        AppConfigRecord((a) => a
-          ..vinedMessengerURL = vinedMessengerURL
-          ..itineraryVenueLimit = itineraryVenueLimit
-          ..platformTastingFee = platformTastingFee
-          ..tourLeadTime = tourLeadTime
-          ..vinedWebsiteURL = vinedWebsiteURL
-          ..largeGroupThreshold = largeGroupThreshold
-          ..largeGroupVenuesEarlySeatingThreshold =
-              largeGroupVenuesEarlySeatingThreshold));
+  String? vinedMessengerURL,
+  int? itineraryVenueLimit,
+  double? platformTastingFee,
+  int? tourLeadTime,
+  String? vinedWebsiteURL,
+  int? largeGroupThreshold,
+  int? largeGroupVenuesEarlySeatingThreshold,
+}) {
+  final firestoreData = serializers.toFirestore(
+    AppConfigRecord.serializer,
+    AppConfigRecord(
+      (a) => a
+        ..vinedMessengerURL = vinedMessengerURL
+        ..itineraryVenueLimit = itineraryVenueLimit
+        ..platformTastingFee = platformTastingFee
+        ..tourLeadTime = tourLeadTime
+        ..vinedWebsiteURL = vinedWebsiteURL
+        ..largeGroupThreshold = largeGroupThreshold
+        ..largeGroupVenuesEarlySeatingThreshold =
+            largeGroupVenuesEarlySeatingThreshold,
+    ),
+  );
+
+  return firestoreData;
+}

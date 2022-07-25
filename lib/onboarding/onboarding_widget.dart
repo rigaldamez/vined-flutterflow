@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingWidget extends StatefulWidget {
-  const OnboardingWidget({Key key}) : super(key: key);
+  const OnboardingWidget({Key? key}) : super(key: key);
 
   @override
   _OnboardingWidgetState createState() => _OnboardingWidgetState();
 }
 
 class _OnboardingWidgetState extends State<OnboardingWidget> {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -78,7 +78,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 32,
+                                borderRadius: BorderRadius.circular(32),
                               ),
                             ),
                           ),
@@ -96,7 +96,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         count: 3,
                         axisDirection: Axis.horizontal,
                         onDotClicked: (i) {
-                          pageViewController.animateToPage(
+                          pageViewController!.animateToPage(
                             i,
                             duration: Duration(milliseconds: 500),
                             curve: Curves.ease,

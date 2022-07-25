@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HowItWorksEmptyStateWidget extends StatefulWidget {
-  const HowItWorksEmptyStateWidget({Key key}) : super(key: key);
+  const HowItWorksEmptyStateWidget({Key? key}) : super(key: key);
 
   @override
   _HowItWorksEmptyStateWidgetState createState() =>
@@ -16,7 +16,7 @@ class HowItWorksEmptyStateWidget extends StatefulWidget {
 
 class _HowItWorksEmptyStateWidgetState
     extends State<HowItWorksEmptyStateWidget> {
-  PageController pageViewController;
+  PageController? pageViewController;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class _HowItWorksEmptyStateWidgetState
                     count: 3,
                     axisDirection: Axis.horizontal,
                     onDotClicked: (i) {
-                      pageViewController.animateToPage(
+                      pageViewController!.animateToPage(
                         i,
                         duration: Duration(milliseconds: 500),
                         curve: Curves.ease,
@@ -154,7 +154,7 @@ class _HowItWorksEmptyStateWidgetState
                 color: Colors.transparent,
                 width: 1,
               ),
-              borderRadius: 24,
+              borderRadius: BorderRadius.circular(24),
             ),
           ),
         ),

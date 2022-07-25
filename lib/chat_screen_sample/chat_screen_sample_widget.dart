@@ -9,20 +9,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatScreenSampleWidget extends StatefulWidget {
   const ChatScreenSampleWidget({
-    Key key,
+    Key? key,
     this.chatUser,
     this.chatRef,
   }) : super(key: key);
 
-  final UsersRecord chatUser;
-  final DocumentReference chatRef;
+  final UsersRecord? chatUser;
+  final DocumentReference? chatRef;
 
   @override
   _ChatScreenSampleWidgetState createState() => _ChatScreenSampleWidgetState();
 }
 
 class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
-  FFChatInfo _chatInfo;
+  FFChatInfo? _chatInfo;
   bool isGroupChat() {
     if (widget.chatUser == null) {
       return true;
@@ -75,7 +75,7 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
           children: [
             if (!(isGroupChat()) ?? true)
               Text(
-                widget.chatUser.displayName,
+                widget.chatUser!.displayName!,
                 style: FlutterFlowTheme.of(context).bodyText1.override(
                       fontFamily: 'Lexend Deca',
                       color: Colors.black,
@@ -106,7 +106,7 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
         ),
         builder: (context, snapshot) => snapshot.hasData
             ? FFChatPage(
-                chatInfo: snapshot.data,
+                chatInfo: snapshot.data!,
                 allowImages: true,
                 backgroundColor: FlutterFlowTheme.of(context).pinkLace,
                 timeDisplaySetting: TimeDisplaySetting.visibleOnTap,

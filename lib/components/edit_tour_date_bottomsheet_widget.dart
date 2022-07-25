@@ -11,11 +11,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditTourDateBottomsheetWidget extends StatefulWidget {
   const EditTourDateBottomsheetWidget({
-    Key key,
+    Key? key,
     this.tourID,
   }) : super(key: key);
 
-  final DocumentReference tourID;
+  final DocumentReference? tourID;
 
   @override
   _EditTourDateBottomsheetWidgetState createState() =>
@@ -24,12 +24,12 @@ class EditTourDateBottomsheetWidget extends StatefulWidget {
 
 class _EditTourDateBottomsheetWidgetState
     extends State<EditTourDateBottomsheetWidget> {
-  DateTime datePicked;
+  DateTime? datePicked;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ToursRecord>(
-      stream: ToursRecord.getDocument(widget.tourID),
+      stream: ToursRecord.getDocument(widget.tourID!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -43,7 +43,7 @@ class _EditTourDateBottomsheetWidgetState
             ),
           );
         }
-        final containerToursRecord = snapshot.data;
+        final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
@@ -145,7 +145,8 @@ class _EditTourDateBottomsheetWidgetState
                                         size: 24,
                                       ),
                                       Text(
-                                        dateTimeFormat('MMMMEEEEd', datePicked),
+                                        dateTimeFormat(
+                                            'MMMMEEEEd', datePicked!),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
@@ -156,7 +157,7 @@ class _EditTourDateBottomsheetWidgetState
                                             ),
                                       ),
                                       Text(
-                                        dateTimeFormat('jm', datePicked),
+                                        dateTimeFormat('jm', datePicked!),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),
@@ -205,12 +206,9 @@ class _EditTourDateBottomsheetWidgetState
                                         }
                                         List<AppConfigRecord>
                                             buttonAppConfigRecordList =
-                                            snapshot.data;
+                                            snapshot.data!;
                                         final buttonAppConfigRecord =
-                                            buttonAppConfigRecordList.isNotEmpty
-                                                ? buttonAppConfigRecordList
-                                                    .first
-                                                : null;
+                                            buttonAppConfigRecordList.first;
                                         return FFButtonWidget(
                                           onPressed: () async {
                                             await DatePicker.showDateTimePicker(
@@ -223,16 +221,16 @@ class _EditTourDateBottomsheetWidgetState
                                               currentTime: functions
                                                   .getCurrentDateTimePlusAweek(
                                                       getCurrentTimestamp,
-                                                      buttonAppConfigRecord
+                                                      buttonAppConfigRecord!
                                                           .tourLeadTime,
                                                       valueOrDefault(
                                                           currentUserDocument
                                                               ?.tourLeadTimeExempted,
                                                           false)),
-                                              minTime:
-                                                  functions.getCurrentDateTimePlusAweek(
+                                              minTime: functions
+                                                  .getCurrentDateTimePlusAweek(
                                                       getCurrentTimestamp,
-                                                      buttonAppConfigRecord
+                                                      buttonAppConfigRecord!
                                                           .tourLeadTime,
                                                       valueOrDefault(
                                                           currentUserDocument
@@ -261,7 +259,8 @@ class _EditTourDateBottomsheetWidgetState
                                                       .black,
                                               width: 1,
                                             ),
-                                            borderRadius: 34,
+                                            borderRadius:
+                                                BorderRadius.circular(34),
                                           ),
                                         );
                                       },
@@ -279,7 +278,7 @@ class _EditTourDateBottomsheetWidgetState
                                 final toursUpdateData = createToursRecordData(
                                   tourDate: datePicked,
                                 );
-                                await widget.tourID.update(toursUpdateData);
+                                await widget.tourID!.update(toursUpdateData);
                                 Navigator.pop(context);
                               },
                               text: 'Save',
@@ -299,7 +298,7 @@ class _EditTourDateBottomsheetWidgetState
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 40,
+                                borderRadius: BorderRadius.circular(40),
                               ),
                             ),
                           ),

@@ -8,13 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class UsersWidget extends StatefulWidget {
   const UsersWidget({
-    Key key,
+    Key? key,
     this.tourID,
     this.tourReff,
   }) : super(key: key);
 
-  final DocumentReference tourID;
-  final ToursRecord tourReff;
+  final DocumentReference? tourID;
+  final ToursRecord? tourReff;
 
   @override
   _UsersWidgetState createState() => _UsersWidgetState();
@@ -75,7 +75,8 @@ class _UsersWidgetState extends State<UsersWidget> {
                           ),
                         );
                       }
-                      List<UsersRecord> listViewUsersRecordList = snapshot.data;
+                      List<UsersRecord> listViewUsersRecordList =
+                          snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -102,7 +103,7 @@ class _UsersWidgetState extends State<UsersWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        listViewUsersRecord.displayName,
+                                        listViewUsersRecord!.displayName!,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),

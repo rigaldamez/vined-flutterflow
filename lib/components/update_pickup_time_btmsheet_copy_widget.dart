@@ -11,15 +11,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class UpdatePickupTimeBtmsheetCopyWidget extends StatefulWidget {
   const UpdatePickupTimeBtmsheetCopyWidget({
-    Key key,
+    Key? key,
     this.tourReff,
     this.venueReff,
     this.selectedVenue,
   }) : super(key: key);
 
-  final DocumentReference tourReff;
-  final VenuesRecord venueReff;
-  final DocumentReference selectedVenue;
+  final DocumentReference? tourReff;
+  final VenuesRecord? venueReff;
+  final DocumentReference? selectedVenue;
 
   @override
   _UpdatePickupTimeBtmsheetCopyWidgetState createState() =>
@@ -28,12 +28,12 @@ class UpdatePickupTimeBtmsheetCopyWidget extends StatefulWidget {
 
 class _UpdatePickupTimeBtmsheetCopyWidgetState
     extends State<UpdatePickupTimeBtmsheetCopyWidget> {
-  DateTime datePicked;
+  DateTime? datePicked;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ToursRecord>(
-      stream: ToursRecord.getDocument(widget.tourReff),
+      stream: ToursRecord.getDocument(widget.tourReff!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -47,7 +47,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
             ),
           );
         }
-        final containerToursRecord = snapshot.data;
+        final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
@@ -155,7 +155,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                                       .fromSTEB(0, 10, 0, 0),
                                                   child: Text(
                                                     dateTimeFormat(
-                                                        'jm', datePicked),
+                                                        'jm', datePicked!),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -233,10 +233,10 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                           createToursRecordData(
                                         tourDate:
                                             functions.getBookingReservationTime(
-                                                containerToursRecord.tourDate,
+                                                containerToursRecord!.tourDate,
                                                 datePicked),
                                       );
-                                      await widget.tourReff
+                                      await widget.tourReff!
                                           .update(toursUpdateData);
                                       Navigator.pop(context);
                                     },

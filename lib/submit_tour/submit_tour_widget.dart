@@ -9,20 +9,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SubmitTourWidget extends StatefulWidget {
   const SubmitTourWidget({
-    Key key,
+    Key? key,
     this.tourID,
     this.tourRecord,
   }) : super(key: key);
 
-  final DocumentReference tourID;
-  final ToursRecord tourRecord;
+  final DocumentReference? tourID;
+  final ToursRecord? tourRecord;
 
   @override
   _SubmitTourWidgetState createState() => _SubmitTourWidgetState();
 }
 
 class _SubmitTourWidgetState extends State<SubmitTourWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,7 +39,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: StreamBuilder<ToursRecord>(
-          stream: ToursRecord.getDocument(widget.tourID),
+          stream: ToursRecord.getDocument(widget.tourID!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -53,7 +53,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                 ),
               );
             }
-            final containerToursRecord = snapshot.data;
+            final containerToursRecord = snapshot.data!;
             return Container(
               width: double.infinity,
               height: double.infinity,
@@ -88,15 +88,13 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                       );
                     }
                     List<AppConfigRecord> columnAppConfigRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final columnAppConfigRecord =
-                        columnAppConfigRecordList.isNotEmpty
-                            ? columnAppConfigRecordList.first
-                            : null;
+                        columnAppConfigRecordList.first;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,7 +175,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                     20, 20, 20, 0),
                                             child: StreamBuilder<RegionsRecord>(
                                               stream: RegionsRecord.getDocument(
-                                                  widget.tourRecord.regionID),
+                                                  widget.tourRecord!.regionID!),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
                                                 if (!snapshot.hasData) {
@@ -196,7 +194,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                   );
                                                 }
                                                 final rowRegionsRecord =
-                                                    snapshot.data;
+                                                    snapshot.data!;
                                                 return Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -242,8 +240,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                                           12),
                                                               child:
                                                                   Image.network(
-                                                                rowRegionsRecord
-                                                                    .image,
+                                                                rowRegionsRecord!
+                                                                    .image!,
                                                                 width: 80,
                                                                 height: 80,
                                                                 fit: BoxFit
@@ -277,8 +275,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                                   children: [
                                                                     Text(
                                                                       widget
-                                                                          .tourRecord
-                                                                          .tourName,
+                                                                          .tourRecord!
+                                                                          .tourName!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -302,8 +300,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                                       dateTimeFormat(
                                                                           'MMMMEEEEd',
                                                                           widget
-                                                                              .tourRecord
-                                                                              .tourDate),
+                                                                              .tourRecord!
+                                                                              .tourDate!),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -390,8 +388,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                     children: [
                                                       Text(
                                                         formatNumber(
-                                                          containerToursRecord
-                                                              .pricePp,
+                                                          containerToursRecord!
+                                                              .pricePp!,
                                                           formatType: FormatType
                                                               .decimal,
                                                           decimalType:
@@ -455,8 +453,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                     children: [
                                                       Text(
                                                         formatNumber(
-                                                          containerToursRecord
-                                                              .subTotal,
+                                                          containerToursRecord!
+                                                              .subTotal!,
                                                           formatType: FormatType
                                                               .decimal,
                                                           decimalType:

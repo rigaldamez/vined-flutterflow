@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SelectExperienceBtmsheetWidget extends StatefulWidget {
   const SelectExperienceBtmsheetWidget({
-    Key key,
+    Key? key,
     this.venueRec,
     this.tourReff,
     this.regionReff,
@@ -17,11 +17,11 @@ class SelectExperienceBtmsheetWidget extends StatefulWidget {
     this.isLargeGroupEarlySeatingOnlyVenue,
   }) : super(key: key);
 
-  final VenuesRecord venueRec;
-  final DocumentReference tourReff;
-  final DocumentReference regionReff;
-  final ToursRecord tourDoc;
-  final bool isLargeGroupEarlySeatingOnlyVenue;
+  final VenuesRecord? venueRec;
+  final DocumentReference? tourReff;
+  final DocumentReference? regionReff;
+  final ToursRecord? tourDoc;
+  final bool? isLargeGroupEarlySeatingOnlyVenue;
 
   @override
   _SelectExperienceBtmsheetWidgetState createState() =>
@@ -30,9 +30,9 @@ class SelectExperienceBtmsheetWidget extends StatefulWidget {
 
 class _SelectExperienceBtmsheetWidgetState
     extends State<SelectExperienceBtmsheetWidget> {
-  SelectedVenuesRecord lastSelectedVenue2;
-  SelectedVenuesRecord lastSelectedVenue;
-  SelectedVenuesRecord lastSelectedVenue3;
+  SelectedVenuesRecord? lastSelectedVenue2;
+  SelectedVenuesRecord? lastSelectedVenue;
+  SelectedVenuesRecord? lastSelectedVenue3;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _SelectExperienceBtmsheetWidgetState
           );
         }
         List<SelectedVenuesRecord> containerSelectedVenuesRecordList =
-            snapshot.data;
+            snapshot.data!;
         return Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
@@ -115,7 +115,7 @@ class _SelectExperienceBtmsheetWidgetState
                     decoration: BoxDecoration(),
                     child: StreamBuilder<List<TastingExperiencesRecord>>(
                       stream: queryTastingExperiencesRecord(
-                        parent: widget.venueRec.reference,
+                        parent: widget.venueRec!.reference,
                         queryBuilder: (tastingExperiencesRecord) =>
                             tastingExperiencesRecord
                                 .orderBy('tasting_experience_price'),
@@ -136,7 +136,7 @@ class _SelectExperienceBtmsheetWidgetState
                         }
                         List<TastingExperiencesRecord>
                             listViewTastingExperiencesRecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.horizontal,
@@ -177,13 +177,9 @@ class _SelectExperienceBtmsheetWidgetState
                                         }
                                         List<AppConfigRecord>
                                             containerAppConfigRecordList =
-                                            snapshot.data;
+                                            snapshot.data!;
                                         final containerAppConfigRecord =
-                                            containerAppConfigRecordList
-                                                    .isNotEmpty
-                                                ? containerAppConfigRecordList
-                                                    .first
-                                                : null;
+                                            containerAppConfigRecordList.first;
                                         return Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -211,10 +207,10 @@ class _SelectExperienceBtmsheetWidgetState
                                                             18),
                                                     child: Image.network(
                                                       functions.setImagePath(
-                                                          listViewTastingExperiencesRecord
+                                                          listViewTastingExperiencesRecord!
                                                               .image,
                                                           widget
-                                                              .venueRec.image),
+                                                              .venueRec!.image),
                                                       width: 100,
                                                       height: double.infinity,
                                                       fit: BoxFit.cover,
@@ -232,8 +228,8 @@ class _SelectExperienceBtmsheetWidgetState
                                                         AlignmentDirectional(
                                                             -1, 0),
                                                     child: Text(
-                                                      listViewTastingExperiencesRecord
-                                                          .description,
+                                                      listViewTastingExperiencesRecord!
+                                                          .description!,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -250,20 +246,21 @@ class _SelectExperienceBtmsheetWidgetState
                                     InkWell(
                                       onTap: () async {
                                         if (functions.isLunchVenue(
-                                            widget.venueRec.reference,
+                                            widget.venueRec!.reference,
                                             FFAppState().lunchVenueReff)) {
                                           final selectedVenuesCreateData =
                                               createSelectedVenuesRecordData(
-                                            venueRef: widget.venueRec.reference,
+                                            venueRef:
+                                                widget.venueRec!.reference,
                                             tourRef: widget.tourReff,
                                             addedByUid: currentUserReference,
                                             isLunchVenue:
                                                 functions.isLunchVenue(
-                                                    widget.venueRec.reference,
+                                                    widget.venueRec!.reference,
                                                     FFAppState()
                                                         .lunchVenueReff),
                                             tastingFee:
-                                                listViewTastingExperiencesRecord
+                                                listViewTastingExperiencesRecord!
                                                     .tastingExperiencePrice,
                                             addedDate: getCurrentTimestamp,
                                             bookingReference: '',
@@ -271,9 +268,9 @@ class _SelectExperienceBtmsheetWidgetState
                                             reservationTime:
                                                 functions.epochTime(),
                                             isLunchVenueOnly: widget
-                                                .venueRec.isLunchVenueOnly,
+                                                .venueRec!.isLunchVenueOnly,
                                             tastingExperienceDescription:
-                                                listViewTastingExperiencesRecord
+                                                listViewTastingExperiencesRecord!
                                                     .description,
                                             isTastingIncluded: true,
                                           );
@@ -291,37 +288,37 @@ class _SelectExperienceBtmsheetWidgetState
                                             ...createToursRecordData(
                                               totalTastingFeePp: functions
                                                   .addtoTotalTastingFeePP(
-                                                      widget.tourDoc
+                                                      widget.tourDoc!
                                                           .totalTastingFeePp,
-                                                      listViewTastingExperiencesRecord
+                                                      listViewTastingExperiencesRecord!
                                                           .tastingExperiencePrice),
                                               pricePp: functions
                                                   .getPerPersonFeeAsInt2(
-                                                      widget.tourDoc
+                                                      widget.tourDoc!
                                                           .transportFeePp,
                                                       containerSelectedVenuesRecordList
                                                           .toList(),
-                                                      widget.tourDoc
+                                                      widget.tourDoc!
                                                           .platformTastingFee,
                                                       lastSelectedVenue)
-                                                  .toDouble(),
+                                                  ?.toDouble(),
                                               subTotal: functions.getTourSubTotal(
-                                                  widget.tourDoc.passengers,
+                                                  widget.tourDoc!.passengers,
                                                   functions
                                                       .getPerPersonFeeAsInt2(
-                                                          widget.tourDoc
+                                                          widget.tourDoc!
                                                               .transportFeePp,
                                                           containerSelectedVenuesRecordList
                                                               .toList(),
-                                                          widget.tourDoc
+                                                          widget.tourDoc!
                                                               .platformTastingFee,
                                                           lastSelectedVenue)
-                                                      .toDouble()),
+                                                      ?.toDouble()),
                                             ),
                                             'venues': FieldValue.arrayUnion(
-                                                [widget.venueRec.reference]),
+                                                [widget.venueRec!.reference]),
                                           };
-                                          await widget.tourReff
+                                          await widget.tourReff!
                                               .update(toursUpdateData);
                                           context.pop();
                                           ScaffoldMessenger.of(context)
@@ -345,21 +342,22 @@ class _SelectExperienceBtmsheetWidgetState
                                             ),
                                           );
                                         } else {
-                                          if (widget.venueRec
-                                              .largeGroupEarlySeatingOnly) {
+                                          if (widget.venueRec!
+                                              .largeGroupEarlySeatingOnly!) {
                                             final selectedVenuesCreateData =
                                                 createSelectedVenuesRecordData(
                                               venueRef:
-                                                  widget.venueRec.reference,
+                                                  widget.venueRec!.reference,
                                               tourRef: widget.tourReff,
                                               addedByUid: currentUserReference,
                                               isLunchVenue:
                                                   functions.isLunchVenue(
-                                                      widget.venueRec.reference,
+                                                      widget
+                                                          .venueRec!.reference,
                                                       FFAppState()
                                                           .lunchVenueReff),
                                               tastingFee:
-                                                  listViewTastingExperiencesRecord
+                                                  listViewTastingExperiencesRecord!
                                                       .tastingExperiencePrice,
                                               addedDate: getCurrentTimestamp,
                                               bookingReference: '',
@@ -369,7 +367,7 @@ class _SelectExperienceBtmsheetWidgetState
                                               isLargeGroupEarlySeatingOnlyVenue:
                                                   true,
                                               tastingExperienceDescription:
-                                                  listViewTastingExperiencesRecord
+                                                  listViewTastingExperiencesRecord!
                                                       .description,
                                               isTastingIncluded: true,
                                             );
@@ -387,55 +385,56 @@ class _SelectExperienceBtmsheetWidgetState
                                               ...createToursRecordData(
                                                 totalTastingFeePp: functions
                                                     .addtoTotalTastingFeePP(
-                                                        widget.tourDoc
+                                                        widget.tourDoc!
                                                             .totalTastingFeePp,
-                                                        listViewTastingExperiencesRecord
+                                                        listViewTastingExperiencesRecord!
                                                             .tastingExperiencePrice),
                                                 pricePp: functions
                                                     .getPerPersonFeeAsInt2(
-                                                        widget.tourDoc
+                                                        widget.tourDoc!
                                                             .transportFeePp,
                                                         containerSelectedVenuesRecordList
                                                             .toList(),
-                                                        widget.tourDoc
+                                                        widget.tourDoc!
                                                             .platformTastingFee,
                                                         lastSelectedVenue2)
-                                                    .toDouble(),
+                                                    ?.toDouble(),
                                                 subTotal: functions.getTourSubTotal(
-                                                    widget.tourDoc.passengers,
+                                                    widget.tourDoc!.passengers,
                                                     functions
                                                         .getPerPersonFeeAsInt2(
-                                                            widget.tourDoc
+                                                            widget.tourDoc!
                                                                 .transportFeePp,
                                                             containerSelectedVenuesRecordList
                                                                 .toList(),
-                                                            widget.tourDoc
+                                                            widget.tourDoc!
                                                                 .platformTastingFee,
                                                             lastSelectedVenue2)
-                                                        .toDouble()),
+                                                        ?.toDouble()),
                                               ),
                                               'venues': FieldValue.arrayUnion(
-                                                  [widget.venueRec.reference]),
+                                                  [widget.venueRec!.reference]),
                                               'large_group_venue_early_seating_count':
                                                   FieldValue.increment(1),
                                             };
-                                            await widget.tourReff
+                                            await widget.tourReff!
                                                 .update(toursUpdateData);
                                             context.pop();
                                           } else {
                                             final selectedVenuesCreateData =
                                                 createSelectedVenuesRecordData(
                                               venueRef:
-                                                  widget.venueRec.reference,
+                                                  widget.venueRec!.reference,
                                               tourRef: widget.tourReff,
                                               addedByUid: currentUserReference,
                                               isLunchVenue:
                                                   functions.isLunchVenue(
-                                                      widget.venueRec.reference,
+                                                      widget
+                                                          .venueRec!.reference,
                                                       FFAppState()
                                                           .lunchVenueReff),
                                               tastingFee:
-                                                  listViewTastingExperiencesRecord
+                                                  listViewTastingExperiencesRecord!
                                                       .tastingExperiencePrice,
                                               addedDate: getCurrentTimestamp,
                                               bookingReference: '',
@@ -445,7 +444,7 @@ class _SelectExperienceBtmsheetWidgetState
                                               isLargeGroupEarlySeatingOnlyVenue:
                                                   false,
                                               tastingExperienceDescription:
-                                                  listViewTastingExperiencesRecord
+                                                  listViewTastingExperiencesRecord!
                                                       .description,
                                               isTastingIncluded: true,
                                             );
@@ -463,37 +462,37 @@ class _SelectExperienceBtmsheetWidgetState
                                               ...createToursRecordData(
                                                 totalTastingFeePp: functions
                                                     .addtoTotalTastingFeePP(
-                                                        widget.tourDoc
+                                                        widget.tourDoc!
                                                             .totalTastingFeePp,
-                                                        listViewTastingExperiencesRecord
+                                                        listViewTastingExperiencesRecord!
                                                             .tastingExperiencePrice),
                                                 pricePp: functions
                                                     .getPerPersonFeeAsInt2(
-                                                        widget.tourDoc
+                                                        widget.tourDoc!
                                                             .transportFeePp,
                                                         containerSelectedVenuesRecordList
                                                             .toList(),
-                                                        widget.tourDoc
+                                                        widget.tourDoc!
                                                             .platformTastingFee,
                                                         lastSelectedVenue3)
-                                                    .toDouble(),
+                                                    ?.toDouble(),
                                                 subTotal: functions.getTourSubTotal(
-                                                    widget.tourDoc.passengers,
+                                                    widget.tourDoc!.passengers,
                                                     functions
                                                         .getPerPersonFeeAsInt2(
-                                                            widget.tourDoc
+                                                            widget.tourDoc!
                                                                 .transportFeePp,
                                                             containerSelectedVenuesRecordList
                                                                 .toList(),
-                                                            widget.tourDoc
+                                                            widget.tourDoc!
                                                                 .platformTastingFee,
                                                             lastSelectedVenue3)
-                                                        .toDouble()),
+                                                        ?.toDouble()),
                                               ),
                                               'venues': FieldValue.arrayUnion(
-                                                  [widget.venueRec.reference]),
+                                                  [widget.venueRec!.reference]),
                                             };
-                                            await widget.tourReff
+                                            await widget.tourReff!
                                                 .update(toursUpdateData);
                                             context.pop();
                                           }

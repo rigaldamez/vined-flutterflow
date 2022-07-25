@@ -11,24 +11,20 @@ abstract class AcceptedToursRecord
   static Serializer<AcceptedToursRecord> get serializer =>
       _$acceptedToursRecordSerializer;
 
-  @nullable
-  DocumentReference get tourID;
+  DocumentReference? get tourID;
 
-  @nullable
   @BuiltValueField(wireName: 'customer_reff')
-  DocumentReference get customerReff;
+  DocumentReference? get customerReff;
 
-  @nullable
   @BuiltValueField(wireName: 'driver_reff')
-  DocumentReference get driverReff;
+  DocumentReference? get driverReff;
 
-  @nullable
   @BuiltValueField(wireName: 'accepted_date')
-  DateTime get acceptedDate;
+  DateTime? get acceptedDate;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(AcceptedToursRecordBuilder builder) => builder;
 
@@ -37,11 +33,11 @@ abstract class AcceptedToursRecord
 
   static Stream<AcceptedToursRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<AcceptedToursRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   AcceptedToursRecord._();
   factory AcceptedToursRecord(
@@ -51,19 +47,25 @@ abstract class AcceptedToursRecord
   static AcceptedToursRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createAcceptedToursRecordData({
-  DocumentReference tourID,
-  DocumentReference customerReff,
-  DocumentReference driverReff,
-  DateTime acceptedDate,
-}) =>
-    serializers.toFirestore(
-        AcceptedToursRecord.serializer,
-        AcceptedToursRecord((a) => a
-          ..tourID = tourID
-          ..customerReff = customerReff
-          ..driverReff = driverReff
-          ..acceptedDate = acceptedDate));
+  DocumentReference? tourID,
+  DocumentReference? customerReff,
+  DocumentReference? driverReff,
+  DateTime? acceptedDate,
+}) {
+  final firestoreData = serializers.toFirestore(
+    AcceptedToursRecord.serializer,
+    AcceptedToursRecord(
+      (a) => a
+        ..tourID = tourID
+        ..customerReff = customerReff
+        ..driverReff = driverReff
+        ..acceptedDate = acceptedDate,
+    ),
+  );
+
+  return firestoreData;
+}

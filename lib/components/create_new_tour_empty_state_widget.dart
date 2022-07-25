@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateNewTourEmptyStateWidget extends StatefulWidget {
-  const CreateNewTourEmptyStateWidget({Key key}) : super(key: key);
+  const CreateNewTourEmptyStateWidget({Key? key}) : super(key: key);
 
   @override
   _CreateNewTourEmptyStateWidgetState createState() =>

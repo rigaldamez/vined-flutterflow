@@ -11,13 +11,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditTourPassengersWidget extends StatefulWidget {
   const EditTourPassengersWidget({
-    Key key,
+    Key? key,
     this.tourID,
     this.tourName,
   }) : super(key: key);
 
-  final DocumentReference tourID;
-  final String tourName;
+  final DocumentReference? tourID;
+  final String? tourName;
 
   @override
   _EditTourPassengersWidgetState createState() =>
@@ -33,7 +33,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: StreamBuilder<ToursRecord>(
-        stream: ToursRecord.getDocument(widget.tourID),
+        stream: ToursRecord.getDocument(widget.tourID!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -47,7 +47,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
               ),
             );
           }
-          final containerToursRecord = snapshot.data;
+          final containerToursRecord = snapshot.data!;
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -128,7 +128,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                           }
                           List<TransportPricingRecord>
                               gridViewTransportPricingRecordList =
-                              snapshot.data;
+                              snapshot.data!;
                           return GridView.builder(
                             padding: EdgeInsets.zero,
                             gridDelegate:
@@ -166,8 +166,8 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                         Align(
                                           alignment: AlignmentDirectional(0, 0),
                                           child: Text(
-                                            gridViewTransportPricingRecord
-                                                .passengersLbl
+                                            gridViewTransportPricingRecord!
+                                                .passengersLbl!
                                                 .toString(),
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
@@ -203,7 +203,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                                     .fromSTEB(0, 2, 0, 0),
                                                 child: AutoSizeText(
                                                   functions.fortmatCurrency(
-                                                      gridViewTransportPricingRecord
+                                                      gridViewTransportPricingRecord!
                                                           .price,
                                                       '\$'),
                                                   textAlign: TextAlign.center,
@@ -255,13 +255,13 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                       final toursUpdateData =
                                           createToursRecordData(
                                         passengers:
-                                            gridViewTransportPricingRecord
+                                            gridViewTransportPricingRecord!
                                                 .passengersLbl,
                                         transportFeePp:
-                                            gridViewTransportPricingRecord
+                                            gridViewTransportPricingRecord!
                                                 .price,
                                       );
-                                      await widget.tourID
+                                      await widget.tourID!
                                           .update(toursUpdateData);
                                       context.pop();
                                     },

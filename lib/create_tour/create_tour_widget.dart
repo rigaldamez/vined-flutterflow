@@ -11,7 +11,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class CreateTourWidget extends StatefulWidget {
   const CreateTourWidget({
-    Key key,
+    Key? key,
     this.state,
   }) : super(key: key);
 
@@ -22,10 +22,10 @@ class CreateTourWidget extends StatefulWidget {
 }
 
 class _CreateTourWidgetState extends State<CreateTourWidget> {
-  PagingController<DocumentSnapshot, ToursRecord> _pagingController;
-  Query _pagingQuery;
+  PagingController<DocumentSnapshot?, ToursRecord>? _pagingController;
+  Query? _pagingQuery;
 
-  TextEditingController tourNameTextFieldController;
+  TextEditingController? tourNameTextFieldController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -180,7 +180,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       if (!(functions.isStringNotEmpty(
-                                          tourNameTextFieldController.text))) {
+                                          tourNameTextFieldController!.text))) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -201,7 +201,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                       } else {
                                         setState(() => FFAppState()
                                                 .newTourName =
-                                            tourNameTextFieldController.text);
+                                            tourNameTextFieldController!.text);
                                       }
 
                                       context.pushNamed(
@@ -233,7 +233,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                         color: Colors.transparent,
                                         width: 1,
                                       ),
-                                      borderRadius: 34,
+                                      borderRadius: BorderRadius.circular(34),
                                     ),
                                   ),
                                 ),
@@ -348,10 +348,10 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 2, 0),
-                  child: PagedListView<DocumentSnapshot<Object>, ToursRecord>(
+                  child: PagedListView<DocumentSnapshot<Object?>?, ToursRecord>(
                     pagingController: () {
-                      final Query<Object> Function(Query<Object>) queryBuilder =
-                          (toursRecord) => toursRecord
+                      final Query<Object?> Function(Query<Object?>)
+                          queryBuilder = (toursRecord) => toursRecord
                               .where('uid', isEqualTo: currentUserReference)
                               .orderBy('tour_date', descending: true);
                       if (_pagingController != null) {
@@ -360,14 +360,14 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                           // The query has changed
                           _pagingQuery = query;
 
-                          _pagingController.refresh();
+                          _pagingController!.refresh();
                         }
-                        return _pagingController;
+                        return _pagingController!;
                       }
 
                       _pagingController = PagingController(firstPageKey: null);
                       _pagingQuery = queryBuilder(ToursRecord.collection);
-                      _pagingController
+                      _pagingController!
                           .addPageRequestListener((nextPageMarker) {
                         queryToursRecordPage(
                           queryBuilder: (toursRecord) => toursRecord
@@ -377,13 +377,13 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                           pageSize: 25,
                           isStream: false,
                         ).then((page) {
-                          _pagingController.appendPage(
+                          _pagingController!.appendPage(
                             page.data,
                             page.nextPageMarker,
                           );
                         });
                       });
-                      return _pagingController;
+                      return _pagingController!;
                     }(),
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
@@ -403,7 +403,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                           CreateNewTourEmptyStateWidget(),
                       itemBuilder: (context, _, listViewIndex) {
                         final listViewToursRecord =
-                            _pagingController.itemList[listViewIndex];
+                            _pagingController!.itemList![listViewIndex];
                         return Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -426,7 +426,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                       ),
                                       child: StreamBuilder<RegionsRecord>(
                                         stream: RegionsRecord.getDocument(
-                                            listViewToursRecord.regionID),
+                                            listViewToursRecord!.regionID!),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
@@ -444,7 +444,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                             );
                                           }
                                           final rowRegionsRecord =
-                                              snapshot.data;
+                                              snapshot.data!;
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -502,8 +502,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                               28),
                                                                       child: Image
                                                                           .network(
-                                                                        rowRegionsRecord
-                                                                            .image,
+                                                                        rowRegionsRecord!
+                                                                            .image!,
                                                                         width: MediaQuery.of(context).size.width *
                                                                             0.34,
                                                                         height: MediaQuery.of(context).size.height *
@@ -535,8 +535,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          rowRegionsRecord
-                                                                              .name,
+                                                                          rowRegionsRecord!
+                                                                              .name!,
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)
@@ -592,8 +592,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewToursRecord
-                                                                              .tourName
+                                                                          listViewToursRecord!
+                                                                              .tourName!
                                                                               .maybeHandleOverflow(
                                                                             maxChars:
                                                                                 16,
@@ -640,8 +640,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewToursRecord
-                                                                              .passengers
+                                                                          listViewToursRecord!
+                                                                              .passengers!
                                                                               .toString()
                                                                               .maybeHandleOverflow(
                                                                                 maxChars: 25,
@@ -690,7 +690,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             Text(
                                                                           dateTimeFormat(
                                                                               'MMMMEEEEd',
-                                                                              listViewToursRecord.tourDate),
+                                                                              listViewToursRecord!.tourDate!),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyText1
                                                                               .override(
@@ -731,8 +731,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewToursRecord
-                                                                              .pickupAddress
+                                                                          listViewToursRecord!
+                                                                              .pickupAddress!
                                                                               .maybeHandleOverflow(
                                                                             maxChars:
                                                                                 20,

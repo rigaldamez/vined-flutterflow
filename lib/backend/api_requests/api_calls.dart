@@ -6,7 +6,7 @@ export 'api_manager.dart' show ApiCallResponse;
 
 class GETGeolocationFORAddressCall {
   static Future<ApiCallResponse> call({
-    String address = '',
+    String? address = '',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Geolocation FOR Address',

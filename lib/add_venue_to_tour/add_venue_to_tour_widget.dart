@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddVenueToTourWidget extends StatefulWidget {
   const AddVenueToTourWidget({
-    Key key,
+    Key? key,
     this.tourID,
     this.tourName,
     this.regionID,
@@ -21,13 +21,13 @@ class AddVenueToTourWidget extends StatefulWidget {
     this.tourRecord,
   }) : super(key: key);
 
-  final DocumentReference tourID;
-  final String tourName;
-  final String regionID;
-  final bool makeLunchStopBool;
-  final int venueCount;
-  final DateTime tourDate;
-  final ToursRecord tourRecord;
+  final DocumentReference? tourID;
+  final String? tourName;
+  final String? regionID;
+  final bool? makeLunchStopBool;
+  final int? venueCount;
+  final DateTime? tourDate;
+  final ToursRecord? tourRecord;
 
   @override
   _AddVenueToTourWidgetState createState() => _AddVenueToTourWidgetState();
@@ -57,7 +57,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
           );
         }
         List<SelectedVenuesRecord> addVenueToTourSelectedVenuesRecordList =
-            snapshot.data;
+            snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Color(0xFFF5F5F5),
@@ -102,7 +102,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Text(
-                          widget.tourName,
+                          widget.tourName!,
                           style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
@@ -134,7 +134,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                               );
                             }
                             List<SelectedVenuesRecord>
-                                textSelectedVenuesRecordList = snapshot.data;
+                                textSelectedVenuesRecordList = snapshot.data!;
                             return Text(
                               'Tap to ADD venue',
                               style: FlutterFlowTheme.of(context).subtitle1,
@@ -157,7 +157,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                           ),
                         ),
                         Text(
-                          dateTimeFormat('MMMEd', widget.tourRecord.tourDate),
+                          dateTimeFormat('MMMEd', widget.tourRecord!.tourDate!),
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ],
@@ -176,7 +176,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                           ),
                         ),
                         Text(
-                          widget.venueCount.toString(),
+                          widget.venueCount!.toString(),
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ],
@@ -205,7 +205,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                             );
                           }
                           List<VenuesRecord> gridViewVenuesRecordList =
-                              snapshot.data;
+                              snapshot.data!;
                           return GridView.builder(
                             padding: EdgeInsets.zero,
                             gridDelegate:
@@ -239,7 +239,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                           },
                                         );
                                       },
-                                      text: gridViewVenuesRecord.name,
+                                      text: gridViewVenuesRecord!.name!,
                                       options: FFButtonOptions(
                                         width: 300,
                                         height: 300,
@@ -254,7 +254,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
-                                        borderRadius: 28,
+                                        borderRadius: BorderRadius.circular(28),
                                       ),
                                     ),
                                   ),
@@ -269,7 +269,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(28),
                                       child: Image.network(
-                                        gridViewVenuesRecord.image,
+                                        gridViewVenuesRecord!.image!,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -288,7 +288,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Text(
-                                      gridViewVenuesRecord.name,
+                                      gridViewVenuesRecord!.name!,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -303,11 +303,11 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   if (!(functions.isVenueAlreadyAdded(
                                           addVenueToTourSelectedVenuesRecordList
                                               .toList(),
-                                          gridViewVenuesRecord.reference)) ??
+                                          gridViewVenuesRecord!.reference)) ??
                                       true)
                                     InkWell(
                                       onTap: () async {
-                                        if ((widget.venueCount) >= 4) {
+                                        if ((widget.venueCount!) >= 4) {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
@@ -328,13 +328,13 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                             },
                                           );
                                         }
-                                        if ((widget.venueCount) < 4) {
+                                        if ((widget.venueCount!) < 4) {
                                           final toursUpdateData = {
                                             'venues': FieldValue.arrayUnion([
-                                              gridViewVenuesRecord.reference
+                                              gridViewVenuesRecord!.reference
                                             ]),
                                           };
-                                          await widget.tourID
+                                          await widget.tourID!
                                               .update(toursUpdateData);
                                         } else {
                                           return;
@@ -343,14 +343,14 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                         final selectedVenuesCreateData =
                                             createSelectedVenuesRecordData(
                                           venueRef:
-                                              gridViewVenuesRecord.reference,
+                                              gridViewVenuesRecord!.reference,
                                           addedByUid: currentUserReference,
                                           isLunchVenue:
                                               widget.makeLunchStopBool,
                                           tourRef: widget.tourID,
                                           addedDate: getCurrentTimestamp,
                                           tastingFee:
-                                              gridViewVenuesRecord.tastingFee,
+                                              gridViewVenuesRecord!.tastingFee,
                                         );
                                         await SelectedVenuesRecord.collection
                                             .doc()
@@ -373,7 +373,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   if (functions.isVenueAlreadyAdded(
                                           addVenueToTourSelectedVenuesRecordList
                                               .toList(),
-                                          gridViewVenuesRecord.reference) ??
+                                          gridViewVenuesRecord!.reference) ??
                                       true)
                                     Align(
                                       alignment:
@@ -400,7 +400,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   ),
                                   if (functions.meetsVenueCapacity(
                                           widget.tourRecord,
-                                          gridViewVenuesRecord.capacity) ??
+                                          gridViewVenuesRecord!.capacity) ??
                                       true)
                                     Align(
                                       alignment:

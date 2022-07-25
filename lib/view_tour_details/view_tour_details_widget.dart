@@ -10,11 +10,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ViewTourDetailsWidget extends StatefulWidget {
   const ViewTourDetailsWidget({
-    Key key,
+    Key? key,
     this.tourRef,
   }) : super(key: key);
 
-  final DocumentReference tourRef;
+  final DocumentReference? tourRef;
 
   @override
   _ViewTourDetailsWidgetState createState() => _ViewTourDetailsWidgetState();
@@ -29,7 +29,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: StreamBuilder<ToursRecord>(
-        stream: ToursRecord.getDocument(widget.tourRef),
+        stream: ToursRecord.getDocument(widget.tourRef!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -43,7 +43,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
               ),
             );
           }
-          final containerToursRecord = snapshot.data;
+          final containerToursRecord = snapshot.data!;
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -85,7 +85,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Text(
-                          containerToursRecord.tourName,
+                          containerToursRecord!.tourName!,
                           style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
@@ -127,7 +127,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                             );
                           }
                           List<SelectedVenuesRecord>
-                              gridViewSelectedVenuesRecordList = snapshot.data;
+                              gridViewSelectedVenuesRecordList = snapshot.data!;
                           return GridView.builder(
                             padding: EdgeInsets.zero,
                             gridDelegate:
@@ -145,7 +145,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       gridViewIndex];
                               return StreamBuilder<VenuesRecord>(
                                 stream: VenuesRecord.getDocument(
-                                    gridViewSelectedVenuesRecord.venueRef),
+                                    gridViewSelectedVenuesRecord!.venueRef!),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -160,7 +160,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       ),
                                     );
                                   }
-                                  final stackVenuesRecord = snapshot.data;
+                                  final stackVenuesRecord = snapshot.data!;
                                   return Stack(
                                     children: [
                                       Align(
@@ -182,7 +182,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                               },
                                             );
                                           },
-                                          text: stackVenuesRecord.name,
+                                          text: stackVenuesRecord!.name!,
                                           options: FFButtonOptions(
                                             width: 300,
                                             height: 300,
@@ -198,7 +198,8 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                               color: Colors.transparent,
                                               width: 1,
                                             ),
-                                            borderRadius: 28,
+                                            borderRadius:
+                                                BorderRadius.circular(28),
                                           ),
                                         ),
                                       ),
@@ -217,7 +218,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                           borderRadius:
                                               BorderRadius.circular(28),
                                           child: Image.network(
-                                            stackVenuesRecord.image,
+                                            stackVenuesRecord!.image!,
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -239,7 +240,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       Align(
                                         alignment: AlignmentDirectional(0, 0),
                                         child: Text(
-                                          stackVenuesRecord.name,
+                                          stackVenuesRecord!.name!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -256,11 +257,11 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                         onTap: () async {
                                           final toursUpdateData = {
                                             'venues': FieldValue.arrayRemove(
-                                                [stackVenuesRecord.reference]),
+                                                [stackVenuesRecord!.reference]),
                                           };
-                                          await widget.tourRef
+                                          await widget.tourRef!
                                               .update(toursUpdateData);
-                                          await gridViewSelectedVenuesRecord
+                                          await gridViewSelectedVenuesRecord!
                                               .reference
                                               .delete();
                                           context.pop();

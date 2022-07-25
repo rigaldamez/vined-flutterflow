@@ -11,18 +11,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TourChatWidget extends StatefulWidget {
   const TourChatWidget({
-    Key key,
+    Key? key,
     this.tourID,
   }) : super(key: key);
 
-  final DocumentReference tourID;
+  final DocumentReference? tourID;
 
   @override
   _TourChatWidgetState createState() => _TourChatWidgetState();
 }
 
 class _TourChatWidgetState extends State<TourChatWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,7 +39,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: StreamBuilder<ToursRecord>(
-          stream: ToursRecord.getDocument(widget.tourID),
+          stream: ToursRecord.getDocument(widget.tourID!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -53,7 +53,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                 ),
               );
             }
-            final containerToursRecord = snapshot.data;
+            final containerToursRecord = snapshot.data!;
             return Container(
               width: double.infinity,
               height: double.infinity,
@@ -94,7 +94,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                             },
                           ),
                           Text(
-                            containerToursRecord.tourName,
+                            containerToursRecord!.tourName!,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
@@ -129,7 +129,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                               );
                             }
                             List<TourMessagesRecord>
-                                listViewTourMessagesRecordList = snapshot.data;
+                                listViewTourMessagesRecordList = snapshot.data!;
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
@@ -213,8 +213,8 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                                       12,
                                                                       12),
                                                           child: Text(
-                                                            listViewTourMessagesRecord
-                                                                .messageBody,
+                                                            listViewTourMessagesRecord!
+                                                                .messageBody!,
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: FlutterFlowTheme
@@ -270,8 +270,8 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                     Text(
                                                       dateTimeFormat(
                                                           'relative',
-                                                          listViewTourMessagesRecord
-                                                              .dateSent),
+                                                          listViewTourMessagesRecord!
+                                                              .dateSent!),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -335,7 +335,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                 ),
                                 filled: true,
                                 fillColor: Color(0x19000000),
-                                suffixIcon: textController.text.isNotEmpty
+                                suffixIcon: textController!.text.isNotEmpty
                                     ? InkWell(
                                         onTap: () => setState(
                                           () => textController?.clear(),
@@ -369,16 +369,16 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                               child: InkWell(
                                 onTap: () async {
                                   if (functions
-                                      .isStringNotEmpty(textController.text)) {
+                                      .isStringNotEmpty(textController!.text)) {
                                     final tourMessagesCreateData =
                                         createTourMessagesRecordData(
                                       dateSent: getCurrentTimestamp,
                                       senderUserReff: currentUserReference,
-                                      messageBody: textController.text,
+                                      messageBody: textController!.text,
                                       isRead: false,
                                     );
                                     await TourMessagesRecord.createDoc(
-                                            widget.tourID)
+                                            widget.tourID!)
                                         .set(tourMessagesCreateData);
                                     setState(() {
                                       textController?.clear();

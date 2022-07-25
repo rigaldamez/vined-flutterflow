@@ -3,11 +3,11 @@ import 'package:rxdart/rxdart.dart';
 
 class VinedFirebaseUser {
   VinedFirebaseUser(this.user);
-  User user;
+  User? user;
   bool get loggedIn => user != null;
 }
 
-VinedFirebaseUser currentUser;
+VinedFirebaseUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<VinedFirebaseUser> vinedFirebaseUserStream() => FirebaseAuth.instance
     .authStateChanges()

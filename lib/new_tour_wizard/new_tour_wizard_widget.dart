@@ -9,20 +9,20 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewTourWizardWidget extends StatefulWidget {
   const NewTourWizardWidget({
-    Key key,
+    Key? key,
     this.state,
     this.tourName,
   }) : super(key: key);
 
   final dynamic state;
-  final String tourName;
+  final String? tourName;
 
   @override
   _NewTourWizardWidgetState createState() => _NewTourWizardWidgetState();
 }
 
 class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -71,7 +71,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                     child: Text(
-                      widget.tourName,
+                      widget.tourName!,
                       style: FlutterFlowTheme.of(context).subtitle1,
                     ),
                   ),
@@ -125,7 +125,8 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                     );
                                   }
                                   List<RegionsRecord>
-                                      gridViewRegionsRecordList = snapshot.data;
+                                      gridViewRegionsRecordList =
+                                      snapshot.data!;
                                   return GridView.builder(
                                     padding: EdgeInsets.zero,
                                     gridDelegate:
@@ -160,7 +161,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(28),
                                               child: Image.network(
-                                                gridViewRegionsRecord.image,
+                                                gridViewRegionsRecord!.image!,
                                                 width: 100,
                                                 height: 100,
                                                 fit: BoxFit.cover,
@@ -189,7 +190,8 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                                 context
                                                     .goNamed('NewTourWizard');
                                               },
-                                              text: gridViewRegionsRecord.name,
+                                              text:
+                                                  gridViewRegionsRecord!.name!,
                                               options: FFButtonOptions(
                                                 width: 300,
                                                 height: 300,
@@ -205,7 +207,8 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                                   color: Colors.transparent,
                                                   width: 1,
                                                 ),
-                                                borderRadius: 28,
+                                                borderRadius:
+                                                    BorderRadius.circular(28),
                                               ),
                                             ),
                                           ),
@@ -241,7 +244,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                             count: 3,
                             axisDirection: Axis.horizontal,
                             onDotClicked: (i) {
-                              pageViewController.animateToPage(
+                              pageViewController!.animateToPage(
                                 i,
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease,

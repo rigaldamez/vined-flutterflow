@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewTourBottomsheetWidget extends StatefulWidget {
-  const NewTourBottomsheetWidget({Key key}) : super(key: key);
+  const NewTourBottomsheetWidget({Key? key}) : super(key: key);
 
   @override
   _NewTourBottomsheetWidgetState createState() =>
@@ -14,7 +14,7 @@ class NewTourBottomsheetWidget extends StatefulWidget {
 }
 
 class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
-  TextEditingController tourNameTextFieldController;
+  TextEditingController? tourNameTextFieldController;
 
   @override
   void initState() {
@@ -150,7 +150,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   if (!(functions.isStringNotEmpty(
-                                      tourNameTextFieldController.text))) {
+                                      tourNameTextFieldController!.text))) {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -170,7 +170,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                     return;
                                   } else {
                                     setState(() => FFAppState().newTourName =
-                                        tourNameTextFieldController.text);
+                                        tourNameTextFieldController!.text);
                                     context.pushNamed(
                                       'CreateNewTour1',
                                       extra: <String, dynamic>{
@@ -201,7 +201,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                     color: Colors.transparent,
                                     width: 1,
                                   ),
-                                  borderRadius: 34,
+                                  borderRadius: BorderRadius.circular(34),
                                 ),
                               ),
                             ),
@@ -240,7 +240,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 40,
+                            borderRadius: BorderRadius.circular(40),
                           ),
                         ),
                       ),

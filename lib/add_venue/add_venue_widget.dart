@@ -13,22 +13,22 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class AddVenueWidget extends StatefulWidget {
   const AddVenueWidget({
-    Key key,
+    Key? key,
     this.tourReff,
   }) : super(key: key);
 
-  final DocumentReference tourReff;
+  final DocumentReference? tourReff;
 
   @override
   _AddVenueWidgetState createState() => _AddVenueWidgetState();
 }
 
 class _AddVenueWidgetState extends State<AddVenueWidget> {
-  PagingController<DocumentSnapshot, VenuesRecord> _pagingController;
-  Query _pagingQuery;
-  List<StreamSubscription> _streamSubscriptions = [];
+  PagingController<DocumentSnapshot?, VenuesRecord>? _pagingController;
+  Query? _pagingQuery;
+  List<StreamSubscription?> _streamSubscriptions = [];
 
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -51,7 +51,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: StreamBuilder<ToursRecord>(
-          stream: ToursRecord.getDocument(widget.tourReff),
+          stream: ToursRecord.getDocument(widget.tourReff!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -65,7 +65,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                 ),
               );
             }
-            final containerToursRecord = snapshot.data;
+            final containerToursRecord = snapshot.data!;
             return Container(
               width: double.infinity,
               height: double.infinity,
@@ -100,15 +100,13 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                       );
                     }
                     List<AppConfigRecord> columnAppConfigRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final columnAppConfigRecord =
-                        columnAppConfigRecordList.isNotEmpty
-                            ? columnAppConfigRecordList.first
-                            : null;
+                        columnAppConfigRecordList.first;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -184,7 +182,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                         ),
                                         filled: true,
                                         fillColor: Color(0x19000000),
-                                        suffixIcon: textController
+                                        suffixIcon: textController!
                                                 .text.isNotEmpty
                                             ? InkWell(
                                                 onTap: () => setState(
@@ -232,14 +230,14 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                            child: PagedListView<DocumentSnapshot<Object>,
+                            child: PagedListView<DocumentSnapshot<Object?>?,
                                 VenuesRecord>(
                               pagingController: () {
-                                final Query<Object> Function(Query<Object>)
+                                final Query<Object?> Function(Query<Object?>)
                                     queryBuilder = (venuesRecord) =>
                                         venuesRecord.where('region_Ref',
                                             isEqualTo:
-                                                containerToursRecord.regionID);
+                                                containerToursRecord!.regionID);
                                 if (_pagingController != null) {
                                   final query =
                                       queryBuilder(VenuesRecord.collection);
@@ -249,34 +247,34 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                     _streamSubscriptions
                                         .forEach((s) => s?.cancel());
                                     _streamSubscriptions.clear();
-                                    _pagingController.refresh();
+                                    _pagingController!.refresh();
                                   }
-                                  return _pagingController;
+                                  return _pagingController!;
                                 }
 
                                 _pagingController =
                                     PagingController(firstPageKey: null);
                                 _pagingQuery =
                                     queryBuilder(VenuesRecord.collection);
-                                _pagingController
+                                _pagingController!
                                     .addPageRequestListener((nextPageMarker) {
                                   queryVenuesRecordPage(
                                     queryBuilder: (venuesRecord) =>
                                         venuesRecord.where('region_Ref',
                                             isEqualTo:
-                                                containerToursRecord.regionID),
+                                                containerToursRecord!.regionID),
                                     nextPageMarker: nextPageMarker,
                                     pageSize: 25,
                                     isStream: true,
                                   ).then((page) {
-                                    _pagingController.appendPage(
+                                    _pagingController!.appendPage(
                                       page.data,
                                       page.nextPageMarker,
                                     );
                                     final streamSubscription =
                                         page.dataStream?.listen((data) {
-                                      final itemIndexes = _pagingController
-                                          .itemList
+                                      final itemIndexes = _pagingController!
+                                          .itemList!
                                           .asMap()
                                           .map((k, v) =>
                                               MapEntry(v.reference.id, k));
@@ -284,14 +282,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                         final index =
                                             itemIndexes[item.reference.id];
                                         final items =
-                                            _pagingController.itemList;
+                                            _pagingController!.itemList!;
                                         if (index != null) {
                                           items.replaceRange(
                                               index, index + 1, [item]);
-                                          _pagingController.itemList
-                                              .replaceRange(
-                                                  index, index + 1, [item]);
-                                          _pagingController.itemList = {
+                                          _pagingController!.itemList = {
                                             for (var item in items)
                                               item.reference: item
                                           }.values.toList();
@@ -303,7 +298,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                         .add(streamSubscription);
                                   });
                                 });
-                                return _pagingController;
+                                return _pagingController!;
                               }(),
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
@@ -324,7 +319,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
 
                                 itemBuilder: (context, _, listViewIndex) {
                                   final listViewVenuesRecord =
-                                      _pagingController.itemList[listViewIndex];
+                                      _pagingController!
+                                          .itemList![listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         6, 0, 0, 6),
@@ -382,8 +378,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               BorderRadius
                                                                   .circular(28),
                                                           child: Image.network(
-                                                            listViewVenuesRecord
-                                                                .image,
+                                                            listViewVenuesRecord!
+                                                                .image!,
                                                             width: 150,
                                                             height:
                                                                 double.infinity,
@@ -441,7 +437,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               MainAxisSize.max,
                                                                           children: [
                                                                             Text(
-                                                                              functions.upperCaseString(listViewVenuesRecord.name).maybeHandleOverflow(
+                                                                              functions.upperCaseString(listViewVenuesRecord!.name).maybeHandleOverflow(
                                                                                     maxChars: 20,
                                                                                     replacement: '…',
                                                                                   ),
@@ -559,7 +555,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                             }
                                                             List<SelectedVenuesRecord>
                                                                 containerSelectedVenuesRecordList =
-                                                                snapshot.data;
+                                                                snapshot.data!;
                                                             return Container(
                                                               width: 30,
                                                               height: 30,
@@ -576,20 +572,20 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                     () async {
                                                                   if (functions
                                                                       .isTourInDraftState(
-                                                                          containerToursRecord
+                                                                          containerToursRecord!
                                                                               .tourState)) {
                                                                     if (functions.isTourStopsCountLessThanLimitAllowed(
-                                                                        containerToursRecord
-                                                                            .venues
+                                                                        containerToursRecord!
+                                                                            .venues!
                                                                             .toList(),
                                                                         columnAppConfigRecord)) {
                                                                       if (functions.meetsVenueCapacity(
                                                                           containerToursRecord,
-                                                                          listViewVenuesRecord
+                                                                          listViewVenuesRecord!
                                                                               .capacity)) {
                                                                         if (functions.isVenueAlreadyAdded(
                                                                             containerSelectedVenuesRecordList.toList(),
-                                                                            listViewVenuesRecord.reference)) {
+                                                                            listViewVenuesRecord!.reference)) {
                                                                           await showDialog(
                                                                             context:
                                                                                 context,
@@ -608,20 +604,20 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             },
                                                                           );
                                                                         } else {
-                                                                          if (listViewVenuesRecord
-                                                                              .isLunchVenueOnly) {
+                                                                          if (listViewVenuesRecord!
+                                                                              .isLunchVenueOnly!) {
                                                                             final selectedVenuesCreateData =
                                                                                 createSelectedVenuesRecordData(
-                                                                              venueRef: listViewVenuesRecord.reference,
-                                                                              tourRef: containerToursRecord.reference,
+                                                                              venueRef: listViewVenuesRecord!.reference,
+                                                                              tourRef: containerToursRecord!.reference,
                                                                               addedByUid: currentUserReference,
                                                                               isLunchVenue: true,
-                                                                              tastingFee: listViewVenuesRecord.tastingFee,
+                                                                              tastingFee: listViewVenuesRecord!.tastingFee,
                                                                               addedDate: getCurrentTimestamp,
                                                                               bookingReference: '',
-                                                                              regionID: containerToursRecord.regionID,
+                                                                              regionID: containerToursRecord!.regionID,
                                                                               reservationTime: functions.epochTime(),
-                                                                              isLunchVenueOnly: listViewVenuesRecord.isLunchVenueOnly,
+                                                                              isLunchVenueOnly: listViewVenuesRecord!.isLunchVenueOnly,
                                                                               isTastingIncluded: false,
                                                                             );
                                                                             await SelectedVenuesRecord.collection.doc().set(selectedVenuesCreateData);
@@ -629,13 +625,13 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             final toursUpdateData =
                                                                                 {
                                                                               ...createToursRecordData(
-                                                                                totalTastingFeePp: functions.calculateTotalTastingFeePP(containerSelectedVenuesRecordList.toList(), listViewVenuesRecord.tastingFee),
+                                                                                totalTastingFeePp: functions.calculateTotalTastingFeePP(containerSelectedVenuesRecordList.toList(), listViewVenuesRecord!.tastingFee),
                                                                               ),
                                                                               'venues': FieldValue.arrayUnion([
-                                                                                listViewVenuesRecord.reference
+                                                                                listViewVenuesRecord!.reference
                                                                               ]),
                                                                             };
-                                                                            await widget.tourReff.update(toursUpdateData);
+                                                                            await widget.tourReff!.update(toursUpdateData);
                                                                             context.pop();
                                                                             ScaffoldMessenger.of(context).showSnackBar(
                                                                               SnackBar(
@@ -653,8 +649,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               ),
                                                                             );
                                                                           } else {
-                                                                            if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord.passengers,
-                                                                                columnAppConfigRecord.largeGroupThreshold)) {
+                                                                            if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord!.passengers,
+                                                                                columnAppConfigRecord!.largeGroupThreshold)) {
                                                                               await showModalBottomSheet(
                                                                                 isScrollControlled: true,
                                                                                 backgroundColor: Colors.transparent,
@@ -667,7 +663,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       child: SelectExperienceBtmsheetWidget(
                                                                                         venueRec: listViewVenuesRecord,
                                                                                         tourReff: widget.tourReff,
-                                                                                        regionReff: containerToursRecord.regionID,
+                                                                                        regionReff: containerToursRecord!.regionID,
                                                                                         tourDoc: containerToursRecord,
                                                                                         isLargeGroupEarlySeatingOnlyVenue: false,
                                                                                       ),
@@ -676,7 +672,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 },
                                                                               );
                                                                             } else {
-                                                                              if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord.largeGroupVenueEarlySeatingCount, columnAppConfigRecord.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
+                                                                              if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord!.largeGroupVenueEarlySeatingCount, columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord!.largeGroupEarlySeatingOnly)) {
                                                                                 await showModalBottomSheet(
                                                                                   isScrollControlled: true,
                                                                                   backgroundColor: Colors.transparent,
@@ -689,7 +685,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                         child: SelectExperienceBtmsheetWidget(
                                                                                           venueRec: listViewVenuesRecord,
                                                                                           tourReff: widget.tourReff,
-                                                                                          regionReff: containerToursRecord.regionID,
+                                                                                          regionReff: containerToursRecord!.regionID,
                                                                                           tourDoc: containerToursRecord,
                                                                                           isLargeGroupEarlySeatingOnlyVenue: true,
                                                                                         ),
@@ -792,7 +788,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                     0, 0),
                                                             children: [
                                                               if (!(functions.isLunchVenue(
-                                                                      listViewVenuesRecord
+                                                                      listViewVenuesRecord!
                                                                           .reference,
                                                                       FFAppState()
                                                                           .lunchVenueReff)) ??
@@ -805,7 +801,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                   size: 20,
                                                                 ),
                                                               if (functions.isLunchVenue(
-                                                                      listViewVenuesRecord
+                                                                      listViewVenuesRecord!
                                                                           .reference,
                                                                       FFAppState()
                                                                           .lunchVenueReff) ??
@@ -822,7 +818,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 onTap:
                                                                     () async {
                                                                   if (functions.isLunchVenue(
-                                                                      listViewVenuesRecord
+                                                                      listViewVenuesRecord!
                                                                           .reference,
                                                                       FFAppState()
                                                                           .lunchVenueReff)) {
@@ -835,7 +831,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             null);
                                                                     setState(() => FFAppState()
                                                                             .lunchVenueReff =
-                                                                        listViewVenuesRecord
+                                                                        listViewVenuesRecord!
                                                                             .reference);
                                                                   }
                                                                 },
@@ -855,8 +851,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                         ),
                                                       ),
                                                       if (!(functions.isVenueOpen(
-                                                              listViewVenuesRecord
-                                                                  .openDays
+                                                              listViewVenuesRecord!
+                                                                  .openDays!
                                                                   .toList(),
                                                               containerToursRecord)) ??
                                                           true)

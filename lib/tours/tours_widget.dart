@@ -10,16 +10,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ToursWidget extends StatefulWidget {
-  const ToursWidget({Key key}) : super(key: key);
+  const ToursWidget({Key? key}) : super(key: key);
 
   @override
   _ToursWidgetState createState() => _ToursWidgetState();
 }
 
 class _ToursWidgetState extends State<ToursWidget> {
-  PagingController<DocumentSnapshot, ToursRecord> _pagingController;
-  Query _pagingQuery;
-  List<StreamSubscription> _streamSubscriptions = [];
+  PagingController<DocumentSnapshot?, ToursRecord>? _pagingController;
+  Query? _pagingQuery;
+  List<StreamSubscription?> _streamSubscriptions = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -114,9 +114,9 @@ class _ToursWidgetState extends State<ToursWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 0),
-                child: PagedListView<DocumentSnapshot<Object>, ToursRecord>(
+                child: PagedListView<DocumentSnapshot<Object?>?, ToursRecord>(
                   pagingController: () {
-                    final Query<Object> Function(Query<Object>) queryBuilder =
+                    final Query<Object?> Function(Query<Object?>) queryBuilder =
                         (toursRecord) => toursRecord
                             .where('uid', isEqualTo: currentUserReference)
                             .orderBy('tour_date');
@@ -127,14 +127,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                         _pagingQuery = query;
                         _streamSubscriptions.forEach((s) => s?.cancel());
                         _streamSubscriptions.clear();
-                        _pagingController.refresh();
+                        _pagingController!.refresh();
                       }
-                      return _pagingController;
+                      return _pagingController!;
                     }
 
                     _pagingController = PagingController(firstPageKey: null);
                     _pagingQuery = queryBuilder(ToursRecord.collection);
-                    _pagingController.addPageRequestListener((nextPageMarker) {
+                    _pagingController!.addPageRequestListener((nextPageMarker) {
                       queryToursRecordPage(
                         queryBuilder: (toursRecord) => toursRecord
                             .where('uid', isEqualTo: currentUserReference)
@@ -143,23 +143,21 @@ class _ToursWidgetState extends State<ToursWidget> {
                         pageSize: 25,
                         isStream: true,
                       ).then((page) {
-                        _pagingController.appendPage(
+                        _pagingController!.appendPage(
                           page.data,
                           page.nextPageMarker,
                         );
                         final streamSubscription =
                             page.dataStream?.listen((data) {
-                          final itemIndexes = _pagingController.itemList
+                          final itemIndexes = _pagingController!.itemList!
                               .asMap()
                               .map((k, v) => MapEntry(v.reference.id, k));
                           data.forEach((item) {
                             final index = itemIndexes[item.reference.id];
-                            final items = _pagingController.itemList;
+                            final items = _pagingController!.itemList!;
                             if (index != null) {
                               items.replaceRange(index, index + 1, [item]);
-                              _pagingController.itemList
-                                  .replaceRange(index, index + 1, [item]);
-                              _pagingController.itemList = {
+                              _pagingController!.itemList = {
                                 for (var item in items) item.reference: item
                               }.values.toList();
                             }
@@ -169,7 +167,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                         _streamSubscriptions.add(streamSubscription);
                       });
                     });
-                    return _pagingController;
+                    return _pagingController!;
                   }(),
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -194,7 +192,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                     ),
                     itemBuilder: (context, _, listViewIndex) {
                       final listViewToursRecord =
-                          _pagingController.itemList[listViewIndex];
+                          _pagingController!.itemList![listViewIndex];
                       return Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +215,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                     ),
                                     child: StreamBuilder<RegionsRecord>(
                                       stream: RegionsRecord.getDocument(
-                                          listViewToursRecord.regionID),
+                                          listViewToursRecord!.regionID!),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -233,7 +231,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                             ),
                                           );
                                         }
-                                        final rowRegionsRecord = snapshot.data;
+                                        final rowRegionsRecord = snapshot.data!;
                                         return Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -289,8 +287,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             28),
                                                                     child: Image
                                                                         .network(
-                                                                      rowRegionsRecord
-                                                                          .image,
+                                                                      rowRegionsRecord!
+                                                                          .image!,
                                                                       width: MediaQuery.of(context)
                                                                               .size
                                                                               .width *
@@ -328,8 +326,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        rowRegionsRecord
-                                                                            .name,
+                                                                        rowRegionsRecord!
+                                                                            .name!,
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: FlutterFlowTheme.of(context)
@@ -406,8 +404,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             4,
                                                                             0),
                                                                 child: Text(
-                                                                  listViewToursRecord
-                                                                      .tourName
+                                                                  listViewToursRecord!
+                                                                      .tourName!
                                                                       .maybeHandleOverflow(
                                                                     maxChars:
                                                                         16,
@@ -456,8 +454,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             0,
                                                                             0),
                                                                 child: Text(
-                                                                  listViewToursRecord
-                                                                      .passengers
+                                                                  listViewToursRecord!
+                                                                      .passengers!
                                                                       .toString()
                                                                       .maybeHandleOverflow(
                                                                         maxChars:
@@ -511,8 +509,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                 child: Text(
                                                                   dateTimeFormat(
                                                                       'MMMMEEEEd',
-                                                                      listViewToursRecord
-                                                                          .tourDate),
+                                                                      listViewToursRecord!
+                                                                          .tourDate!),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -555,8 +553,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             4,
                                                                             0),
                                                                 child: Text(
-                                                                  listViewToursRecord
-                                                                      .pickupAddress
+                                                                  listViewToursRecord!
+                                                                      .pickupAddress!
                                                                       .maybeHandleOverflow(
                                                                     maxChars:
                                                                         20,
@@ -626,7 +624,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       'TourDetails',
                                       queryParams: {
                                         'tourID': serializeParam(
-                                            listViewToursRecord.reference,
+                                            listViewToursRecord!.reference,
                                             ParamType.DocumentReference),
                                         'tourDocument': serializeParam(
                                             listViewToursRecord,

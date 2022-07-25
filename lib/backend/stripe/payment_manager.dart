@@ -29,20 +29,20 @@ Future initializeStripe() async {
 
 class StripePaymentResponse {
   const StripePaymentResponse({this.paymentId, this.errorMessage});
-  final String paymentId;
-  final String errorMessage;
+  final String? paymentId;
+  final String? errorMessage;
 }
 
 Future<StripePaymentResponse> processStripePayment({
-  @required num amount,
-  @required String currency,
-  @required String customerEmail,
+  required num amount,
+  required String currency,
+  required String customerEmail,
   String customerName = '',
   String description = '',
   bool allowGooglePay = false,
   bool allowApplePay = false,
   ThemeMode themeStyle = ThemeMode.system,
-  Color buttonColor,
+  Color? buttonColor,
 }) async {
   if (kIsWeb) {
     return StripePaymentResponse(

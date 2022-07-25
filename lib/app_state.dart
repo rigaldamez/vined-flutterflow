@@ -18,7 +18,7 @@ class FFAppState {
     prefs = await SharedPreferences.getInstance();
   }
 
-  SharedPreferences prefs;
+  late SharedPreferences prefs;
 
   String newTourName = '';
 
@@ -30,9 +30,9 @@ class FFAppState {
 
   double newTourPricePP = 0.0;
 
-  DocumentReference newTourRegionRef;
+  DocumentReference? newTourRegionRef;
 
-  DocumentReference lunchVenueReff;
+  DocumentReference? lunchVenueReff;
 
   int perPersonTourCostTotal = 0;
 
@@ -41,7 +41,7 @@ class FFAppState {
   int largeGroupVenueEarlySeatingSelectedCount = 0;
 }
 
-LatLng _latLngFromString(String val) {
+LatLng? _latLngFromString(String? val) {
   if (val == null) {
     return null;
   }

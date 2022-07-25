@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ActivityWidget extends StatefulWidget {
-  const ActivityWidget({Key key}) : super(key: key);
+  const ActivityWidget({Key? key}) : super(key: key);
 
   @override
   _ActivityWidgetState createState() => _ActivityWidgetState();

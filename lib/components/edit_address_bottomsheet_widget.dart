@@ -14,11 +14,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditAddressBottomsheetWidget extends StatefulWidget {
   const EditAddressBottomsheetWidget({
-    Key key,
+    Key? key,
     this.tourID,
   }) : super(key: key);
 
-  final DocumentReference tourID;
+  final DocumentReference? tourID;
 
   @override
   _EditAddressBottomsheetWidgetState createState() =>
@@ -32,7 +32,7 @@ class _EditAddressBottomsheetWidgetState
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ToursRecord>(
-      stream: ToursRecord.getDocument(widget.tourID),
+      stream: ToursRecord.getDocument(widget.tourID!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -46,7 +46,7 @@ class _EditAddressBottomsheetWidgetState
             ),
           );
         }
-        final containerToursRecord = snapshot.data;
+        final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
@@ -70,7 +70,7 @@ class _EditAddressBottomsheetWidgetState
             padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
             child: FutureBuilder<ApiCallResponse>(
               future: GETGeolocationFORAddressCall.call(
-                address: placePickerValue.address,
+                address: placePickerValue!.address,
               ),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
@@ -85,7 +85,7 @@ class _EditAddressBottomsheetWidgetState
                     ),
                   );
                 }
-                final columnGETGeolocationFORAddressResponse = snapshot.data;
+                final columnGETGeolocationFORAddressResponse = snapshot.data!;
                 return Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -167,7 +167,7 @@ class _EditAddressBottomsheetWidgetState
                                               size: 24,
                                             ),
                                             Text(
-                                              placePickerValue.address,
+                                              placePickerValue!.address!,
                                               textAlign: TextAlign.center,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -209,8 +209,10 @@ class _EditAddressBottomsheetWidgetState
                                                 'AIzaSyCf9LVmSv_NS1Yz34-f51SXiiHMhSlv72A',
                                             webGoogleMapsApiKey:
                                                 'AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8',
-                                            onSelect: (place) => setState(
-                                                () => placePickerValue = place),
+                                            onSelect: (place) async {
+                                              setState(() =>
+                                                  placePickerValue = place);
+                                            },
                                             defaultText: 'Search Address',
                                             icon: Icon(
                                               Icons.place,
@@ -240,7 +242,8 @@ class _EditAddressBottomsheetWidgetState
                                                         .black,
                                                 width: 2,
                                               ),
-                                              borderRadius: 34,
+                                              borderRadius:
+                                                  BorderRadius.circular(34),
                                             ),
                                           ),
                                         ),
@@ -255,7 +258,8 @@ class _EditAddressBottomsheetWidgetState
                                     onPressed: () async {
                                       final toursUpdateData =
                                           createToursRecordData(
-                                        pickupAddress: placePickerValue.address,
+                                        pickupAddress:
+                                            placePickerValue!.address,
                                         pickupLatlng: functions.createGeoPoint(
                                             getJsonField(
                                               (columnGETGeolocationFORAddressResponse
@@ -276,7 +280,7 @@ class _EditAddressBottomsheetWidgetState
                                           r'''$.results[0].address_components[4].short_name''',
                                         ).toString(),
                                       );
-                                      await widget.tourID
+                                      await widget.tourID!
                                           .update(toursUpdateData);
                                       Navigator.pop(context);
                                     },
@@ -297,7 +301,7 @@ class _EditAddressBottomsheetWidgetState
                                         color: Colors.transparent,
                                         width: 1,
                                       ),
-                                      borderRadius: 40,
+                                      borderRadius: BorderRadius.circular(40),
                                     ),
                                   ),
                                 ),

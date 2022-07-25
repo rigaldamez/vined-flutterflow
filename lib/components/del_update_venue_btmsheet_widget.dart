@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,15 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DelUpdateVenueBtmsheetWidget extends StatefulWidget {
   const DelUpdateVenueBtmsheetWidget({
-    Key key,
+    Key? key,
     this.tourReff,
     this.venueDoc,
     this.selectedVenueReff,
   }) : super(key: key);
 
-  final DocumentReference tourReff;
-  final VenuesRecord venueDoc;
-  final DocumentReference selectedVenueReff;
+  final DocumentReference? tourReff;
+  final VenuesRecord? venueDoc;
+  final DocumentReference? selectedVenueReff;
 
   @override
   _DelUpdateVenueBtmsheetWidgetState createState() =>
@@ -31,12 +30,12 @@ class DelUpdateVenueBtmsheetWidget extends StatefulWidget {
 
 class _DelUpdateVenueBtmsheetWidgetState
     extends State<DelUpdateVenueBtmsheetWidget> {
-  DateTime datePicked;
+  DateTime? datePicked;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ToursRecord>(
-      stream: ToursRecord.getDocument(widget.tourReff),
+      stream: ToursRecord.getDocument(widget.tourReff!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -50,7 +49,7 @@ class _DelUpdateVenueBtmsheetWidgetState
             ),
           );
         }
-        final containerToursRecord = snapshot.data;
+        final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
@@ -97,7 +96,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                       Expanded(
                         child: StreamBuilder<SelectedVenuesRecord>(
                           stream: SelectedVenuesRecord.getDocument(
-                              widget.selectedVenueReff),
+                              widget.selectedVenueReff!),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -112,7 +111,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                 ),
                               );
                             }
-                            final columnSelectedVenuesRecord = snapshot.data;
+                            final columnSelectedVenuesRecord = snapshot.data!;
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -125,7 +124,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(24),
                                         child: Image.network(
-                                          widget.venueDoc.image,
+                                          widget.venueDoc!.image!,
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -145,7 +144,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                   .fromSTEB(12, 0, 0, 0),
                                               child: AutoSizeText(
                                                 functions.upperCaseString(
-                                                    widget.venueDoc.name),
+                                                    widget.venueDoc!.name),
                                                 textAlign: TextAlign.start,
                                                 maxLines: 2,
                                                 style:
@@ -193,8 +192,8 @@ class _DelUpdateVenueBtmsheetWidgetState
                                           children: [
                                             Stack(
                                               children: [
-                                                if (!(columnSelectedVenuesRecord
-                                                        .isLunchVenueOnly) ??
+                                                if (!(columnSelectedVenuesRecord!
+                                                        .isLunchVenueOnly!) ??
                                                     true)
                                                   Row(
                                                     mainAxisSize:
@@ -249,7 +248,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                               ),
                                                               Text(
                                                                 functions.displayTastingExperienceDescription(
-                                                                    columnSelectedVenuesRecord
+                                                                    columnSelectedVenuesRecord!
                                                                         .tastingExperienceDescription),
                                                                 maxLines: 3,
                                                                 style: FlutterFlowTheme.of(
@@ -273,7 +272,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                       ),
                                                     ],
                                                   ),
-                                                if (columnSelectedVenuesRecord
+                                                if (columnSelectedVenuesRecord!
                                                         .isLunchVenueOnly ??
                                                     true)
                                                   Row(
@@ -449,19 +448,19 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                 ToggleIcon(
                                                   onPressed: () async {
                                                     final selectedVenuesUpdateData =
-                                                        createSelectedVenuesRecordData(
-                                                      isLunchVenue:
-                                                          !columnSelectedVenuesRecord
-                                                              .isLunchVenue,
-                                                    );
-                                                    await columnSelectedVenuesRecord
+                                                        {
+                                                      'is_lunch_venue':
+                                                          !columnSelectedVenuesRecord!
+                                                              .isLunchVenue!,
+                                                    };
+                                                    await columnSelectedVenuesRecord!
                                                         .reference
                                                         .update(
                                                             selectedVenuesUpdateData);
                                                   },
                                                   value:
-                                                      columnSelectedVenuesRecord
-                                                          .isLunchVenue,
+                                                      columnSelectedVenuesRecord!
+                                                          .isLunchVenue!,
                                                   onIcon: Icon(
                                                     Icons.check_box,
                                                     color: Colors.black,
@@ -555,7 +554,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                         children: [
                                                           Text(
                                                             dateTimeFormat('jm',
-                                                                datePicked),
+                                                                datePicked!),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -642,11 +641,11 @@ class _DelUpdateVenueBtmsheetWidgetState
                                               createSelectedVenuesRecordData(
                                             reservationTime: functions
                                                 .getBookingReservationTime(
-                                                    containerToursRecord
+                                                    containerToursRecord!
                                                         .tourDate,
                                                     datePicked),
                                           );
-                                          await widget.selectedVenueReff
+                                          await widget.selectedVenueReff!
                                               .update(selectedVenuesUpdateData);
                                           Navigator.pop(context);
                                         },
@@ -658,6 +657,17 @@ class _DelUpdateVenueBtmsheetWidgetState
                                       ),
                                     ],
                                   ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      functions
+                                          .tourRefAsString(widget.tourReff),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
+                                    ),
+                                  ],
                                 ),
                                 StreamBuilder<List<SelectedVenuesRecord>>(
                                   stream: querySelectedVenuesRecord(
@@ -681,249 +691,244 @@ class _DelUpdateVenueBtmsheetWidgetState
                                     }
                                     List<SelectedVenuesRecord>
                                         containerSelectedVenuesRecordList =
-                                        snapshot.data;
+                                        snapshot.data!;
                                     return Container(
-                                      width: 200,
+                                      width: 300,
                                       height: 50,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFEEEEEE),
+                                        borderRadius: BorderRadius.circular(28),
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 6, 0, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await columnSelectedVenuesRecord
-                                                .reference
-                                                .delete();
-                                            Navigator.pop(context);
-                                          },
-                                          text: 'Remove',
-                                          options: FFButtonOptions(
-                                            width: 130,
-                                            height: 40,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius: 12,
+                                      child: Stack(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        children: [
+                                          Text(
+                                            'Remove venue',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 20, 0, 0),
-                                  child:
-                                      StreamBuilder<List<SelectedVenuesRecord>>(
-                                    stream: querySelectedVenuesRecord(
-                                      queryBuilder: (selectedVenuesRecord) =>
-                                          selectedVenuesRecord.where('tourRef',
-                                              isEqualTo: widget.tourReff),
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .purplePastel,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<SelectedVenuesRecord>
-                                          containerSelectedVenuesRecordList =
-                                          snapshot.data;
-                                      return Container(
-                                        width: 300,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(28),
-                                        ),
-                                        child: Stack(
-                                          alignment: AlignmentDirectional(0, 0),
-                                          children: [
-                                            Text(
-                                              'Remove venue',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                            InkWell(
-                                              onTap: () async {
-                                                if (functions.isLunchVenue(
-                                                    widget.venueDoc.reference,
-                                                    FFAppState()
-                                                        .lunchVenueReff)) {
+                                          InkWell(
+                                            onTap: () async {
+                                              if (functions.isLunchVenue(
+                                                  widget.venueDoc!.reference,
+                                                  FFAppState()
+                                                      .lunchVenueReff)) {
+                                                final toursUpdateData = {
+                                                  ...createToursRecordData(
+                                                    totalTastingFeePp: functions
+                                                        .deductFromTotalTastingFeePP(
+                                                            containerToursRecord!
+                                                                .totalTastingFeePp,
+                                                            columnSelectedVenuesRecord),
+                                                    pricePp: functions
+                                                        .getPerPersonFeeAsInt(
+                                                            containerToursRecord!
+                                                                .transportFeePp,
+                                                            containerSelectedVenuesRecordList
+                                                                .toList(),
+                                                            containerToursRecord!
+                                                                .platformTastingFee)
+                                                        ?.toDouble(),
+                                                    subTotal: functions.getTourSubTotal(
+                                                        containerToursRecord!
+                                                            .passengers,
+                                                        functions
+                                                            .getPerPersonFeeAsInt(
+                                                                containerToursRecord!
+                                                                    .transportFeePp,
+                                                                containerSelectedVenuesRecordList
+                                                                    .toList(),
+                                                                containerToursRecord!
+                                                                    .platformTastingFee)
+                                                            ?.toDouble()),
+                                                  ),
+                                                  'venues':
+                                                      FieldValue.arrayRemove([
+                                                    widget.venueDoc!.reference
+                                                  ]),
+                                                };
+                                                await widget.tourReff!
+                                                    .update(toursUpdateData);
+                                                await widget.selectedVenueReff!
+                                                    .delete();
+                                                setState(() => FFAppState()
+                                                    .lunchVenueReff = null);
+                                                Navigator.pop(context);
+                                              } else {
+                                                if (columnSelectedVenuesRecord!
+                                                    .isLargeGroupEarlySeatingOnlyVenue!) {
                                                   final toursUpdateData = {
                                                     ...createToursRecordData(
                                                       totalTastingFeePp: functions
                                                           .deductFromTotalTastingFeePP(
-                                                              containerToursRecord
+                                                              containerToursRecord!
                                                                   .totalTastingFeePp,
                                                               columnSelectedVenuesRecord),
                                                       pricePp: functions
                                                           .getPerPersonFeeAsInt(
-                                                              containerToursRecord
+                                                              containerToursRecord!
                                                                   .transportFeePp,
                                                               containerSelectedVenuesRecordList
                                                                   .toList(),
-                                                              containerToursRecord
+                                                              containerToursRecord!
                                                                   .platformTastingFee)
-                                                          .toDouble(),
+                                                          ?.toDouble(),
                                                       subTotal: functions.getTourSubTotal(
-                                                          containerToursRecord
+                                                          containerToursRecord!
                                                               .passengers,
                                                           functions
                                                               .getPerPersonFeeAsInt(
-                                                                  containerToursRecord
+                                                                  containerToursRecord!
                                                                       .transportFeePp,
                                                                   containerSelectedVenuesRecordList
                                                                       .toList(),
-                                                                  containerToursRecord
+                                                                  containerToursRecord!
                                                                       .platformTastingFee)
-                                                              .toDouble()),
+                                                              ?.toDouble()),
                                                     ),
                                                     'venues':
                                                         FieldValue.arrayRemove([
-                                                      widget.venueDoc.reference
+                                                      widget.venueDoc!.reference
                                                     ]),
+                                                    'large_group_venue_early_seating_count':
+                                                        FieldValue.increment(
+                                                            -(1)),
                                                   };
-                                                  await widget.tourReff
+                                                  await widget.tourReff!
                                                       .update(toursUpdateData);
-                                                  await widget.selectedVenueReff
+                                                  await widget
+                                                      .selectedVenueReff!
                                                       .delete();
-                                                  setState(() => FFAppState()
-                                                      .lunchVenueReff = null);
                                                   Navigator.pop(context);
                                                 } else {
-                                                  if (columnSelectedVenuesRecord
-                                                      .isLargeGroupEarlySeatingOnlyVenue) {
-                                                    final toursUpdateData = {
-                                                      ...createToursRecordData(
-                                                        totalTastingFeePp: functions
-                                                            .deductFromTotalTastingFeePP(
-                                                                containerToursRecord
-                                                                    .totalTastingFeePp,
-                                                                columnSelectedVenuesRecord),
-                                                        pricePp: functions
-                                                            .getPerPersonFeeAsInt(
-                                                                containerToursRecord
-                                                                    .transportFeePp,
-                                                                containerSelectedVenuesRecordList
-                                                                    .toList(),
-                                                                containerToursRecord
-                                                                    .platformTastingFee)
-                                                            .toDouble(),
-                                                        subTotal: functions.getTourSubTotal(
-                                                            containerToursRecord
-                                                                .passengers,
-                                                            functions
-                                                                .getPerPersonFeeAsInt(
-                                                                    containerToursRecord
-                                                                        .transportFeePp,
-                                                                    containerSelectedVenuesRecordList
-                                                                        .toList(),
-                                                                    containerToursRecord
-                                                                        .platformTastingFee)
-                                                                .toDouble()),
-                                                      ),
-                                                      'venues': FieldValue
-                                                          .arrayRemove([
-                                                        widget
-                                                            .venueDoc.reference
-                                                      ]),
-                                                      'large_group_venue_early_seating_count':
-                                                          FieldValue.increment(
-                                                              -(1)),
-                                                    };
-                                                    await widget.tourReff
-                                                        .update(
-                                                            toursUpdateData);
-                                                    await widget
-                                                        .selectedVenueReff
-                                                        .delete();
-                                                    Navigator.pop(context);
-                                                  } else {
-                                                    final toursUpdateData = {
-                                                      ...createToursRecordData(
-                                                        totalTastingFeePp: functions
-                                                            .deductFromTotalTastingFeePP(
-                                                                containerToursRecord
-                                                                    .totalTastingFeePp,
-                                                                columnSelectedVenuesRecord),
-                                                        pricePp: functions
-                                                            .getPerPersonFeeAsInt(
-                                                                containerToursRecord
-                                                                    .transportFeePp,
-                                                                containerSelectedVenuesRecordList
-                                                                    .toList(),
-                                                                containerToursRecord
-                                                                    .platformTastingFee)
-                                                            .toDouble(),
-                                                        subTotal: functions.getTourSubTotal(
-                                                            containerToursRecord
-                                                                .passengers,
-                                                            functions
-                                                                .getPerPersonFeeAsInt(
-                                                                    containerToursRecord
-                                                                        .transportFeePp,
-                                                                    containerSelectedVenuesRecordList
-                                                                        .toList(),
-                                                                    containerToursRecord
-                                                                        .platformTastingFee)
-                                                                .toDouble()),
-                                                      ),
-                                                      'venues': FieldValue
-                                                          .arrayRemove([
-                                                        widget
-                                                            .venueDoc.reference
-                                                      ]),
-                                                    };
-                                                    await widget.tourReff
-                                                        .update(
-                                                            toursUpdateData);
-                                                    await widget
-                                                        .selectedVenueReff
-                                                        .delete();
-                                                    Navigator.pop(context);
-                                                  }
+                                                  final toursUpdateData = {
+                                                    ...createToursRecordData(
+                                                      totalTastingFeePp: functions
+                                                          .deductFromTotalTastingFeePP(
+                                                              containerToursRecord!
+                                                                  .totalTastingFeePp,
+                                                              columnSelectedVenuesRecord),
+                                                      pricePp: functions
+                                                          .getPerPersonFeeAsInt(
+                                                              containerToursRecord!
+                                                                  .transportFeePp,
+                                                              containerSelectedVenuesRecordList
+                                                                  .toList(),
+                                                              containerToursRecord!
+                                                                  .platformTastingFee)
+                                                          ?.toDouble(),
+                                                      subTotal: functions.getTourSubTotal(
+                                                          containerToursRecord!
+                                                              .passengers,
+                                                          functions
+                                                              .getPerPersonFeeAsInt(
+                                                                  containerToursRecord!
+                                                                      .transportFeePp,
+                                                                  containerSelectedVenuesRecordList
+                                                                      .toList(),
+                                                                  containerToursRecord!
+                                                                      .platformTastingFee)
+                                                              ?.toDouble()),
+                                                    ),
+                                                    'venues':
+                                                        FieldValue.arrayRemove([
+                                                      widget.venueDoc!.reference
+                                                    ]),
+                                                  };
+                                                  await widget.tourReff!
+                                                      .update(toursUpdateData);
+                                                  await widget
+                                                      .selectedVenueReff!
+                                                      .delete();
+                                                  Navigator.pop(context);
                                                 }
-                                              },
-                                              child: Container(
-                                                width: 300,
-                                                height: 40,
-                                                decoration: BoxDecoration(),
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 300,
+                                              height: 40,
+                                              decoration: BoxDecoration(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      formatNumber(
+                                        containerToursRecord!.transportFeePp!,
+                                        formatType: FormatType.decimal,
+                                        decimalType: DecimalType.periodDecimal,
+                                        currency: '\$',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
+                                    ),
+                                    StreamBuilder<List<SelectedVenuesRecord>>(
+                                      stream: querySelectedVenuesRecord(
+                                        queryBuilder: (selectedVenuesRecord) =>
+                                            selectedVenuesRecord.where(
+                                                'tourRef',
+                                                isEqualTo: widget.tourReff),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child: CircularProgressIndicator(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .purplePastel,
                                               ),
                                             ),
-                                          ],
+                                          );
+                                        }
+                                        List<SelectedVenuesRecord>
+                                            containerSelectedVenuesRecordList =
+                                            snapshot.data!;
+                                        return Container(
+                                          width: 100,
+                                          height: 24,
+                                          decoration: BoxDecoration(),
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: Text(
+                                            containerSelectedVenuesRecordList
+                                                .length
+                                                .toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
+                                      child: Text(
+                                        formatNumber(
+                                          containerToursRecord!
+                                              .platformTastingFee!,
+                                          formatType: FormatType.decimal,
+                                          decimalType:
+                                              DecimalType.periodDecimal,
+                                          currency: '\$',
                                         ),
-                                      );
-                                    },
-                                  ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             );

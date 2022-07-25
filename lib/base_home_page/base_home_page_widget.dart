@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BaseHomePageWidget extends StatefulWidget {
-  const BaseHomePageWidget({Key key}) : super(key: key);
+  const BaseHomePageWidget({Key? key}) : super(key: key);
 
   @override
   _BaseHomePageWidgetState createState() => _BaseHomePageWidgetState();
@@ -19,6 +19,7 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 800,
       delay: 100,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         opacity: 0,
@@ -187,7 +188,7 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
                     ),
                   ),
                 ],
-              ).animated([animationsMap['rowOnPageLoadAnimation']]),
+              ).animated([animationsMap['rowOnPageLoadAnimation']!]),
             ],
           ),
         ),

@@ -10,56 +10,42 @@ abstract class VenuesRecord
     implements Built<VenuesRecord, VenuesRecordBuilder> {
   static Serializer<VenuesRecord> get serializer => _$venuesRecordSerializer;
 
-  @nullable
-  String get name;
+  String? get name;
 
-  @nullable
-  String get regionID;
+  String? get regionID;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  String get regionName;
+  String? get regionName;
 
-  @nullable
-  double get tastingFee;
+  double? get tastingFee;
 
-  @nullable
-  int get capacity;
+  int? get capacity;
 
-  @nullable
-  BuiltList<int> get openDays;
+  BuiltList<int>? get openDays;
 
-  @nullable
-  bool get maxCapacityEnforced;
+  bool? get maxCapacityEnforced;
 
-  @nullable
-  bool get mustAcknowledgeTCs;
+  bool? get mustAcknowledgeTCs;
 
-  @nullable
   @BuiltValueField(wireName: 'region_Ref')
-  DocumentReference get regionRef;
+  DocumentReference? get regionRef;
 
-  @nullable
   @BuiltValueField(wireName: 'is_favourited_by')
-  BuiltList<DocumentReference> get isFavouritedBy;
+  BuiltList<DocumentReference>? get isFavouritedBy;
 
-  @nullable
   @BuiltValueField(wireName: 'country_state')
-  String get countryState;
+  String? get countryState;
 
-  @nullable
   @BuiltValueField(wireName: 'is_lunch_venue_only')
-  bool get isLunchVenueOnly;
+  bool? get isLunchVenueOnly;
 
-  @nullable
   @BuiltValueField(wireName: 'large_group_early_seating_only')
-  bool get largeGroupEarlySeatingOnly;
+  bool? get largeGroupEarlySeatingOnly;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(VenuesRecordBuilder builder) => builder
     ..name = ''
@@ -81,11 +67,11 @@ abstract class VenuesRecord
 
   static Stream<VenuesRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<VenuesRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static VenuesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
       VenuesRecord(
@@ -107,14 +93,14 @@ abstract class VenuesRecord
           ..isLunchVenueOnly = snapshot.data['is_lunch_venue_only']
           ..largeGroupEarlySeatingOnly =
               snapshot.data['large_group_early_seating_only']
-          ..reference = VenuesRecord.collection.doc(snapshot.objectID),
+          ..ffRef = VenuesRecord.collection.doc(snapshot.objectID),
       );
 
   static Future<List<VenuesRecord>> search(
-          {String term,
-          FutureOr<LatLng> location,
-          int maxResults,
-          double searchRadiusMeters}) =>
+          {String? term,
+          FutureOr<LatLng>? location,
+          int? maxResults,
+          double? searchRadiusMeters}) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'venues',
@@ -132,37 +118,43 @@ abstract class VenuesRecord
   static VenuesRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createVenuesRecordData({
-  String name,
-  String regionID,
-  String image,
-  String regionName,
-  double tastingFee,
-  int capacity,
-  bool maxCapacityEnforced,
-  bool mustAcknowledgeTCs,
-  DocumentReference regionRef,
-  String countryState,
-  bool isLunchVenueOnly,
-  bool largeGroupEarlySeatingOnly,
-}) =>
-    serializers.toFirestore(
-        VenuesRecord.serializer,
-        VenuesRecord((v) => v
-          ..name = name
-          ..regionID = regionID
-          ..image = image
-          ..regionName = regionName
-          ..tastingFee = tastingFee
-          ..capacity = capacity
-          ..openDays = null
-          ..maxCapacityEnforced = maxCapacityEnforced
-          ..mustAcknowledgeTCs = mustAcknowledgeTCs
-          ..regionRef = regionRef
-          ..isFavouritedBy = null
-          ..countryState = countryState
-          ..isLunchVenueOnly = isLunchVenueOnly
-          ..largeGroupEarlySeatingOnly = largeGroupEarlySeatingOnly));
+  String? name,
+  String? regionID,
+  String? image,
+  String? regionName,
+  double? tastingFee,
+  int? capacity,
+  bool? maxCapacityEnforced,
+  bool? mustAcknowledgeTCs,
+  DocumentReference? regionRef,
+  String? countryState,
+  bool? isLunchVenueOnly,
+  bool? largeGroupEarlySeatingOnly,
+}) {
+  final firestoreData = serializers.toFirestore(
+    VenuesRecord.serializer,
+    VenuesRecord(
+      (v) => v
+        ..name = name
+        ..regionID = regionID
+        ..image = image
+        ..regionName = regionName
+        ..tastingFee = tastingFee
+        ..capacity = capacity
+        ..openDays = null
+        ..maxCapacityEnforced = maxCapacityEnforced
+        ..mustAcknowledgeTCs = mustAcknowledgeTCs
+        ..regionRef = regionRef
+        ..isFavouritedBy = null
+        ..countryState = countryState
+        ..isLunchVenueOnly = isLunchVenueOnly
+        ..largeGroupEarlySeatingOnly = largeGroupEarlySeatingOnly,
+    ),
+  );
+
+  return firestoreData;
+}

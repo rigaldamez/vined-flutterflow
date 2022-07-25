@@ -10,18 +10,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SelectDriverWidget extends StatefulWidget {
   const SelectDriverWidget({
-    Key key,
+    Key? key,
     this.tourID,
   }) : super(key: key);
 
-  final DocumentReference tourID;
+  final DocumentReference? tourID;
 
   @override
   _SelectDriverWidgetState createState() => _SelectDriverWidgetState();
 }
 
 class _SelectDriverWidgetState extends State<SelectDriverWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,7 +38,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: StreamBuilder<ToursRecord>(
-          stream: ToursRecord.getDocument(widget.tourID),
+          stream: ToursRecord.getDocument(widget.tourID!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -52,7 +52,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                 ),
               );
             }
-            final containerToursRecord = snapshot.data;
+            final containerToursRecord = snapshot.data!;
             return Container(
               width: double.infinity,
               height: double.infinity,
@@ -87,15 +87,13 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                       );
                     }
                     List<AppConfigRecord> columnAppConfigRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final columnAppConfigRecord =
-                        columnAppConfigRecordList.isNotEmpty
-                            ? columnAppConfigRecordList.first
-                            : null;
+                        columnAppConfigRecordList.first;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -171,7 +169,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                         ),
                                         filled: true,
                                         fillColor: Color(0x19000000),
-                                        suffixIcon: textController
+                                        suffixIcon: textController!
                                                 .text.isNotEmpty
                                             ? InkWell(
                                                 onTap: () => setState(
@@ -224,7 +222,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                 queryBuilder: (usersRecord) =>
                                     usersRecord.where('driver_onboarded_market',
                                         arrayContains:
-                                            containerToursRecord.countryState),
+                                            containerToursRecord!.countryState),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -241,7 +239,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                   );
                                 }
                                 List<UsersRecord> listViewUsersRecordList =
-                                    snapshot.data;
+                                    snapshot.data!;
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
@@ -343,8 +341,8 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    listViewUsersRecord
-                                                                        .displayName,
+                                                                    listViewUsersRecord!
+                                                                        .displayName!,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -502,13 +500,13 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                         final toursUpdateData =
                                                             createToursRecordData(
                                                           driverReff:
-                                                              listViewUsersRecord
+                                                              listViewUsersRecord!
                                                                   .reference,
                                                           driverUid:
-                                                              listViewUsersRecord
+                                                              listViewUsersRecord!
                                                                   .uid,
                                                         );
-                                                        await widget.tourID
+                                                        await widget.tourID!
                                                             .update(
                                                                 toursUpdateData);
                                                         context.pop();
