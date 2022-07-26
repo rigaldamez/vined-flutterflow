@@ -370,6 +370,8 @@ class _SelectExperienceBtmsheetWidgetState
                                                   listViewTastingExperiencesRecord!
                                                       .description,
                                               isTastingIncluded: true,
+                                              isLunchVenueOnly: widget
+                                                  .venueRec!.isLunchVenueOnly,
                                             );
                                             var selectedVenuesRecordReference =
                                                 SelectedVenuesRecord.collection
@@ -447,6 +449,8 @@ class _SelectExperienceBtmsheetWidgetState
                                                   listViewTastingExperiencesRecord!
                                                       .description,
                                               isTastingIncluded: true,
+                                              isLunchVenueOnly: widget
+                                                  .venueRec!.isLunchVenueOnly,
                                             );
                                             var selectedVenuesRecordReference =
                                                 SelectedVenuesRecord.collection

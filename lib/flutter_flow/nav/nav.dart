@@ -310,6 +310,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     'tourID', ParamType.DocumentReference, 'tours'),
                 tourRecord: params.getParam('tourRecord', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'HomePageCopy',
+              path: 'homePageCopy',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'HomePageCopy')
+                  : HomePageCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

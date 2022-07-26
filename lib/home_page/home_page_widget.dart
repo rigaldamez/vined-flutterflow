@@ -96,8 +96,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           color: Colors.black,
                           size: 24,
                         ),
-                        onPressed: () async {
-                          context.pushNamed('FIlterWineries');
+                        onPressed: () {
+                          print('IconButton pressed ...');
                         },
                       ).animated(
                           [animationsMap['iconButtonOnPageLoadAnimation']!]),
@@ -261,21 +261,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     useGoogleFonts: false,
                                   ),
                             ),
-                            InkWell(
-                              onTap: () async {
-                                context.pushNamed(
-                                  'SeeAllCellars',
-                                  queryParams: {
-                                    'regionName': serializeParam(
-                                        choiceChipsValue, ParamType.String),
-                                  }.withoutNulls,
-                                );
-                              },
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(),
-                              ),
+                            Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(),
                             ),
                           ],
                         ),
@@ -288,14 +277,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   height: MediaQuery.of(context).size.height * 0.26,
                   decoration: BoxDecoration(),
                   child: StreamBuilder<List<VenuesRecord>>(
-                    stream: queryVenuesRecord(
-                      queryBuilder: (venuesRecord) =>
-                          venuesRecord.where('regionName',
-                              isEqualTo: valueOrDefault<String>(
-                                choiceChipsValue,
-                                'Adelaide Hills',
-                              )),
-                    ),
+                    stream: queryVenuesRecord(),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -543,10 +525,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Text(
-                          valueOrDefault<String>(
-                            choiceChipsValue!,
-                            'Default Value',
-                          ),
+                          '',
                           style:
                               FlutterFlowTheme.of(context).subtitle1.override(
                                     fontFamily: 'Nunito',
@@ -579,21 +558,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                InkWell(
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'SeeAllCellars',
-                                      queryParams: {
-                                        'regionName': serializeParam(
-                                            choiceChipsValue, ParamType.String),
-                                      }.withoutNulls,
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    height: 100,
-                                    decoration: BoxDecoration(),
-                                  ),
+                                Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(),
                                 ),
                               ],
                             ),
@@ -608,14 +576,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   height: MediaQuery.of(context).size.height * 1,
                   decoration: BoxDecoration(),
                   child: StreamBuilder<List<VenuesRecord>>(
-                    stream: queryVenuesRecord(
-                      queryBuilder: (venuesRecord) =>
-                          venuesRecord.where('regionName',
-                              isEqualTo: valueOrDefault<String>(
-                                choiceChipsValue,
-                                'Adelaide Hills',
-                              )),
-                    ),
+                    stream: queryVenuesRecord(),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -807,47 +768,52 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             ),
                                                           ),
                                                         ),
-                                                        InkWell(
-                                                          onTap: () async {
-                                                            if (listViewVenuesRecord!
-                                                                .isFavouritedBy!
-                                                                .toList()!
-                                                                .contains(
-                                                                    currentUserReference)) {
-                                                              final venuesUpdateData =
-                                                                  {
-                                                                'is_favourited_by':
-                                                                    FieldValue
-                                                                        .arrayRemove([
-                                                                  currentUserReference
-                                                                ]),
-                                                              };
-                                                              await listViewVenuesRecord!
-                                                                  .reference
-                                                                  .update(
-                                                                      venuesUpdateData);
-                                                            } else {
-                                                              final venuesUpdateData =
-                                                                  {
-                                                                'is_favourited_by':
-                                                                    FieldValue
-                                                                        .arrayUnion([
-                                                                  currentUserReference
-                                                                ]),
-                                                              };
-                                                              await listViewVenuesRecord!
-                                                                  .reference
-                                                                  .update(
-                                                                      venuesUpdateData);
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 34,
-                                                            height: 34,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0, 0),
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              if (listViewVenuesRecord!
+                                                                  .isFavouritedBy!
+                                                                  .toList()!
+                                                                  .contains(
+                                                                      currentUserReference)) {
+                                                                final venuesUpdateData =
+                                                                    {
+                                                                  'is_favourited_by':
+                                                                      FieldValue
+                                                                          .arrayRemove([
+                                                                    currentUserReference
+                                                                  ]),
+                                                                };
+                                                                await listViewVenuesRecord!
+                                                                    .reference
+                                                                    .update(
+                                                                        venuesUpdateData);
+                                                              } else {
+                                                                final venuesUpdateData =
+                                                                    {
+                                                                  'is_favourited_by':
+                                                                      FieldValue
+                                                                          .arrayUnion([
+                                                                    currentUserReference
+                                                                  ]),
+                                                                };
+                                                                await listViewVenuesRecord!
+                                                                    .reference
+                                                                    .update(
+                                                                        venuesUpdateData);
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 34,
+                                                              height: 34,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),

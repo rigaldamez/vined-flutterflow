@@ -120,9 +120,9 @@ bool meetsVenueCapacity(
   return tourRecord!.passengers! <= venueCapacity! ? true : false;
 }
 
-String upperCaseString(String? str) {
+String upperCaseString(String? lowercareString) {
   // Add your function code here!
-  return str!.toUpperCase();
+  return lowercareString!.toUpperCase();
 }
 
 String getDayMonthFromDate(DateTime? date) {

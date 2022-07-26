@@ -117,6 +117,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'CreateTour': CreateTourWidget(),
       'Profile': ProfileWidget(),
       'Tours': ToursWidget(),
+      'HomePageCopy': HomePageCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -224,6 +225,30 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
+                        ? FlutterFlowTheme.of(context).purplePastel
+                        : Color(0xFFF4F4F4),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.wine_bar,
+                  color: currentIndex == 4
+                      ? FlutterFlowTheme.of(context).purplePastel
+                      : Color(0xFFF4F4F4),
+                  size: 24,
+                ),
+                Text(
+                  'Explore',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).purplePastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,
