@@ -56,7 +56,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                     child: Text(
-                      FFAppState().newTourName!,
+                      FFAppState().newTourName,
                       style: FlutterFlowTheme.of(context).subtitle1,
                     ),
                   ),
@@ -149,7 +149,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                       },
                                     );
                                   },
-                                  text: gridViewRegionsRecord!.name!,
+                                  text: gridViewRegionsRecord.name!,
                                   options: FFButtonOptions(
                                     width: 300,
                                     height: 300,
@@ -178,7 +178,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(28),
                                   child: Image.network(
-                                    gridViewRegionsRecord!.image!,
+                                    gridViewRegionsRecord.image!,
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
@@ -196,7 +196,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                               Align(
                                 alignment: AlignmentDirectional(0, 0),
                                 child: Text(
-                                  gridViewRegionsRecord!.name!,
+                                  gridViewRegionsRecord.name!,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -212,11 +212,11 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 onTap: () async {
                                   setState(() =>
                                       FFAppState().newTourRegionName =
-                                          gridViewRegionsRecord!.name!);
+                                          gridViewRegionsRecord.name!);
                                   setState(() => FFAppState().newTourRegionID =
-                                      gridViewRegionsRecord!.regionID!);
+                                      gridViewRegionsRecord.regionID!);
                                   setState(() => FFAppState().newTourRegionRef =
-                                      gridViewRegionsRecord!.reference);
+                                      gridViewRegionsRecord.reference);
                                   context.pushNamed(
                                     'CreateNewTour2',
                                     extra: <String, dynamic>{

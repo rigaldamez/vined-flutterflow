@@ -94,7 +94,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                             },
                           ),
                           Text(
-                            containerToursRecord!.tourName!,
+                            containerToursRecord.tourName!,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
@@ -213,7 +213,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                                       12,
                                                                       12),
                                                           child: Text(
-                                                            listViewTourMessagesRecord!
+                                                            listViewTourMessagesRecord
                                                                 .messageBody!,
                                                             textAlign:
                                                                 TextAlign.start,
@@ -270,7 +270,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                     Text(
                                                       dateTimeFormat(
                                                           'relative',
-                                                          listViewTourMessagesRecord!
+                                                          listViewTourMessagesRecord
                                                               .dateSent!),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -337,9 +337,10 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                 fillColor: Color(0x19000000),
                                 suffixIcon: textController!.text.isNotEmpty
                                     ? InkWell(
-                                        onTap: () => setState(
-                                          () => textController?.clear(),
-                                        ),
+                                        onTap: () async {
+                                          textController?.clear();
+                                          setState(() {});
+                                        },
                                         child: Icon(
                                           Icons.clear,
                                           color: Color(0xFF757575),

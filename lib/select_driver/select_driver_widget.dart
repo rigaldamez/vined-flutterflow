@@ -93,7 +93,9 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                       return Container();
                     }
                     final columnAppConfigRecord =
-                        columnAppConfigRecordList.first;
+                        columnAppConfigRecordList.isNotEmpty
+                            ? columnAppConfigRecordList.first
+                            : null;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -169,19 +171,20 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                         ),
                                         filled: true,
                                         fillColor: Color(0x19000000),
-                                        suffixIcon: textController!
-                                                .text.isNotEmpty
-                                            ? InkWell(
-                                                onTap: () => setState(
-                                                  () => textController?.clear(),
-                                                ),
-                                                child: Icon(
-                                                  Icons.clear,
-                                                  color: Color(0xFF757575),
-                                                  size: 20,
-                                                ),
-                                              )
-                                            : null,
+                                        suffixIcon:
+                                            textController!.text.isNotEmpty
+                                                ? InkWell(
+                                                    onTap: () async {
+                                                      textController?.clear();
+                                                      setState(() {});
+                                                    },
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      color: Color(0xFF757575),
+                                                      size: 20,
+                                                    ),
+                                                  )
+                                                : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
@@ -222,7 +225,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                 queryBuilder: (usersRecord) =>
                                     usersRecord.where('driver_onboarded_market',
                                         arrayContains:
-                                            containerToursRecord!.countryState),
+                                            containerToursRecord.countryState),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -341,7 +344,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    listViewUsersRecord!
+                                                                    listViewUsersRecord
                                                                         .displayName!,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
@@ -500,10 +503,10 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                         final toursUpdateData =
                                                             createToursRecordData(
                                                           driverReff:
-                                                              listViewUsersRecord!
+                                                              listViewUsersRecord
                                                                   .reference,
                                                           driverUid:
-                                                              listViewUsersRecord!
+                                                              listViewUsersRecord
                                                                   .uid,
                                                         );
                                                         await widget.tourID!

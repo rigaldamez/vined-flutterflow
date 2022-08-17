@@ -161,7 +161,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(28),
                                               child: Image.network(
-                                                gridViewRegionsRecord!.image!,
+                                                gridViewRegionsRecord.image!,
                                                 width: 100,
                                                 height: 100,
                                                 fit: BoxFit.cover,
@@ -190,8 +190,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                                 context
                                                     .goNamed('NewTourWizard');
                                               },
-                                              text:
-                                                  gridViewRegionsRecord!.name!,
+                                              text: gridViewRegionsRecord.name!,
                                               options: FFButtonOptions(
                                                 width: 300,
                                                 height: 300,

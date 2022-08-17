@@ -175,8 +175,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (!(functions.isStringNotEmpty(
-                                          tourNameTextFieldController!.text))) {
+                                      if (!functions.isStringNotEmpty(
+                                          tourNameTextFieldController!.text)) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -460,7 +460,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                               RegionsRecord>(
                                                             stream: RegionsRecord
                                                                 .getDocument(
-                                                                    listViewToursRecord!
+                                                                    listViewToursRecord
                                                                         .regionID!),
                                                             builder: (context,
                                                                 snapshot) {
@@ -539,7 +539,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                         ClipRRect(
                                                                                           borderRadius: BorderRadius.circular(28),
                                                                                           child: Image.network(
-                                                                                            rowRegionsRecord!.image!,
+                                                                                            rowRegionsRecord.image!,
                                                                                             width: MediaQuery.of(context).size.width * 0.34,
                                                                                             height: MediaQuery.of(context).size.height * 0.2,
                                                                                             fit: BoxFit.cover,
@@ -555,7 +555,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                           child: Align(
                                                                                             alignment: AlignmentDirectional(0, 0),
                                                                                             child: Text(
-                                                                                              rowRegionsRecord!.name!,
+                                                                                              rowRegionsRecord.name!,
                                                                                               textAlign: TextAlign.center,
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                     fontFamily: 'Poppins',
@@ -584,7 +584,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                           Padding(
                                                                                             padding: EdgeInsetsDirectional.fromSTEB(24, 0, 4, 0),
                                                                                             child: Text(
-                                                                                              listViewToursRecord!.tourName!.maybeHandleOverflow(
+                                                                                              listViewToursRecord.tourName!.maybeHandleOverflow(
                                                                                                 maxChars: 16,
                                                                                                 replacement: '…',
                                                                                               ),
@@ -611,7 +611,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                           Padding(
                                                                                             padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                                                                             child: Text(
-                                                                                              listViewToursRecord!.passengers!.toString().maybeHandleOverflow(
+                                                                                              listViewToursRecord.passengers!.toString().maybeHandleOverflow(
                                                                                                     maxChars: 25,
                                                                                                     replacement: '…',
                                                                                                   ),
@@ -639,7 +639,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                           Padding(
                                                                                             padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                                                                             child: Text(
-                                                                                              dateTimeFormat('MMMMEEEEd', listViewToursRecord!.tourDate!),
+                                                                                              dateTimeFormat('MMMMEEEEd', listViewToursRecord.tourDate!),
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                     fontFamily: 'Poppins',
                                                                                                     fontSize: 12,
@@ -663,7 +663,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                           Padding(
                                                                                             padding: EdgeInsetsDirectional.fromSTEB(10, 0, 4, 0),
                                                                                             child: Text(
-                                                                                              listViewToursRecord!.pickupAddress!.maybeHandleOverflow(
+                                                                                              listViewToursRecord.pickupAddress!.maybeHandleOverflow(
                                                                                                 maxChars: 20,
                                                                                                 replacement: '…',
                                                                                               ),

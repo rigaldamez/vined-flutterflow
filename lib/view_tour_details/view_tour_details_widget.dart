@@ -85,7 +85,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Text(
-                          containerToursRecord!.tourName!,
+                          containerToursRecord.tourName!,
                           style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
@@ -145,7 +145,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       gridViewIndex];
                               return StreamBuilder<VenuesRecord>(
                                 stream: VenuesRecord.getDocument(
-                                    gridViewSelectedVenuesRecord!.venueRef!),
+                                    gridViewSelectedVenuesRecord.venueRef!),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -182,7 +182,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                               },
                                             );
                                           },
-                                          text: stackVenuesRecord!.name!,
+                                          text: stackVenuesRecord.name!,
                                           options: FFButtonOptions(
                                             width: 300,
                                             height: 300,
@@ -218,7 +218,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                           borderRadius:
                                               BorderRadius.circular(28),
                                           child: Image.network(
-                                            stackVenuesRecord!.image!,
+                                            stackVenuesRecord.image!,
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -240,7 +240,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       Align(
                                         alignment: AlignmentDirectional(0, 0),
                                         child: Text(
-                                          stackVenuesRecord!.name!,
+                                          stackVenuesRecord.name!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -257,11 +257,11 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                         onTap: () async {
                                           final toursUpdateData = {
                                             'venues': FieldValue.arrayRemove(
-                                                [stackVenuesRecord!.reference]),
+                                                [stackVenuesRecord.reference]),
                                           };
                                           await widget.tourRef!
                                               .update(toursUpdateData);
-                                          await gridViewSelectedVenuesRecord!
+                                          await gridViewSelectedVenuesRecord
                                               .reference
                                               .delete();
                                           context.pop();

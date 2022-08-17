@@ -73,7 +73,7 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
         ),
         title: Stack(
           children: [
-            if (!(isGroupChat()) ?? true)
+            if (!isGroupChat())
               Text(
                 widget.chatUser!.displayName!,
                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -83,7 +83,7 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
                       fontWeight: FontWeight.bold,
                     ),
               ),
-            if (isGroupChat() ?? true)
+            if (isGroupChat())
               Text(
                 'Group Chat',
                 style: FlutterFlowTheme.of(context).bodyText1.override(

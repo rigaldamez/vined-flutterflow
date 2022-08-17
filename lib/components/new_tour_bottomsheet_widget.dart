@@ -149,8 +149,8 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                               alignment: AlignmentDirectional(0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (!(functions.isStringNotEmpty(
-                                      tourNameTextFieldController!.text))) {
+                                  if (!functions.isStringNotEmpty(
+                                      tourNameTextFieldController!.text)) {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {

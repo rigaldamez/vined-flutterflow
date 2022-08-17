@@ -215,7 +215,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                     ),
                                     child: StreamBuilder<RegionsRecord>(
                                       stream: RegionsRecord.getDocument(
-                                          listViewToursRecord!.regionID!),
+                                          listViewToursRecord.regionID!),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -287,7 +287,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             28),
                                                                     child: Image
                                                                         .network(
-                                                                      rowRegionsRecord!
+                                                                      rowRegionsRecord
                                                                           .image!,
                                                                       width: MediaQuery.of(context)
                                                                               .size
@@ -326,7 +326,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        rowRegionsRecord!
+                                                                        rowRegionsRecord
                                                                             .name!,
                                                                         textAlign:
                                                                             TextAlign.center,
@@ -404,7 +404,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             4,
                                                                             0),
                                                                 child: Text(
-                                                                  listViewToursRecord!
+                                                                  listViewToursRecord
                                                                       .tourName!
                                                                       .maybeHandleOverflow(
                                                                     maxChars:
@@ -454,7 +454,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             0,
                                                                             0),
                                                                 child: Text(
-                                                                  listViewToursRecord!
+                                                                  listViewToursRecord
                                                                       .passengers!
                                                                       .toString()
                                                                       .maybeHandleOverflow(
@@ -509,7 +509,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                 child: Text(
                                                                   dateTimeFormat(
                                                                       'MMMMEEEEd',
-                                                                      listViewToursRecord!
+                                                                      listViewToursRecord
                                                                           .tourDate!),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -553,7 +553,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                             4,
                                                                             0),
                                                                 child: Text(
-                                                                  listViewToursRecord!
+                                                                  listViewToursRecord
                                                                       .pickupAddress!
                                                                       .maybeHandleOverflow(
                                                                     maxChars:
@@ -624,7 +624,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       'TourDetails',
                                       queryParams: {
                                         'tourID': serializeParam(
-                                            listViewToursRecord!.reference,
+                                            listViewToursRecord.reference,
                                             ParamType.DocumentReference),
                                         'tourDocument': serializeParam(
                                             listViewToursRecord,

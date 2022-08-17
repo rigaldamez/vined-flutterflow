@@ -78,7 +78,16 @@ Future<StripePaymentResponse> processStripePayment({
         googlePay: allowGooglePay,
         applePay: allowApplePay,
         style: themeStyle,
-        primaryButtonColor: buttonColor,
+        appearance: PaymentSheetAppearance(
+          primaryButton: PaymentSheetPrimaryButtonAppearance(
+            colors: PaymentSheetPrimaryButtonTheme(
+              light:
+                  PaymentSheetPrimaryButtonThemeColors(background: buttonColor),
+              dark:
+                  PaymentSheetPrimaryButtonThemeColors(background: buttonColor),
+            ),
+          ),
+        ),
       ),
     );
     // Show the payment sheet and confirm payment

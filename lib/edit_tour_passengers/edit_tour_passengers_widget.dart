@@ -166,7 +166,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                         Align(
                                           alignment: AlignmentDirectional(0, 0),
                                           child: Text(
-                                            gridViewTransportPricingRecord!
+                                            gridViewTransportPricingRecord
                                                 .passengersLbl!
                                                 .toString(),
                                             textAlign: TextAlign.center,
@@ -203,7 +203,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                                     .fromSTEB(0, 2, 0, 0),
                                                 child: AutoSizeText(
                                                   functions.fortmatCurrency(
-                                                      gridViewTransportPricingRecord!
+                                                      gridViewTransportPricingRecord
                                                           .price,
                                                       '\$'),
                                                   textAlign: TextAlign.center,
@@ -255,10 +255,10 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                       final toursUpdateData =
                                           createToursRecordData(
                                         passengers:
-                                            gridViewTransportPricingRecord!
+                                            gridViewTransportPricingRecord
                                                 .passengersLbl,
                                         transportFeePp:
-                                            gridViewTransportPricingRecord!
+                                            gridViewTransportPricingRecord
                                                 .price,
                                       );
                                       await widget.tourID!

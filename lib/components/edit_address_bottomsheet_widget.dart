@@ -70,7 +70,7 @@ class _EditAddressBottomsheetWidgetState
             padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
             child: FutureBuilder<ApiCallResponse>(
               future: GETGeolocationFORAddressCall.call(
-                address: placePickerValue!.address,
+                address: placePickerValue.address,
               ),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
@@ -167,7 +167,7 @@ class _EditAddressBottomsheetWidgetState
                                               size: 24,
                                             ),
                                             Text(
-                                              placePickerValue!.address!,
+                                              placePickerValue.address,
                                               textAlign: TextAlign.center,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -258,25 +258,21 @@ class _EditAddressBottomsheetWidgetState
                                     onPressed: () async {
                                       final toursUpdateData =
                                           createToursRecordData(
-                                        pickupAddress:
-                                            placePickerValue!.address,
+                                        pickupAddress: placePickerValue.address,
                                         pickupLatlng: functions.createGeoPoint(
                                             getJsonField(
-                                              (columnGETGeolocationFORAddressResponse
-                                                      ?.jsonBody ??
-                                                  ''),
+                                              columnGETGeolocationFORAddressResponse
+                                                  .jsonBody,
                                               r'''$.results[0].geometry.location.lat''',
                                             ),
                                             getJsonField(
-                                              (columnGETGeolocationFORAddressResponse
-                                                      ?.jsonBody ??
-                                                  ''),
+                                              columnGETGeolocationFORAddressResponse
+                                                  .jsonBody,
                                               r'''$.results[0].geometry.location.lng''',
                                             )),
                                         countryState: getJsonField(
-                                          (columnGETGeolocationFORAddressResponse
-                                                  ?.jsonBody ??
-                                              ''),
+                                          columnGETGeolocationFORAddressResponse
+                                              .jsonBody,
                                           r'''$.results[0].address_components[4].short_name''',
                                         ).toString(),
                                       );

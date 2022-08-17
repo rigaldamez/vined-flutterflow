@@ -103,7 +103,7 @@ class _UsersWidgetState extends State<UsersWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        listViewUsersRecord!.displayName!,
+                                        listViewUsersRecord.displayName!,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),

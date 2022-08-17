@@ -52,7 +52,10 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
           if (snapshot.data!.isEmpty) {
             return Container();
           }
-          final containerAppConfigRecord = containerAppConfigRecordList.first;
+          final containerAppConfigRecord =
+              containerAppConfigRecordList.isNotEmpty
+                  ? containerAppConfigRecordList.first
+                  : null;
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -94,7 +97,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                         },
                       ),
                       Text(
-                        FFAppState().newTourName!,
+                        FFAppState().newTourName,
                         style: FlutterFlowTheme.of(context).subtitle1,
                       ),
                     ],
@@ -181,7 +184,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                         Align(
                                           alignment: AlignmentDirectional(0, 0),
                                           child: Text(
-                                            gridViewTransportPricingRecord!
+                                            gridViewTransportPricingRecord
                                                 .passengersLbl!
                                                 .toString(),
                                             textAlign: TextAlign.center,
@@ -218,7 +221,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                                     .fromSTEB(0, 2, 0, 0),
                                                 child: AutoSizeText(
                                                   functions.fortmatCurrency(
-                                                      gridViewTransportPricingRecord!
+                                                      gridViewTransportPricingRecord
                                                           .price,
                                                       '\$'),
                                                   textAlign: TextAlign.center,
@@ -277,11 +280,11 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                     onTap: () async {
                                       setState(() =>
                                           FFAppState().newTourNoOfPassengers =
-                                              gridViewTransportPricingRecord!
+                                              gridViewTransportPricingRecord
                                                   .passengersLbl!);
                                       setState(() =>
                                           FFAppState().newTourPricePP =
-                                              gridViewTransportPricingRecord!
+                                              gridViewTransportPricingRecord
                                                   .price!);
                                       context.pushNamed(
                                         'CreateNewTour3',

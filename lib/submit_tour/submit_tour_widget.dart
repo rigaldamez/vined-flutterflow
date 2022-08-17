@@ -94,7 +94,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                       return Container();
                     }
                     final columnAppConfigRecord =
-                        columnAppConfigRecordList.first;
+                        columnAppConfigRecordList.isNotEmpty
+                            ? columnAppConfigRecordList.first
+                            : null;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +242,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                                           12),
                                                               child:
                                                                   Image.network(
-                                                                rowRegionsRecord!
+                                                                rowRegionsRecord
                                                                     .image!,
                                                                 width: 80,
                                                                 height: 80,
@@ -388,7 +390,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                     children: [
                                                       Text(
                                                         formatNumber(
-                                                          containerToursRecord!
+                                                          containerToursRecord
                                                               .pricePp!,
                                                           formatType: FormatType
                                                               .decimal,
@@ -453,7 +455,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                     children: [
                                                       Text(
                                                         formatNumber(
-                                                          containerToursRecord!
+                                                          containerToursRecord
                                                               .subTotal!,
                                                           formatType: FormatType
                                                               .decimal,

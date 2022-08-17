@@ -192,9 +192,8 @@ class _DelUpdateVenueBtmsheetWidgetState
                                           children: [
                                             Stack(
                                               children: [
-                                                if (!(columnSelectedVenuesRecord!
-                                                        .isLunchVenueOnly!) ??
-                                                    true)
+                                                if (!columnSelectedVenuesRecord
+                                                    .isLunchVenueOnly!)
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -248,7 +247,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                               ),
                                                               Text(
                                                                 functions.displayTastingExperienceDescription(
-                                                                    columnSelectedVenuesRecord!
+                                                                    columnSelectedVenuesRecord
                                                                         .tastingExperienceDescription),
                                                                 maxLines: 3,
                                                                 style: FlutterFlowTheme.of(
@@ -272,7 +271,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                       ),
                                                     ],
                                                   ),
-                                                if (columnSelectedVenuesRecord!
+                                                if (columnSelectedVenuesRecord
                                                         .isLunchVenueOnly ??
                                                     true)
                                                   Row(
@@ -409,6 +408,9 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -430,7 +432,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                               ),
                                                         ),
                                                         Text(
-                                                          'At your own expense. Please contact venue to make a reservation then specify the time below',
+                                                          'At your own expense. ',
                                                           maxLines: 3,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -450,16 +452,16 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     final selectedVenuesUpdateData =
                                                         {
                                                       'is_lunch_venue':
-                                                          !columnSelectedVenuesRecord!
+                                                          !columnSelectedVenuesRecord
                                                               .isLunchVenue!,
                                                     };
-                                                    await columnSelectedVenuesRecord!
+                                                    await columnSelectedVenuesRecord
                                                         .reference
                                                         .update(
                                                             selectedVenuesUpdateData);
                                                   },
                                                   value:
-                                                      columnSelectedVenuesRecord!
+                                                      columnSelectedVenuesRecord
                                                           .isLunchVenue!,
                                                   onIcon: Icon(
                                                     Icons.check_box,
@@ -500,77 +502,44 @@ class _DelUpdateVenueBtmsheetWidgetState
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
+                                        Icon(
+                                          Icons.access_time_rounded,
+                                          color: Colors.black,
+                                          size: 24,
+                                        ),
                                         Container(
-                                          width: 220,
+                                          width: 190,
                                           height: 100,
                                           decoration: BoxDecoration(),
-                                          child: Row(
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Icon(
-                                                Icons.access_time_rounded,
-                                                color: Colors.black,
-                                                size: 24,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(20, 10, 20, 10),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          'Reservation time',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
+                                              Text(
+                                                'Add reservation time',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 4, 0, 0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            dateTimeFormat('jm',
-                                                                datePicked!),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                              ),
+                                              Text(
+                                                'Contact venue to make a reservation ',
+                                                maxLines: 3,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 10,
+                                                        ),
                                               ),
                                             ],
                                           ),
@@ -600,59 +569,59 @@ class _DelUpdateVenueBtmsheetWidgetState
                                               currentTime: functions
                                                   .getTodayTimestampZeroMinutes(),
                                             );
+
+                                            final selectedVenuesUpdateData =
+                                                createSelectedVenuesRecordData(
+                                              reservationTime: functions
+                                                  .getBookingReservationTime(
+                                                      containerToursRecord
+                                                          .tourDate,
+                                                      datePicked),
+                                            );
+                                            await widget.selectedVenueReff!
+                                                .update(
+                                                    selectedVenuesUpdateData);
+                                            Navigator.pop(context);
                                           },
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 20, 0, 0),
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0, 0),
+                                Container(
+                                  width: 100,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Container(
-                                        width: 300,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .black,
-                                          borderRadius:
-                                              BorderRadius.circular(28),
-                                        ),
-                                      ),
                                       Text(
-                                        'Save',
+                                        formatNumber(
+                                          containerToursRecord.pricePp!,
+                                          formatType: FormatType.decimal,
+                                          decimalType:
+                                              DecimalType.periodDecimal,
+                                          currency: '\$',
+                                        ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .cultured,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            .bodyText1,
                                       ),
-                                      InkWell(
-                                        onTap: () async {
-                                          final selectedVenuesUpdateData =
-                                              createSelectedVenuesRecordData(
-                                            reservationTime: functions
-                                                .getBookingReservationTime(
-                                                    containerToursRecord!
-                                                        .tourDate,
-                                                    datePicked),
-                                          );
-                                          await widget.selectedVenueReff!
-                                              .update(selectedVenuesUpdateData);
-                                          Navigator.pop(context);
-                                        },
-                                        child: Container(
-                                          width: 300,
-                                          height: 50,
-                                          decoration: BoxDecoration(),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Text(
+                                          formatNumber(
+                                            containerToursRecord.subTotal!,
+                                            formatType: FormatType.decimal,
+                                            decimalType:
+                                                DecimalType.periodDecimal,
+                                            currency: '\$',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
                                         ),
                                       ),
                                     ],
@@ -710,30 +679,30 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                   ...createToursRecordData(
                                                     totalTastingFeePp: functions
                                                         .deductFromTotalTastingFeePP(
-                                                            containerToursRecord!
+                                                            containerToursRecord
                                                                 .totalTastingFeePp,
                                                             columnSelectedVenuesRecord),
                                                     pricePp: functions
                                                         .getPerPersonFeeAsInt(
-                                                            containerToursRecord!
+                                                            containerToursRecord
                                                                 .transportFeePp,
                                                             containerSelectedVenuesRecordList
                                                                 .toList(),
-                                                            containerToursRecord!
+                                                            containerToursRecord
                                                                 .platformTastingFee)
-                                                        ?.toDouble(),
+                                                        .toDouble(),
                                                     subTotal: functions.getTourSubTotal(
-                                                        containerToursRecord!
+                                                        containerToursRecord
                                                             .passengers,
                                                         functions
                                                             .getPerPersonFeeAsInt(
-                                                                containerToursRecord!
+                                                                containerToursRecord
                                                                     .transportFeePp,
                                                                 containerSelectedVenuesRecordList
                                                                     .toList(),
-                                                                containerToursRecord!
+                                                                containerToursRecord
                                                                     .platformTastingFee)
-                                                            ?.toDouble()),
+                                                            .toDouble()),
                                                   ),
                                                   'venues':
                                                       FieldValue.arrayRemove([
@@ -748,36 +717,36 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     .lunchVenueReff = null);
                                                 Navigator.pop(context);
                                               } else {
-                                                if (columnSelectedVenuesRecord!
+                                                if (columnSelectedVenuesRecord
                                                     .isLargeGroupEarlySeatingOnlyVenue!) {
                                                   final toursUpdateData = {
                                                     ...createToursRecordData(
                                                       totalTastingFeePp: functions
                                                           .deductFromTotalTastingFeePP(
-                                                              containerToursRecord!
+                                                              containerToursRecord
                                                                   .totalTastingFeePp,
                                                               columnSelectedVenuesRecord),
                                                       pricePp: functions
                                                           .getPerPersonFeeAsInt(
-                                                              containerToursRecord!
+                                                              containerToursRecord
                                                                   .transportFeePp,
                                                               containerSelectedVenuesRecordList
                                                                   .toList(),
-                                                              containerToursRecord!
+                                                              containerToursRecord
                                                                   .platformTastingFee)
-                                                          ?.toDouble(),
+                                                          .toDouble(),
                                                       subTotal: functions.getTourSubTotal(
-                                                          containerToursRecord!
+                                                          containerToursRecord
                                                               .passengers,
                                                           functions
                                                               .getPerPersonFeeAsInt(
-                                                                  containerToursRecord!
+                                                                  containerToursRecord
                                                                       .transportFeePp,
                                                                   containerSelectedVenuesRecordList
                                                                       .toList(),
-                                                                  containerToursRecord!
+                                                                  containerToursRecord
                                                                       .platformTastingFee)
-                                                              ?.toDouble()),
+                                                              .toDouble()),
                                                     ),
                                                     'venues':
                                                         FieldValue.arrayRemove([
@@ -798,30 +767,30 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     ...createToursRecordData(
                                                       totalTastingFeePp: functions
                                                           .deductFromTotalTastingFeePP(
-                                                              containerToursRecord!
+                                                              containerToursRecord
                                                                   .totalTastingFeePp,
                                                               columnSelectedVenuesRecord),
                                                       pricePp: functions
                                                           .getPerPersonFeeAsInt(
-                                                              containerToursRecord!
+                                                              containerToursRecord
                                                                   .transportFeePp,
                                                               containerSelectedVenuesRecordList
                                                                   .toList(),
-                                                              containerToursRecord!
+                                                              containerToursRecord
                                                                   .platformTastingFee)
-                                                          ?.toDouble(),
+                                                          .toDouble(),
                                                       subTotal: functions.getTourSubTotal(
-                                                          containerToursRecord!
+                                                          containerToursRecord
                                                               .passengers,
                                                           functions
                                                               .getPerPersonFeeAsInt(
-                                                                  containerToursRecord!
+                                                                  containerToursRecord
                                                                       .transportFeePp,
                                                                   containerSelectedVenuesRecordList
                                                                       .toList(),
-                                                                  containerToursRecord!
+                                                                  containerToursRecord
                                                                       .platformTastingFee)
-                                                              ?.toDouble()),
+                                                              .toDouble()),
                                                     ),
                                                     'venues':
                                                         FieldValue.arrayRemove([
@@ -841,6 +810,18 @@ class _DelUpdateVenueBtmsheetWidgetState
                                               width: 300,
                                               height: 40,
                                               decoration: BoxDecoration(),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(1, 0),
+                                            child: Text(
+                                              functions.arrayLength(
+                                                  containerSelectedVenuesRecordList
+                                                      .toList()),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
                                             ),
                                           ),
                                         ],

@@ -170,14 +170,12 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget>
                                       if (choiceChipsValue != null)
                                         choiceChipsValue!
                                     ],
-                                    options: (choiceChipsRegionsRecordList
-                                                .map((e) =>
-                                                    valueOrDefault<String>(
-                                                      e!.name!,
-                                                      'Choice',
-                                                    ))
-                                                .toList() ??
-                                            [])
+                                    options: choiceChipsRegionsRecordList
+                                        .map((e) => valueOrDefault<String>(
+                                              e.name!,
+                                              'Choice',
+                                            ))
+                                        .toList()
                                         .map((label) => ChipData(label))
                                         .toList(),
                                     onChanged: (val) => setState(
@@ -279,23 +277,23 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget>
                                     type: PageTransitionType.fade,
                                     child: FlutterFlowExpandedImageView(
                                       image: Image.network(
-                                        staggeredViewVenuesRecord!.image!,
+                                        staggeredViewVenuesRecord.image!,
                                         fit: BoxFit.contain,
                                       ),
                                       allowRotation: false,
-                                      tag: staggeredViewVenuesRecord!.image!,
+                                      tag: staggeredViewVenuesRecord.image!,
                                       useHeroAnimation: true,
                                     ),
                                   ),
                                 );
                               },
                               child: Hero(
-                                tag: staggeredViewVenuesRecord!.image!,
+                                tag: staggeredViewVenuesRecord.image!,
                                 transitionOnUserGestures: true,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(26),
                                   child: Image.network(
-                                    staggeredViewVenuesRecord!.image!,
+                                    staggeredViewVenuesRecord.image!,
                                     fit: BoxFit.none,
                                   ),
                                 ),

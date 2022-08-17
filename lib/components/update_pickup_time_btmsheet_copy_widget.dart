@@ -155,7 +155,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                                       .fromSTEB(0, 10, 0, 0),
                                                   child: Text(
                                                     dateTimeFormat(
-                                                        'jm', datePicked!),
+                                                        'jm', datePicked),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -233,7 +233,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                           createToursRecordData(
                                         tourDate:
                                             functions.getBookingReservationTime(
-                                                containerToursRecord!.tourDate,
+                                                containerToursRecord.tourDate,
                                                 datePicked),
                                       );
                                       await widget.tourReff!

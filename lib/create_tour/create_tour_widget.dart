@@ -179,8 +179,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (!(functions.isStringNotEmpty(
-                                          tourNameTextFieldController!.text))) {
+                                      if (!functions.isStringNotEmpty(
+                                          tourNameTextFieldController!.text)) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -426,7 +426,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                       ),
                                       child: StreamBuilder<RegionsRecord>(
                                         stream: RegionsRecord.getDocument(
-                                            listViewToursRecord!.regionID!),
+                                            listViewToursRecord.regionID!),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
@@ -502,7 +502,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                               28),
                                                                       child: Image
                                                                           .network(
-                                                                        rowRegionsRecord!
+                                                                        rowRegionsRecord
                                                                             .image!,
                                                                         width: MediaQuery.of(context).size.width *
                                                                             0.34,
@@ -535,7 +535,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          rowRegionsRecord!
+                                                                          rowRegionsRecord
                                                                               .name!,
                                                                           textAlign:
                                                                               TextAlign.center,
@@ -592,7 +592,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewToursRecord!
+                                                                          listViewToursRecord
                                                                               .tourName!
                                                                               .maybeHandleOverflow(
                                                                             maxChars:
@@ -640,7 +640,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewToursRecord!
+                                                                          listViewToursRecord
                                                                               .passengers!
                                                                               .toString()
                                                                               .maybeHandleOverflow(
@@ -690,7 +690,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             Text(
                                                                           dateTimeFormat(
                                                                               'MMMMEEEEd',
-                                                                              listViewToursRecord!.tourDate!),
+                                                                              listViewToursRecord.tourDate!),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyText1
                                                                               .override(
@@ -731,7 +731,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewToursRecord!
+                                                                          listViewToursRecord
                                                                               .pickupAddress!
                                                                               .maybeHandleOverflow(
                                                                             maxChars:

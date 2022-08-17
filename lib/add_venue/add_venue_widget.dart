@@ -106,7 +106,9 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                       return Container();
                     }
                     final columnAppConfigRecord =
-                        columnAppConfigRecordList.first;
+                        columnAppConfigRecordList.isNotEmpty
+                            ? columnAppConfigRecordList.first
+                            : null;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -182,19 +184,20 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                         ),
                                         filled: true,
                                         fillColor: Color(0x19000000),
-                                        suffixIcon: textController!
-                                                .text.isNotEmpty
-                                            ? InkWell(
-                                                onTap: () => setState(
-                                                  () => textController?.clear(),
-                                                ),
-                                                child: Icon(
-                                                  Icons.clear,
-                                                  color: Color(0xFF757575),
-                                                  size: 20,
-                                                ),
-                                              )
-                                            : null,
+                                        suffixIcon:
+                                            textController!.text.isNotEmpty
+                                                ? InkWell(
+                                                    onTap: () async {
+                                                      textController?.clear();
+                                                      setState(() {});
+                                                    },
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      color: Color(0xFF757575),
+                                                      size: 20,
+                                                    ),
+                                                  )
+                                                : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
@@ -237,7 +240,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                     queryBuilder = (venuesRecord) =>
                                         venuesRecord.where('region_Ref',
                                             isEqualTo:
-                                                containerToursRecord!.regionID);
+                                                containerToursRecord.regionID);
                                 if (_pagingController != null) {
                                   final query =
                                       queryBuilder(VenuesRecord.collection);
@@ -262,7 +265,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                     queryBuilder: (venuesRecord) =>
                                         venuesRecord.where('region_Ref',
                                             isEqualTo:
-                                                containerToursRecord!.regionID),
+                                                containerToursRecord.regionID),
                                     nextPageMarker: nextPageMarker,
                                     pageSize: 25,
                                     isStream: true,
@@ -378,7 +381,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               BorderRadius
                                                                   .circular(28),
                                                           child: Image.network(
-                                                            listViewVenuesRecord!
+                                                            listViewVenuesRecord
                                                                 .image!,
                                                             width: 150,
                                                             height:
@@ -437,7 +440,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               MainAxisSize.max,
                                                                           children: [
                                                                             Text(
-                                                                              functions.upperCaseString(listViewVenuesRecord!.name).maybeHandleOverflow(
+                                                                              functions.upperCaseString(listViewVenuesRecord.name).maybeHandleOverflow(
                                                                                     maxChars: 20,
                                                                                     replacement: '…',
                                                                                   ),
@@ -572,20 +575,20 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                     () async {
                                                                   if (functions
                                                                       .isTourInDraftState(
-                                                                          containerToursRecord!
+                                                                          containerToursRecord
                                                                               .tourState)) {
                                                                     if (functions.isTourStopsCountLessThanLimitAllowed(
-                                                                        containerToursRecord!
+                                                                        containerToursRecord
                                                                             .venues!
                                                                             .toList(),
                                                                         columnAppConfigRecord)) {
                                                                       if (functions.meetsVenueCapacity(
                                                                           containerToursRecord,
-                                                                          listViewVenuesRecord!
+                                                                          listViewVenuesRecord
                                                                               .capacity)) {
                                                                         if (functions.isVenueAlreadyAdded(
                                                                             containerSelectedVenuesRecordList.toList(),
-                                                                            listViewVenuesRecord!.reference)) {
+                                                                            listViewVenuesRecord.reference)) {
                                                                           await showDialog(
                                                                             context:
                                                                                 context,
@@ -604,20 +607,20 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             },
                                                                           );
                                                                         } else {
-                                                                          if (listViewVenuesRecord!
+                                                                          if (listViewVenuesRecord
                                                                               .isLunchVenueOnly!) {
                                                                             final selectedVenuesCreateData =
                                                                                 createSelectedVenuesRecordData(
-                                                                              venueRef: listViewVenuesRecord!.reference,
-                                                                              tourRef: containerToursRecord!.reference,
+                                                                              venueRef: listViewVenuesRecord.reference,
+                                                                              tourRef: containerToursRecord.reference,
                                                                               addedByUid: currentUserReference,
                                                                               isLunchVenue: true,
-                                                                              tastingFee: listViewVenuesRecord!.tastingFee,
+                                                                              tastingFee: listViewVenuesRecord.tastingFee,
                                                                               addedDate: getCurrentTimestamp,
                                                                               bookingReference: '',
-                                                                              regionID: containerToursRecord!.regionID,
+                                                                              regionID: containerToursRecord.regionID,
                                                                               reservationTime: functions.epochTime(),
-                                                                              isLunchVenueOnly: listViewVenuesRecord!.isLunchVenueOnly,
+                                                                              isLunchVenueOnly: listViewVenuesRecord.isLunchVenueOnly,
                                                                               isTastingIncluded: false,
                                                                             );
                                                                             await SelectedVenuesRecord.collection.doc().set(selectedVenuesCreateData);
@@ -625,10 +628,10 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             final toursUpdateData =
                                                                                 {
                                                                               ...createToursRecordData(
-                                                                                totalTastingFeePp: functions.calculateTotalTastingFeePP(containerSelectedVenuesRecordList.toList(), listViewVenuesRecord!.tastingFee),
+                                                                                totalTastingFeePp: functions.calculateTotalTastingFeePP(containerSelectedVenuesRecordList.toList(), listViewVenuesRecord.tastingFee),
                                                                               ),
                                                                               'venues': FieldValue.arrayUnion([
-                                                                                listViewVenuesRecord!.reference
+                                                                                listViewVenuesRecord.reference
                                                                               ]),
                                                                             };
                                                                             await widget.tourReff!.update(toursUpdateData);
@@ -649,7 +652,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               ),
                                                                             );
                                                                           } else {
-                                                                            if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord!.passengers,
+                                                                            if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord.passengers,
                                                                                 columnAppConfigRecord!.largeGroupThreshold)) {
                                                                               await showModalBottomSheet(
                                                                                 isScrollControlled: true,
@@ -663,7 +666,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       child: SelectExperienceBtmsheetWidget(
                                                                                         venueRec: listViewVenuesRecord,
                                                                                         tourReff: widget.tourReff,
-                                                                                        regionReff: containerToursRecord!.regionID,
+                                                                                        regionReff: containerToursRecord.regionID,
                                                                                         tourDoc: containerToursRecord,
                                                                                         isLargeGroupEarlySeatingOnlyVenue: false,
                                                                                       ),
@@ -672,7 +675,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 },
                                                                               );
                                                                             } else {
-                                                                              if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord!.largeGroupVenueEarlySeatingCount, columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord!.largeGroupEarlySeatingOnly)) {
+                                                                              if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord.largeGroupVenueEarlySeatingCount, columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
                                                                                 await showModalBottomSheet(
                                                                                   isScrollControlled: true,
                                                                                   backgroundColor: Colors.transparent,
@@ -685,7 +688,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                         child: SelectExperienceBtmsheetWidget(
                                                                                           venueRec: listViewVenuesRecord,
                                                                                           tourReff: widget.tourReff,
-                                                                                          regionReff: containerToursRecord!.regionID,
+                                                                                          regionReff: containerToursRecord.regionID,
                                                                                           tourDoc: containerToursRecord,
                                                                                           isLargeGroupEarlySeatingOnlyVenue: true,
                                                                                         ),
@@ -787,12 +790,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 AlignmentDirectional(
                                                                     0, 0),
                                                             children: [
-                                                              if (!(functions.isLunchVenue(
-                                                                      listViewVenuesRecord!
-                                                                          .reference,
-                                                                      FFAppState()
-                                                                          .lunchVenueReff)) ??
-                                                                  true)
+                                                              if (!functions.isLunchVenue(
+                                                                  listViewVenuesRecord
+                                                                      .reference,
+                                                                  FFAppState()
+                                                                      .lunchVenueReff))
                                                                 Icon(
                                                                   Icons
                                                                       .dinner_dining,
@@ -801,11 +803,10 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                   size: 20,
                                                                 ),
                                                               if (functions.isLunchVenue(
-                                                                      listViewVenuesRecord!
-                                                                          .reference,
-                                                                      FFAppState()
-                                                                          .lunchVenueReff) ??
-                                                                  true)
+                                                                  listViewVenuesRecord
+                                                                      .reference,
+                                                                  FFAppState()
+                                                                      .lunchVenueReff))
                                                                 Icon(
                                                                   Icons
                                                                       .dinner_dining,
@@ -818,7 +819,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 onTap:
                                                                     () async {
                                                                   if (functions.isLunchVenue(
-                                                                      listViewVenuesRecord!
+                                                                      listViewVenuesRecord
                                                                           .reference,
                                                                       FFAppState()
                                                                           .lunchVenueReff)) {
@@ -831,7 +832,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             null);
                                                                     setState(() => FFAppState()
                                                                             .lunchVenueReff =
-                                                                        listViewVenuesRecord!
+                                                                        listViewVenuesRecord
                                                                             .reference);
                                                                   }
                                                                 },
@@ -850,12 +851,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      if (!(functions.isVenueOpen(
-                                                              listViewVenuesRecord!
-                                                                  .openDays!
-                                                                  .toList(),
-                                                              containerToursRecord)) ??
-                                                          true)
+                                                      if (!functions.isVenueOpen(
+                                                          listViewVenuesRecord
+                                                              .openDays!
+                                                              .toList(),
+                                                          containerToursRecord))
                                                         Container(
                                                           width: MediaQuery.of(
                                                                   context)

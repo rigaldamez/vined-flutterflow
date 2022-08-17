@@ -159,9 +159,10 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                 filled: true,
                                 suffixIcon: textController!.text.isNotEmpty
                                     ? InkWell(
-                                        onTap: () => setState(
-                                          () => textController?.clear(),
-                                        ),
+                                        onTap: () async {
+                                          textController?.clear();
+                                          setState(() {});
+                                        },
                                         child: Icon(
                                           Icons.clear,
                                           color: Color(0xFF757575),
@@ -239,7 +240,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(34),
                                         child: Image.network(
-                                          listViewFeaturedVenuesRecord!.image!,
+                                          listViewFeaturedVenuesRecord.image!,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -257,7 +258,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8, 4, 0, 0),
                                     child: Text(
-                                      listViewFeaturedVenuesRecord!.name!,
+                                      listViewFeaturedVenuesRecord.name!,
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .subtitle2,

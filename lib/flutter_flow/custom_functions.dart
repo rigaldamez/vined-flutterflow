@@ -237,7 +237,7 @@ int getPerPersonFeeAsInt(
   double? platformFee,
 ) {
   //final currencyFormatter = NumberFormat.currency();
-  if (transportFee == null) {
+  /*if (transportFee == null) {
     throw ArgumentError(
         "You should enter a valid transportFee for transportFee, not null or empty");
   }
@@ -250,16 +250,18 @@ int getPerPersonFeeAsInt(
   if (platformFee == null) {
     throw ArgumentError(
         "You should enter a valid platformFee for platformFee, not null or empty");
+  }*/
+
+  double? totalPerPerson = transportFee;
+
+  for (var i = 0; i < selectedVenues!.length; i++) {
+    if (totalPerPerson != null) {
+      totalPerPerson += selectedVenues[i].tastingFee! + platformFee!;
+      print(totalPerPerson);
+    }
   }
 
-  double totalPerPerson = transportFee;
-
-  for (var i = 0; i < selectedVenues.length; i++) {
-    totalPerPerson += selectedVenues[i].tastingFee! + platformFee;
-    print(totalPerPerson);
-  }
-
-  return totalPerPerson.toInt();
+  return totalPerPerson!.toInt();
 
   //return totalPerPerson.toString();
 }
@@ -422,4 +424,18 @@ bool isBoolTrue(bool? value) {
 String tourRefAsString(DocumentReference? tourReff) {
   // Add your function code here!
   return tourReff.toString();
+}
+
+String getHourFromTimestamp(DateTime? selectedTimestamp) {
+  // Add your function code here!
+  if (selectedTimestamp.toString() != "") {
+    return DateFormat.jm().format(selectedTimestamp!);
+  } else {
+    return "set time";
+  }
+}
+
+String arrayLength(List<SelectedVenuesRecord>? selectedVenues) {
+  // Add your function code here!
+  return selectedVenues!.length.toString();
 }

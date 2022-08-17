@@ -145,8 +145,7 @@ class _EditTourDateBottomsheetWidgetState
                                         size: 24,
                                       ),
                                       Text(
-                                        dateTimeFormat(
-                                            'MMMMEEEEd', datePicked!),
+                                        dateTimeFormat('MMMMEEEEd', datePicked),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
@@ -157,7 +156,7 @@ class _EditTourDateBottomsheetWidgetState
                                             ),
                                       ),
                                       Text(
-                                        dateTimeFormat('jm', datePicked!),
+                                        dateTimeFormat('jm', datePicked),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),
@@ -208,7 +207,10 @@ class _EditTourDateBottomsheetWidgetState
                                             buttonAppConfigRecordList =
                                             snapshot.data!;
                                         final buttonAppConfigRecord =
-                                            buttonAppConfigRecordList.first;
+                                            buttonAppConfigRecordList.isNotEmpty
+                                                ? buttonAppConfigRecordList
+                                                    .first
+                                                : null;
                                         return FFButtonWidget(
                                           onPressed: () async {
                                             await DatePicker.showDateTimePicker(
@@ -223,7 +225,7 @@ class _EditTourDateBottomsheetWidgetState
                                                       getCurrentTimestamp,
                                                       buttonAppConfigRecord!
                                                           .tourLeadTime,
-                                                      valueOrDefault(
+                                                      valueOrDefault<bool>(
                                                           currentUserDocument
                                                               ?.tourLeadTimeExempted,
                                                           false)),
@@ -232,7 +234,7 @@ class _EditTourDateBottomsheetWidgetState
                                                       getCurrentTimestamp,
                                                       buttonAppConfigRecord!
                                                           .tourLeadTime,
-                                                      valueOrDefault(
+                                                      valueOrDefault<bool>(
                                                           currentUserDocument
                                                               ?.tourLeadTimeExempted,
                                                           false)),

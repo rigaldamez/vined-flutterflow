@@ -239,7 +239,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                           },
                                         );
                                       },
-                                      text: gridViewVenuesRecord!.name!,
+                                      text: gridViewVenuesRecord.name!,
                                       options: FFButtonOptions(
                                         width: 300,
                                         height: 300,
@@ -269,7 +269,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(28),
                                       child: Image.network(
-                                        gridViewVenuesRecord!.image!,
+                                        gridViewVenuesRecord.image!,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -288,7 +288,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Text(
-                                      gridViewVenuesRecord!.name!,
+                                      gridViewVenuesRecord.name!,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -300,14 +300,13 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                           ),
                                     ),
                                   ),
-                                  if (!(functions.isVenueAlreadyAdded(
-                                          addVenueToTourSelectedVenuesRecordList
-                                              .toList(),
-                                          gridViewVenuesRecord!.reference)) ??
-                                      true)
+                                  if (!functions.isVenueAlreadyAdded(
+                                      addVenueToTourSelectedVenuesRecordList
+                                          .toList(),
+                                      gridViewVenuesRecord.reference))
                                     InkWell(
                                       onTap: () async {
-                                        if ((widget.venueCount!) >= 4) {
+                                        if (widget.venueCount! >= 4) {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
@@ -328,10 +327,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                             },
                                           );
                                         }
-                                        if ((widget.venueCount!) < 4) {
+                                        if (widget.venueCount! < 4) {
                                           final toursUpdateData = {
                                             'venues': FieldValue.arrayUnion([
-                                              gridViewVenuesRecord!.reference
+                                              gridViewVenuesRecord.reference
                                             ]),
                                           };
                                           await widget.tourID!
@@ -343,14 +342,14 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                         final selectedVenuesCreateData =
                                             createSelectedVenuesRecordData(
                                           venueRef:
-                                              gridViewVenuesRecord!.reference,
+                                              gridViewVenuesRecord.reference,
                                           addedByUid: currentUserReference,
                                           isLunchVenue:
                                               widget.makeLunchStopBool,
                                           tourRef: widget.tourID,
                                           addedDate: getCurrentTimestamp,
                                           tastingFee:
-                                              gridViewVenuesRecord!.tastingFee,
+                                              gridViewVenuesRecord.tastingFee,
                                         );
                                         await SelectedVenuesRecord.collection
                                             .doc()
@@ -371,10 +370,9 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                       ),
                                     ),
                                   if (functions.isVenueAlreadyAdded(
-                                          addVenueToTourSelectedVenuesRecordList
-                                              .toList(),
-                                          gridViewVenuesRecord!.reference) ??
-                                      true)
+                                      addVenueToTourSelectedVenuesRecordList
+                                          .toList(),
+                                      gridViewVenuesRecord.reference))
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.9, -0.9),
@@ -399,9 +397,8 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                     ),
                                   ),
                                   if (functions.meetsVenueCapacity(
-                                          widget.tourRecord,
-                                          gridViewVenuesRecord!.capacity) ??
-                                      true)
+                                      widget.tourRecord,
+                                      gridViewVenuesRecord.capacity))
                                     Align(
                                       alignment:
                                           AlignmentDirectional(-0.95, -0.85),
