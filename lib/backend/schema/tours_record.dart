@@ -88,6 +88,9 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
   @BuiltValueField(wireName: 'promo_code_submitted')
   String? get promoCodeSubmitted;
 
+  @BuiltValueField(wireName: 'lunch_venue_fee')
+  double? get lunchVenueFee;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -114,7 +117,8 @@ abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
     ..totalBalance = 0
     ..promoCode = ''
     ..promoDiscountPercent = 0.0
-    ..promoCodeSubmitted = '';
+    ..promoCodeSubmitted = ''
+    ..lunchVenueFee = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tours');
@@ -164,6 +168,7 @@ Map<String, dynamic> createToursRecordData({
   String? promoCode,
   double? promoDiscountPercent,
   String? promoCodeSubmitted,
+  double? lunchVenueFee,
 }) {
   final firestoreData = serializers.toFirestore(
     ToursRecord.serializer,
@@ -196,7 +201,8 @@ Map<String, dynamic> createToursRecordData({
         ..totalBalance = totalBalance
         ..promoCode = promoCode
         ..promoDiscountPercent = promoDiscountPercent
-        ..promoCodeSubmitted = promoCodeSubmitted,
+        ..promoCodeSubmitted = promoCodeSubmitted
+        ..lunchVenueFee = lunchVenueFee,
     ),
   );
 

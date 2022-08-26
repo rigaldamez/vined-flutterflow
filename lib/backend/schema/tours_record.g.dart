@@ -217,6 +217,13 @@ class _$ToursRecordSerializer implements StructuredSerializer<ToursRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.lunchVenueFee;
+    if (value != null) {
+      result
+        ..add('lunch_venue_fee')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -235,7 +242,7 @@ class _$ToursRecordSerializer implements StructuredSerializer<ToursRecord> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -363,6 +370,10 @@ class _$ToursRecordSerializer implements StructuredSerializer<ToursRecord> {
           result.promoCodeSubmitted = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'lunch_venue_fee':
+          result.lunchVenueFee = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -434,10 +445,12 @@ class _$ToursRecord extends ToursRecord {
   @override
   final String? promoCodeSubmitted;
   @override
+  final double? lunchVenueFee;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ToursRecord([void Function(ToursRecordBuilder)? updates]) =>
-      (new ToursRecordBuilder()..update(updates)).build();
+      (new ToursRecordBuilder()..update(updates))._build();
 
   _$ToursRecord._(
       {this.createdTime,
@@ -468,6 +481,7 @@ class _$ToursRecord extends ToursRecord {
       this.promoCode,
       this.promoDiscountPercent,
       this.promoCodeSubmitted,
+      this.lunchVenueFee,
       this.ffRef})
       : super._();
 
@@ -511,6 +525,7 @@ class _$ToursRecord extends ToursRecord {
         promoCode == other.promoCode &&
         promoDiscountPercent == other.promoDiscountPercent &&
         promoCodeSubmitted == other.promoCodeSubmitted &&
+        lunchVenueFee == other.lunchVenueFee &&
         ffRef == other.ffRef;
   }
 
@@ -534,31 +549,31 @@ class _$ToursRecord extends ToursRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, createdTime.hashCode), tourName.hashCode), regionID.hashCode), uid.hashCode), passengers.hashCode), tourDate.hashCode), pickupAddress.hashCode), pickupLatlng.hashCode), pricePp.hashCode), region.hashCode),
-                                                                                venues.hashCode),
-                                                                            guestsUid.hashCode),
-                                                                        pickupUnitNumber.hashCode),
-                                                                    tourState.hashCode),
-                                                                platformTastingFee.hashCode),
-                                                            driverReff.hashCode),
-                                                        driverUid.hashCode),
-                                                    countryState.hashCode),
-                                                transportFeePp.hashCode),
-                                            totalTastingFeePp.hashCode),
-                                        largeGroupVenueEarlySeatingCount.hashCode),
-                                    subTotal.hashCode),
-                                discountAmount.hashCode),
-                            totalPaid.hashCode),
-                        totalBalance.hashCode),
-                    promoCode.hashCode),
-                promoDiscountPercent.hashCode),
-            promoCodeSubmitted.hashCode),
+                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, createdTime.hashCode), tourName.hashCode), regionID.hashCode), uid.hashCode), passengers.hashCode), tourDate.hashCode), pickupAddress.hashCode), pickupLatlng.hashCode), pricePp.hashCode), region.hashCode), venues.hashCode),
+                                                                                guestsUid.hashCode),
+                                                                            pickupUnitNumber.hashCode),
+                                                                        tourState.hashCode),
+                                                                    platformTastingFee.hashCode),
+                                                                driverReff.hashCode),
+                                                            driverUid.hashCode),
+                                                        countryState.hashCode),
+                                                    transportFeePp.hashCode),
+                                                totalTastingFeePp.hashCode),
+                                            largeGroupVenueEarlySeatingCount.hashCode),
+                                        subTotal.hashCode),
+                                    discountAmount.hashCode),
+                                totalPaid.hashCode),
+                            totalBalance.hashCode),
+                        promoCode.hashCode),
+                    promoDiscountPercent.hashCode),
+                promoCodeSubmitted.hashCode),
+            lunchVenueFee.hashCode),
         ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ToursRecord')
+    return (newBuiltValueToStringHelper(r'ToursRecord')
           ..add('createdTime', createdTime)
           ..add('tourName', tourName)
           ..add('regionID', regionID)
@@ -588,6 +603,7 @@ class _$ToursRecord extends ToursRecord {
           ..add('promoCode', promoCode)
           ..add('promoDiscountPercent', promoDiscountPercent)
           ..add('promoCodeSubmitted', promoCodeSubmitted)
+          ..add('lunchVenueFee', lunchVenueFee)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -725,6 +741,11 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
   set promoCodeSubmitted(String? promoCodeSubmitted) =>
       _$this._promoCodeSubmitted = promoCodeSubmitted;
 
+  double? _lunchVenueFee;
+  double? get lunchVenueFee => _$this._lunchVenueFee;
+  set lunchVenueFee(double? lunchVenueFee) =>
+      _$this._lunchVenueFee = lunchVenueFee;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -764,6 +785,7 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
       _promoCode = $v.promoCode;
       _promoDiscountPercent = $v.promoDiscountPercent;
       _promoCodeSubmitted = $v.promoCodeSubmitted;
+      _lunchVenueFee = $v.lunchVenueFee;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -782,7 +804,9 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
   }
 
   @override
-  _$ToursRecord build() {
+  ToursRecord build() => _build();
+
+  _$ToursRecord _build() {
     _$ToursRecord _$result;
     try {
       _$result = _$v ??
@@ -816,6 +840,7 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
               promoCode: promoCode,
               promoDiscountPercent: promoDiscountPercent,
               promoCodeSubmitted: promoCodeSubmitted,
+              lunchVenueFee: lunchVenueFee,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -826,7 +851,7 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
         _guestsUid?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ToursRecord', _$failedField, e.toString());
+            r'ToursRecord', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -835,4 +860,4 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

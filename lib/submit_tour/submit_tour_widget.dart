@@ -519,7 +519,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        '\$100',
+                                                        '\$0',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -575,7 +575,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        '\$100',
+                                                        '\$0',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)

@@ -31,7 +31,7 @@ class SelectExperienceBtmsheetWidget extends StatefulWidget {
 class _SelectExperienceBtmsheetWidgetState
     extends State<SelectExperienceBtmsheetWidget> {
   SelectedVenuesRecord? lastSelectedVenue2;
-  SelectedVenuesRecord? lastSelectedVenue;
+  SelectedVenuesRecord? lastVenueAdded;
   SelectedVenuesRecord? lastSelectedVenue3;
 
   @override
@@ -101,7 +101,7 @@ class _SelectExperienceBtmsheetWidgetState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Choose your tasting experience',
+                        'Choose your experience',
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                     ],
@@ -249,20 +249,15 @@ class _SelectExperienceBtmsheetWidgetState
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        if (functions.isLunchVenue(
-                                            widget.venueRec!.reference,
-                                            FFAppState().lunchVenueReff)) {
+                                        if (widget
+                                            .venueRec!.isLunchVenueOnly!) {
                                           final selectedVenuesCreateData =
                                               createSelectedVenuesRecordData(
                                             venueRef:
                                                 widget.venueRec!.reference,
                                             tourRef: widget.tourReff,
                                             addedByUid: currentUserReference,
-                                            isLunchVenue:
-                                                functions.isLunchVenue(
-                                                    widget.venueRec!.reference,
-                                                    FFAppState()
-                                                        .lunchVenueReff),
+                                            isLunchVenue: true,
                                             tastingFee:
                                                 listViewTastingExperiencesRecord
                                                     .tastingExperiencePrice,
@@ -276,14 +271,14 @@ class _SelectExperienceBtmsheetWidgetState
                                             tastingExperienceDescription:
                                                 listViewTastingExperiencesRecord
                                                     .description,
-                                            isTastingIncluded: true,
+                                            isTastingIncluded: false,
                                           );
                                           var selectedVenuesRecordReference =
                                               SelectedVenuesRecord.collection
                                                   .doc();
                                           await selectedVenuesRecordReference
                                               .set(selectedVenuesCreateData);
-                                          lastSelectedVenue = SelectedVenuesRecord
+                                          lastVenueAdded = SelectedVenuesRecord
                                               .getDocumentFromData(
                                                   selectedVenuesCreateData,
                                                   selectedVenuesRecordReference);
@@ -304,7 +299,7 @@ class _SelectExperienceBtmsheetWidgetState
                                                           .toList(),
                                                       widget.tourDoc!
                                                           .platformTastingFee,
-                                                      lastSelectedVenue)
+                                                      lastVenueAdded)
                                                   .toDouble(),
                                               subTotal: functions.getTourSubTotal(
                                                   widget.tourDoc!.passengers,
@@ -316,7 +311,7 @@ class _SelectExperienceBtmsheetWidgetState
                                                               .toList(),
                                                           widget.tourDoc!
                                                               .platformTastingFee,
-                                                          lastSelectedVenue)
+                                                          lastVenueAdded)
                                                       .toDouble()),
                                             ),
                                             'venues': FieldValue.arrayUnion(

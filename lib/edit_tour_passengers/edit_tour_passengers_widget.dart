@@ -260,6 +260,34 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                         transportFeePp:
                                             gridViewTransportPricingRecord
                                                 .price,
+                                        pricePp:
+                                            functions
+                                                .updatePassengersCalculatePricePP(
+                                                    gridViewTransportPricingRecord
+                                                        .price,
+                                                    containerToursRecord
+                                                        .totalTastingFeePp
+                                                        ?.toDouble(),
+                                                    containerToursRecord
+                                                        .platformTastingFee,
+                                                    containerToursRecord.venues!
+                                                        .toList()
+                                                        .length),
+                                        subTotal: functions.getTourSubTotal(
+                                            gridViewTransportPricingRecord
+                                                .passengersLbl,
+                                            functions
+                                                .updatePassengersCalculatePricePP(
+                                                    gridViewTransportPricingRecord
+                                                        .price,
+                                                    containerToursRecord
+                                                        .totalTastingFeePp
+                                                        ?.toDouble(),
+                                                    containerToursRecord
+                                                        .platformTastingFee,
+                                                    containerToursRecord.venues!
+                                                        .toList()
+                                                        .length)),
                                       );
                                       await widget.tourID!
                                           .update(toursUpdateData);

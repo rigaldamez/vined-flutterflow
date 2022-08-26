@@ -266,6 +266,14 @@ int getPerPersonFeeAsInt(
   //return totalPerPerson.toString();
 }
 
+int getPerPersonFeeAsIntRemoveVenue(
+  double? platformFee,
+  double? currentPPFee,
+  double? selectedVenueTastingFee,
+) {
+  return (currentPPFee! - selectedVenueTastingFee! - platformFee!).toInt();
+}
+
 int getPerPersonFeeAsInt2(
   double? transportFee,
   List<SelectedVenuesRecord>? selectedVenues,
@@ -423,7 +431,7 @@ bool isBoolTrue(bool? value) {
 
 String tourRefAsString(DocumentReference? tourReff) {
   // Add your function code here!
-  return tourReff.toString();
+  return tourReff!.id.toString();
 }
 
 String getHourFromTimestamp(DateTime? selectedTimestamp) {
@@ -435,7 +443,27 @@ String getHourFromTimestamp(DateTime? selectedTimestamp) {
   }
 }
 
-String arrayLength(List<SelectedVenuesRecord>? selectedVenues) {
+int numberOfVenuesInTour(List<VenuesRecord>? selectedVenues) {
   // Add your function code here!
-  return selectedVenues!.length.toString();
+
+  if (selectedVenues != null) {
+    return selectedVenues.length;
+  } else {
+    return 0;
+  }
+}
+
+double updatePassengersCalculatePricePP(
+  double? transportPricePP,
+  double? tastingFeePP,
+  double? platformFee,
+  int? noOfVenuesInTour,
+) {
+  if (noOfVenuesInTour != null && noOfVenuesInTour > 0) {
+    return transportPricePP! +
+        tastingFeePP! +
+        (platformFee! * noOfVenuesInTour);
+  } else {
+    return transportPricePP!;
+  }
 }

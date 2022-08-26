@@ -66,6 +66,13 @@ class _$AppConfigRecordSerializer
         ..add('large_group_venues_early_seating_threshold')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.lunchVenueFee;
+    if (value != null) {
+      result
+        ..add('lunch_venue_fee')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -85,7 +92,7 @@ class _$AppConfigRecordSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -117,6 +124,10 @@ class _$AppConfigRecordSerializer
           result.largeGroupVenuesEarlySeatingThreshold = serializers
               .deserialize(value, specifiedType: const FullType(int)) as int?;
           break;
+        case 'lunch_venue_fee':
+          result.lunchVenueFee = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -146,10 +157,12 @@ class _$AppConfigRecord extends AppConfigRecord {
   @override
   final int? largeGroupVenuesEarlySeatingThreshold;
   @override
+  final double? lunchVenueFee;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$AppConfigRecord([void Function(AppConfigRecordBuilder)? updates]) =>
-      (new AppConfigRecordBuilder()..update(updates)).build();
+      (new AppConfigRecordBuilder()..update(updates))._build();
 
   _$AppConfigRecord._(
       {this.vinedMessengerURL,
@@ -159,6 +172,7 @@ class _$AppConfigRecord extends AppConfigRecord {
       this.vinedWebsiteURL,
       this.largeGroupThreshold,
       this.largeGroupVenuesEarlySeatingThreshold,
+      this.lunchVenueFee,
       this.ffRef})
       : super._();
 
@@ -182,6 +196,7 @@ class _$AppConfigRecord extends AppConfigRecord {
         largeGroupThreshold == other.largeGroupThreshold &&
         largeGroupVenuesEarlySeatingThreshold ==
             other.largeGroupVenuesEarlySeatingThreshold &&
+        lunchVenueFee == other.lunchVenueFee &&
         ffRef == other.ffRef;
   }
 
@@ -193,19 +208,21 @@ class _$AppConfigRecord extends AppConfigRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc(0, vinedMessengerURL.hashCode),
-                                itineraryVenueLimit.hashCode),
-                            platformTastingFee.hashCode),
-                        tourLeadTime.hashCode),
-                    vinedWebsiteURL.hashCode),
-                largeGroupThreshold.hashCode),
-            largeGroupVenuesEarlySeatingThreshold.hashCode),
+                            $jc(
+                                $jc($jc(0, vinedMessengerURL.hashCode),
+                                    itineraryVenueLimit.hashCode),
+                                platformTastingFee.hashCode),
+                            tourLeadTime.hashCode),
+                        vinedWebsiteURL.hashCode),
+                    largeGroupThreshold.hashCode),
+                largeGroupVenuesEarlySeatingThreshold.hashCode),
+            lunchVenueFee.hashCode),
         ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AppConfigRecord')
+    return (newBuiltValueToStringHelper(r'AppConfigRecord')
           ..add('vinedMessengerURL', vinedMessengerURL)
           ..add('itineraryVenueLimit', itineraryVenueLimit)
           ..add('platformTastingFee', platformTastingFee)
@@ -214,6 +231,7 @@ class _$AppConfigRecord extends AppConfigRecord {
           ..add('largeGroupThreshold', largeGroupThreshold)
           ..add('largeGroupVenuesEarlySeatingThreshold',
               largeGroupVenuesEarlySeatingThreshold)
+          ..add('lunchVenueFee', lunchVenueFee)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -260,6 +278,11 @@ class AppConfigRecordBuilder
       _$this._largeGroupVenuesEarlySeatingThreshold =
           largeGroupVenuesEarlySeatingThreshold;
 
+  double? _lunchVenueFee;
+  double? get lunchVenueFee => _$this._lunchVenueFee;
+  set lunchVenueFee(double? lunchVenueFee) =>
+      _$this._lunchVenueFee = lunchVenueFee;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -279,6 +302,7 @@ class AppConfigRecordBuilder
       _largeGroupThreshold = $v.largeGroupThreshold;
       _largeGroupVenuesEarlySeatingThreshold =
           $v.largeGroupVenuesEarlySeatingThreshold;
+      _lunchVenueFee = $v.lunchVenueFee;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -297,7 +321,9 @@ class AppConfigRecordBuilder
   }
 
   @override
-  _$AppConfigRecord build() {
+  AppConfigRecord build() => _build();
+
+  _$AppConfigRecord _build() {
     final _$result = _$v ??
         new _$AppConfigRecord._(
             vinedMessengerURL: vinedMessengerURL,
@@ -308,10 +334,11 @@ class AppConfigRecordBuilder
             largeGroupThreshold: largeGroupThreshold,
             largeGroupVenuesEarlySeatingThreshold:
                 largeGroupVenuesEarlySeatingThreshold,
+            lunchVenueFee: lunchVenueFee,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

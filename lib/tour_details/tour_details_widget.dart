@@ -72,7 +72,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                   kTransitionInfoKey: TransitionInfo(
                     hasTransition: true,
                     transitionType: PageTransitionType.bottomToTop,
-                    duration: Duration(milliseconds: 150),
+                    duration: Duration(milliseconds: 500),
                   ),
                 },
               );
@@ -961,7 +961,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 1),
+                                            0, 20, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1065,7 +1065,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   ),
                                                   Container(
                                                     width: 2,
-                                                    height: 98,
+                                                    height: 100,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -2182,21 +2182,21 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   },
                                                                 );
                                                               },
-                                                              text:
-                                                                  'Add a venue',
+                                                              text: 'Add Venue',
                                                               options:
                                                                   FFButtonOptions(
                                                                 width: 120,
-                                                                height: 30,
-                                                                color: Colors
-                                                                    .transparent,
+                                                                height: 40,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .black,
                                                                 textStyle:
                                                                     GoogleFonts
                                                                         .getFont(
                                                                   'Poppins',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .black,
+                                                                      .cultured,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal,

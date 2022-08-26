@@ -65,7 +65,7 @@ class _$TastingExperiencesRecordSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -106,7 +106,7 @@ class _$TastingExperiencesRecord extends TastingExperiencesRecord {
 
   factory _$TastingExperiencesRecord(
           [void Function(TastingExperiencesRecordBuilder)? updates]) =>
-      (new TastingExperiencesRecordBuilder()..update(updates)).build();
+      (new TastingExperiencesRecordBuilder()..update(updates))._build();
 
   _$TastingExperiencesRecord._(
       {this.image, this.description, this.tastingExperiencePrice, this.ffRef})
@@ -141,7 +141,7 @@ class _$TastingExperiencesRecord extends TastingExperiencesRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TastingExperiencesRecord')
+    return (newBuiltValueToStringHelper(r'TastingExperiencesRecord')
           ..add('image', image)
           ..add('description', description)
           ..add('tastingExperiencePrice', tastingExperiencePrice)
@@ -200,7 +200,9 @@ class TastingExperiencesRecordBuilder
   }
 
   @override
-  _$TastingExperiencesRecord build() {
+  TastingExperiencesRecord build() => _build();
+
+  _$TastingExperiencesRecord _build() {
     final _$result = _$v ??
         new _$TastingExperiencesRecord._(
             image: image,
@@ -212,4 +214,4 @@ class TastingExperiencesRecordBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

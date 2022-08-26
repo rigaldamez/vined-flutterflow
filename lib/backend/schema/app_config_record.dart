@@ -27,6 +27,9 @@ abstract class AppConfigRecord
   @BuiltValueField(wireName: 'large_group_venues_early_seating_threshold')
   int? get largeGroupVenuesEarlySeatingThreshold;
 
+  @BuiltValueField(wireName: 'lunch_venue_fee')
+  double? get lunchVenueFee;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -38,7 +41,8 @@ abstract class AppConfigRecord
     ..tourLeadTime = 0
     ..vinedWebsiteURL = ''
     ..largeGroupThreshold = 0
-    ..largeGroupVenuesEarlySeatingThreshold = 0;
+    ..largeGroupVenuesEarlySeatingThreshold = 0
+    ..lunchVenueFee = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('app_config');
@@ -69,6 +73,7 @@ Map<String, dynamic> createAppConfigRecordData({
   String? vinedWebsiteURL,
   int? largeGroupThreshold,
   int? largeGroupVenuesEarlySeatingThreshold,
+  double? lunchVenueFee,
 }) {
   final firestoreData = serializers.toFirestore(
     AppConfigRecord.serializer,
@@ -81,7 +86,8 @@ Map<String, dynamic> createAppConfigRecordData({
         ..vinedWebsiteURL = vinedWebsiteURL
         ..largeGroupThreshold = largeGroupThreshold
         ..largeGroupVenuesEarlySeatingThreshold =
-            largeGroupVenuesEarlySeatingThreshold,
+            largeGroupVenuesEarlySeatingThreshold
+        ..lunchVenueFee = lunchVenueFee,
     ),
   );
 

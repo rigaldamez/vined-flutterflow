@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/select_experience_btmsheet_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -564,9 +563,6 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               height: 30,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .black,
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -609,47 +605,25 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                         } else {
                                                                           if (listViewVenuesRecord
                                                                               .isLunchVenueOnly!) {
-                                                                            final selectedVenuesCreateData =
-                                                                                createSelectedVenuesRecordData(
-                                                                              venueRef: listViewVenuesRecord.reference,
-                                                                              tourRef: containerToursRecord.reference,
-                                                                              addedByUid: currentUserReference,
-                                                                              isLunchVenue: true,
-                                                                              tastingFee: listViewVenuesRecord.tastingFee,
-                                                                              addedDate: getCurrentTimestamp,
-                                                                              bookingReference: '',
-                                                                              regionID: containerToursRecord.regionID,
-                                                                              reservationTime: functions.epochTime(),
-                                                                              isLunchVenueOnly: listViewVenuesRecord.isLunchVenueOnly,
-                                                                              isTastingIncluded: false,
-                                                                            );
-                                                                            await SelectedVenuesRecord.collection.doc().set(selectedVenuesCreateData);
-
-                                                                            final toursUpdateData =
-                                                                                {
-                                                                              ...createToursRecordData(
-                                                                                totalTastingFeePp: functions.calculateTotalTastingFeePP(containerSelectedVenuesRecordList.toList(), listViewVenuesRecord.tastingFee),
-                                                                              ),
-                                                                              'venues': FieldValue.arrayUnion([
-                                                                                listViewVenuesRecord.reference
-                                                                              ]),
-                                                                            };
-                                                                            await widget.tourReff!.update(toursUpdateData);
-                                                                            context.pop();
-                                                                            ScaffoldMessenger.of(context).showSnackBar(
-                                                                              SnackBar(
-                                                                                content: Text(
-                                                                                  'Contact venue to make a reservation. Cost at your own expense. Update itinerary with confirmed time.',
-                                                                                  style: GoogleFonts.getFont(
-                                                                                    'Poppins',
-                                                                                    color: FlutterFlowTheme.of(context).cultured,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    fontSize: 12,
+                                                                            await showModalBottomSheet(
+                                                                              isScrollControlled: true,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              context: context,
+                                                                              builder: (context) {
+                                                                                return Padding(
+                                                                                  padding: MediaQuery.of(context).viewInsets,
+                                                                                  child: Container(
+                                                                                    height: 250,
+                                                                                    child: SelectExperienceBtmsheetWidget(
+                                                                                      venueRec: listViewVenuesRecord,
+                                                                                      tourReff: widget.tourReff,
+                                                                                      regionReff: containerToursRecord.regionID,
+                                                                                      tourDoc: containerToursRecord,
+                                                                                      isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                    ),
                                                                                   ),
-                                                                                ),
-                                                                                duration: Duration(milliseconds: 2000),
-                                                                                backgroundColor: FlutterFlowTheme.of(context).black,
-                                                                              ),
+                                                                                );
+                                                                              },
                                                                             );
                                                                           } else {
                                                                             if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord.passengers,
@@ -760,95 +734,15 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 },
                                                                 child: Icon(
                                                                   Icons
-                                                                      .add_rounded,
+                                                                      .arrow_forward_ios,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .cultured,
+                                                                      .black,
                                                                   size: 24,
                                                                 ),
                                                               ),
                                                             );
                                                           },
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.9, 0.7),
-                                                        child: Container(
-                                                          width: 34,
-                                                          height: 34,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xFFF5F5F5),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Stack(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0, 0),
-                                                            children: [
-                                                              if (!functions.isLunchVenue(
-                                                                  listViewVenuesRecord
-                                                                      .reference,
-                                                                  FFAppState()
-                                                                      .lunchVenueReff))
-                                                                Icon(
-                                                                  Icons
-                                                                      .dinner_dining,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 20,
-                                                                ),
-                                                              if (functions.isLunchVenue(
-                                                                  listViewVenuesRecord
-                                                                      .reference,
-                                                                  FFAppState()
-                                                                      .lunchVenueReff))
-                                                                Icon(
-                                                                  Icons
-                                                                      .dinner_dining,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .salmonPink,
-                                                                  size: 20,
-                                                                ),
-                                                              InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  if (functions.isLunchVenue(
-                                                                      listViewVenuesRecord
-                                                                          .reference,
-                                                                      FFAppState()
-                                                                          .lunchVenueReff)) {
-                                                                    setState(() =>
-                                                                        FFAppState().lunchVenueReff =
-                                                                            null);
-                                                                  } else {
-                                                                    setState(() =>
-                                                                        FFAppState().lunchVenueReff =
-                                                                            null);
-                                                                    setState(() => FFAppState()
-                                                                            .lunchVenueReff =
-                                                                        listViewVenuesRecord
-                                                                            .reference);
-                                                                  }
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 34,
-                                                                  height: 34,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
                                                         ),
                                                       ),
                                                       if (!functions.isVenueOpen(
@@ -902,6 +796,246 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                             ),
                                                           ),
                                                         ),
+                                                      StreamBuilder<
+                                                          List<
+                                                              SelectedVenuesRecord>>(
+                                                        stream:
+                                                            querySelectedVenuesRecord(
+                                                          queryBuilder: (selectedVenuesRecord) =>
+                                                              selectedVenuesRecord
+                                                                  .where(
+                                                                      'tourRef',
+                                                                      isEqualTo:
+                                                                          widget
+                                                                              .tourReff),
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 20,
+                                                                height: 20,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .purplePastel,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<SelectedVenuesRecord>
+                                                              containerSelectSelectedVenuesRecordList =
+                                                              snapshot.data!;
+                                                          return InkWell(
+                                                            onTap: () async {
+                                                              if (functions
+                                                                  .isTourInDraftState(
+                                                                      containerToursRecord
+                                                                          .tourState)) {
+                                                                if (functions.isTourStopsCountLessThanLimitAllowed(
+                                                                    containerToursRecord
+                                                                        .venues!
+                                                                        .toList(),
+                                                                    columnAppConfigRecord)) {
+                                                                  if (functions.meetsVenueCapacity(
+                                                                      containerToursRecord,
+                                                                      listViewVenuesRecord
+                                                                          .capacity)) {
+                                                                    if (functions.isVenueAlreadyAdded(
+                                                                        containerSelectSelectedVenuesRecordList
+                                                                            .toList(),
+                                                                        listViewVenuesRecord
+                                                                            .reference)) {
+                                                                      await showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (alertDialogContext) {
+                                                                          return AlertDialog(
+                                                                            title:
+                                                                                Text('Already Added'),
+                                                                            content:
+                                                                                Text('This venue is already in your itinerary'),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                child: Text('Ok'),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    } else {
+                                                                      if (listViewVenuesRecord
+                                                                          .isLunchVenueOnly!) {
+                                                                        await showModalBottomSheet(
+                                                                          isScrollControlled:
+                                                                              true,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return Padding(
+                                                                              padding: MediaQuery.of(context).viewInsets,
+                                                                              child: Container(
+                                                                                height: 250,
+                                                                                child: SelectExperienceBtmsheetWidget(
+                                                                                  venueRec: listViewVenuesRecord,
+                                                                                  tourReff: widget.tourReff,
+                                                                                  regionReff: containerToursRecord.regionID,
+                                                                                  tourDoc: containerToursRecord,
+                                                                                  isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      } else {
+                                                                        if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(
+                                                                            containerToursRecord.passengers,
+                                                                            columnAppConfigRecord!.largeGroupThreshold)) {
+                                                                          await showModalBottomSheet(
+                                                                            isScrollControlled:
+                                                                                true,
+                                                                            backgroundColor:
+                                                                                Colors.transparent,
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (context) {
+                                                                              return Padding(
+                                                                                padding: MediaQuery.of(context).viewInsets,
+                                                                                child: Container(
+                                                                                  height: 250,
+                                                                                  child: SelectExperienceBtmsheetWidget(
+                                                                                    venueRec: listViewVenuesRecord,
+                                                                                    tourReff: widget.tourReff,
+                                                                                    regionReff: containerToursRecord.regionID,
+                                                                                    tourDoc: containerToursRecord,
+                                                                                    isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                          );
+                                                                        } else {
+                                                                          if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(
+                                                                              containerToursRecord.largeGroupVenueEarlySeatingCount,
+                                                                              columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold,
+                                                                              listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
+                                                                            await showModalBottomSheet(
+                                                                              isScrollControlled: true,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              context: context,
+                                                                              builder: (context) {
+                                                                                return Padding(
+                                                                                  padding: MediaQuery.of(context).viewInsets,
+                                                                                  child: Container(
+                                                                                    height: 250,
+                                                                                    child: SelectExperienceBtmsheetWidget(
+                                                                                      venueRec: listViewVenuesRecord,
+                                                                                      tourReff: widget.tourReff,
+                                                                                      regionReff: containerToursRecord.regionID,
+                                                                                      tourDoc: containerToursRecord,
+                                                                                      isLargeGroupEarlySeatingOnlyVenue: true,
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              },
+                                                                            );
+                                                                          } else {
+                                                                            await showDialog(
+                                                                              context: context,
+                                                                              builder: (alertDialogContext) {
+                                                                                return AlertDialog(
+                                                                                  title: Text('Can\'t add venue'),
+                                                                                  content: Text('You already have an \'ealy-seating only\' venue for large groups in your itinerary'),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                      child: Text('Ok'),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            );
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  } else {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (alertDialogContext) {
+                                                                        return AlertDialog(
+                                                                          title:
+                                                                              Text('Group Capacity Exceeded'),
+                                                                          content:
+                                                                              Text('Your tour group exceeds the max group capacity set by this venue'),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                              child: Text('Ok'),
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  }
+                                                                } else {
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        title: Text(
+                                                                            'Venue Limit Reached'),
+                                                                        content:
+                                                                            Text('You have reached the max number venues allowed'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                            child:
+                                                                                Text('Ok'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  1,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
