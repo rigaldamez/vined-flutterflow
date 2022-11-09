@@ -9,6 +9,8 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -21,34 +23,41 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
+  final animationsMap = {
+    'iconButtonOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 1,
+          end: 1,
+        ),
+      ],
+    ),
+  };
   PagingController<DocumentSnapshot?, VenuesRecord>? _pagingController;
   Query? _pagingQuery;
   List<StreamSubscription?> _streamSubscriptions = [];
 
   String? choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final animationsMap = {
-    'iconButtonOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 200,
-      hideBeforeAnimating: false,
-      fadeIn: true,
-      initialState: AnimationState(
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        opacity: 1,
-      ),
-    ),
-  };
 
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
   }
@@ -110,8 +119,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         onPressed: () {
                           print('IconButton pressed ...');
                         },
-                      ).animated(
-                          [animationsMap['iconButtonOnPageLoadAnimation']!]),
+                      ).animateOnPageLoad(
+                          animationsMap['iconButtonOnPageLoadAnimation']!),
                     ],
                   ),
                 ),
@@ -178,9 +187,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       choiceChipsRegionsRecordList =
                                       snapshot.data!;
                                   return FlutterFlowChoiceChips(
-                                    initiallySelected: choiceChipsValue != null
-                                        ? [choiceChipsValue!]
-                                        : ['Adelaide Hills'],
+                                    initiallySelected: ['Adelaide Hills'],
                                     options: choiceChipsRegionsRecordList
                                         .map((e) => e.name!)
                                         .toList()
@@ -640,6 +647,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     }(),
                     padding: EdgeInsets.zero,
                     primary: false,
+                    shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     builderDelegate: PagedChildBuilderDelegate<VenuesRecord>(
                       // Customize what your widget looks like when it's loading the first page.

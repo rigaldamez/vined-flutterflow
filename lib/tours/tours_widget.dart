@@ -90,7 +90,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                               ),
                             );
                           },
-                        );
+                        ).then((value) => setState(() {}));
                       },
                     ),
                   ],
@@ -624,11 +624,13 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       'TourDetails',
                                       queryParams: {
                                         'tourID': serializeParam(
-                                            listViewToursRecord.reference,
-                                            ParamType.DocumentReference),
+                                          listViewToursRecord.reference,
+                                          ParamType.DocumentReference,
+                                        ),
                                         'tourDocument': serializeParam(
-                                            listViewToursRecord,
-                                            ParamType.Document),
+                                          listViewToursRecord,
+                                          ParamType.Document,
+                                        ),
                                       }.withoutNulls,
                                       extra: <String, dynamic>{
                                         'tourDocument': listViewToursRecord,

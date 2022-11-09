@@ -31,6 +31,12 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -162,6 +168,23 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                               BorderRadius.circular(32),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(32),
+                                        ),
+                                        errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(32),
+                                        ),
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,

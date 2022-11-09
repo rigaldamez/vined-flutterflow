@@ -122,8 +122,9 @@ class _UsersWidgetState extends State<UsersWidget> {
                                             'chatScreen_sample',
                                             queryParams: {
                                               'chatUser': serializeParam(
-                                                  listViewUsersRecord,
-                                                  ParamType.Document),
+                                                listViewUsersRecord,
+                                                ParamType.Document,
+                                              ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               'chatUser': listViewUsersRecord,

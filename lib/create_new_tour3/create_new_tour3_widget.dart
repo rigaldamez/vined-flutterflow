@@ -40,6 +40,12 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<ToursRecord>>(
       stream: queryToursRecord(
@@ -310,6 +316,20 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     ),
                                     borderRadius: BorderRadius.circular(34),
                                   ),
+                                  errorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(34),
+                                  ),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(34),
+                                  ),
                                   filled: true,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
@@ -473,26 +493,38 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       backgroundColor: Colors.black,
                                     ),
                                   );
+
                                   context.pushNamed(
                                     'AddVenueToTour',
                                     queryParams: {
                                       'tourID': serializeParam(
-                                          createdTourID!.reference,
-                                          ParamType.DocumentReference),
+                                        createdTourID!.reference,
+                                        ParamType.DocumentReference,
+                                      ),
                                       'tourName': serializeParam(
-                                          FFAppState().newTourName,
-                                          ParamType.String),
+                                        FFAppState().newTourName,
+                                        ParamType.String,
+                                      ),
                                       'regionID': serializeParam(
-                                          FFAppState().newTourRegionID,
-                                          ParamType.String),
-                                      'makeLunchStopBool':
-                                          serializeParam(false, ParamType.bool),
-                                      'venueCount':
-                                          serializeParam(0, ParamType.int),
+                                        FFAppState().newTourRegionID,
+                                        ParamType.String,
+                                      ),
+                                      'makeLunchStopBool': serializeParam(
+                                        false,
+                                        ParamType.bool,
+                                      ),
+                                      'venueCount': serializeParam(
+                                        0,
+                                        ParamType.int,
+                                      ),
                                       'tourDate': serializeParam(
-                                          datePicked, ParamType.DateTime),
+                                        datePicked,
+                                        ParamType.DateTime,
+                                      ),
                                       'tourRecord': serializeParam(
-                                          createdTourID, ParamType.Document),
+                                        createdTourID,
+                                        ParamType.Document,
+                                      ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
                                       'tourRecord': createdTourID,
@@ -603,10 +635,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                   'EditTourPassengers',
                                                   queryParams: {
                                                     'tourID': serializeParam(
-                                                        listViewToursRecord
-                                                            .reference,
-                                                        ParamType
-                                                            .DocumentReference),
+                                                      listViewToursRecord
+                                                          .reference,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
                                                   }.withoutNulls,
                                                 );
                                               },
@@ -736,31 +769,40 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                             context.pushNamed(
                                                               'AddVenueToTour',
                                                               queryParams: {
-                                                                'tourID': serializeParam(
-                                                                    listViewToursRecord
-                                                                        .reference,
-                                                                    ParamType
-                                                                        .DocumentReference),
-                                                                'tourName': serializeParam(
-                                                                    listViewToursRecord
-                                                                        .tourName,
-                                                                    ParamType
-                                                                        .String),
-                                                                'regionID': serializeParam(
-                                                                    rowRegionsRecord
-                                                                        .regionID,
-                                                                    ParamType
-                                                                        .String),
-                                                                'tourDate': serializeParam(
-                                                                    listViewToursRecord
-                                                                        .tourDate,
-                                                                    ParamType
-                                                                        .DateTime),
+                                                                'tourID':
+                                                                    serializeParam(
+                                                                  listViewToursRecord
+                                                                      .reference,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                                'tourName':
+                                                                    serializeParam(
+                                                                  listViewToursRecord
+                                                                      .tourName,
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                                'regionID':
+                                                                    serializeParam(
+                                                                  rowRegionsRecord
+                                                                      .regionID,
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                                'tourDate':
+                                                                    serializeParam(
+                                                                  listViewToursRecord
+                                                                      .tourDate,
+                                                                  ParamType
+                                                                      .DateTime,
+                                                                ),
                                                                 'tourRecord':
                                                                     serializeParam(
-                                                                        listViewToursRecord,
-                                                                        ParamType
-                                                                            .Document),
+                                                                  listViewToursRecord,
+                                                                  ParamType
+                                                                      .Document,
+                                                                ),
                                                               }.withoutNulls,
                                                               extra: <String,
                                                                   dynamic>{
@@ -812,11 +854,13 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                               context.pushNamed(
                                                                 'ViewTourDetails',
                                                                 queryParams: {
-                                                                  'tourRef': serializeParam(
-                                                                      listViewToursRecord
-                                                                          .reference,
-                                                                      ParamType
-                                                                          .DocumentReference),
+                                                                  'tourRef':
+                                                                      serializeParam(
+                                                                    listViewToursRecord
+                                                                        .reference,
+                                                                    ParamType
+                                                                        .DocumentReference,
+                                                                  ),
                                                                 }.withoutNulls,
                                                               );
                                                             },

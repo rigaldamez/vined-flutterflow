@@ -23,6 +23,12 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
   }
 
   @override
+  void dispose() {
+    tourNameTextFieldController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -116,6 +122,8 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                   hintText: 'eg; Wine Time Fun!',
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  focusedErrorBorder: InputBorder.none,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           20, 0, 0, 0),
@@ -171,6 +179,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                   } else {
                                     setState(() => FFAppState().newTourName =
                                         tourNameTextFieldController!.text);
+
                                     context.pushNamed(
                                       'CreateNewTour1',
                                       extra: <String, dynamic>{
@@ -182,6 +191,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                         ),
                                       },
                                     );
+
                                     return;
                                   }
                                 },

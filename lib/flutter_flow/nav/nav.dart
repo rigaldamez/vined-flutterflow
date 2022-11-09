@@ -9,6 +9,8 @@ import '../../auth/firebase_user_provider.dart';
 
 import '../../index.dart';
 import '../../main.dart';
+import '../lat_lng.dart';
+import '../place.dart';
 import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -153,8 +155,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => CreateNewTour2Widget(
                 state: params.getParam('state', ParamType.JSON),
-                regionIDRef: params.getParam(
-                    'regionIDRef', ParamType.DocumentReference, 'regions'),
+                regionIDRef: params.getParam('regionIDRef',
+                    ParamType.DocumentReference, false, 'regions'),
               ),
             ),
             FFRoute(
@@ -162,8 +164,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createNewTour3',
               requireAuth: true,
               builder: (context, params) => CreateNewTour3Widget(
-                regionIDRef: params.getParam(
-                    'regionIDRef', ParamType.DocumentReference, 'regions'),
+                regionIDRef: params.getParam('regionIDRef',
+                    ParamType.DocumentReference, false, 'regions'),
               ),
             ),
             FFRoute(
@@ -181,7 +183,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => EditTourPassengersWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
                 tourName: params.getParam('tourName', ParamType.String),
               ),
             ),
@@ -194,7 +196,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               },
               builder: (context, params) => AddVenueToTourWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
                 tourName: params.getParam('tourName', ParamType.String),
                 regionID: params.getParam('regionID', ParamType.String),
                 makeLunchStopBool:
@@ -210,7 +212,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => ViewTourDetailsWidget(
                 tourRef: params.getParam(
-                    'tourRef', ParamType.DocumentReference, 'tours'),
+                    'tourRef', ParamType.DocumentReference, false, 'tours'),
               ),
             ),
             FFRoute(
@@ -240,7 +242,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               },
               builder: (context, params) => TourDetailsWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
                 tourDocument:
                     params.getParam('tourDocument', ParamType.Document),
               ),
@@ -251,7 +253,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => AddVenueWidget(
                 tourReff: params.getParam(
-                    'tourReff', ParamType.DocumentReference, 'tours'),
+                    'tourReff', ParamType.DocumentReference, false, 'tours'),
               ),
             ),
             FFRoute(
@@ -260,7 +262,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => TourChatWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
               ),
             ),
             FFRoute(
@@ -273,7 +275,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ChatScreenSampleWidget(
                 chatUser: params.getParam('chatUser', ParamType.Document),
                 chatRef: params.getParam(
-                    'chatRef', ParamType.DocumentReference, 'chats'),
+                    'chatRef', ParamType.DocumentReference, false, 'chats'),
               ),
             ),
             FFRoute(
@@ -285,7 +287,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               },
               builder: (context, params) => UsersWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
                 tourReff: params.getParam('tourReff', ParamType.Document),
               ),
             ),
@@ -295,7 +297,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => SelectDriverWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
               ),
             ),
             FFRoute(
@@ -307,17 +309,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               },
               builder: (context, params) => SubmitTourWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, 'tours'),
                 tourRecord: params.getParam('tourRecord', ParamType.Document),
               ),
-            ),
-            FFRoute(
-              name: 'HomePageCopy',
-              path: 'homePageCopy',
-              requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'HomePageCopy')
-                  : HomePageCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -403,7 +397,12 @@ class FFParameters {
 
   Map<String, dynamic> futureParamValues = {};
 
-  bool get isEmpty => state.allParams.isEmpty;
+  // Parameters are empty if the params map is empty or if the only parameter
+  // present is the special extra parameter reserved for the transition info.
+  bool get isEmpty =>
+      state.allParams.isEmpty ||
+      (state.extraMap.length == 1 &&
+          state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
   bool get hasFutures => state.allParams.entries.any(isAsyncParam);
@@ -421,9 +420,10 @@ class FFParameters {
         ),
       ).onError((_, __) => [false]).then((v) => v.every((e) => e));
 
-  dynamic getParam(
+  dynamic getParam<T>(
     String paramName,
     ParamType type, [
+    bool isList = false,
     String? collectionName,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
@@ -438,7 +438,7 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam(param, type, collectionName);
+    return deserializeParam<T>(param, type, isList, collectionName);
   }
 }
 

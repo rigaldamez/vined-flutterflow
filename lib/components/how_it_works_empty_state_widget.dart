@@ -2,9 +2,10 @@ import '../components/new_tour_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HowItWorksEmptyStateWidget extends StatefulWidget {
   const HowItWorksEmptyStateWidget({Key? key}) : super(key: key);
@@ -91,7 +92,7 @@ class _HowItWorksEmptyStateWidgetState
                 alignment: AlignmentDirectional(0, 1),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-                  child: SmoothPageIndicator(
+                  child: smooth_page_indicator.SmoothPageIndicator(
                     controller: pageViewController ??=
                         PageController(initialPage: 0),
                     count: 3,
@@ -103,7 +104,7 @@ class _HowItWorksEmptyStateWidgetState
                         curve: Curves.ease,
                       );
                     },
-                    effect: ExpandingDotsEffect(
+                    effect: smooth_page_indicator.ExpandingDotsEffect(
                       expansionFactor: 3,
                       spacing: 8,
                       radius: 16,
@@ -136,7 +137,7 @@ class _HowItWorksEmptyStateWidgetState
                     ),
                   );
                 },
-              );
+              ).then((value) => setState(() {}));
             },
             text: 'Create Tour',
             options: FFButtonOptions(

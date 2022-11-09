@@ -3,6 +3,8 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BaseHomePageWidget extends StatefulWidget {
@@ -17,16 +19,22 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
   final animationsMap = {
     'rowOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 800,
-      delay: 100,
-      hideBeforeAnimating: false,
-      fadeIn: true,
-      initialState: AnimationState(
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        opacity: 1,
-      ),
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 800.ms,
+          begin: 0,
+          end: 1,
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 800.ms,
+          begin: 1,
+          end: 1,
+        ),
+      ],
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -34,9 +42,10 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
   }
@@ -188,7 +197,7 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
                     ),
                   ),
                 ],
-              ).animated([animationsMap['rowOnPageLoadAnimation']!]),
+              ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation']!),
             ],
           ),
         ),

@@ -35,6 +35,12 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
   }
 
   @override
+  void dispose() {
+    tourNameTextFieldController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -136,6 +142,20 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                         borderRadius: BorderRadius.circular(34),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(34),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(34),
+                                      ),
+                                      focusedErrorBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,

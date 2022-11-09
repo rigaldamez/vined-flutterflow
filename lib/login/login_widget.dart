@@ -171,6 +171,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           if (user == null) {
                                                             return;
                                                           }
+
                                                           context.goNamedAuth(
                                                               'HomePage',
                                                               mounted);
@@ -263,6 +264,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     if (user == null) {
                                                       return;
                                                     }
+
                                                     context.goNamedAuth(
                                                         'HomePage', mounted);
                                                   },
@@ -335,6 +337,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 if (user == null) {
                                                   return;
                                                 }
+
                                                 context.goNamedAuth(
                                                     'HomePage', mounted);
                                               },
@@ -509,6 +512,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           if (user == null) {
                                                             return;
                                                           }
+
                                                           context.goNamedAuth(
                                                               'HomePage',
                                                               mounted);
@@ -601,6 +605,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     if (user == null) {
                                                       return;
                                                     }
+
                                                     context.goNamedAuth(
                                                         'HomePage', mounted);
                                                   },
@@ -673,6 +678,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 if (user == null) {
                                                   return;
                                                 }
+
                                                 context.goNamedAuth(
                                                     'HomePage', mounted);
                                               },

@@ -10,8 +10,13 @@ class VinedFirebaseUser {
 VinedFirebaseUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<VinedFirebaseUser> vinedFirebaseUserStream() => FirebaseAuth.instance
-    .authStateChanges()
-    .debounce((user) => user == null && !loggedIn
-        ? TimerStream(true, const Duration(seconds: 1))
-        : Stream.value(user))
-    .map<VinedFirebaseUser>((user) => currentUser = VinedFirebaseUser(user));
+        .authStateChanges()
+        .debounce((user) => user == null && !loggedIn
+            ? TimerStream(true, const Duration(seconds: 1))
+            : Stream.value(user))
+        .map<VinedFirebaseUser>(
+      (user) {
+        currentUser = VinedFirebaseUser(user);
+        return currentUser!;
+      },
+    );

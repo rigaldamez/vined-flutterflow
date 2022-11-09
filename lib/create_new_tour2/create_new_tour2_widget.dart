@@ -286,12 +286,14 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                           FFAppState().newTourPricePP =
                                               gridViewTransportPricingRecord
                                                   .price!);
+
                                       context.pushNamed(
                                         'CreateNewTour3',
                                         queryParams: {
                                           'regionIDRef': serializeParam(
-                                              widget.regionIDRef,
-                                              ParamType.DocumentReference),
+                                            widget.regionIDRef,
+                                            ParamType.DocumentReference,
+                                          ),
                                         }.withoutNulls,
                                         extra: <String, dynamic>{
                                           kTransitionInfoKey: TransitionInfo(

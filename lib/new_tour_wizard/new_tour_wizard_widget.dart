@@ -3,9 +3,10 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewTourWizardWidget extends StatefulWidget {
   const NewTourWizardWidget({
@@ -237,7 +238,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                         alignment: AlignmentDirectional(0, -1),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                          child: SmoothPageIndicator(
+                          child: smooth_page_indicator.SmoothPageIndicator(
                             controller: pageViewController ??=
                                 PageController(initialPage: 0),
                             count: 3,
@@ -249,7 +250,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                 curve: Curves.ease,
                               );
                             },
-                            effect: ExpandingDotsEffect(
+                            effect: smooth_page_indicator.ExpandingDotsEffect(
                               expansionFactor: 2,
                               spacing: 8,
                               radius: 16,

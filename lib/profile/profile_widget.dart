@@ -31,6 +31,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   }
 
   @override
+  void dispose() {
+    tourNameTextFieldController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -132,6 +138,20 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         borderRadius: BorderRadius.circular(34),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(34),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(34),
+                                      ),
+                                      focusedErrorBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,

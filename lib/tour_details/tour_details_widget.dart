@@ -63,9 +63,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                 'submitTour',
                 queryParams: {
                   'tourID': serializeParam(
-                      widget.tourID, ParamType.DocumentReference),
-                  'tourRecord':
-                      serializeParam(widget.tourDocument, ParamType.Document),
+                    widget.tourID,
+                    ParamType.DocumentReference,
+                  ),
+                  'tourRecord': serializeParam(
+                    widget.tourDocument,
+                    ParamType.Document,
+                  ),
                 }.withoutNulls,
                 extra: <String, dynamic>{
                   'tourRecord': widget.tourDocument,
@@ -460,7 +464,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             ),
                                                           );
                                                         },
-                                                      );
+                                                      ).then((value) =>
+                                                          setState(() {}));
                                                     },
                                                     child: Container(
                                                       width: 100,
@@ -570,17 +575,19 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       context.pushNamed(
                                                         'EditTourPassengers',
                                                         queryParams: {
-                                                          'tourID': serializeParam(
-                                                              containerTourReffToursRecord
-                                                                  .reference,
-                                                              ParamType
-                                                                  .DocumentReference),
+                                                          'tourID':
+                                                              serializeParam(
+                                                            containerTourReffToursRecord
+                                                                .reference,
+                                                            ParamType
+                                                                .DocumentReference,
+                                                          ),
                                                           'tourName':
                                                               serializeParam(
-                                                                  containerTourReffToursRecord
-                                                                      .tourName,
-                                                                  ParamType
-                                                                      .String),
+                                                            containerTourReffToursRecord
+                                                                .tourName,
+                                                            ParamType.String,
+                                                          ),
                                                         }.withoutNulls,
                                                         extra: <String,
                                                             dynamic>{
@@ -1046,7 +1053,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   ),
                                                                 );
                                                               },
-                                                            );
+                                                            ).then((value) =>
+                                                                setState(
+                                                                    () {}));
                                                           },
                                                           child: Container(
                                                             width: 100,
@@ -1244,7 +1253,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           ),
                                                                         );
                                                                       },
-                                                                    );
+                                                                    ).then((value) =>
+                                                                        setState(
+                                                                            () {}));
                                                                   },
                                                                 ),
                                                               ],
@@ -1393,7 +1404,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                                   context.pushNamed(
                                                                                                     'chatScreen_sample',
                                                                                                     queryParams: {
-                                                                                                      'chatUser': serializeParam(listViewUsersRecord, ParamType.Document),
+                                                                                                      'chatUser': serializeParam(
+                                                                                                        listViewUsersRecord,
+                                                                                                        ParamType.Document,
+                                                                                                      ),
                                                                                                     }.withoutNulls,
                                                                                                     extra: <String, dynamic>{
                                                                                                       'chatUser': listViewUsersRecord,
@@ -1484,7 +1498,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                     context.pushNamed(
                                                                                       'selectDriver',
                                                                                       queryParams: {
-                                                                                        'tourID': serializeParam(widget.tourID, ParamType.DocumentReference),
+                                                                                        'tourID': serializeParam(
+                                                                                          widget.tourID,
+                                                                                          ParamType.DocumentReference,
+                                                                                        ),
                                                                                       }.withoutNulls,
                                                                                       extra: <String, dynamic>{
                                                                                         kTransitionInfoKey: TransitionInfo(
@@ -1932,7 +1949,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           ),
                                                                         );
                                                                       },
-                                                                    );
+                                                                    ).then((value) =>
+                                                                        setState(
+                                                                            () {}));
                                                                   },
                                                                   child:
                                                                       Container(
@@ -2159,11 +2178,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     .pushNamed(
                                                                   'addVenue',
                                                                   queryParams: {
-                                                                    'tourReff': serializeParam(
-                                                                        widget
-                                                                            .tourID,
-                                                                        ParamType
-                                                                            .DocumentReference),
+                                                                    'tourReff':
+                                                                        serializeParam(
+                                                                      widget
+                                                                          .tourID,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
                                                                   }.withoutNulls,
                                                                   extra: <
                                                                       String,

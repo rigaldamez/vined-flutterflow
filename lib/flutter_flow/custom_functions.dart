@@ -127,7 +127,7 @@ String upperCaseString(String? lowercareString) {
 
 String getDayMonthFromDate(DateTime? date) {
   // Get month from Date
-  return DateFormat("d, MMMM").format(date!);
+  return DateFormat("d, MMM").format(date!);
 }
 
 String concatenateStrings(

@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
     _router = createRouter(_appStateNotifier);
     userStream = vinedFirebaseUserStream()
       ..listen((user) => _appStateNotifier.update(user));
+    jwtTokenStream.listen((_) {});
     Future.delayed(
       Duration(seconds: 1),
       () => _appStateNotifier.stopShowingSplashImage(),
@@ -93,9 +94,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage}) : super(key: key);
+  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
 
   final String? initialPage;
+  final Widget? page;
 
   @override
   _NavBarPageState createState() => _NavBarPageState();
@@ -103,12 +105,14 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'HomePage';
+  String _currentPageName = 'HomePage';
+  late Widget? _currentPage;
 
   @override
   void initState() {
     super.initState();
-    _currentPage = widget.initialPage ?? _currentPage;
+    _currentPageName = widget.initialPage ?? _currentPageName;
+    _currentPage = widget.page;
   }
 
   @override
@@ -118,15 +122,17 @@ class _NavBarPageState extends State<NavBarPage> {
       'CreateTour': CreateTourWidget(),
       'Profile': ProfileWidget(),
       'Tours': ToursWidget(),
-      'HomePageCopy': HomePageCopyWidget(),
     };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPage);
+    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
-      body: tabs[_currentPage],
+      body: _currentPage ?? tabs[_currentPageName],
       extendBody: true,
       bottomNavigationBar: FloatingNavbar(
         currentIndex: currentIndex,
-        onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
+        onTap: (i) => setState(() {
+          _currentPage = null;
+          _currentPageName = tabs.keys.toList()[i];
+        }),
         backgroundColor: FlutterFlowTheme.of(context).black,
         selectedItemColor: FlutterFlowTheme.of(context).purplePastel,
         unselectedItemColor: Color(0xFFF4F4F4),
@@ -226,30 +232,6 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? FlutterFlowTheme.of(context).purplePastel
-                        : Color(0xFFF4F4F4),
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.wine_bar,
-                  color: currentIndex == 4
-                      ? FlutterFlowTheme.of(context).purplePastel
-                      : Color(0xFFF4F4F4),
-                  size: 24,
-                ),
-                Text(
-                  'Explore',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).purplePastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,

@@ -5,6 +5,8 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FIlterWineriesWidget extends StatefulWidget {
@@ -16,34 +18,47 @@ class FIlterWineriesWidget extends StatefulWidget {
 
 class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
     with TickerProviderStateMixin {
-  TextEditingController? textController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 200,
-      hideBeforeAnimating: false,
-      fadeIn: true,
-      initialState: AnimationState(
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        opacity: 1,
-      ),
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 1,
+          end: 1,
+        ),
+      ],
     ),
   };
+  TextEditingController? textController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
     textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -99,8 +114,8 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                       onPressed: () async {
                         context.pop();
                       },
-                    ).animated(
-                        [animationsMap['iconButtonOnPageLoadAnimation']!]),
+                    ).animateOnPageLoad(
+                        animationsMap['iconButtonOnPageLoadAnimation']!),
                   ],
                 ),
               ),
@@ -150,6 +165,20 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                   borderRadius: BorderRadius.circular(34),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(34),
+                                ),
+                                errorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(34),
+                                ),
+                                focusedErrorBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
                                     width: 1,

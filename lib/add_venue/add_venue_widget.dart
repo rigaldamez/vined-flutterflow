@@ -39,6 +39,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
   @override
   void dispose() {
     _streamSubscriptions.forEach((s) => s?.cancel());
+    textController?.dispose();
     super.dispose();
   }
 
@@ -174,6 +175,23 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                               BorderRadius.circular(32),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(32),
+                                        ),
+                                        errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(32),
+                                        ),
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
@@ -624,7 +642,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   ),
                                                                                 );
                                                                               },
-                                                                            );
+                                                                            ).then((value) =>
+                                                                                setState(() {}));
                                                                           } else {
                                                                             if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord.passengers,
                                                                                 columnAppConfigRecord!.largeGroupThreshold)) {
@@ -647,7 +666,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                     ),
                                                                                   );
                                                                                 },
-                                                                              );
+                                                                              ).then((value) => setState(() {}));
                                                                             } else {
                                                                               if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord.largeGroupVenueEarlySeatingCount, columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
                                                                                 await showModalBottomSheet(
@@ -669,7 +688,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       ),
                                                                                     );
                                                                                   },
-                                                                                );
+                                                                                ).then((value) => setState(() {}));
                                                                               } else {
                                                                                 await showDialog(
                                                                                   context: context,
@@ -895,7 +914,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               ),
                                                                             );
                                                                           },
-                                                                        );
+                                                                        ).then((value) =>
+                                                                            setState(() {}));
                                                                       } else {
                                                                         if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(
                                                                             containerToursRecord.passengers,
@@ -923,7 +943,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 ),
                                                                               );
                                                                             },
-                                                                          );
+                                                                          ).then((value) =>
+                                                                              setState(() {}));
                                                                         } else {
                                                                           if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(
                                                                               containerToursRecord.largeGroupVenueEarlySeatingCount,
@@ -948,7 +969,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   ),
                                                                                 );
                                                                               },
-                                                                            );
+                                                                            ).then((value) =>
+                                                                                setState(() {}));
                                                                           } else {
                                                                             await showDialog(
                                                                               context: context,

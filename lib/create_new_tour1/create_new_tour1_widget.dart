@@ -217,6 +217,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                       gridViewRegionsRecord.regionID!);
                                   setState(() => FFAppState().newTourRegionRef =
                                       gridViewRegionsRecord.reference);
+
                                   context.pushNamed(
                                     'CreateNewTour2',
                                     extra: <String, dynamic>{

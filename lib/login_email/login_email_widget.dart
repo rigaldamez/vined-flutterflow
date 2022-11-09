@@ -16,6 +16,7 @@ class LoginEmailWidget extends StatefulWidget {
 class _LoginEmailWidgetState extends State<LoginEmailWidget> {
   TextEditingController? emailTextFieldController;
   TextEditingController? passwordTextField1Controller;
+
   late bool passwordTextField1Visibility;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -26,6 +27,13 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
     emailTextFieldController = TextEditingController();
     passwordTextField1Controller = TextEditingController();
     passwordTextField1Visibility = false;
+  }
+
+  @override
+  void dispose() {
+    emailTextFieldController?.dispose();
+    passwordTextField1Controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -108,6 +116,20 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                               ),
                               borderRadius: BorderRadius.circular(34),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(34),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(34),
+                            ),
                             filled: true,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
@@ -160,6 +182,20 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                               borderRadius: BorderRadius.circular(34),
                             ),
                             focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(34),
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(34),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
                                 width: 1,
