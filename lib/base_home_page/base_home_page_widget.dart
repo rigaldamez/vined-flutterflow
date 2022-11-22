@@ -48,6 +48,8 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -48,6 +48,8 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
         setState(() => _chatInfo = info);
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

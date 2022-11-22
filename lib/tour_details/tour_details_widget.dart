@@ -33,6 +33,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -59,27 +66,46 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
               floatingActionButtonSelectedVenuesRecordList = snapshot.data!;
           return FloatingActionButton.extended(
             onPressed: () async {
-              context.pushNamed(
-                'submitTour',
-                queryParams: {
-                  'tourID': serializeParam(
-                    widget.tourID,
-                    ParamType.DocumentReference,
-                  ),
-                  'tourRecord': serializeParam(
-                    widget.tourDocument,
-                    ParamType.Document,
-                  ),
-                }.withoutNulls,
-                extra: <String, dynamic>{
-                  'tourRecord': widget.tourDocument,
-                  kTransitionInfoKey: TransitionInfo(
-                    hasTransition: true,
-                    transitionType: PageTransitionType.bottomToTop,
-                    duration: Duration(milliseconds: 500),
-                  ),
-                },
-              );
+              if (functions.isSelectedVenuesListEmpty(
+                  floatingActionButtonSelectedVenuesRecordList.toList())) {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: Text('Your itinerary is empty'),
+                      content: Text('Add at least one venue to your itinery'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: Text('Got it!'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                context.pushNamed(
+                  'submitTour',
+                  queryParams: {
+                    'tourID': serializeParam(
+                      widget.tourID,
+                      ParamType.DocumentReference,
+                    ),
+                    'tourRecord': serializeParam(
+                      widget.tourDocument,
+                      ParamType.Document,
+                    ),
+                  }.withoutNulls,
+                  extra: <String, dynamic>{
+                    'tourRecord': widget.tourDocument,
+                    kTransitionInfoKey: TransitionInfo(
+                      hasTransition: true,
+                      transitionType: PageTransitionType.bottomToTop,
+                      duration: Duration(milliseconds: 150),
+                    ),
+                  },
+                );
+              }
             },
             backgroundColor: FlutterFlowTheme.of(context).black,
             icon: Icon(
@@ -1718,7 +1744,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     .antiAliasWithSaveLayer,
                                                                 color: Colors
                                                                     .white,
-                                                                elevation: 2,
+                                                                elevation: 4,
                                                                 shape:
                                                                     RoundedRectangleBorder(
                                                                   borderRadius:
@@ -1756,7 +1782,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0,
-                                                                              1.02),
+                                                                              1),
                                                                       child:
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1987,68 +2013,104 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           10,
                                                                           10),
                                                                   child:
-                                                                      Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.8,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        1,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Color(
-                                                                          0x91F4F4F4),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              28),
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Consider Replacing',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontWeight: FontWeight.w600,
-                                                                              ),
-                                                                        ),
-                                                                        if (!functions.isVenueOpen(
-                                                                            rowSelectedVenueVenuesRecord.openDays!.toList(),
-                                                                            containerTourReffToursRecord))
-                                                                          Align(
-                                                                            alignment:
-                                                                                AlignmentDirectional(0, 0),
+                                                                      InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      await showModalBottomSheet(
+                                                                        isScrollControlled:
+                                                                            true,
+                                                                        backgroundColor:
+                                                                            Colors.transparent,
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (context) {
+                                                                          return Padding(
+                                                                            padding:
+                                                                                MediaQuery.of(context).viewInsets,
                                                                             child:
-                                                                                Text(
-                                                                              'Venue closed',
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: 'Poppins',
-                                                                                    color: FlutterFlowTheme.of(context).black,
-                                                                                    fontSize: 12,
+                                                                                Container(
+                                                                              height: 580,
+                                                                              child: DelUpdateVenueBtmsheetWidget(
+                                                                                tourReff: widget.tourID,
+                                                                                venueDoc: rowSelectedVenueVenuesRecord,
+                                                                                selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord.reference,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ).then((value) =>
+                                                                          setState(
+                                                                              () {}));
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.8,
+                                                                      height: double
+                                                                          .infinity,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Color(
+                                                                            0x91F4F4F4),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(28),
+                                                                      ),
+                                                                      child:
+                                                                          Stack(
+                                                                        alignment: AlignmentDirectional(
+                                                                            0,
+                                                                            0),
+                                                                        children: [
+                                                                          Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Text(
+                                                                                'Consider Replacing',
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    ),
+                                                                              ),
+                                                                              if (!functions.isVenueOpen(rowSelectedVenueVenuesRecord.openDays!.toList(), containerTourReffToursRecord))
+                                                                                Align(
+                                                                                  alignment: AlignmentDirectional(0, 0),
+                                                                                  child: Text(
+                                                                                    'Venue closed',
+                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                          fontFamily: 'Poppins',
+                                                                                          color: FlutterFlowTheme.of(context).black,
+                                                                                          fontSize: 12,
+                                                                                        ),
                                                                                   ),
+                                                                                ),
+                                                                              if (functions.doesTourExceedsVenueCapacity(containerTourReffToursRecord, rowSelectedVenueVenuesRecord.capacity))
+                                                                                Text(
+                                                                                  'Tour group size exceeded',
+                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                        fontFamily: 'Poppins',
+                                                                                        fontSize: 12,
+                                                                                      ),
+                                                                                ),
+                                                                            ],
+                                                                          ),
+                                                                          Container(
+                                                                            width:
+                                                                                double.infinity,
+                                                                            height:
+                                                                                double.infinity,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                             ),
                                                                           ),
-                                                                        if (functions.doesTourExceedsVenueCapacity(
-                                                                            containerTourReffToursRecord,
-                                                                            rowSelectedVenueVenuesRecord.capacity))
-                                                                          Text(
-                                                                            'Exceeds capacity',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Poppins',
-                                                                                  fontSize: 12,
-                                                                                ),
-                                                                          ),
-                                                                      ],
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),

@@ -34,6 +34,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

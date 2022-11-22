@@ -20,6 +20,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
   void initState() {
     super.initState();
     tourNameTextFieldController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

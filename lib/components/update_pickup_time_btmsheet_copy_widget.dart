@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +30,13 @@ class UpdatePickupTimeBtmsheetCopyWidget extends StatefulWidget {
 class _UpdatePickupTimeBtmsheetCopyWidgetState
     extends State<UpdatePickupTimeBtmsheetCopyWidget> {
   DateTime? datePicked;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,15 +194,42 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                         size: 16,
                                       ),
                                       onPressed: () async {
-                                        await DatePicker.showTimePicker(
-                                          context,
-                                          showTitleActions: true,
-                                          onConfirm: (date) {
-                                            setState(() => datePicked = date);
-                                          },
-                                          currentTime: functions
-                                              .getTodayTimestampZeroMinutes(),
-                                        );
+                                        if (kIsWeb) {
+                                          final _datePickedTime =
+                                              await showTimePicker(
+                                            context: context,
+                                            initialTime: TimeOfDay.fromDateTime(
+                                                functions
+                                                    .getTodayTimestampZeroMinutes()),
+                                          );
+                                          if (_datePickedTime != null) {
+                                            setState(
+                                              () => datePicked = DateTime(
+                                                functions
+                                                    .getTodayTimestampZeroMinutes()
+                                                    .year,
+                                                functions
+                                                    .getTodayTimestampZeroMinutes()
+                                                    .month,
+                                                functions
+                                                    .getTodayTimestampZeroMinutes()
+                                                    .day,
+                                                _datePickedTime.hour,
+                                                _datePickedTime.minute,
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          await DatePicker.showTimePicker(
+                                            context,
+                                            showTitleActions: true,
+                                            onConfirm: (date) {
+                                              setState(() => datePicked = date);
+                                            },
+                                            currentTime: functions
+                                                .getTodayTimestampZeroMinutes(),
+                                          );
+                                        }
                                       },
                                     ),
                                   ],

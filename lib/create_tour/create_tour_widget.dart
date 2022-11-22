@@ -32,6 +32,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
   void initState() {
     super.initState();
     tourNameTextFieldController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -53,6 +53,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
     );
 
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

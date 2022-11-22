@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +26,13 @@ class EditTourDateBottomsheetWidget extends StatefulWidget {
 class _EditTourDateBottomsheetWidgetState
     extends State<EditTourDateBottomsheetWidget> {
   DateTime? datePicked;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,32 +221,89 @@ class _EditTourDateBottomsheetWidgetState
                                                 : null;
                                         return FFButtonWidget(
                                           onPressed: () async {
-                                            await DatePicker.showDateTimePicker(
-                                              context,
-                                              showTitleActions: true,
-                                              onConfirm: (date) {
+                                            if (kIsWeb) {
+                                              final _datePickedDate =
+                                                  await showDatePicker(
+                                                context: context,
+                                                initialDate: functions
+                                                    .getCurrentDateTimePlusAweek(
+                                                        getCurrentTimestamp,
+                                                        buttonAppConfigRecord!
+                                                            .tourLeadTime,
+                                                        valueOrDefault<bool>(
+                                                            currentUserDocument
+                                                                ?.tourLeadTimeExempted,
+                                                            false)),
+                                                firstDate:
+                                                    functions.getCurrentDateTimePlusAweek(
+                                                        getCurrentTimestamp,
+                                                        buttonAppConfigRecord!
+                                                            .tourLeadTime,
+                                                        valueOrDefault<bool>(
+                                                            currentUserDocument
+                                                                ?.tourLeadTimeExempted,
+                                                            false)),
+                                                lastDate: DateTime(2050),
+                                              );
+
+                                              TimeOfDay? _datePickedTime;
+                                              if (_datePickedDate != null) {
+                                                _datePickedTime =
+                                                    await showTimePicker(
+                                                  context: context,
+                                                  initialTime: TimeOfDay.fromDateTime(
+                                                      functions.getCurrentDateTimePlusAweek(
+                                                          getCurrentTimestamp,
+                                                          buttonAppConfigRecord!
+                                                              .tourLeadTime,
+                                                          valueOrDefault<bool>(
+                                                              currentUserDocument
+                                                                  ?.tourLeadTimeExempted,
+                                                              false))),
+                                                );
+                                              }
+
+                                              if (_datePickedDate != null &&
+                                                  _datePickedTime != null) {
                                                 setState(
-                                                    () => datePicked = date);
-                                              },
-                                              currentTime: functions
-                                                  .getCurrentDateTimePlusAweek(
-                                                      getCurrentTimestamp,
-                                                      buttonAppConfigRecord!
-                                                          .tourLeadTime,
-                                                      valueOrDefault<bool>(
-                                                          currentUserDocument
-                                                              ?.tourLeadTimeExempted,
-                                                          false)),
-                                              minTime: functions
-                                                  .getCurrentDateTimePlusAweek(
-                                                      getCurrentTimestamp,
-                                                      buttonAppConfigRecord!
-                                                          .tourLeadTime,
-                                                      valueOrDefault<bool>(
-                                                          currentUserDocument
-                                                              ?.tourLeadTimeExempted,
-                                                          false)),
-                                            );
+                                                  () => datePicked = DateTime(
+                                                    _datePickedDate.year,
+                                                    _datePickedDate.month,
+                                                    _datePickedDate.day,
+                                                    _datePickedTime!.hour,
+                                                    _datePickedTime.minute,
+                                                  ),
+                                                );
+                                              }
+                                            } else {
+                                              await DatePicker
+                                                  .showDateTimePicker(
+                                                context,
+                                                showTitleActions: true,
+                                                onConfirm: (date) {
+                                                  setState(
+                                                      () => datePicked = date);
+                                                },
+                                                currentTime: functions
+                                                    .getCurrentDateTimePlusAweek(
+                                                        getCurrentTimestamp,
+                                                        buttonAppConfigRecord!
+                                                            .tourLeadTime,
+                                                        valueOrDefault<bool>(
+                                                            currentUserDocument
+                                                                ?.tourLeadTimeExempted,
+                                                            false)),
+                                                minTime: functions
+                                                    .getCurrentDateTimePlusAweek(
+                                                        getCurrentTimestamp,
+                                                        buttonAppConfigRecord!
+                                                            .tourLeadTime,
+                                                        valueOrDefault<bool>(
+                                                            currentUserDocument
+                                                                ?.tourLeadTimeExempted,
+                                                            false)),
+                                              );
+                                            }
                                           },
                                           text: 'Select New Date',
                                           options: FFButtonOptions(

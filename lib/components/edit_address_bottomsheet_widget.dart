@@ -30,6 +30,13 @@ class _EditAddressBottomsheetWidgetState
   var placePickerValue = FFPlace();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<ToursRecord>(
       stream: ToursRecord.getDocument(widget.tourID!),

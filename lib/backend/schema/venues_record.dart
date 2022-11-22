@@ -84,8 +84,8 @@ abstract class VenuesRecord
           ..regionName = snapshot.data['regionName']
           ..tastingFee = snapshot.data['tastingFee']?.toDouble()
           ..capacity = snapshot.data['capacity']?.round()
-          ..openDays =
-              safeGet(() => ListBuilder(snapshot.data['openDays']?.round()))
+          ..openDays = safeGet(() => ListBuilder(
+              snapshot.data['openDays'].map((i) => (i as num).round())))
           ..maxCapacityEnforced = snapshot.data['maxCapacityEnforced']
           ..mustAcknowledgeTCs = snapshot.data['mustAcknowledgeTCs']
           ..regionRef = safeGet(() => toRef(snapshot.data['region_Ref']))

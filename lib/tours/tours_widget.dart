@@ -24,6 +24,13 @@ class _ToursWidgetState extends State<ToursWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   void dispose() {
     _streamSubscriptions.forEach((s) => s?.cancel());
     super.dispose();

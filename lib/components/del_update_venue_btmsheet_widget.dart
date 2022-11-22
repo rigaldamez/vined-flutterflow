@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +32,13 @@ class DelUpdateVenueBtmsheetWidget extends StatefulWidget {
 class _DelUpdateVenueBtmsheetWidgetState
     extends State<DelUpdateVenueBtmsheetWidget> {
   DateTime? datePicked;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -559,16 +567,43 @@ class _DelUpdateVenueBtmsheetWidgetState
                                             size: 16,
                                           ),
                                           onPressed: () async {
-                                            await DatePicker.showTimePicker(
-                                              context,
-                                              showTitleActions: true,
-                                              onConfirm: (date) {
+                                            if (kIsWeb) {
+                                              final _datePickedTime =
+                                                  await showTimePicker(
+                                                context: context,
+                                                initialTime: TimeOfDay
+                                                    .fromDateTime(functions
+                                                        .getTodayTimestampZeroMinutes()),
+                                              );
+                                              if (_datePickedTime != null) {
                                                 setState(
-                                                    () => datePicked = date);
-                                              },
-                                              currentTime: functions
-                                                  .getTodayTimestampZeroMinutes(),
-                                            );
+                                                  () => datePicked = DateTime(
+                                                    functions
+                                                        .getTodayTimestampZeroMinutes()
+                                                        .year,
+                                                    functions
+                                                        .getTodayTimestampZeroMinutes()
+                                                        .month,
+                                                    functions
+                                                        .getTodayTimestampZeroMinutes()
+                                                        .day,
+                                                    _datePickedTime.hour,
+                                                    _datePickedTime.minute,
+                                                  ),
+                                                );
+                                              }
+                                            } else {
+                                              await DatePicker.showTimePicker(
+                                                context,
+                                                showTitleActions: true,
+                                                onConfirm: (date) {
+                                                  setState(
+                                                      () => datePicked = date);
+                                                },
+                                                currentTime: functions
+                                                    .getTodayTimestampZeroMinutes(),
+                                              );
+                                            }
 
                                             final selectedVenuesUpdateData =
                                                 createSelectedVenuesRecordData(

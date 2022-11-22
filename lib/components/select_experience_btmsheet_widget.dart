@@ -35,6 +35,13 @@ class _SelectExperienceBtmsheetWidgetState
   SelectedVenuesRecord? lastSelectedVenue3;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<SelectedVenuesRecord>>(
       future: querySelectedVenuesRecordOnce(
@@ -520,6 +527,20 @@ class _SelectExperienceBtmsheetWidgetState
                       },
                     ),
                   ),
+                ),
+                ListView(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFF5F5F5),
+                      child: Stack(
+                        children: [],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

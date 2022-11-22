@@ -95,5 +95,17 @@ service cloud.firestore {
       allow read: if true;
     }
 
+
+    match /tours/{parent}/payment/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/payment/{document} {
+      allow read: if true;
+    }
+
   }
 }

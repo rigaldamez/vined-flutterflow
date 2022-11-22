@@ -16,6 +16,7 @@ import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
 import 'schema/accepted_tours_record.dart';
 import 'schema/tasting_experiences_record.dart';
+import 'schema/payment_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -35,6 +36,7 @@ export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
 export 'schema/accepted_tours_record.dart';
 export 'schema/tasting_experiences_record.dart';
+export 'schema/payment_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Stream<List<VenuesRecord>> queryVenuesRecord({
@@ -547,6 +549,51 @@ Future<FFFirestorePage<TastingExperiencesRecord>>
           pageSize: pageSize,
           isStream: isStream,
         );
+
+/// Functions to query PaymentRecords (as a Stream and as a Future).
+Stream<List<PaymentRecord>> queryPaymentRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PaymentRecord.collection(parent),
+      PaymentRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PaymentRecord>> queryPaymentRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PaymentRecord.collection(parent),
+      PaymentRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<PaymentRecord>> queryPaymentRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      PaymentRecord.collection(parent),
+      PaymentRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
 
 Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
     {Query Function(Query)? queryBuilder,

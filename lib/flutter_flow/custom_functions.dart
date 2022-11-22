@@ -180,7 +180,9 @@ bool isArrayEmpty(List<DocumentReference>? arrayList) {
   if (arrayList == null)
     return false;
   else
-    return arrayList.length == 0 ? true : false;
+    //return arrayList.length == 0 ? true : false;
+
+    return arrayList.isEmpty ? true : false;
 }
 
 bool isTourStopsCountLessThanLimitAllowed(
@@ -466,4 +468,26 @@ double updatePassengersCalculatePricePP(
   } else {
     return transportPricePP!;
   }
+}
+
+bool isSelectedVenuesListEmpty(List<SelectedVenuesRecord>? selectedVenues) {
+  // Add your function code here!
+  if (selectedVenues == null) {
+    return true;
+  } else {
+    return selectedVenues.isEmpty ? true : false;
+  }
+}
+
+double getTotalTourAmountPaid(List<PaymentRecord>? paymentArray) {
+  // Add your function code here!
+
+  double totalAmountPaid = 0;
+
+  for (var i = 0; i < paymentArray!.length; i++) {
+    totalAmountPaid += paymentArray[i].amountPaid!;
+    print(totalAmountPaid);
+  }
+
+  return totalAmountPaid;
 }

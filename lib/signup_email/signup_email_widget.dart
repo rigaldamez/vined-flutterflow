@@ -32,6 +32,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
     passwordTextField1Visibility = false;
     passwordTextField2Controller = TextEditingController();
     passwordTextField2Visibility = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

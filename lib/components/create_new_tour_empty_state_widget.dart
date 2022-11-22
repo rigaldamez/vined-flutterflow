@@ -14,6 +14,13 @@ class CreateNewTourEmptyStateWidget extends StatefulWidget {
 class _CreateNewTourEmptyStateWidgetState
     extends State<CreateNewTourEmptyStateWidget> {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),

@@ -10,6 +10,7 @@ import '../flutter_flow/place.dart';
 import 'dart:io';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,6 +38,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -227,31 +229,86 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                         : null;
                                 return InkWell(
                                   onTap: () async {
-                                    await DatePicker.showDateTimePicker(
-                                      context,
-                                      showTitleActions: true,
-                                      onConfirm: (date) {
-                                        setState(() => datePicked = date);
-                                      },
-                                      currentTime:
-                                          functions.getCurrentDateTimePlusAweek(
-                                              datePicked,
-                                              containerAppConfigRecord!
-                                                  .tourLeadTime,
-                                              valueOrDefault<bool>(
-                                                  currentUserDocument
-                                                      ?.tourLeadTimeExempted,
-                                                  false)),
-                                      minTime:
-                                          functions.getCurrentDateTimePlusAweek(
-                                              datePicked,
-                                              containerAppConfigRecord!
-                                                  .tourLeadTime,
-                                              valueOrDefault<bool>(
-                                                  currentUserDocument
-                                                      ?.tourLeadTimeExempted,
-                                                  false)),
-                                    );
+                                    if (kIsWeb) {
+                                      final _datePickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate:
+                                            functions.getCurrentDateTimePlusAweek(
+                                                datePicked,
+                                                containerAppConfigRecord!
+                                                    .tourLeadTime,
+                                                valueOrDefault<bool>(
+                                                    currentUserDocument
+                                                        ?.tourLeadTimeExempted,
+                                                    false)),
+                                        firstDate: functions
+                                            .getCurrentDateTimePlusAweek(
+                                                datePicked,
+                                                containerAppConfigRecord!
+                                                    .tourLeadTime,
+                                                valueOrDefault<bool>(
+                                                    currentUserDocument
+                                                        ?.tourLeadTimeExempted,
+                                                    false)),
+                                        lastDate: DateTime(2050),
+                                      );
+
+                                      TimeOfDay? _datePickedTime;
+                                      if (_datePickedDate != null) {
+                                        _datePickedTime = await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.fromDateTime(
+                                              functions.getCurrentDateTimePlusAweek(
+                                                  datePicked,
+                                                  containerAppConfigRecord!
+                                                      .tourLeadTime,
+                                                  valueOrDefault<bool>(
+                                                      currentUserDocument
+                                                          ?.tourLeadTimeExempted,
+                                                      false))),
+                                        );
+                                      }
+
+                                      if (_datePickedDate != null &&
+                                          _datePickedTime != null) {
+                                        setState(
+                                          () => datePicked = DateTime(
+                                            _datePickedDate.year,
+                                            _datePickedDate.month,
+                                            _datePickedDate.day,
+                                            _datePickedTime!.hour,
+                                            _datePickedTime.minute,
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      await DatePicker.showDateTimePicker(
+                                        context,
+                                        showTitleActions: true,
+                                        onConfirm: (date) {
+                                          setState(() => datePicked = date);
+                                        },
+                                        currentTime:
+                                            functions.getCurrentDateTimePlusAweek(
+                                                datePicked,
+                                                containerAppConfigRecord!
+                                                    .tourLeadTime,
+                                                valueOrDefault<bool>(
+                                                    currentUserDocument
+                                                        ?.tourLeadTimeExempted,
+                                                    false)),
+                                        minTime: functions
+                                            .getCurrentDateTimePlusAweek(
+                                                datePicked,
+                                                containerAppConfigRecord!
+                                                    .tourLeadTime,
+                                                valueOrDefault<bool>(
+                                                    currentUserDocument
+                                                        ?.tourLeadTimeExempted,
+                                                    false)),
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     width:
