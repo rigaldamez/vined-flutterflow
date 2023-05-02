@@ -1,13 +1,16 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'edit_tour_passengers_model.dart';
+export 'edit_tour_passengers_model.dart';
 
 class EditTourPassengersWidget extends StatefulWidget {
   const EditTourPassengersWidget({
@@ -25,17 +28,29 @@ class EditTourPassengersWidget extends StatefulWidget {
 }
 
 class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
+  late EditTourPassengersModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => EditTourPassengersModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
@@ -46,31 +61,31 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
           if (!snapshot.hasData) {
             return Center(
               child: SizedBox(
-                width: 20,
-                height: 20,
+                width: 20.0,
+                height: 20.0,
                 child: CircularProgressIndicator(
-                  color: FlutterFlowTheme.of(context).purplePastel,
+                  color: Color(0xFFB19CD9),
                 ),
               ),
             );
           }
           final containerToursRecord = snapshot.data!;
           return Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 1,
+            width: MediaQuery.of(context).size.width * 1.0,
+            height: MediaQuery.of(context).size.height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  FlutterFlowTheme.of(context).purplePastel,
+                  FlutterFlowTheme.of(context).pinkPastel,
                   FlutterFlowTheme.of(context).greenPastel
                 ],
-                stops: [0, 1],
-                begin: AlignmentDirectional(0, -1),
-                end: AlignmentDirectional(0, 1),
+                stops: [0.0, 1.0],
+                begin: AlignmentDirectional(0.0, -1.0),
+                end: AlignmentDirectional(0, 1.0),
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 26, 12, 20),
+              padding: EdgeInsetsDirectional.fromSTEB(12.0, 26.0, 12.0, 20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -81,13 +96,13 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                     children: [
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
-                        borderRadius: 30,
-                        borderWidth: 1,
-                        buttonSize: 60,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
                         icon: Icon(
                           Icons.arrow_back_rounded,
                           color: Colors.black,
-                          size: 30,
+                          size: 30.0,
                         ),
                         onPressed: () async {
                           context.pop();
@@ -95,25 +110,27 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                       ),
                       Text(
                         'Hello World',
-                        style: FlutterFlowTheme.of(context).subtitle1,
+                        style: FlutterFlowTheme.of(context).titleMedium,
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
                           'No. of Passengers',
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                          style: FlutterFlowTheme.of(context).titleMedium,
                         ),
                       ],
                     ),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                       child: StreamBuilder<List<TransportPricingRecord>>(
                         stream: queryTransportPricingRecord(
                           queryBuilder: (transportPricingRecord) =>
@@ -124,11 +141,10 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 20,
-                                height: 20,
+                                width: 20.0,
+                                height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).purplePastel,
+                                  color: Color(0xFFB19CD9),
                                 ),
                               ),
                             );
@@ -141,9 +157,9 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 4,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 1,
+                              crossAxisSpacing: 10.0,
+                              mainAxisSpacing: 10.0,
+                              childAspectRatio: 1.0,
                             ),
                             scrollDirection: Axis.vertical,
                             itemCount:
@@ -155,34 +171,36 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                               return Stack(
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height:
-                                        MediaQuery.of(context).size.height * 1,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+                                    height: MediaQuery.of(context).size.height *
+                                        1.0,
                                     decoration: BoxDecoration(
                                       color: Colors.black,
-                                      borderRadius: BorderRadius.circular(24),
+                                      borderRadius: BorderRadius.circular(24.0),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         Align(
-                                          alignment: AlignmentDirectional(0, 0),
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Text(
                                             gridViewTransportPricingRecord
                                                 .passengersLbl!
                                                 .toString(),
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily: 'Poppins',
                                                   color: Color(0xFFF4F4F4),
-                                                  fontSize: 20,
+                                                  fontSize: 20.0,
                                                   fontWeight: FontWeight.w800,
                                                 ),
                                           ),
@@ -190,24 +208,25 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                                  0.0, 4.0, 0.0, 0.0),
                                           child: Container(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
                                                 0.14,
-                                            height: 24,
+                                            height: 24.0,
                                             decoration: BoxDecoration(
                                               color: Color(0xFFEEEEEE),
                                               borderRadius:
-                                                  BorderRadius.circular(20),
+                                                  BorderRadius.circular(20.0),
                                             ),
                                             child: Align(
-                                              alignment:
-                                                  AlignmentDirectional(0, 0),
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 2, 0, 0),
+                                                    .fromSTEB(
+                                                        0.0, 2.0, 0.0, 0.0),
                                                 child: AutoSizeText(
                                                   functions.fortmatCurrency(
                                                       gridViewTransportPricingRecord
@@ -216,14 +235,14 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                                   textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .black,
-                                                        fontSize: 12,
+                                                        fontSize: 12.0,
                                                       ),
                                                 ),
                                               ),
@@ -235,29 +254,34 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                   ),
                                   Material(
                                     color: Colors.transparent,
-                                    elevation: 4,
+                                    elevation: 4.0,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50),
+                                      borderRadius: BorderRadius.circular(50.0),
                                     ),
                                     child: Container(
-                                      width: 28,
-                                      height: 28,
+                                      width: 28.0,
+                                      height: 28.0,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFEEEEEE),
-                                        borderRadius: BorderRadius.circular(50),
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
                                         border: Border.all(
-                                          width: 2,
+                                          width: 2.0,
                                         ),
                                       ),
                                       child: Icon(
                                         Icons.people,
                                         color:
                                             FlutterFlowTheme.of(context).black,
-                                        size: 16,
+                                        size: 16.0,
                                       ),
                                     ),
                                   ),
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       final toursUpdateData =
                                           createToursRecordData(
@@ -301,12 +325,14 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                       context.pop();
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context).size.width *
+                                          1.0,
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              1,
+                                              1.0,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(28),
+                                        borderRadius:
+                                            BorderRadius.circular(28.0),
                                       ),
                                     ),
                                   ),

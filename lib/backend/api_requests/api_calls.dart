@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
 
@@ -20,6 +21,8 @@ class GETGeolocationFORAddressCall {
       headers: {},
       params: {},
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -47,5 +50,14 @@ String _serializeList(List? list) {
     return json.encode(list);
   } catch (_) {
     return '[]';
+  }
+}
+
+String _serializeJson(dynamic jsonVar) {
+  jsonVar ??= {};
+  try {
+    return json.encode(jsonVar);
+  } catch (_) {
+    return '{}';
   }
 }

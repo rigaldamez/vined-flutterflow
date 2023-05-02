@@ -1,12 +1,15 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'select_driver_model.dart';
+export 'select_driver_model.dart';
 
 class SelectDriverWidget extends StatefulWidget {
   const SelectDriverWidget({
@@ -21,40 +24,48 @@ class SelectDriverWidget extends StatefulWidget {
 }
 
 class _SelectDriverWidgetState extends State<SelectDriverWidget> {
-  TextEditingController? textController;
+  late SelectDriverModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => SelectDriverModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
+    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: StreamBuilder<ToursRecord>(
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: StreamBuilder<ToursRecord>(
           stream: ToursRecord.getDocument(widget.tourID!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
               return Center(
                 child: SizedBox(
-                  width: 20,
-                  height: 20,
+                  width: 20.0,
+                  height: 20.0,
                   child: CircularProgressIndicator(
-                    color: FlutterFlowTheme.of(context).purplePastel,
+                    color: Color(0xFFB19CD9),
                   ),
                 ),
               );
@@ -66,16 +77,16 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    FlutterFlowTheme.of(context).purplePastel,
+                    FlutterFlowTheme.of(context).pinkPastel,
                     FlutterFlowTheme.of(context).greenPastel
                   ],
-                  stops: [0, 1],
-                  begin: AlignmentDirectional(0, -1),
-                  end: AlignmentDirectional(0, 1),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                 child: StreamBuilder<List<AppConfigRecord>>(
                   stream: queryAppConfigRecord(
                     singleRecord: true,
@@ -85,17 +96,17 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 20,
-                          height: 20,
+                          width: 20.0,
+                          height: 20.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).purplePastel,
+                            color: Color(0xFFB19CD9),
                           ),
                         ),
                       );
                     }
                     List<AppConfigRecord> columnAppConfigRecordList =
                         snapshot.data!;
-                    // Return an empty Container when the document does not exist.
+                    // Return an empty Container when the item does not exist.
                     if (snapshot.data!.isEmpty) {
                       return Container();
                     }
@@ -107,20 +118,21 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 20.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 60.0,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Colors.black,
-                                  size: 30,
+                                  size: 30.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -129,10 +141,10 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                               Text(
                                 'select driver',
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
-                                      fontSize: 24,
+                                      fontSize: 24.0,
                                       fontWeight: FontWeight.w800,
                                     ),
                               ),
@@ -148,12 +160,13 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
                                     decoration: BoxDecoration(),
                                     child: TextFormField(
-                                      controller: textController,
+                                      controller: _model.textController,
                                       onChanged: (_) => EasyDebounce.debounce(
-                                        'textController',
+                                        '_model.textController',
                                         Duration(milliseconds: 2000),
                                         () => setState(() {}),
                                       ),
@@ -163,67 +176,70 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         errorBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         focusedErrorBorder:
                                             UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         filled: true,
                                         fillColor: Color(0x19000000),
-                                        suffixIcon:
-                                            textController!.text.isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      textController?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color: Color(0xFF757575),
-                                                      size: 20,
-                                                    ),
-                                                  )
-                                                : null,
+                                        suffixIcon: _model
+                                                .textController!.text.isNotEmpty
+                                            ? InkWell(
+                                                onTap: () async {
+                                                  _model.textController
+                                                      ?.clear();
+                                                  setState(() {});
+                                                },
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  color: Color(0xFF757575),
+                                                  size: 20.0,
+                                                ),
+                                              )
+                                            : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w500,
                                           ),
                                       textAlign: TextAlign.start,
+                                      validator: _model.textControllerValidator
+                                          .asValidator(context),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(1, 0),
+                                    alignment: AlignmentDirectional(1.0, 0.0),
                                     child: Container(
-                                      width: 50,
-                                      height: 50,
+                                      width: 50.0,
+                                      height: 50.0,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFEEEEEE),
                                         shape: BoxShape.circle,
@@ -231,7 +247,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                       child: Icon(
                                         Icons.search,
                                         color: Colors.black,
-                                        size: 14,
+                                        size: 14.0,
                                       ),
                                     ),
                                   ),
@@ -242,8 +258,8 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
                             child: StreamBuilder<List<UsersRecord>>(
                               stream: queryUsersRecord(
                                 queryBuilder: (usersRecord) =>
@@ -256,11 +272,10 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 20,
-                                      height: 20,
+                                      width: 20.0,
+                                      height: 20.0,
                                       child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .purplePastel,
+                                        color: Color(0xFFB19CD9),
                                       ),
                                     ),
                                   );
@@ -276,7 +291,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                         listViewUsersRecordList[listViewIndex];
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 0, 6, 6),
+                                          6.0, 0.0, 6.0, 6.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -287,22 +302,23 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                     .size
                                                     .width *
                                                 0.96,
-                                            height: 80,
+                                            height: 80.0,
                                             decoration: BoxDecoration(
                                               color: Color(0xFFEEEEEE),
                                               boxShadow: [
                                                 BoxShadow(
-                                                  blurRadius: 10,
+                                                  blurRadius: 10.0,
                                                   color: Color(0x19000000),
-                                                  spreadRadius: 10,
+                                                  spreadRadius: 10.0,
                                                 )
                                               ],
                                               borderRadius:
-                                                  BorderRadius.circular(20),
+                                                  BorderRadius.circular(20.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(20, 0, 20, 0),
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 20.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -310,8 +326,8 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Container(
-                                                    width: 150,
-                                                    height: 100,
+                                                    width: 150.0,
+                                                    height: 100.0,
                                                     decoration: BoxDecoration(
                                                       color: Color(0xFFEEEEEE),
                                                     ),
@@ -323,8 +339,8 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                               .start,
                                                       children: [
                                                         Container(
-                                                          width: 50,
-                                                          height: 50,
+                                                          width: 50.0,
+                                                          height: 50.0,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Color(
@@ -336,12 +352,12 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        50),
+                                                                        50.0),
                                                             child:
                                                                 Image.network(
                                                               'https://picsum.photos/seed/6/600',
-                                                              width: 100,
-                                                              height: 100,
+                                                              width: 100.0,
+                                                              height: 100.0,
                                                               fit: BoxFit.cover,
                                                             ),
                                                           ),
@@ -349,8 +365,11 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(20,
-                                                                      0, 0, 0),
+                                                                  .fromSTEB(
+                                                                      20.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -372,12 +391,12 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                         .displayName!,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
                                                                               'Poppins',
                                                                           fontSize:
-                                                                              16,
+                                                                              16.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                         ),
@@ -388,10 +407,10 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                 padding:
                                                                     EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0,
-                                                                            4,
-                                                                            0,
-                                                                            0),
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                 child: Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
@@ -413,25 +432,24 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                             color:
                                                                                 Colors.black,
                                                                             size:
-                                                                                18,
+                                                                                18.0,
                                                                           ),
                                                                           Text(
                                                                             '32',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Poppins',
-                                                                                  fontSize: 10,
+                                                                                  fontSize: 10.0,
                                                                                 ),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              8,
-                                                                              0,
-                                                                              0,
-                                                                              0),
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          8.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                       child:
                                                                           Container(
                                                                         decoration:
@@ -447,13 +465,13 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                             Icon(
                                                                               Icons.star_rounded,
                                                                               color: Colors.black,
-                                                                              size: 18,
+                                                                              size: 18.0,
                                                                             ),
                                                                             Text(
                                                                               '5.0',
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Poppins',
-                                                                                    fontSize: 10,
+                                                                                    fontSize: 10.0,
                                                                                   ),
                                                                             ),
                                                                           ],
@@ -461,12 +479,11 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              8,
-                                                                              0,
-                                                                              0,
-                                                                              0),
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          8.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                       child:
                                                                           Container(
                                                                         decoration:
@@ -482,13 +499,13 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                             Icon(
                                                                               Icons.list_rounded,
                                                                               color: Colors.black,
-                                                                              size: 18,
+                                                                              size: 18.0,
                                                                             ),
                                                                             Text(
                                                                               '153',
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Poppins',
-                                                                                    fontSize: 10,
+                                                                                    fontSize: 10.0,
                                                                                   ),
                                                                             ),
                                                                           ],
@@ -505,8 +522,8 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: 50,
-                                                    height: 50,
+                                                    width: 50.0,
+                                                    height: 50.0,
                                                     decoration: BoxDecoration(
                                                       color: Color(0xFFEEEEEE),
                                                     ),
@@ -514,14 +531,14 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                         FlutterFlowIconButton(
                                                       borderColor:
                                                           Colors.transparent,
-                                                      borderRadius: 30,
-                                                      borderWidth: 1,
-                                                      buttonSize: 60,
+                                                      borderRadius: 30.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 60.0,
                                                       icon: Icon(
                                                         Icons
                                                             .add_circle_outline_rounded,
                                                         color: Colors.black,
-                                                        size: 30,
+                                                        size: 30.0,
                                                       ),
                                                       onPressed: () async {
                                                         final toursUpdateData =

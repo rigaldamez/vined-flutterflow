@@ -234,26 +234,20 @@ class _$UsersRecord extends UsersRecord {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc($jc(0, email.hashCode),
-                                            displayName.hashCode),
-                                        photoUrl.hashCode),
-                                    uid.hashCode),
-                                createdTime.hashCode),
-                            phoneNumber.hashCode),
-                        username.hashCode),
-                    tourLeadTimeExempted.hashCode),
-                driverOnboardedMarket.hashCode),
-            isDriver.hashCode),
-        ffRef.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, displayName.hashCode);
+    _$hash = $jc(_$hash, photoUrl.hashCode);
+    _$hash = $jc(_$hash, uid.hashCode);
+    _$hash = $jc(_$hash, createdTime.hashCode);
+    _$hash = $jc(_$hash, phoneNumber.hashCode);
+    _$hash = $jc(_$hash, username.hashCode);
+    _$hash = $jc(_$hash, tourLeadTimeExempted.hashCode);
+    _$hash = $jc(_$hash, driverOnboardedMarket.hashCode);
+    _$hash = $jc(_$hash, isDriver.hashCode);
+    _$hash = $jc(_$hash, ffRef.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -393,4 +387,4 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

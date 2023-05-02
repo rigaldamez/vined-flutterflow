@@ -14,6 +14,7 @@ import 'chat_messages_record.dart';
 import 'accepted_tours_record.dart';
 import 'tasting_experiences_record.dart';
 import 'payment_record.dart';
+import 'promo_codes_record.dart';
 
 import 'index.dart';
 
@@ -38,6 +39,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   AcceptedToursRecord,
   TastingExperiencesRecord,
   PaymentRecord,
+  PromoCodesRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
@@ -222,6 +224,9 @@ Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
       }
       return MapEntry(key, value);
     });
+
+List<GeoPoint>? convertToGeoPointList(List<LatLng>? list) =>
+    list?.map((e) => e.toGeoPoint()).toList();
 
 extension GeoPointExtension on LatLng {
   GeoPoint toGeoPoint() => GeoPoint(latitude, longitude);

@@ -1,13 +1,16 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'tour_chat_model.dart';
+export 'tour_chat_model.dart';
 
 class TourChatWidget extends StatefulWidget {
   const TourChatWidget({
@@ -22,40 +25,48 @@ class TourChatWidget extends StatefulWidget {
 }
 
 class _TourChatWidgetState extends State<TourChatWidget> {
-  TextEditingController? textController;
+  late TourChatModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => TourChatModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
+    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: StreamBuilder<ToursRecord>(
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: StreamBuilder<ToursRecord>(
           stream: ToursRecord.getDocument(widget.tourID!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
               return Center(
                 child: SizedBox(
-                  width: 20,
-                  height: 20,
+                  width: 20.0,
+                  height: 20.0,
                   child: CircularProgressIndicator(
-                    color: FlutterFlowTheme.of(context).purplePastel,
+                    color: Color(0xFFB19CD9),
                   ),
                 ),
               );
@@ -67,34 +78,35 @@ class _TourChatWidgetState extends State<TourChatWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    FlutterFlowTheme.of(context).purplePastel,
+                    FlutterFlowTheme.of(context).pinkPastel,
                     FlutterFlowTheme.of(context).greenPastel
                   ],
-                  stops: [0, 1],
-                  begin: AlignmentDirectional(0, -1),
-                  end: AlignmentDirectional(0, 1),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           FlutterFlowIconButton(
                             borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 60,
+                            borderRadius: 30.0,
+                            borderWidth: 1.0,
+                            buttonSize: 60.0,
                             icon: Icon(
                               Icons.arrow_back_rounded,
                               color: Colors.black,
-                              size: 30,
+                              size: 30.0,
                             ),
                             onPressed: () async {
                               context.pop();
@@ -102,19 +114,21 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                           ),
                           Text(
                             containerToursRecord.tourName!,
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w800,
-                                    ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w800,
+                                ),
                           ),
                         ],
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            20.0, 0.0, 20.0, 0.0),
                         child: StreamBuilder<List<TourMessagesRecord>>(
                           stream: queryTourMessagesRecord(
                             parent: widget.tourID,
@@ -126,11 +140,10 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 20,
-                                  height: 20,
+                                  width: 20.0,
+                                  height: 20.0,
                                   child: CircularProgressIndicator(
-                                    color: FlutterFlowTheme.of(context)
-                                        .purplePastel,
+                                    color: Color(0xFFB19CD9),
                                   ),
                                 ),
                               );
@@ -152,7 +165,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 10),
+                                          0.0, 0.0, 0.0, 10.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -166,18 +179,21 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                width: 220,
+                                                width: 220.0,
                                                 child: Stack(
                                                   children: [
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  20, 0, 10, 0),
+                                                                  20.0,
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0),
                                                       child: Container(
                                                         constraints:
                                                             BoxConstraints(
-                                                          maxWidth: 220,
+                                                          maxWidth: 220.0,
                                                         ),
                                                         decoration:
                                                             BoxDecoration(
@@ -186,39 +202,39 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                               .cultured,
                                                           boxShadow: [
                                                             BoxShadow(
-                                                              blurRadius: 30,
+                                                              blurRadius: 30.0,
                                                               color: Color(
                                                                   0x1A000000),
-                                                              spreadRadius: 8,
+                                                              spreadRadius: 8.0,
                                                             )
                                                           ],
                                                           borderRadius:
                                                               BorderRadius.only(
                                                             bottomLeft:
                                                                 Radius.circular(
-                                                                    28),
+                                                                    28.0),
                                                             bottomRight:
                                                                 Radius.circular(
-                                                                    28),
+                                                                    28.0),
                                                             topLeft:
                                                                 Radius.circular(
-                                                                    2),
+                                                                    2.0),
                                                             topRight:
                                                                 Radius.circular(
-                                                                    28),
+                                                                    28.0),
                                                           ),
                                                         ),
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                -1, 0),
+                                                                -1.0, 0.0),
                                                         child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      12,
-                                                                      12,
-                                                                      12,
-                                                                      12),
+                                                                      12.0,
+                                                                      12.0,
+                                                                      12.0,
+                                                                      12.0),
                                                           child: Text(
                                                             listViewTourMessagesRecord
                                                                 .messageBody!,
@@ -226,19 +242,20 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                                 TextAlign.start,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyText1
+                                                                .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Poppins',
-                                                                  fontSize: 12,
+                                                                  fontSize:
+                                                                      12.0,
                                                                 ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 30,
-                                                      height: 30,
+                                                      width: 30.0,
+                                                      height: 30.0,
                                                       decoration: BoxDecoration(
                                                         color:
                                                             Color(0xFFEEEEEE),
@@ -247,17 +264,17 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .cultured,
-                                                          width: 2,
+                                                          width: 2.0,
                                                         ),
                                                       ),
                                                       child: ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(50),
+                                                                .circular(50.0),
                                                         child: Image.network(
                                                           'https://picsum.photos/seed/696/600',
-                                                          width: 20,
-                                                          height: 20,
+                                                          width: 20.0,
+                                                          height: 20.0,
                                                           fit: BoxFit.cover,
                                                         ),
                                                       ),
@@ -267,7 +284,8 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(30, 4, 0, 0),
+                                                    .fromSTEB(
+                                                        30.0, 4.0, 0.0, 0.0),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -282,13 +300,13 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
                                                                 color: Color(
                                                                     0xFF8E8E8E),
-                                                                fontSize: 10,
+                                                                fontSize: 10.0,
                                                               ),
                                                     ),
                                                   ],
@@ -308,7 +326,8 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -317,9 +336,9 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                             width: MediaQuery.of(context).size.width * 0.8,
                             decoration: BoxDecoration(),
                             child: TextFormField(
-                              controller: textController,
+                              controller: _model.textController,
                               onChanged: (_) => EasyDebounce.debounce(
-                                'textController',
+                                '_model.textController',
                                 Duration(milliseconds: 2000),
                                 () => setState(() {}),
                               ),
@@ -329,88 +348,95 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(32),
+                                  borderRadius: BorderRadius.circular(32.0),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(32),
+                                  borderRadius: BorderRadius.circular(32.0),
                                 ),
                                 errorBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(32),
+                                  borderRadius: BorderRadius.circular(32.0),
                                 ),
                                 focusedErrorBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(32),
+                                  borderRadius: BorderRadius.circular(32.0),
                                 ),
                                 filled: true,
                                 fillColor: Color(0x19000000),
-                                suffixIcon: textController!.text.isNotEmpty
-                                    ? InkWell(
-                                        onTap: () async {
-                                          textController?.clear();
-                                          setState(() {});
-                                        },
-                                        child: Icon(
-                                          Icons.clear,
-                                          color: Color(0xFF757575),
-                                          size: 20,
-                                        ),
-                                      )
-                                    : null,
+                                suffixIcon:
+                                    _model.textController!.text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () async {
+                                              _model.textController?.clear();
+                                              setState(() {});
+                                            },
+                                            child: Icon(
+                                              Icons.clear,
+                                              color: Color(0xFF757575),
+                                              size: 20.0,
+                                            ),
+                                          )
+                                        : null,
                               ),
                               style: FlutterFlowTheme.of(context)
-                                  .bodyText1
+                                  .bodyMedium
                                   .override(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                               textAlign: TextAlign.start,
+                              validator: _model.textControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1, 0),
+                            alignment: AlignmentDirectional(1.0, 0.0),
                             child: Container(
-                              width: 50,
-                              height: 50,
+                              width: 50.0,
+                              height: 50.0,
                               decoration: BoxDecoration(
                                 color: Color(0xFFEEEEEE),
                                 shape: BoxShape.circle,
                               ),
                               child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  if (functions
-                                      .isStringNotEmpty(textController!.text)) {
+                                  if (functions.isStringNotEmpty(
+                                      _model.textController.text)) {
                                     final tourMessagesCreateData =
                                         createTourMessagesRecordData(
                                       dateSent: getCurrentTimestamp,
                                       senderUserReff: currentUserReference,
-                                      messageBody: textController!.text,
+                                      messageBody: _model.textController.text,
                                       isRead: false,
                                     );
                                     await TourMessagesRecord.createDoc(
                                             widget.tourID!)
                                         .set(tourMessagesCreateData);
                                     setState(() {
-                                      textController?.clear();
+                                      _model.textController?.clear();
                                     });
                                   }
                                 },
                                 child: Icon(
                                   Icons.send_rounded,
                                   color: Colors.black,
-                                  size: 22,
+                                  size: 22.0,
                                 ),
                               ),
                             ),

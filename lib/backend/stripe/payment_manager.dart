@@ -64,7 +64,7 @@ Future<StripePaymentResponse> processStripePayment(
     final success = response['success'] ?? false;
     if (!success || !response.containsKey('paymentId')) {
       return StripePaymentResponse(
-          errorMessage: response['error'] ?? 'Unkown error occured');
+          errorMessage: response['error'] ?? 'Unknown error occurred');
     }
 
     /// For web, display a payment sheet with a credit card form.
@@ -148,7 +148,7 @@ Future<StripePaymentResponse> showWebPaymentSheet(
   final isDarkMode = themeStyle == null
       ? Theme.of(context).brightness == Brightness.dark
       : themeStyle == ThemeMode.dark;
-  buttonColor = buttonColor ?? FlutterFlowTheme.of(context).primaryColor;
+  buttonColor = buttonColor ?? FlutterFlowTheme.of(context).primary;
   final screenWidth = MediaQuery.of(context).size.width;
 
   final buildPaymentSheet = (BuildContext context, double width) => Column(
@@ -285,25 +285,14 @@ Future<StripePaymentResponse> showWebPaymentSheet(
         ],
       );
 
-  StripePaymentResponse? response;
-  // If on mobile for web, display the payment sheet as a bottom sheet.
-  if (screenWidth < 429) {
-    response = await showModalBottomSheet<StripePaymentResponse>(
-      context: context,
-      builder: (context) => buildPaymentSheet(context, screenWidth),
-    );
-  }
-  // Otherwise, show a dialog, which is better for Tablet and Web/Desktop.
-  else {
-    response = await showDialog<StripePaymentResponse>(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.transparent,
-        contentPadding: EdgeInsets.zero,
-        content: buildPaymentSheet(context, 420),
-      ),
-    );
-  }
+  final response = await showDialog<StripePaymentResponse>(
+    context: context,
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.transparent,
+      contentPadding: EdgeInsets.zero,
+      content: buildPaymentSheet(context, min(420, screenWidth - 16)),
+    ),
+  );
   // Return the payment response, or an empty response if the user canceled.
   return response ?? StripePaymentResponse();
 }

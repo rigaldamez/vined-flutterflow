@@ -1,19 +1,21 @@
-import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_place_picker.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/place.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/place.dart';
 import 'dart:io';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'create_new_tour3_model.dart';
+export 'create_new_tour3_model.dart';
 
 class CreateNewTour3Widget extends StatefulWidget {
   const CreateNewTour3Widget({
@@ -28,27 +30,30 @@ class CreateNewTour3Widget extends StatefulWidget {
 }
 
 class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
-  DateTime? datePicked;
-  TextEditingController? textController;
-  var placePickerValue = FFPlace();
-  ToursRecord? createdTourID;
+  late CreateNewTour3Model _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => CreateNewTour3Model());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<List<ToursRecord>>(
       stream: queryToursRecord(
         queryBuilder: (toursRecord) =>
@@ -59,10 +64,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
-              width: 20,
-              height: 20,
+              width: 20.0,
+              height: 20.0,
               child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).purplePastel,
+                color: Color(0xFFB19CD9),
               ),
             ),
           );
@@ -72,21 +77,21 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
           key: scaffoldKey,
           backgroundColor: Color(0xFFF5F5F5),
           body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 1,
+            width: MediaQuery.of(context).size.width * 1.0,
+            height: MediaQuery.of(context).size.height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  FlutterFlowTheme.of(context).purplePastel,
+                  FlutterFlowTheme.of(context).pinkPastel,
                   FlutterFlowTheme.of(context).greenPastel
                 ],
-                stops: [0, 1],
-                begin: AlignmentDirectional(0, -1),
-                end: AlignmentDirectional(0, 1),
+                stops: [0.0, 1.0],
+                begin: AlignmentDirectional(0.0, -1.0),
+                end: AlignmentDirectional(0, 1.0),
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 26, 12, 20),
+              padding: EdgeInsetsDirectional.fromSTEB(12.0, 26.0, 12.0, 20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -97,23 +102,24 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                     children: [
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
-                        borderRadius: 30,
-                        borderWidth: 1,
-                        buttonSize: 60,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
                         icon: Icon(
                           Icons.arrow_back_rounded,
                           color: Colors.black,
-                          size: 26,
+                          size: 26.0,
                         ),
                         onPressed: () async {
                           context.pop();
                         },
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                         child: Text(
                           FFAppState().newTourName,
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                          style: FlutterFlowTheme.of(context).titleMedium,
                         ),
                       ),
                     ],
@@ -122,16 +128,18 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                         child: Text(
                           'Pickup Date & Time',
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                          style: FlutterFlowTheme.of(context).titleMedium,
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -141,10 +149,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
-                              height: 60,
+                              height: 60.0,
                               decoration: BoxDecoration(
                                 color: Color(0x17333333),
-                                borderRadius: BorderRadius.circular(34),
+                                borderRadius: BorderRadius.circular(34.0),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -152,17 +160,18 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 6, 0),
+                                        0.0, 0.0, 6.0, 0.0),
                                     child: Icon(
                                       Icons.calendar_today,
                                       color: Colors.black,
-                                      size: 18,
+                                      size: 18.0,
                                     ),
                                   ),
                                   Text(
-                                    dateTimeFormat('MMMMEEEEd', datePicked),
+                                    dateTimeFormat(
+                                        'MMMMEEEEd', _model.datePicked),
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w600,
@@ -171,11 +180,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 0, 0, 0),
+                                        4.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      dateTimeFormat('jm', datePicked),
+                                      dateTimeFormat('jm', _model.datePicked),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w600,
@@ -185,11 +194,12 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     ),
                                   ),
                                   if (!functions.isStringNotEmpty(
-                                      dateTimeFormat('MMMMEEEEd', datePicked)))
+                                      dateTimeFormat(
+                                          'MMMMEEEEd', _model.datePicked)))
                                     Text(
                                       'Tap to set',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w600,
@@ -207,11 +217,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 20,
-                                      height: 20,
+                                      width: 20.0,
+                                      height: 20.0,
                                       child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .purplePastel,
+                                        color: Color(0xFFB19CD9),
                                       ),
                                     ),
                                   );
@@ -219,7 +228,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 List<AppConfigRecord>
                                     containerAppConfigRecordList =
                                     snapshot.data!;
-                                // Return an empty Container when the document does not exist.
+                                // Return an empty Container when the item does not exist.
                                 if (snapshot.data!.isEmpty) {
                                   return Container();
                                 }
@@ -228,92 +237,68 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                         ? containerAppConfigRecordList.first
                                         : null;
                                 return InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    if (kIsWeb) {
-                                      final _datePickedDate =
-                                          await showDatePicker(
+                                    final _datePickedDate =
+                                        await showDatePicker(
+                                      context: context,
+                                      initialDate:
+                                          functions.getCurrentDateTimePlusAweek(
+                                              _model.datePicked,
+                                              containerAppConfigRecord!
+                                                  .tourLeadTime,
+                                              valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.tourLeadTimeExempted,
+                                                  false)),
+                                      firstDate:
+                                          functions.getCurrentDateTimePlusAweek(
+                                              _model.datePicked,
+                                              containerAppConfigRecord!
+                                                  .tourLeadTime,
+                                              valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.tourLeadTimeExempted,
+                                                  false)),
+                                      lastDate: DateTime(2050),
+                                    );
+
+                                    TimeOfDay? _datePickedTime;
+                                    if (_datePickedDate != null) {
+                                      _datePickedTime = await showTimePicker(
                                         context: context,
-                                        initialDate:
+                                        initialTime: TimeOfDay.fromDateTime(
                                             functions.getCurrentDateTimePlusAweek(
-                                                datePicked,
+                                                _model.datePicked,
                                                 containerAppConfigRecord!
                                                     .tourLeadTime,
                                                 valueOrDefault<bool>(
                                                     currentUserDocument
                                                         ?.tourLeadTimeExempted,
-                                                    false)),
-                                        firstDate: functions
-                                            .getCurrentDateTimePlusAweek(
-                                                datePicked,
-                                                containerAppConfigRecord!
-                                                    .tourLeadTime,
-                                                valueOrDefault<bool>(
-                                                    currentUserDocument
-                                                        ?.tourLeadTimeExempted,
-                                                    false)),
-                                        lastDate: DateTime(2050),
+                                                    false))),
                                       );
+                                    }
 
-                                      TimeOfDay? _datePickedTime;
-                                      if (_datePickedDate != null) {
-                                        _datePickedTime = await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.fromDateTime(
-                                              functions.getCurrentDateTimePlusAweek(
-                                                  datePicked,
-                                                  containerAppConfigRecord!
-                                                      .tourLeadTime,
-                                                  valueOrDefault<bool>(
-                                                      currentUserDocument
-                                                          ?.tourLeadTimeExempted,
-                                                      false))),
+                                    if (_datePickedDate != null &&
+                                        _datePickedTime != null) {
+                                      setState(() {
+                                        _model.datePicked = DateTime(
+                                          _datePickedDate.year,
+                                          _datePickedDate.month,
+                                          _datePickedDate.day,
+                                          _datePickedTime!.hour,
+                                          _datePickedTime.minute,
                                         );
-                                      }
-
-                                      if (_datePickedDate != null &&
-                                          _datePickedTime != null) {
-                                        setState(
-                                          () => datePicked = DateTime(
-                                            _datePickedDate.year,
-                                            _datePickedDate.month,
-                                            _datePickedDate.day,
-                                            _datePickedTime!.hour,
-                                            _datePickedTime.minute,
-                                          ),
-                                        );
-                                      }
-                                    } else {
-                                      await DatePicker.showDateTimePicker(
-                                        context,
-                                        showTitleActions: true,
-                                        onConfirm: (date) {
-                                          setState(() => datePicked = date);
-                                        },
-                                        currentTime:
-                                            functions.getCurrentDateTimePlusAweek(
-                                                datePicked,
-                                                containerAppConfigRecord!
-                                                    .tourLeadTime,
-                                                valueOrDefault<bool>(
-                                                    currentUserDocument
-                                                        ?.tourLeadTimeExempted,
-                                                    false)),
-                                        minTime: functions
-                                            .getCurrentDateTimePlusAweek(
-                                                datePicked,
-                                                containerAppConfigRecord!
-                                                    .tourLeadTime,
-                                                valueOrDefault<bool>(
-                                                    currentUserDocument
-                                                        ?.tourLeadTimeExempted,
-                                                    false)),
-                                      );
+                                      });
                                     }
                                   },
                                   child: Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.9,
-                                    height: 60,
+                                    height: 60.0,
                                     constraints: BoxConstraints(
                                       maxWidth:
                                           MediaQuery.of(context).size.width *
@@ -330,106 +315,116 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 20.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              10.0, 0.0, 0.0, 0.0),
                           child: Text(
                             'Pickup Address',
-                            style: FlutterFlowTheme.of(context).subtitle1,
+                            style: FlutterFlowTheme.of(context).titleMedium,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  if (functions.isStringNotEmpty(placePickerValue.address))
+                  if (functions
+                      .isStringNotEmpty(_model.placePickerValue.address))
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(60, 0, 60, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  60.0, 0.0, 60.0, 0.0),
                               child: TextFormField(
-                                controller: textController,
+                                controller: _model.textController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'unit number or letter',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 1,
+                                      width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(34),
+                                    borderRadius: BorderRadius.circular(34.0),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 1,
+                                      width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(34),
+                                    borderRadius: BorderRadius.circular(34.0),
                                   ),
                                   errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 1,
+                                      width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(34),
+                                    borderRadius: BorderRadius.circular(34.0),
                                   ),
                                   focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 1,
+                                      width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(34),
+                                    borderRadius: BorderRadius.circular(34.0),
                                   ),
                                   filled: true,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 24, 24),
+                                          24.0, 24.0, 24.0, 24.0),
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: Colors.black,
-                                      fontSize: 12,
+                                      fontSize: 12.0,
                                       fontWeight: FontWeight.w600,
                                     ),
                                 textAlign: TextAlign.center,
+                                validator: _model.textControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  if (functions.isStringNotEmpty(placePickerValue.address))
+                  if (functions
+                      .isStringNotEmpty(_model.placePickerValue.address))
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             valueOrDefault<String>(
-                              placePickerValue.address,
+                              _model.placePickerValue.address,
                               'address',
                             ),
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                         ],
                       ),
                     ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -442,52 +437,54 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           webGoogleMapsApiKey:
                               'AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8',
                           onSelect: (place) async {
-                            setState(() => placePickerValue = place);
+                            setState(() => _model.placePickerValue = place);
                           },
                           defaultText: 'Tap to set',
                           icon: Icon(
                             Icons.place,
                             color: Colors.black,
-                            size: 16,
+                            size: 16.0,
                           ),
                           buttonOptions: FFButtonOptions(
-                            width: 330,
-                            height: 60,
+                            width: 330.0,
+                            height: 60.0,
                             color: Color(0x00333333),
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                            elevation: 0,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            elevation: 0.0,
                             borderSide: BorderSide(
                               color: Colors.transparent,
                             ),
-                            borderRadius: BorderRadius.circular(34),
+                            borderRadius: BorderRadius.circular(34.0),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  if (functions.isStringNotEmpty(placePickerValue.address))
+                  if (functions
+                      .isStringNotEmpty(_model.placePickerValue.address))
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                       child: FutureBuilder<ApiCallResponse>(
                         future: GETGeolocationFORAddressCall.call(
-                          address: placePickerValue.address,
+                          address: _model.placePickerValue.address,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 20,
-                                height: 20,
+                                width: 20.0,
+                                height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).purplePastel,
+                                  color: Color(0xFFB19CD9),
                                 ),
                               ),
                             );
@@ -506,8 +503,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       uid: currentUserReference,
                                       passengers:
                                           FFAppState().newTourNoOfPassengers,
-                                      pickupAddress: placePickerValue.address,
-                                      tourDate: datePicked,
+                                      pickupAddress:
+                                          _model.placePickerValue.address,
+                                      tourDate: _model.datePicked,
                                       regionID: FFAppState().newTourRegionRef,
                                       pricePp: FFAppState().newTourPricePP,
                                       pickupLatlng: functions.createGeoPoint(
@@ -523,7 +521,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                           )),
                                       region: FFAppState().newTourRegionName,
                                       tourName: FFAppState().newTourName,
-                                      pickupUnitNumber: textController!.text,
+                                      pickupUnitNumber:
+                                          _model.textController.text,
                                       tourState: 'draft',
                                     ),
                                     'guests_uid': [currentUserReference],
@@ -532,7 +531,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       ToursRecord.collection.doc();
                                   await toursRecordReference
                                       .set(toursCreateData);
-                                  createdTourID =
+                                  _model.createdTourID =
                                       ToursRecord.getDocumentFromData(
                                           toursCreateData,
                                           toursRecordReference);
@@ -550,12 +549,14 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       backgroundColor: Colors.black,
                                     ),
                                   );
-
+                                  if (Navigator.of(context).canPop()) {
+                                    context.pop();
+                                  }
                                   context.pushNamed(
                                     'AddVenueToTour',
                                     queryParams: {
                                       'tourID': serializeParam(
-                                        createdTourID!.reference,
+                                        _model.createdTourID!.reference,
                                         ParamType.DocumentReference,
                                       ),
                                       'tourName': serializeParam(
@@ -575,16 +576,16 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                         ParamType.int,
                                       ),
                                       'tourDate': serializeParam(
-                                        datePicked,
+                                        _model.datePicked,
                                         ParamType.DateTime,
                                       ),
                                       'tourRecord': serializeParam(
-                                        createdTourID,
+                                        _model.createdTourID,
                                         ParamType.Document,
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      'tourRecord': createdTourID,
+                                      'tourRecord': _model.createdTourID,
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
                                         transitionType:
@@ -598,20 +599,25 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 },
                                 text: 'Select wineries',
                                 options: FFButtonOptions(
-                                  width: 340,
-                                  height: 60,
+                                  width: 340.0,
+                                  height: 60.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
                                   color: Colors.black,
                                   textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
+                                      .titleSmall
                                       .override(
                                         fontFamily: 'Poppins',
                                         color: Colors.white,
                                       ),
+                                  elevation: 2.0,
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(28),
+                                  borderRadius: BorderRadius.circular(28.0),
                                 ),
                               ),
                             ],
@@ -621,7 +627,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                     ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                       child: StreamBuilder<List<ToursRecord>>(
                         stream: queryToursRecord(
                           queryBuilder: (toursRecord) => toursRecord
@@ -633,11 +640,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 20,
-                                height: 20,
+                                width: 20.0,
+                                height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).purplePastel,
+                                  color: Color(0xFFB19CD9),
                                 ),
                               ),
                             );
@@ -652,18 +658,18 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                               final listViewToursRecord =
                                   listViewToursRecordList[listViewIndex];
                               return Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 6.0),
                                 child: Container(
-                                  width: 100,
-                                  height: 100,
+                                  width: 100.0,
+                                  height: 100.0,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(20.0),
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 4, 4, 4),
+                                        4.0, 4.0, 4.0, 4.0),
                                     child: StreamBuilder<RegionsRecord>(
                                       stream: RegionsRecord.getDocument(
                                           listViewToursRecord.regionID!),
@@ -672,12 +678,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 20,
-                                              height: 20,
+                                              width: 20.0,
+                                              height: 20.0,
                                               child: CircularProgressIndicator(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .purplePastel,
+                                                color: Color(0xFFB19CD9),
                                               ),
                                             ),
                                           );
@@ -687,6 +691,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () async {
                                                 context.pushNamed(
                                                   'EditTourPassengers',
@@ -702,18 +711,19 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                               },
                                               child: ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(20),
+                                                    BorderRadius.circular(20.0),
                                                 child: Image.network(
                                                   rowRegionsRecord.image!,
-                                                  width: 100,
-                                                  height: 100,
+                                                  width: 100.0,
+                                                  height: 100.0,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 4, 0, 4),
+                                                  .fromSTEB(
+                                                      10.0, 4.0, 0.0, 4.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -731,20 +741,23 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1,
+                                                                .bodyMedium,
                                                       ),
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
-                                                                .fromSTEB(10, 0,
-                                                                    0, 0),
+                                                                .fromSTEB(
+                                                                    10.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         child: Text(
                                                           listViewToursRecord
                                                               .passengers!
                                                               .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1,
+                                                              .bodyMedium,
                                                         ),
                                                       ),
                                                     ],
@@ -760,13 +773,12 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 20,
-                                                            height: 20,
+                                                            width: 20.0,
+                                                            height: 20.0,
                                                             child:
                                                                 CircularProgressIndicator(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .purplePastel,
+                                                              color: Color(
+                                                                  0xFFB19CD9),
                                                             ),
                                                           ),
                                                         );
@@ -788,16 +800,16 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                 .name!,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyText1,
+                                                                .bodyMedium,
                                                           ),
                                                           Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        10,
-                                                                        0,
-                                                                        0,
-                                                                        0),
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                             child: Text(
                                                               dateTimeFormat(
                                                                   'yMMMd',
@@ -805,7 +817,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                       .tourDate!),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1,
+                                                                  .bodyMedium,
                                                             ),
                                                           ),
                                                         ],
@@ -815,8 +827,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 8, 0, 0),
+                                                            .fromSTEB(0.0, 8.0,
+                                                                0.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -871,40 +883,58 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                           text: 'Add Venue',
                                                           options:
                                                               FFButtonOptions(
-                                                            width: 100,
-                                                            height: 30,
+                                                            width: 100.0,
+                                                            height: 30.0,
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .black,
                                                             textStyle:
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle2
+                                                                    .titleSmall
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       color: Colors
                                                                           .white,
                                                                       fontSize:
-                                                                          12,
+                                                                          12.0,
                                                                     ),
+                                                            elevation: 2.0,
                                                             borderSide:
                                                                 BorderSide(
                                                               color: Colors
                                                                   .transparent,
-                                                              width: 1,
+                                                              width: 1.0,
                                                             ),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        20),
+                                                                        20.0),
                                                           ),
                                                         ),
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(4,
-                                                                      0, 0, 0),
+                                                                  .fromSTEB(
+                                                                      4.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: FFButtonWidget(
                                                             onPressed:
                                                                 () async {
@@ -924,33 +954,48 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                             text: 'View Tour',
                                                             options:
                                                                 FFButtonOptions(
-                                                              width: 100,
-                                                              height: 30,
+                                                              width: 100.0,
+                                                              height: 30.0,
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .black,
                                                               textStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .subtitle2
+                                                                      .titleSmall
                                                                       .override(
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
-                                                                            12,
+                                                                            12.0,
                                                                       ),
+                                                              elevation: 2.0,
                                                               borderSide:
                                                                   BorderSide(
                                                                 color: Colors
                                                                     .transparent,
-                                                                width: 1,
+                                                                width: 1.0,
                                                               ),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          20),
+                                                                          20.0),
                                                             ),
                                                           ),
                                                         ),
@@ -982,10 +1027,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 20,
-                            height: 20,
+                            width: 20.0,
+                            height: 20.0,
                             child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).purplePastel,
+                              color: Color(0xFFB19CD9),
                             ),
                           ),
                         );
@@ -1001,13 +1046,14 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                         children: [
                           Text(
                             'Lead Time: ',
-                            style: FlutterFlowTheme.of(context).bodyText1,
+                            style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 0.0, 0.0, 0.0),
                             child: Text(
                               rowAppConfigRecord!.tourLeadTime!.toString(),
-                              style: FlutterFlowTheme.of(context).bodyText1,
+                              style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
                           ),
                         ],
@@ -1019,16 +1065,17 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                     children: [
                       Text(
                         'Exempted:',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                         child: AuthUserStreamWidget(
-                          child: Text(
+                          builder: (context) => Text(
                             functions.boolString(valueOrDefault<bool>(
                                 currentUserDocument?.tourLeadTimeExempted,
                                 false)),
-                            style: FlutterFlowTheme.of(context).bodyText1,
+                            style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
                         ),
                       ),

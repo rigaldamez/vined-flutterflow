@@ -44,6 +44,10 @@ abstract class SelectedVenuesRecord
   @BuiltValueField(wireName: 'is_tasting_included')
   bool? get isTastingIncluded;
 
+  BuiltList<int>? get openDays;
+
+  int? get capacity;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -55,7 +59,9 @@ abstract class SelectedVenuesRecord
     ..isLargeGroupEarlySeatingOnlyVenue = false
     ..isLunchVenueOnly = false
     ..tastingExperienceDescription = ''
-    ..isTastingIncluded = false;
+    ..isTastingIncluded = false
+    ..openDays = ListBuilder()
+    ..capacity = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('selected_venues');
@@ -93,6 +99,7 @@ Map<String, dynamic> createSelectedVenuesRecordData({
   bool? isLunchVenueOnly,
   String? tastingExperienceDescription,
   bool? isTastingIncluded,
+  int? capacity,
 }) {
   final firestoreData = serializers.toFirestore(
     SelectedVenuesRecord.serializer,
@@ -110,7 +117,9 @@ Map<String, dynamic> createSelectedVenuesRecordData({
         ..isLargeGroupEarlySeatingOnlyVenue = isLargeGroupEarlySeatingOnlyVenue
         ..isLunchVenueOnly = isLunchVenueOnly
         ..tastingExperienceDescription = tastingExperienceDescription
-        ..isTastingIncluded = isTastingIncluded,
+        ..isTastingIncluded = isTastingIncluded
+        ..openDays = null
+        ..capacity = capacity,
     ),
   );
 

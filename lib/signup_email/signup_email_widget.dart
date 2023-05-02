@@ -1,10 +1,13 @@
-import '../auth/auth_util.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'signup_email_model.dart';
+export 'signup_email_model.dart';
 
 class SignupEmailWidget extends StatefulWidget {
   const SignupEmailWidget({Key? key}) : super(key: key);
@@ -14,46 +17,41 @@ class SignupEmailWidget extends StatefulWidget {
 }
 
 class _SignupEmailWidgetState extends State<SignupEmailWidget> {
-  TextEditingController? emailTextFieldController;
-  TextEditingController? passwordTextField1Controller;
+  late SignupEmailModel _model;
 
-  late bool passwordTextField1Visibility;
-  TextEditingController? passwordTextField2Controller;
-
-  late bool passwordTextField2Visibility;
-  final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    emailTextFieldController = TextEditingController();
-    passwordTextField1Controller = TextEditingController();
-    passwordTextField1Visibility = false;
-    passwordTextField2Controller = TextEditingController();
-    passwordTextField2Visibility = false;
+    _model = createModel(context, () => SignupEmailModel());
+
+    _model.emailTextFieldController ??= TextEditingController();
+    _model.passwordTextField1Controller ??= TextEditingController();
+    _model.passwordTextField2Controller ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    emailTextFieldController?.dispose();
-    passwordTextField1Controller?.dispose();
-    passwordTextField2Controller?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Form(
-        key: formKey,
+        key: _model.formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
+          width: MediaQuery.of(context).size.width * 1.0,
+          height: MediaQuery.of(context).size.height * 1.0,
           decoration: BoxDecoration(
             color: Color(0xFFEEEEEE),
             image: DecorationImage(
@@ -69,18 +67,18 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1, 0),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 220),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 220.0),
                   child: FlutterFlowIconButton(
                     borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 60.0,
                     icon: Icon(
                       Icons.arrow_back_rounded,
                       color: Colors.black,
-                      size: 30,
+                      size: 30.0,
                     ),
                     onPressed: () async {
                       context.pop();
@@ -89,67 +87,62 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: 54,
+                      height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
-                        borderRadius: BorderRadius.circular(34),
+                        borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: TextFormField(
-                          controller: emailTextFieldController,
+                          controller: _model.emailTextFieldController,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Email',
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             errorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             filled: true,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 0.0, 0.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.emailAddress,
-                          validator: (val) {
-                            if (val == null || val.isEmpty) {
-                              return 'Name your tour';
-                            }
-
-                            return null;
-                          },
+                          validator: _model.emailTextFieldControllerValidator
+                              .asValidator(context),
                         ),
                       ),
                     ),
@@ -157,80 +150,76 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: 54,
+                      height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
-                        borderRadius: BorderRadius.circular(34),
+                        borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: TextFormField(
-                          controller: passwordTextField1Controller,
-                          obscureText: !passwordTextField1Visibility,
+                          controller: _model.passwordTextField1Controller,
+                          obscureText: !_model.passwordTextField1Visibility,
                           decoration: InputDecoration(
                             labelText: 'Password',
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             errorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             filled: true,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 0.0, 0.0),
                             suffixIcon: InkWell(
                               onTap: () => setState(
-                                () => passwordTextField1Visibility =
-                                    !passwordTextField1Visibility,
+                                () => _model.passwordTextField1Visibility =
+                                    !_model.passwordTextField1Visibility,
                               ),
                               focusNode: FocusNode(skipTraversal: true),
                               child: Icon(
-                                passwordTextField1Visibility
+                                _model.passwordTextField1Visibility
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 color: Color(0xFF757575),
-                                size: 22,
+                                size: 22.0,
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
-                          validator: (val) {
-                            if (val == null || val.isEmpty) {
-                              return 'Field is required';
-                            }
-
-                            return null;
-                          },
+                          validator: _model
+                              .passwordTextField1ControllerValidator
+                              .asValidator(context),
                         ),
                       ),
                     ),
@@ -238,80 +227,76 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: 54,
+                      height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
-                        borderRadius: BorderRadius.circular(34),
+                        borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: TextFormField(
-                          controller: passwordTextField2Controller,
-                          obscureText: !passwordTextField2Visibility,
+                          controller: _model.passwordTextField2Controller,
+                          obscureText: !_model.passwordTextField2Visibility,
                           decoration: InputDecoration(
                             labelText: 'Password',
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             errorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             filled: true,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 0.0, 0.0),
                             suffixIcon: InkWell(
                               onTap: () => setState(
-                                () => passwordTextField2Visibility =
-                                    !passwordTextField2Visibility,
+                                () => _model.passwordTextField2Visibility =
+                                    !_model.passwordTextField2Visibility,
                               ),
                               focusNode: FocusNode(skipTraversal: true),
                               child: Icon(
-                                passwordTextField2Visibility
+                                _model.passwordTextField2Visibility
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 color: Color(0xFF757575),
-                                size: 22,
+                                size: 22.0,
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
-                          validator: (val) {
-                            if (val == null || val.isEmpty) {
-                              return 'Name your tour';
-                            }
-
-                            return null;
-                          },
+                          validator: _model
+                              .passwordTextField2ControllerValidator
+                              .asValidator(context),
                         ),
                       ),
                     ),
@@ -319,7 +304,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -329,8 +314,8 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                         FFButtonWidget(
                           onPressed: () async {
                             GoRouter.of(context).prepareAuthEvent();
-                            if (passwordTextField1Controller?.text !=
-                                passwordTextField2Controller?.text) {
+                            if (_model.passwordTextField1Controller.text !=
+                                _model.passwordTextField2Controller.text) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
@@ -341,10 +326,11 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                               return;
                             }
 
-                            final user = await createAccountWithEmail(
+                            final user =
+                                await authManager.createAccountWithEmail(
                               context,
-                              emailTextFieldController!.text,
-                              passwordTextField1Controller!.text,
+                              _model.emailTextFieldController.text,
+                              _model.passwordTextField1Controller.text,
                             );
                             if (user == null) {
                               return;
@@ -354,19 +340,25 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                           },
                           text: 'Sign up',
                           options: FFButtonOptions(
-                            width: 310,
-                            height: 54,
+                            width: 310.0,
+                            height: 54.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
                             color: Colors.black,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFF4F4F4),
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFFF4F4F4),
+                                ),
+                            elevation: 2.0,
                             borderSide: BorderSide(
                               color: Colors.transparent,
-                              width: 1,
+                              width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(34),
+                            borderRadius: BorderRadius.circular(34.0),
                           ),
                         ),
                       ],

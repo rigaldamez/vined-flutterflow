@@ -1,10 +1,13 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'auth/firebase_user_provider.dart';
-import 'auth/auth_util.dart';
+import 'auth/firebase_auth/firebase_user_provider.dart';
+import 'auth/firebase_auth/auth_util.dart';
 
+import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
@@ -17,13 +20,16 @@ import 'backend/stripe/payment_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await initFirebase();
 
-  FFAppState(); // Initialize FFAppState
+  final appState = FFAppState(); // Initialize FFAppState
 
   await initializeStripe();
 
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => appState,
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
 
-  late Stream<VinedFirebaseUser> userStream;
+  late Stream<BaseAuthUser> userStream;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -136,15 +142,15 @@ class _NavBarPageState extends State<NavBarPage> {
           _currentPageName = tabs.keys.toList()[i];
         }),
         backgroundColor: FlutterFlowTheme.of(context).black,
-        selectedItemColor: FlutterFlowTheme.of(context).purplePastel,
+        selectedItemColor: FlutterFlowTheme.of(context).pinkPastel,
         unselectedItemColor: Color(0xFFF4F4F4),
         selectedBackgroundColor: Color(0x00000000),
-        borderRadius: 28,
-        itemBorderRadius: 28,
-        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        borderRadius: 28.0,
+        itemBorderRadius: 28.0,
+        margin: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
         width: MediaQuery.of(context).size.width * 0.9,
-        elevation: 60,
+        elevation: 60.0,
         items: [
           FloatingNavbarItem(
             customWidget: Column(
@@ -153,16 +159,16 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.wine_bar,
                   color: currentIndex == 0
-                      ? FlutterFlowTheme.of(context).purplePastel
+                      ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
-                  size: 24,
+                  size: 24.0,
                 ),
                 Text(
                   'Explore',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
-                        ? FlutterFlowTheme.of(context).purplePastel
+                        ? FlutterFlowTheme.of(context).pinkPastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,
                   ),
@@ -177,16 +183,16 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.directions_bus_rounded,
                   color: currentIndex == 1
-                      ? FlutterFlowTheme.of(context).purplePastel
+                      ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
-                  size: 24,
+                  size: 24.0,
                 ),
                 Text(
                   'Tours',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
-                        ? FlutterFlowTheme.of(context).purplePastel
+                        ? FlutterFlowTheme.of(context).pinkPastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,
                   ),
@@ -201,16 +207,16 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.person,
                   color: currentIndex == 2
-                      ? FlutterFlowTheme.of(context).purplePastel
+                      ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
-                  size: 24,
+                  size: 24.0,
                 ),
                 Text(
                   'Profile',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
-                        ? FlutterFlowTheme.of(context).purplePastel
+                        ? FlutterFlowTheme.of(context).pinkPastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,
                   ),
@@ -225,16 +231,16 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.location_on_outlined,
                   color: currentIndex == 3
-                      ? FlutterFlowTheme.of(context).purplePastel
+                      ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
-                  size: 24,
+                  size: 24.0,
                 ),
                 Text(
                   'Tours',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? FlutterFlowTheme.of(context).purplePastel
+                        ? FlutterFlowTheme.of(context).pinkPastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,
                   ),

@@ -1,9 +1,12 @@
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'new_tour_bottomsheet_model.dart';
+export 'new_tour_bottomsheet_model.dart';
 
 class NewTourBottomsheetWidget extends StatefulWidget {
   const NewTourBottomsheetWidget({Key? key}) : super(key: key);
@@ -14,44 +17,55 @@ class NewTourBottomsheetWidget extends StatefulWidget {
 }
 
 class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
-  TextEditingController? tourNameTextFieldController;
+  late NewTourBottomsheetModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
 
   @override
   void initState() {
     super.initState();
-    tourNameTextFieldController = TextEditingController();
+    _model = createModel(context, () => NewTourBottomsheetModel());
+
+    _model.tourNameTextFieldController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    tourNameTextFieldController?.dispose();
+    _model.maybeDispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
-      height: 240,
+      height: 240.0,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            blurRadius: 5,
+            blurRadius: 5.0,
             color: Color(0x3B1D2429),
-            offset: Offset(0, -3),
+            offset: Offset(0.0, -3.0),
           )
         ],
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0),
-          bottomRight: Radius.circular(0),
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(0.0),
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -61,10 +75,10 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width * 0.12,
-                  height: 6,
+                  height: 6.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).black,
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
                 ),
               ],
@@ -77,17 +91,18 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'Tour name',
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w600,
@@ -98,26 +113,26 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              10.0, 0.0, 10.0, 20.0),
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.98,
-                            height: 54,
+                            height: 54.0,
                             decoration: BoxDecoration(
                               color: Color(0x00EEEEEE),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                               shape: BoxShape.rectangle,
                               border: Border.all(
                                 color: Color(0x21333333),
-                                width: 2,
+                                width: 2.0,
                               ),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: TextFormField(
-                                controller: tourNameTextFieldController,
+                                controller: _model.tourNameTextFieldController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'eg; Wine Time Fun!',
@@ -127,15 +142,18 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                   focusedErrorBorder: InputBorder.none,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
+                                          20.0, 0.0, 0.0, 0.0),
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context).black,
                                     ),
                                 textAlign: TextAlign.start,
+                                validator: _model
+                                    .tourNameTextFieldControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),
@@ -146,20 +164,20 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                         child: Stack(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 58,
+                              width: MediaQuery.of(context).size.width * 1.0,
+                              height: 58.0,
                               decoration: BoxDecoration(
                                 color: Colors.black,
-                                borderRadius: BorderRadius.circular(34),
+                                borderRadius: BorderRadius.circular(34.0),
                               ),
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (!functions.isStringNotEmpty(
-                                      tourNameTextFieldController!.text)) {
+                                  if (!functions.isStringNotEmpty(_model
+                                      .tourNameTextFieldController.text)) {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -178,8 +196,10 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                     );
                                     return;
                                   } else {
-                                    setState(() => FFAppState().newTourName =
-                                        tourNameTextFieldController!.text);
+                                    FFAppState().update(() {
+                                      FFAppState().newTourName = _model
+                                          .tourNameTextFieldController.text;
+                                    });
 
                                     context.pushNamed(
                                       'CreateNewTour1',
@@ -198,21 +218,26 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                 },
                                 text: 'Create Tour',
                                 options: FFButtonOptions(
-                                  width: 390,
-                                  height: 58,
+                                  width: 390.0,
+                                  height: 58.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).black,
                                   textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
+                                      .titleSmall
                                       .override(
                                         fontFamily: 'Poppins',
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
                                       ),
+                                  elevation: 2.0,
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(34),
+                                  borderRadius: BorderRadius.circular(34.0),
                                 ),
                               ),
                             ),
@@ -220,17 +245,19 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                         child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 1,
+                          width: MediaQuery.of(context).size.width * 1.0,
+                          height: 1.0,
                           decoration: BoxDecoration(
                             color: Color(0x4D333333),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');
@@ -238,20 +265,26 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                           text: 'Join a Friend\'s Tour',
                           options: FFButtonOptions(
                             width: double.infinity,
-                            height: 60,
+                            height: 60.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).black,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFFF5F5F5),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Color(0xFFF5F5F5),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                            elevation: 2.0,
                             borderSide: BorderSide(
                               color: Colors.transparent,
-                              width: 1,
+                              width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(40.0),
                           ),
                         ),
                       ),

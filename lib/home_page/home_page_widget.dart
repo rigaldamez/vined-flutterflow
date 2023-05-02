@@ -1,18 +1,22 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_animations.dart';
-import '../flutter_flow/flutter_flow_choice_chips.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_toggle_icon.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_choice_chips.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
+import 'home_page_model.dart';
+export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
@@ -23,6 +27,10 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
+  late HomePageModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -31,29 +39,25 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 600.ms,
-          begin: 0,
-          end: 1,
+          begin: 0.0,
+          end: 1.0,
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 600.ms,
-          begin: 1,
-          end: 1,
+          begin: Offset(1.0, 1.0),
+          end: Offset(1.0, 1.0),
         ),
       ],
     ),
   };
-  PagingController<DocumentSnapshot?, VenuesRecord>? _pagingController;
-  Query? _pagingQuery;
-  List<StreamSubscription?> _streamSubscriptions = [];
-
-  String? choiceChipsValue;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => HomePageModel());
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -66,28 +70,31 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   void dispose() {
-    _streamSubscriptions.forEach((s) => s?.cancel());
+    _model.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              FlutterFlowTheme.of(context).purplePastel,
+              FlutterFlowTheme.of(context).pinkPastel,
               FlutterFlowTheme.of(context).greenPastel
             ],
-            stops: [0, 1],
-            begin: AlignmentDirectional(0, -1),
-            end: AlignmentDirectional(0, 1),
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -95,7 +102,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,20 +111,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     children: [
                       Text(
                         'Explore',
-                        style: FlutterFlowTheme.of(context).title1.override(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w800,
-                            ),
+                        style:
+                            FlutterFlowTheme.of(context).displaySmall.override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w800,
+                                ),
                       ),
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
-                        borderRadius: 50,
-                        buttonSize: 46,
+                        borderRadius: 50.0,
+                        buttonSize: 46.0,
                         fillColor: Color(0x00F4F4F4),
                         icon: Icon(
                           Icons.search_rounded,
                           color: Colors.black,
-                          size: 24,
+                          size: 24.0,
                         ),
                         onPressed: () {
                           print('IconButton pressed ...');
@@ -127,7 +136,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -136,12 +145,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       Text(
                         'Wineries, Breweries and  Distilleries',
                         textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).title3.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF333333),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style:
+                            FlutterFlowTheme.of(context).headlineSmall.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFF333333),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
                     ],
                   ),
@@ -151,11 +161,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
+                      width: MediaQuery.of(context).size.width * 1.0,
+                      height: 60.0,
                       decoration: BoxDecoration(
                         color: Color(0x00F4F4F4),
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -164,8 +174,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  4.0, 0.0, 4.0, 0.0),
                               child: StreamBuilder<List<RegionsRecord>>(
                                 stream: queryRegionsRecord(
                                   queryBuilder: (regionsRecord) => regionsRecord
@@ -176,11 +186,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 20,
-                                        height: 20,
+                                        width: 20.0,
+                                        height: 20.0,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .purplePastel,
+                                          color: Color(0xFFB19CD9),
                                         ),
                                       ),
                                     );
@@ -189,49 +198,55 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       choiceChipsRegionsRecordList =
                                       snapshot.data!;
                                   return FlutterFlowChoiceChips(
-                                    initiallySelected: ['Adelaide Hills'],
                                     options: choiceChipsRegionsRecordList
-                                        .map((e) => e.name!)
+                                        .map((e) => e.name)
+                                        .withoutNulls
                                         .toList()
                                         .map((label) => ChipData(label))
                                         .toList(),
-                                    onChanged: (val) => setState(
-                                        () => choiceChipsValue = val?.first),
+                                    onChanged: (val) => setState(() =>
+                                        _model.choiceChipsValue = val?.first),
                                     selectedChipStyle: ChipStyle(
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).black,
                                       textStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                           ),
                                       iconColor: Colors.white,
-                                      iconSize: 18,
+                                      iconSize: 18.0,
                                       labelPadding:
                                           EdgeInsetsDirectional.fromSTEB(
-                                              10, 4, 6, 4),
-                                      elevation: 4,
+                                              10.0, 4.0, 6.0, 4.0),
+                                      elevation: 4.0,
                                     ),
                                     unselectedChipStyle: ChipStyle(
                                       backgroundColor: Colors.white,
                                       textStyle: FlutterFlowTheme.of(context)
-                                          .bodyText2
+                                          .bodySmall
                                           .override(
                                             fontFamily: 'Poppins',
                                             color: Color(0xFF262D34),
                                           ),
                                       iconColor: Color(0xFF262D34),
-                                      iconSize: 18,
+                                      iconSize: 18.0,
                                       labelPadding:
                                           EdgeInsetsDirectional.fromSTEB(
-                                              10, 4, 10, 4),
-                                      elevation: 2,
+                                              10.0, 4.0, 10.0, 4.0),
+                                      elevation: 2.0,
                                     ),
-                                    chipSpacing: 10,
+                                    chipSpacing: 10.0,
                                     multiselect: false,
-                                    initialized: choiceChipsValue != null,
+                                    initialized:
+                                        _model.choiceChipsValue != null,
                                     alignment: WrapAlignment.start,
+                                    controller:
+                                        _model.choiceChipsValueController ??=
+                                            FormFieldController<List<String>>(
+                                      ['Adelaide Hills'],
+                                    ),
                                   );
                                 },
                               ),
@@ -243,18 +258,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                         child: Text(
                           'Featured',
                           style:
-                              FlutterFlowTheme.of(context).subtitle1.override(
+                              FlutterFlowTheme.of(context).titleMedium.override(
                                     fontFamily: 'Nunito',
                                     fontWeight: FontWeight.w800,
                                     useGoogleFonts: false,
@@ -262,27 +278,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         ),
                       ),
                       Container(
-                        width: 100,
-                        height: 40,
+                        width: 100.0,
+                        height: 40.0,
                         decoration: BoxDecoration(),
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Stack(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           children: [
                             Text(
                               'See All',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyText1
+                                  .bodyMedium
                                   .override(
                                     fontFamily: 'Nunito',
-                                    fontSize: 12,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
                                     useGoogleFonts: false,
                                   ),
                             ),
                             Container(
-                              width: 100,
-                              height: 100,
+                              width: 100.0,
+                              height: 100.0,
                               decoration: BoxDecoration(),
                             ),
                           ],
@@ -292,7 +308,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width * 1.0,
                   height: MediaQuery.of(context).size.height * 0.26,
                   decoration: BoxDecoration(),
                   child: StreamBuilder<List<VenuesRecord>>(
@@ -302,10 +318,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 20,
-                            height: 20,
+                            width: 20.0,
+                            height: 20.0,
                             child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).purplePastel,
+                              color: Color(0xFFB19CD9),
                             ),
                           ),
                         );
@@ -323,25 +339,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               listViewFeaturedVenuesRecordList[
                                   listViewFeaturedIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 0.0, 0.0, 0.0),
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               color: Color(0xFFF5F5F5),
-                              elevation: 4,
+                              elevation: 4.0,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(34),
+                                borderRadius: BorderRadius.circular(34.0),
                               ),
                               child: Stack(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        6, 6, 6, 6),
+                                        6.0, 6.0, 6.0, 6.0),
                                     child: Hero(
                                       tag: listViewFeaturedVenuesRecord.image!,
                                       transitionOnUserGestures: true,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(34),
+                                        borderRadius:
+                                            BorderRadius.circular(34.0),
                                         child: Image.network(
                                           listViewFeaturedVenuesRecord.image!,
                                           width: MediaQuery.of(context)
@@ -358,7 +376,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0.9),
+                                    alignment: AlignmentDirectional(0.0, 0.9),
                                     child: Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
@@ -371,15 +389,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             Colors.transparent,
                                             Color(0xE6000000)
                                           ],
-                                          stops: [0, 1],
-                                          begin: AlignmentDirectional(0, -1),
-                                          end: AlignmentDirectional(0, 1),
+                                          stops: [0.0, 1.0],
+                                          begin:
+                                              AlignmentDirectional(0.0, -1.0),
+                                          end: AlignmentDirectional(0, 1.0),
                                         ),
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(34),
-                                          bottomRight: Radius.circular(34),
-                                          topLeft: Radius.circular(0),
-                                          topRight: Radius.circular(0),
+                                          bottomLeft: Radius.circular(34.0),
+                                          bottomRight: Radius.circular(34.0),
+                                          topLeft: Radius.circular(0.0),
+                                          topRight: Radius.circular(0.0),
                                         ),
                                       ),
                                     ),
@@ -402,13 +421,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               replacement: '…',
                                             ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily: 'Poppins',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .cultured,
-                                              fontSize: 10,
+                                              fontSize: 10.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
@@ -418,18 +437,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     alignment: AlignmentDirectional(0.9, -0.64),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          100, 0, 0, 100),
+                                          100.0, 0.0, 0.0, 100.0),
                                       child: Container(
-                                        height: 40,
+                                        height: 40.0,
                                         child: Stack(
-                                          alignment: AlignmentDirectional(0, 0),
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
                                           children: [
                                             Align(
-                                              alignment:
-                                                  AlignmentDirectional(0, 0),
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: Container(
-                                                width: 30,
-                                                height: 30,
+                                                width: 30.0,
+                                                height: 30.0,
                                                 decoration: BoxDecoration(
                                                   color: Color(0x65000000),
                                                   shape: BoxShape.circle,
@@ -470,8 +490,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     Icons.favorite_rounded,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .purplePastel,
-                                                    size: 16,
+                                                        .pinkPastel,
+                                                    size: 16.0,
                                                   ),
                                                   offIcon: Icon(
                                                     Icons
@@ -479,19 +499,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .cultured,
-                                                    size: 14,
+                                                    size: 14.0,
                                                   ),
                                                 ),
                                               ),
                                             ),
                                             InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () async {
                                                 if (listViewFeaturedVenuesRecord
                                                     .isFavouritedBy!
                                                     .toList()
                                                     .contains(
                                                         currentUserReference)) {
-                                                  final venuesUpdateData = {
+                                                  final venuesUpdateData1 = {
                                                     'is_favourited_by':
                                                         FieldValue.arrayRemove([
                                                       currentUserReference
@@ -499,9 +524,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   };
                                                   await listViewFeaturedVenuesRecord
                                                       .reference
-                                                      .update(venuesUpdateData);
+                                                      .update(
+                                                          venuesUpdateData1);
                                                 } else {
-                                                  final venuesUpdateData = {
+                                                  final venuesUpdateData2 = {
                                                     'is_favourited_by':
                                                         FieldValue.arrayUnion([
                                                       currentUserReference
@@ -509,12 +535,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   };
                                                   await listViewFeaturedVenuesRecord
                                                       .reference
-                                                      .update(venuesUpdateData);
+                                                      .update(
+                                                          venuesUpdateData2);
                                                 }
                                               },
                                               child: Container(
-                                                width: 30,
-                                                height: 30,
+                                                width: 30.0,
+                                                height: 30.0,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                 ),
@@ -535,18 +562,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                         child: Text(
                           'Explore',
                           style:
-                              FlutterFlowTheme.of(context).subtitle1.override(
+                              FlutterFlowTheme.of(context).titleMedium.override(
                                     fontFamily: 'Nunito',
                                     fontWeight: FontWeight.w800,
                                     useGoogleFonts: false,
@@ -559,27 +587,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 100,
-                            height: 40,
+                            width: 100.0,
+                            height: 40.0,
                             decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Stack(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
                                 Text(
                                   'See All',
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyText1
+                                      .bodyMedium
                                       .override(
                                         fontFamily: 'Nunito',
-                                        fontSize: 12,
+                                        fontSize: 12.0,
                                         fontWeight: FontWeight.bold,
                                         useGoogleFonts: false,
                                       ),
                                 ),
                                 Container(
-                                  width: 100,
-                                  height: 100,
+                                  width: 100.0,
+                                  height: 100.0,
                                   decoration: BoxDecoration(),
                                 ),
                               ],
@@ -592,28 +620,31 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 ),
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 1,
+                  height: MediaQuery.of(context).size.height * 1.0,
                   decoration: BoxDecoration(),
                   child:
                       PagedListView<DocumentSnapshot<Object?>?, VenuesRecord>(
                     pagingController: () {
                       final Query<Object?> Function(Query<Object?>)
                           queryBuilder = (venuesRecord) => venuesRecord;
-                      if (_pagingController != null) {
+                      if (_model.pagingController != null) {
                         final query = queryBuilder(VenuesRecord.collection);
-                        if (query != _pagingQuery) {
+                        if (query != _model.pagingQuery) {
                           // The query has changed
-                          _pagingQuery = query;
-                          _streamSubscriptions.forEach((s) => s?.cancel());
-                          _streamSubscriptions.clear();
-                          _pagingController!.refresh();
+                          _model.pagingQuery = query;
+                          _model.streamSubscriptions
+                              .forEach((s) => s?.cancel());
+                          _model.streamSubscriptions.clear();
+                          _model.pagingController!.refresh();
                         }
-                        return _pagingController!;
+                        return _model.pagingController!;
                       }
 
-                      _pagingController = PagingController(firstPageKey: null);
-                      _pagingQuery = queryBuilder(VenuesRecord.collection);
-                      _pagingController!
+                      _model.pagingController =
+                          PagingController(firstPageKey: null);
+                      _model.pagingQuery =
+                          queryBuilder(VenuesRecord.collection);
+                      _model.pagingController!
                           .addPageRequestListener((nextPageMarker) {
                         queryVenuesRecordPage(
                           queryBuilder: (venuesRecord) => venuesRecord,
@@ -621,54 +652,56 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           pageSize: 25,
                           isStream: true,
                         ).then((page) {
-                          _pagingController!.appendPage(
+                          _model.pagingController!.appendPage(
                             page.data,
                             page.nextPageMarker,
                           );
                           final streamSubscription =
                               page.dataStream?.listen((data) {
-                            final itemIndexes = _pagingController!.itemList!
-                                .asMap()
-                                .map((k, v) => MapEntry(v.reference.id, k));
                             data.forEach((item) {
+                              final itemIndexes = _model
+                                  .pagingController!.itemList!
+                                  .asMap()
+                                  .map((k, v) => MapEntry(v.reference.id, k));
                               final index = itemIndexes[item.reference.id];
-                              final items = _pagingController!.itemList!;
+                              final items = _model.pagingController!.itemList!;
                               if (index != null) {
                                 items.replaceRange(index, index + 1, [item]);
-                                _pagingController!.itemList = {
+                                _model.pagingController!.itemList = {
                                   for (var item in items) item.reference: item
                                 }.values.toList();
                               }
                             });
                             setState(() {});
                           });
-                          _streamSubscriptions.add(streamSubscription);
+                          _model.streamSubscriptions.add(streamSubscription);
                         });
                       });
-                      return _pagingController!;
+                      return _model.pagingController!;
                     }(),
                     padding: EdgeInsets.zero,
                     primary: false,
                     shrinkWrap: true,
+                    reverse: false,
                     scrollDirection: Axis.vertical,
                     builderDelegate: PagedChildBuilderDelegate<VenuesRecord>(
                       // Customize what your widget looks like when it's loading the first page.
                       firstPageProgressIndicatorBuilder: (_) => Center(
                         child: SizedBox(
-                          width: 20,
-                          height: 20,
+                          width: 20.0,
+                          height: 20.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).purplePastel,
+                            color: Color(0xFFB19CD9),
                           ),
                         ),
                       ),
 
                       itemBuilder: (context, _, listViewIndex) {
                         final listViewVenuesRecord =
-                            _pagingController!.itemList![listViewIndex];
+                            _model.pagingController!.itemList![listViewIndex];
                         return Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              10.0, 0.0, 10.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -676,64 +709,69 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: Color(0xFFF5F5F5),
-                                elevation: 4,
+                                elevation: 4.0,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34),
+                                  borderRadius: BorderRadius.circular(34.0),
                                 ),
                                 child: Stack(
-                                  alignment: AlignmentDirectional(1, 0.9),
+                                  alignment: AlignmentDirectional(1.0, 0.9),
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 6, 6, 6),
+                                          6.0, 6.0, 6.0, 6.0),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(34),
+                                        borderRadius:
+                                            BorderRadius.circular(34.0),
                                         child: Image.network(
                                           listViewVenuesRecord.image!,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              1.0,
+                                          height: 200.0,
                                           fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 0, 6, 0),
+                                          6.0, 0.0, 6.0, 0.0),
                                       child: Container(
                                         width: double.infinity,
-                                        height: 100,
+                                        height: 100.0,
                                         decoration: BoxDecoration(
                                           gradient: LinearGradient(
                                             colors: [
                                               Colors.transparent,
                                               Color(0xE6000000)
                                             ],
-                                            stops: [0, 1],
-                                            begin: AlignmentDirectional(0, -1),
-                                            end: AlignmentDirectional(0, 1),
+                                            stops: [0.0, 1.0],
+                                            begin:
+                                                AlignmentDirectional(0.0, -1.0),
+                                            end: AlignmentDirectional(0, 1.0),
                                           ),
                                           borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(34),
-                                            bottomRight: Radius.circular(34),
-                                            topLeft: Radius.circular(0),
-                                            topRight: Radius.circular(0),
+                                            bottomLeft: Radius.circular(34.0),
+                                            bottomRight: Radius.circular(34.0),
+                                            topLeft: Radius.circular(0.0),
+                                            topRight: Radius.circular(0.0),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          6, 0, 6, 0),
+                                          6.0, 0.0, 6.0, 0.0),
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 50,
+                                            MediaQuery.of(context).size.width *
+                                                1.0,
+                                        height: 50.0,
                                         decoration: BoxDecoration(),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 10, 0),
+                                                  10.0, 0.0, 10.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -744,7 +782,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     listViewVenuesRecord.name),
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily: 'Poppins',
                                                           color: FlutterFlowTheme
@@ -758,16 +796,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 alignment: AlignmentDirectional(
                                                     0.9, -0.64),
                                                 child: Container(
-                                                  width: 50,
+                                                  width: 50.0,
                                                   child: Stack(
                                                     children: [
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0, 0),
+                                                                0.0, 0.0),
                                                         child: Container(
-                                                          width: 34,
-                                                          height: 34,
+                                                          width: 34.0,
+                                                          height: 34.0,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Color(
@@ -813,8 +851,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   .favorite_rounded,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .purplePastel,
-                                                              size: 16,
+                                                                  .pinkPastel,
+                                                              size: 16.0,
                                                             ),
                                                             offIcon: Icon(
                                                               Icons
@@ -822,7 +860,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .cultured,
-                                                              size: 16,
+                                                              size: 16.0,
                                                             ),
                                                           ),
                                                         ),
@@ -830,15 +868,23 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0, 0),
+                                                                0.0, 0.0),
                                                         child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
                                                           onTap: () async {
                                                             if (listViewVenuesRecord
                                                                 .isFavouritedBy!
                                                                 .toList()
                                                                 .contains(
                                                                     currentUserReference)) {
-                                                              final venuesUpdateData =
+                                                              final venuesUpdateData1 =
                                                                   {
                                                                 'is_favourited_by':
                                                                     FieldValue
@@ -849,9 +895,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               await listViewVenuesRecord
                                                                   .reference
                                                                   .update(
-                                                                      venuesUpdateData);
+                                                                      venuesUpdateData1);
                                                             } else {
-                                                              final venuesUpdateData =
+                                                              final venuesUpdateData2 =
                                                                   {
                                                                 'is_favourited_by':
                                                                     FieldValue
@@ -862,12 +908,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               await listViewVenuesRecord
                                                                   .reference
                                                                   .update(
-                                                                      venuesUpdateData);
+                                                                      venuesUpdateData2);
                                                             }
                                                           },
                                                           child: Container(
-                                                            width: 34,
-                                                            height: 34,
+                                                            width: 34.0,
+                                                            height: 34.0,
                                                             decoration:
                                                                 BoxDecoration(
                                                               shape: BoxShape

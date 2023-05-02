@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
-import '../../auth/firebase_user_provider.dart';
+
+import '../../auth/base_auth_user_provider.dart';
 
 import '../../index.dart';
 import '../../main.dart';
@@ -19,8 +20,8 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
-  VinedFirebaseUser? initialUser;
-  VinedFirebaseUser? user;
+  BaseAuthUser? initialUser;
+  BaseAuthUser? user;
   bool showSplashImage = true;
   String? _redirectLocation;
 
@@ -45,7 +46,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
-  void update(VinedFirebaseUser newUser) {
+  void update(BaseAuthUser newUser) {
     initialUser ??= newUser;
     user = newUser;
     // Refresh the app on auth change unless explicitly marked otherwise.
@@ -156,7 +157,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateNewTour2Widget(
                 state: params.getParam('state', ParamType.JSON),
                 regionIDRef: params.getParam('regionIDRef',
-                    ParamType.DocumentReference, false, 'regions'),
+                    ParamType.DocumentReference, false, ['regions']),
               ),
             ),
             FFRoute(
@@ -165,7 +166,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => CreateNewTour3Widget(
                 regionIDRef: params.getParam('regionIDRef',
-                    ParamType.DocumentReference, false, 'regions'),
+                    ParamType.DocumentReference, false, ['regions']),
               ),
             ),
             FFRoute(
@@ -183,7 +184,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => EditTourPassengersWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
                 tourName: params.getParam('tourName', ParamType.String),
               ),
             ),
@@ -192,11 +193,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'addVenueToTour',
               requireAuth: true,
               asyncParams: {
-                'tourRecord': getDoc('tours', ToursRecord.serializer),
+                'tourRecord': getDoc(['tours'], ToursRecord.serializer),
               },
               builder: (context, params) => AddVenueToTourWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
                 tourName: params.getParam('tourName', ParamType.String),
                 regionID: params.getParam('regionID', ParamType.String),
                 makeLunchStopBool:
@@ -212,7 +213,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => ViewTourDetailsWidget(
                 tourRef: params.getParam(
-                    'tourRef', ParamType.DocumentReference, false, 'tours'),
+                    'tourRef', ParamType.DocumentReference, false, ['tours']),
               ),
             ),
             FFRoute(
@@ -238,11 +239,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'tourDetails',
               requireAuth: true,
               asyncParams: {
-                'tourDocument': getDoc('tours', ToursRecord.serializer),
+                'tourDocument': getDoc(['tours'], ToursRecord.serializer),
               },
               builder: (context, params) => TourDetailsWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
                 tourDocument:
                     params.getParam('tourDocument', ParamType.Document),
               ),
@@ -253,7 +254,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => AddVenueWidget(
                 tourReff: params.getParam(
-                    'tourReff', ParamType.DocumentReference, false, 'tours'),
+                    'tourReff', ParamType.DocumentReference, false, ['tours']),
               ),
             ),
             FFRoute(
@@ -262,7 +263,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => TourChatWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
               ),
             ),
             FFRoute(
@@ -270,12 +271,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'chatScreenSample',
               requireAuth: true,
               asyncParams: {
-                'chatUser': getDoc('users', UsersRecord.serializer),
+                'chatUser': getDoc(['users'], UsersRecord.serializer),
               },
               builder: (context, params) => ChatScreenSampleWidget(
                 chatUser: params.getParam('chatUser', ParamType.Document),
                 chatRef: params.getParam(
-                    'chatRef', ParamType.DocumentReference, false, 'chats'),
+                    'chatRef', ParamType.DocumentReference, false, ['chats']),
               ),
             ),
             FFRoute(
@@ -283,11 +284,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'users',
               requireAuth: true,
               asyncParams: {
-                'tourReff': getDoc('tours', ToursRecord.serializer),
+                'tourReff': getDoc(['tours'], ToursRecord.serializer),
               },
               builder: (context, params) => UsersWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
                 tourReff: params.getParam('tourReff', ParamType.Document),
               ),
             ),
@@ -297,7 +298,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => SelectDriverWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
               ),
             ),
             FFRoute(
@@ -305,17 +306,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'submitTour',
               requireAuth: true,
               asyncParams: {
-                'tourRecord': getDoc('tours', ToursRecord.serializer),
+                'tourRecord': getDoc(['tours'], ToursRecord.serializer),
               },
               builder: (context, params) => SubmitTourWidget(
                 tourID: params.getParam(
-                    'tourID', ParamType.DocumentReference, false, 'tours'),
+                    'tourID', ParamType.DocumentReference, false, ['tours']),
                 tourRecord: params.getParam('tourRecord', ParamType.Document),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
-        ).toRoute(appStateNotifier),
-      ],
+        ),
+      ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
     );
 
@@ -361,6 +362,16 @@ extension NavigationExtensions on BuildContext {
               queryParams: queryParams,
               extra: extra,
             );
+
+  void safePop() {
+    // If there is only one route on the stack, navigate to the initial
+    // page instead of popping.
+    if (GoRouter.of(this).routerDelegate.matches.length <= 1) {
+      go('/');
+    } else {
+      pop();
+    }
+  }
 }
 
 extension GoRouterExtensions on GoRouter {
@@ -372,6 +383,7 @@ extension GoRouterExtensions on GoRouter {
           : appState.updateNotifyOnAuthChange(false);
   bool shouldRedirect(bool ignoreRedirect) =>
       !ignoreRedirect && appState.hasRedirect();
+  void clearRedirectLocation() => appState.clearRedirectLocation();
   void setRedirectLocationIfUnset(String location) =>
       (routerDelegate.refreshListenable as AppStateNotifier)
           .updateNotifyOnAuthChange(false);
@@ -424,7 +436,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
-    String? collectionName,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -438,7 +450,7 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionName);
+    return deserializeParam<T>(param, type, isList, collectionNamePath);
   }
 }
 
@@ -486,10 +498,10 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Center(
                   child: SizedBox(
-                    width: 20,
-                    height: 20,
+                    width: 20.0,
+                    height: 20.0,
                     child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).purplePastel,
+                      color: Color(0xFFB19CD9),
                     ),
                   ),
                 )

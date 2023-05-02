@@ -1,14 +1,17 @@
-import '../backend/backend.dart';
-import '../components/select_experience_btmsheet_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/backend/backend.dart';
+import '/components/select_experience_btmsheet_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
+import 'add_venue_model.dart';
+export 'add_venue_model.dart';
 
 class AddVenueWidget extends StatefulWidget {
   const AddVenueWidget({
@@ -23,45 +26,48 @@ class AddVenueWidget extends StatefulWidget {
 }
 
 class _AddVenueWidgetState extends State<AddVenueWidget> {
-  PagingController<DocumentSnapshot?, VenuesRecord>? _pagingController;
-  Query? _pagingQuery;
-  List<StreamSubscription?> _streamSubscriptions = [];
+  late AddVenueModel _model;
 
-  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => AddVenueModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    _streamSubscriptions.forEach((s) => s?.cancel());
-    textController?.dispose();
+    _model.dispose();
+
+    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: StreamBuilder<ToursRecord>(
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: StreamBuilder<ToursRecord>(
           stream: ToursRecord.getDocument(widget.tourReff!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
               return Center(
                 child: SizedBox(
-                  width: 20,
-                  height: 20,
+                  width: 20.0,
+                  height: 20.0,
                   child: CircularProgressIndicator(
-                    color: FlutterFlowTheme.of(context).purplePastel,
+                    color: Color(0xFFB19CD9),
                   ),
                 ),
               );
@@ -73,16 +79,16 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    FlutterFlowTheme.of(context).purplePastel,
+                    FlutterFlowTheme.of(context).pinkPastel,
                     FlutterFlowTheme.of(context).greenPastel
                   ],
-                  stops: [0, 1],
-                  begin: AlignmentDirectional(0, -1),
-                  end: AlignmentDirectional(0, 1),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                 child: StreamBuilder<List<AppConfigRecord>>(
                   stream: queryAppConfigRecord(
                     singleRecord: true,
@@ -92,17 +98,17 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 20,
-                          height: 20,
+                          width: 20.0,
+                          height: 20.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).purplePastel,
+                            color: Color(0xFFB19CD9),
                           ),
                         ),
                       );
                     }
                     List<AppConfigRecord> columnAppConfigRecordList =
                         snapshot.data!;
-                    // Return an empty Container when the document does not exist.
+                    // Return an empty Container when the item does not exist.
                     if (snapshot.data!.isEmpty) {
                       return Container();
                     }
@@ -114,20 +120,21 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 20.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 60.0,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Colors.black,
-                                  size: 30,
+                                  size: 30.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -136,10 +143,10 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                               Text(
                                 'Add venue',
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
-                                      fontSize: 24,
+                                      fontSize: 24.0,
                                       fontWeight: FontWeight.w800,
                                     ),
                               ),
@@ -155,12 +162,13 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
                                     decoration: BoxDecoration(),
                                     child: TextFormField(
-                                      controller: textController,
+                                      controller: _model.textController,
                                       onChanged: (_) => EasyDebounce.debounce(
-                                        'textController',
+                                        '_model.textController',
                                         Duration(milliseconds: 2000),
                                         () => setState(() {}),
                                       ),
@@ -170,67 +178,70 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         errorBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         focusedErrorBorder:
                                             UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
-                                            width: 1,
+                                            width: 1.0,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                              BorderRadius.circular(32.0),
                                         ),
                                         filled: true,
                                         fillColor: Color(0x19000000),
-                                        suffixIcon:
-                                            textController!.text.isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      textController?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color: Color(0xFF757575),
-                                                      size: 20,
-                                                    ),
-                                                  )
-                                                : null,
+                                        suffixIcon: _model
+                                                .textController!.text.isNotEmpty
+                                            ? InkWell(
+                                                onTap: () async {
+                                                  _model.textController
+                                                      ?.clear();
+                                                  setState(() {});
+                                                },
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  color: Color(0xFF757575),
+                                                  size: 20.0,
+                                                ),
+                                              )
+                                            : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w500,
                                           ),
                                       textAlign: TextAlign.start,
+                                      validator: _model.textControllerValidator
+                                          .asValidator(context),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(1, 0),
+                                    alignment: AlignmentDirectional(1.0, 0.0),
                                     child: Container(
-                                      width: 50,
-                                      height: 50,
+                                      width: 50.0,
+                                      height: 50.0,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFEEEEEE),
                                         shape: BoxShape.circle,
@@ -238,7 +249,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                       child: Icon(
                                         Icons.search,
                                         color: Colors.black,
-                                        size: 14,
+                                        size: 14.0,
                                       ),
                                     ),
                                   ),
@@ -249,8 +260,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
                             child: PagedListView<DocumentSnapshot<Object?>?,
                                 VenuesRecord>(
                               pagingController: () {
@@ -259,25 +270,25 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                         venuesRecord.where('region_Ref',
                                             isEqualTo:
                                                 containerToursRecord.regionID);
-                                if (_pagingController != null) {
+                                if (_model.pagingController != null) {
                                   final query =
                                       queryBuilder(VenuesRecord.collection);
-                                  if (query != _pagingQuery) {
+                                  if (query != _model.pagingQuery) {
                                     // The query has changed
-                                    _pagingQuery = query;
-                                    _streamSubscriptions
+                                    _model.pagingQuery = query;
+                                    _model.streamSubscriptions
                                         .forEach((s) => s?.cancel());
-                                    _streamSubscriptions.clear();
-                                    _pagingController!.refresh();
+                                    _model.streamSubscriptions.clear();
+                                    _model.pagingController!.refresh();
                                   }
-                                  return _pagingController!;
+                                  return _model.pagingController!;
                                 }
 
-                                _pagingController =
+                                _model.pagingController =
                                     PagingController(firstPageKey: null);
-                                _pagingQuery =
+                                _model.pagingQuery =
                                     queryBuilder(VenuesRecord.collection);
-                                _pagingController!
+                                _model.pagingController!
                                     .addPageRequestListener((nextPageMarker) {
                                   queryVenuesRecordPage(
                                     queryBuilder: (venuesRecord) =>
@@ -288,26 +299,26 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                     pageSize: 25,
                                     isStream: true,
                                   ).then((page) {
-                                    _pagingController!.appendPage(
+                                    _model.pagingController!.appendPage(
                                       page.data,
                                       page.nextPageMarker,
                                     );
                                     final streamSubscription =
                                         page.dataStream?.listen((data) {
-                                      final itemIndexes = _pagingController!
-                                          .itemList!
-                                          .asMap()
-                                          .map((k, v) =>
-                                              MapEntry(v.reference.id, k));
                                       data.forEach((item) {
+                                        final itemIndexes = _model
+                                            .pagingController!.itemList!
+                                            .asMap()
+                                            .map((k, v) =>
+                                                MapEntry(v.reference.id, k));
                                         final index =
                                             itemIndexes[item.reference.id];
                                         final items =
-                                            _pagingController!.itemList!;
+                                            _model.pagingController!.itemList!;
                                         if (index != null) {
                                           items.replaceRange(
                                               index, index + 1, [item]);
-                                          _pagingController!.itemList = {
+                                          _model.pagingController!.itemList = {
                                             for (var item in items)
                                               item.reference: item
                                           }.values.toList();
@@ -315,13 +326,14 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                       });
                                       setState(() {});
                                     });
-                                    _streamSubscriptions
+                                    _model.streamSubscriptions
                                         .add(streamSubscription);
                                   });
                                 });
-                                return _pagingController!;
+                                return _model.pagingController!;
                               }(),
                               padding: EdgeInsets.zero,
+                              reverse: false,
                               scrollDirection: Axis.vertical,
                               builderDelegate:
                                   PagedChildBuilderDelegate<VenuesRecord>(
@@ -329,22 +341,21 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                 firstPageProgressIndicatorBuilder: (_) =>
                                     Center(
                                   child: SizedBox(
-                                    width: 20,
-                                    height: 20,
+                                    width: 20.0,
+                                    height: 20.0,
                                     child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .purplePastel,
+                                      color: Color(0xFFB19CD9),
                                     ),
                                   ),
                                 ),
 
                                 itemBuilder: (context, _, listViewIndex) {
-                                  final listViewVenuesRecord =
-                                      _pagingController!
-                                          .itemList![listViewIndex];
+                                  final listViewVenuesRecord = _model
+                                      .pagingController!
+                                      .itemList![listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        6, 0, 0, 6),
+                                        6.0, 0.0, 0.0, 6.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -363,29 +374,32 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                             children: [
                                               Container(
                                                 width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
+                                                        .size
+                                                        .width *
+                                                    1.0,
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    1,
+                                                    1.0,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(28),
+                                                      BorderRadius.circular(
+                                                          28.0),
                                                 ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 4, 0, 0),
+                                                    .fromSTEB(
+                                                        0.0, 4.0, 0.0, 0.0),
                                                 child: Card(
                                                   clipBehavior: Clip
                                                       .antiAliasWithSaveLayer,
                                                   color: Colors.white,
-                                                  elevation: 14,
+                                                  elevation: 14.0,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            28),
+                                                            28.0),
                                                   ),
                                                   child: Stack(
                                                     children: [
@@ -393,15 +407,19 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    6, 6, 6, 6),
+                                                                    6.0,
+                                                                    6.0,
+                                                                    6.0,
+                                                                    6.0),
                                                         child: ClipRRect(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(28),
+                                                                  .circular(
+                                                                      28.0),
                                                           child: Image.network(
                                                             listViewVenuesRecord
                                                                 .image!,
-                                                            width: 150,
+                                                            width: 150.0,
                                                             height:
                                                                 double.infinity,
                                                             fit: BoxFit.cover,
@@ -411,35 +429,35 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                1, 0),
+                                                                1.0, 0.0),
                                                         child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      6,
-                                                                      10,
-                                                                      6,
-                                                                      10),
+                                                                      6.0,
+                                                                      10.0,
+                                                                      6.0,
+                                                                      10.0),
                                                           child: Container(
-                                                            width: 170,
-                                                            height: 130,
+                                                            width: 170.0,
+                                                            height: 130.0,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          28),
+                                                                          28.0),
                                                             ),
                                                             child: Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          50,
-                                                                          0),
+                                                                          0.0,
+                                                                          0.0,
+                                                                          50.0,
+                                                                          0.0),
                                                               child: Container(
-                                                                height: 130,
+                                                                height: 130.0,
                                                                 child: Stack(
                                                                   children: [
                                                                     Column(
@@ -464,21 +482,21 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   ),
                                                                               textAlign: TextAlign.start,
                                                                               maxLines: 3,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Poppins',
                                                                                     color: FlutterFlowTheme.of(context).black,
-                                                                                    fontSize: 16,
+                                                                                    fontSize: 16.0,
                                                                                     fontWeight: FontWeight.bold,
                                                                                   ),
                                                                             ),
                                                                             Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                                                                                 maxLines: 3,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'Poppins',
-                                                                                      fontSize: 10,
+                                                                                      fontSize: 10.0,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -486,10 +504,10 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                         ),
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0,
-                                                                              4,
-                                                                              0,
-                                                                              0),
+                                                                              0.0,
+                                                                              4.0,
+                                                                              0.0,
+                                                                              0.0),
                                                                           child:
                                                                               Row(
                                                                             mainAxisSize:
@@ -498,33 +516,33 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               Icon(
                                                                                 Icons.remove_red_eye_rounded,
                                                                                 color: Colors.black,
-                                                                                size: 18,
+                                                                                size: 18.0,
                                                                               ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                                 child: Text(
                                                                                   '143',
-                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Poppins',
-                                                                                        fontSize: 9,
+                                                                                        fontSize: 9.0,
                                                                                       ),
                                                                                 ),
                                                                               ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                                 child: Icon(
                                                                                   Icons.star_rounded,
                                                                                   color: Colors.black,
-                                                                                  size: 18,
+                                                                                  size: 18.0,
                                                                                 ),
                                                                               ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                                 child: Text(
                                                                                   '5.0',
-                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Poppins',
-                                                                                        fontSize: 9,
+                                                                                        fontSize: 9.0,
                                                                                       ),
                                                                                 ),
                                                                               ),
@@ -543,7 +561,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.89, 0),
+                                                                0.89, 0.0),
                                                         child: FutureBuilder<
                                                             List<
                                                                 SelectedVenuesRecord>>(
@@ -563,13 +581,12 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 .hasData) {
                                                               return Center(
                                                                 child: SizedBox(
-                                                                  width: 20,
-                                                                  height: 20,
+                                                                  width: 20.0,
+                                                                  height: 20.0,
                                                                   child:
                                                                       CircularProgressIndicator(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .purplePastel,
+                                                                    color: Color(
+                                                                        0xFFB19CD9),
                                                                   ),
                                                                 ),
                                                               );
@@ -578,14 +595,23 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 containerSelectedVenuesRecordList =
                                                                 snapshot.data!;
                                                             return Container(
-                                                              width: 30,
-                                                              height: 30,
+                                                              width: 30.0,
+                                                              height: 30.0,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
                                                               child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
                                                                 onTap:
                                                                     () async {
                                                                   if (functions
@@ -627,18 +653,22 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             await showModalBottomSheet(
                                                                               isScrollControlled: true,
                                                                               backgroundColor: Colors.transparent,
+                                                                              barrierColor: Color(0x00000000),
                                                                               context: context,
-                                                                              builder: (context) {
-                                                                                return Padding(
-                                                                                  padding: MediaQuery.of(context).viewInsets,
-                                                                                  child: Container(
-                                                                                    height: 250,
-                                                                                    child: SelectExperienceBtmsheetWidget(
-                                                                                      venueRec: listViewVenuesRecord,
-                                                                                      tourReff: widget.tourReff,
-                                                                                      regionReff: containerToursRecord.regionID,
-                                                                                      tourDoc: containerToursRecord,
-                                                                                      isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                              builder: (bottomSheetContext) {
+                                                                                return GestureDetector(
+                                                                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                  child: Padding(
+                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                    child: Container(
+                                                                                      height: 250.0,
+                                                                                      child: SelectExperienceBtmsheetWidget(
+                                                                                        venueRec: listViewVenuesRecord,
+                                                                                        tourReff: widget.tourReff,
+                                                                                        regionReff: containerToursRecord.regionID,
+                                                                                        tourDoc: containerToursRecord,
+                                                                                        isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                      ),
                                                                                     ),
                                                                                   ),
                                                                                 );
@@ -651,18 +681,22 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               await showModalBottomSheet(
                                                                                 isScrollControlled: true,
                                                                                 backgroundColor: Colors.transparent,
+                                                                                barrierColor: Color(0x00000000),
                                                                                 context: context,
-                                                                                builder: (context) {
-                                                                                  return Padding(
-                                                                                    padding: MediaQuery.of(context).viewInsets,
-                                                                                    child: Container(
-                                                                                      height: 250,
-                                                                                      child: SelectExperienceBtmsheetWidget(
-                                                                                        venueRec: listViewVenuesRecord,
-                                                                                        tourReff: widget.tourReff,
-                                                                                        regionReff: containerToursRecord.regionID,
-                                                                                        tourDoc: containerToursRecord,
-                                                                                        isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                builder: (bottomSheetContext) {
+                                                                                  return GestureDetector(
+                                                                                    onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                    child: Padding(
+                                                                                      padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                      child: Container(
+                                                                                        height: 250.0,
+                                                                                        child: SelectExperienceBtmsheetWidget(
+                                                                                          venueRec: listViewVenuesRecord,
+                                                                                          tourReff: widget.tourReff,
+                                                                                          regionReff: containerToursRecord.regionID,
+                                                                                          tourDoc: containerToursRecord,
+                                                                                          isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                   );
@@ -673,18 +707,22 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 await showModalBottomSheet(
                                                                                   isScrollControlled: true,
                                                                                   backgroundColor: Colors.transparent,
+                                                                                  barrierColor: Color(0x00000000),
                                                                                   context: context,
-                                                                                  builder: (context) {
-                                                                                    return Padding(
-                                                                                      padding: MediaQuery.of(context).viewInsets,
-                                                                                      child: Container(
-                                                                                        height: 250,
-                                                                                        child: SelectExperienceBtmsheetWidget(
-                                                                                          venueRec: listViewVenuesRecord,
-                                                                                          tourReff: widget.tourReff,
-                                                                                          regionReff: containerToursRecord.regionID,
-                                                                                          tourDoc: containerToursRecord,
-                                                                                          isLargeGroupEarlySeatingOnlyVenue: true,
+                                                                                  builder: (bottomSheetContext) {
+                                                                                    return GestureDetector(
+                                                                                      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                      child: Padding(
+                                                                                        padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                        child: Container(
+                                                                                          height: 250.0,
+                                                                                          child: SelectExperienceBtmsheetWidget(
+                                                                                            venueRec: listViewVenuesRecord,
+                                                                                            tourReff: widget.tourReff,
+                                                                                            regionReff: containerToursRecord.regionID,
+                                                                                            tourDoc: containerToursRecord,
+                                                                                            isLargeGroupEarlySeatingOnlyVenue: true,
+                                                                                          ),
                                                                                         ),
                                                                                       ),
                                                                                     );
@@ -758,7 +796,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .black,
-                                                                  size: 24,
+                                                                  size: 24.0,
                                                                 ),
                                                               ),
                                                             );
@@ -772,14 +810,15 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                           containerToursRecord))
                                                         Container(
                                                           width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              1.0,
                                                           height: MediaQuery.of(
                                                                       context)
                                                                   .size
                                                                   .height *
-                                                              1,
+                                                              1.0,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Color(
@@ -787,12 +826,12 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        28),
+                                                                        28.0),
                                                           ),
                                                           child: Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0, 0),
+                                                                    0.0, 0.0),
                                                             child: Text(
                                                               'CLOSED',
                                                               textAlign:
@@ -800,7 +839,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                       .center,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         'Poppins',
@@ -808,7 +847,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             context)
                                                                         .cultured,
                                                                     fontSize:
-                                                                        16,
+                                                                        16.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -836,13 +875,12 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               .hasData) {
                                                             return Center(
                                                               child: SizedBox(
-                                                                width: 20,
-                                                                height: 20,
+                                                                width: 20.0,
+                                                                height: 20.0,
                                                                 child:
                                                                     CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .purplePastel,
+                                                                  color: Color(
+                                                                      0xFFB19CD9),
                                                                 ),
                                                               ),
                                                             );
@@ -851,6 +889,15 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               containerSelectSelectedVenuesRecordList =
                                                               snapshot.data!;
                                                           return InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
                                                             onTap: () async {
                                                               if (functions
                                                                   .isTourInDraftState(
@@ -897,20 +944,25 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               true,
                                                                           backgroundColor:
                                                                               Colors.transparent,
+                                                                          barrierColor:
+                                                                              Color(0x00000000),
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (context) {
-                                                                            return Padding(
-                                                                              padding: MediaQuery.of(context).viewInsets,
-                                                                              child: Container(
-                                                                                height: 250,
-                                                                                child: SelectExperienceBtmsheetWidget(
-                                                                                  venueRec: listViewVenuesRecord,
-                                                                                  tourReff: widget.tourReff,
-                                                                                  regionReff: containerToursRecord.regionID,
-                                                                                  tourDoc: containerToursRecord,
-                                                                                  isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                              (bottomSheetContext) {
+                                                                            return GestureDetector(
+                                                                              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                              child: Padding(
+                                                                                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                child: Container(
+                                                                                  height: 250.0,
+                                                                                  child: SelectExperienceBtmsheetWidget(
+                                                                                    venueRec: listViewVenuesRecord,
+                                                                                    tourReff: widget.tourReff,
+                                                                                    regionReff: containerToursRecord.regionID,
+                                                                                    tourDoc: containerToursRecord,
+                                                                                    isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             );
@@ -926,20 +978,25 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 true,
                                                                             backgroundColor:
                                                                                 Colors.transparent,
+                                                                            barrierColor:
+                                                                                Color(0x00000000),
                                                                             context:
                                                                                 context,
                                                                             builder:
-                                                                                (context) {
-                                                                              return Padding(
-                                                                                padding: MediaQuery.of(context).viewInsets,
-                                                                                child: Container(
-                                                                                  height: 250,
-                                                                                  child: SelectExperienceBtmsheetWidget(
-                                                                                    venueRec: listViewVenuesRecord,
-                                                                                    tourReff: widget.tourReff,
-                                                                                    regionReff: containerToursRecord.regionID,
-                                                                                    tourDoc: containerToursRecord,
-                                                                                    isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                (bottomSheetContext) {
+                                                                              return GestureDetector(
+                                                                                onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                child: Padding(
+                                                                                  padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                  child: Container(
+                                                                                    height: 250.0,
+                                                                                    child: SelectExperienceBtmsheetWidget(
+                                                                                      venueRec: listViewVenuesRecord,
+                                                                                      tourReff: widget.tourReff,
+                                                                                      regionReff: containerToursRecord.regionID,
+                                                                                      tourDoc: containerToursRecord,
+                                                                                      isLargeGroupEarlySeatingOnlyVenue: false,
+                                                                                    ),
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -954,18 +1011,22 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             await showModalBottomSheet(
                                                                               isScrollControlled: true,
                                                                               backgroundColor: Colors.transparent,
+                                                                              barrierColor: Color(0x00000000),
                                                                               context: context,
-                                                                              builder: (context) {
-                                                                                return Padding(
-                                                                                  padding: MediaQuery.of(context).viewInsets,
-                                                                                  child: Container(
-                                                                                    height: 250,
-                                                                                    child: SelectExperienceBtmsheetWidget(
-                                                                                      venueRec: listViewVenuesRecord,
-                                                                                      tourReff: widget.tourReff,
-                                                                                      regionReff: containerToursRecord.regionID,
-                                                                                      tourDoc: containerToursRecord,
-                                                                                      isLargeGroupEarlySeatingOnlyVenue: true,
+                                                                              builder: (bottomSheetContext) {
+                                                                                return GestureDetector(
+                                                                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                  child: Padding(
+                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                    child: Container(
+                                                                                      height: 250.0,
+                                                                                      child: SelectExperienceBtmsheetWidget(
+                                                                                        venueRec: listViewVenuesRecord,
+                                                                                        tourReff: widget.tourReff,
+                                                                                        regionReff: containerToursRecord.regionID,
+                                                                                        tourDoc: containerToursRecord,
+                                                                                        isLargeGroupEarlySeatingOnlyVenue: true,
+                                                                                      ),
                                                                                     ),
                                                                                   ),
                                                                                 );
@@ -1039,16 +1100,16 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               }
                                                             },
                                                             child: Container(
-                                                              width:
-                                                                  MediaQuery.of(
+                                                              width: MediaQuery.of(
                                                                           context)
                                                                       .size
-                                                                      .width,
+                                                                      .width *
+                                                                  1.0,
                                                               height: MediaQuery.of(
                                                                           context)
                                                                       .size
                                                                       .height *
-                                                                  1,
+                                                                  1.0,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: FlutterFlowTheme.of(

@@ -120,6 +120,20 @@ class _$SelectedVenuesRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.openDays;
+    if (value != null) {
+      result
+        ..add('openDays')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(int)])));
+    }
+    value = object.capacity;
+    if (value != null) {
+      result
+        ..add('capacity')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -203,6 +217,16 @@ class _$SelectedVenuesRecordSerializer
           result.isTastingIncluded = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'openDays':
+          result.openDays.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(int)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'capacity':
+          result.capacity = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -244,6 +268,10 @@ class _$SelectedVenuesRecord extends SelectedVenuesRecord {
   @override
   final bool? isTastingIncluded;
   @override
+  final BuiltList<int>? openDays;
+  @override
+  final int? capacity;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$SelectedVenuesRecord(
@@ -264,6 +292,8 @@ class _$SelectedVenuesRecord extends SelectedVenuesRecord {
       this.isLunchVenueOnly,
       this.tastingExperienceDescription,
       this.isTastingIncluded,
+      this.openDays,
+      this.capacity,
       this.ffRef})
       : super._();
 
@@ -294,39 +324,32 @@ class _$SelectedVenuesRecord extends SelectedVenuesRecord {
         isLunchVenueOnly == other.isLunchVenueOnly &&
         tastingExperienceDescription == other.tastingExperienceDescription &&
         isTastingIncluded == other.isTastingIncluded &&
+        openDays == other.openDays &&
+        capacity == other.capacity &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(0,
-                                                            venueRef.hashCode),
-                                                        tourRef.hashCode),
-                                                    addedByUid.hashCode),
-                                                isLunchVenue.hashCode),
-                                            tastingFee.hashCode),
-                                        addedDate.hashCode),
-                                    bookingReference.hashCode),
-                                reservationTime.hashCode),
-                            regionID.hashCode),
-                        isLargeGroupEarlySeatingOnlyVenue.hashCode),
-                    isLunchVenueOnly.hashCode),
-                tastingExperienceDescription.hashCode),
-            isTastingIncluded.hashCode),
-        ffRef.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, venueRef.hashCode);
+    _$hash = $jc(_$hash, tourRef.hashCode);
+    _$hash = $jc(_$hash, addedByUid.hashCode);
+    _$hash = $jc(_$hash, isLunchVenue.hashCode);
+    _$hash = $jc(_$hash, tastingFee.hashCode);
+    _$hash = $jc(_$hash, addedDate.hashCode);
+    _$hash = $jc(_$hash, bookingReference.hashCode);
+    _$hash = $jc(_$hash, reservationTime.hashCode);
+    _$hash = $jc(_$hash, regionID.hashCode);
+    _$hash = $jc(_$hash, isLargeGroupEarlySeatingOnlyVenue.hashCode);
+    _$hash = $jc(_$hash, isLunchVenueOnly.hashCode);
+    _$hash = $jc(_$hash, tastingExperienceDescription.hashCode);
+    _$hash = $jc(_$hash, isTastingIncluded.hashCode);
+    _$hash = $jc(_$hash, openDays.hashCode);
+    _$hash = $jc(_$hash, capacity.hashCode);
+    _$hash = $jc(_$hash, ffRef.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -346,6 +369,8 @@ class _$SelectedVenuesRecord extends SelectedVenuesRecord {
           ..add('isLunchVenueOnly', isLunchVenueOnly)
           ..add('tastingExperienceDescription', tastingExperienceDescription)
           ..add('isTastingIncluded', isTastingIncluded)
+          ..add('openDays', openDays)
+          ..add('capacity', capacity)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -420,6 +445,14 @@ class SelectedVenuesRecordBuilder
   set isTastingIncluded(bool? isTastingIncluded) =>
       _$this._isTastingIncluded = isTastingIncluded;
 
+  ListBuilder<int>? _openDays;
+  ListBuilder<int> get openDays => _$this._openDays ??= new ListBuilder<int>();
+  set openDays(ListBuilder<int>? openDays) => _$this._openDays = openDays;
+
+  int? _capacity;
+  int? get capacity => _$this._capacity;
+  set capacity(int? capacity) => _$this._capacity = capacity;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -444,6 +477,8 @@ class SelectedVenuesRecordBuilder
       _isLunchVenueOnly = $v.isLunchVenueOnly;
       _tastingExperienceDescription = $v.tastingExperienceDescription;
       _isTastingIncluded = $v.isTastingIncluded;
+      _openDays = $v.openDays?.toBuilder();
+      _capacity = $v.capacity;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -465,26 +500,41 @@ class SelectedVenuesRecordBuilder
   SelectedVenuesRecord build() => _build();
 
   _$SelectedVenuesRecord _build() {
-    final _$result = _$v ??
-        new _$SelectedVenuesRecord._(
-            venueRef: venueRef,
-            tourRef: tourRef,
-            addedByUid: addedByUid,
-            isLunchVenue: isLunchVenue,
-            tastingFee: tastingFee,
-            addedDate: addedDate,
-            bookingReference: bookingReference,
-            reservationTime: reservationTime,
-            regionID: regionID,
-            isLargeGroupEarlySeatingOnlyVenue:
-                isLargeGroupEarlySeatingOnlyVenue,
-            isLunchVenueOnly: isLunchVenueOnly,
-            tastingExperienceDescription: tastingExperienceDescription,
-            isTastingIncluded: isTastingIncluded,
-            ffRef: ffRef);
+    _$SelectedVenuesRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$SelectedVenuesRecord._(
+              venueRef: venueRef,
+              tourRef: tourRef,
+              addedByUid: addedByUid,
+              isLunchVenue: isLunchVenue,
+              tastingFee: tastingFee,
+              addedDate: addedDate,
+              bookingReference: bookingReference,
+              reservationTime: reservationTime,
+              regionID: regionID,
+              isLargeGroupEarlySeatingOnlyVenue:
+                  isLargeGroupEarlySeatingOnlyVenue,
+              isLunchVenueOnly: isLunchVenueOnly,
+              tastingExperienceDescription: tastingExperienceDescription,
+              isTastingIncluded: isTastingIncluded,
+              openDays: _openDays?.build(),
+              capacity: capacity,
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'openDays';
+        _openDays?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'SelectedVenuesRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

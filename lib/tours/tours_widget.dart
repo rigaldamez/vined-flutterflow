@@ -1,13 +1,16 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../components/how_it_works_empty_state_widget.dart';
-import '../components/new_tour_bottomsheet_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/components/how_it_works_empty_state_widget.dart';
+import '/components/new_tour_bottomsheet_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
+import 'tours_model.dart';
+export 'tours_model.dart';
 
 class ToursWidget extends StatefulWidget {
   const ToursWidget({Key? key}) : super(key: key);
@@ -17,53 +20,55 @@ class ToursWidget extends StatefulWidget {
 }
 
 class _ToursWidgetState extends State<ToursWidget> {
-  PagingController<DocumentSnapshot?, ToursRecord>? _pagingController;
-  Query? _pagingQuery;
-  List<StreamSubscription?> _streamSubscriptions = [];
+  late ToursModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => ToursModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    _streamSubscriptions.forEach((s) => s?.cancel());
+    _model.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 1,
+        width: MediaQuery.of(context).size.width * 1.0,
+        height: MediaQuery.of(context).size.height * 1.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              FlutterFlowTheme.of(context).purplePastel,
+              FlutterFlowTheme.of(context).pinkPastel,
               FlutterFlowTheme.of(context).greenPastel
             ],
-            stops: [0, 1],
-            begin: AlignmentDirectional(0, -1),
-            end: AlignmentDirectional(0, 1),
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 26, 0, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 26.0, 0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,28 +76,30 @@ class _ToursWidgetState extends State<ToursWidget> {
                   children: [
                     Text(
                       'Tours',
-                      style: FlutterFlowTheme.of(context).title1,
+                      style: FlutterFlowTheme.of(context).displaySmall,
                     ),
                     FlutterFlowIconButton(
                       borderColor: Colors.transparent,
-                      borderRadius: 30,
-                      borderWidth: 1,
-                      buttonSize: 60,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 60.0,
                       icon: Icon(
                         Icons.add_circle_sharp,
                         color: Colors.black,
-                        size: 38,
+                        size: 38.0,
                       ),
                       onPressed: () async {
                         await showModalBottomSheet(
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
+                          barrierColor: Color(0x00000000),
                           context: context,
-                          builder: (context) {
+                          builder: (bottomSheetContext) {
                             return Padding(
-                              padding: MediaQuery.of(context).viewInsets,
+                              padding:
+                                  MediaQuery.of(bottomSheetContext).viewInsets,
                               child: Container(
-                                height: 400,
+                                height: 400.0,
                                 child: NewTourBottomsheetWidget(),
                               ),
                             );
@@ -107,10 +114,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                     child: Text(
                       'Your upcoming tours',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Poppins',
                             color: Color(0xFF333333),
                             fontWeight: FontWeight.w500,
@@ -120,28 +128,30 @@ class _ToursWidgetState extends State<ToursWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(2.0, 4.0, 2.0, 0.0),
                 child: PagedListView<DocumentSnapshot<Object?>?, ToursRecord>(
                   pagingController: () {
                     final Query<Object?> Function(Query<Object?>) queryBuilder =
                         (toursRecord) => toursRecord
                             .where('uid', isEqualTo: currentUserReference)
                             .orderBy('tour_date');
-                    if (_pagingController != null) {
+                    if (_model.pagingController != null) {
                       final query = queryBuilder(ToursRecord.collection);
-                      if (query != _pagingQuery) {
+                      if (query != _model.pagingQuery) {
                         // The query has changed
-                        _pagingQuery = query;
-                        _streamSubscriptions.forEach((s) => s?.cancel());
-                        _streamSubscriptions.clear();
-                        _pagingController!.refresh();
+                        _model.pagingQuery = query;
+                        _model.streamSubscriptions.forEach((s) => s?.cancel());
+                        _model.streamSubscriptions.clear();
+                        _model.pagingController!.refresh();
                       }
-                      return _pagingController!;
+                      return _model.pagingController!;
                     }
 
-                    _pagingController = PagingController(firstPageKey: null);
-                    _pagingQuery = queryBuilder(ToursRecord.collection);
-                    _pagingController!.addPageRequestListener((nextPageMarker) {
+                    _model.pagingController =
+                        PagingController(firstPageKey: null);
+                    _model.pagingQuery = queryBuilder(ToursRecord.collection);
+                    _model.pagingController!
+                        .addPageRequestListener((nextPageMarker) {
                       queryToursRecordPage(
                         queryBuilder: (toursRecord) => toursRecord
                             .where('uid', isEqualTo: currentUserReference)
@@ -150,56 +160,58 @@ class _ToursWidgetState extends State<ToursWidget> {
                         pageSize: 25,
                         isStream: true,
                       ).then((page) {
-                        _pagingController!.appendPage(
+                        _model.pagingController!.appendPage(
                           page.data,
                           page.nextPageMarker,
                         );
                         final streamSubscription =
                             page.dataStream?.listen((data) {
-                          final itemIndexes = _pagingController!.itemList!
-                              .asMap()
-                              .map((k, v) => MapEntry(v.reference.id, k));
                           data.forEach((item) {
+                            final itemIndexes = _model
+                                .pagingController!.itemList!
+                                .asMap()
+                                .map((k, v) => MapEntry(v.reference.id, k));
                             final index = itemIndexes[item.reference.id];
-                            final items = _pagingController!.itemList!;
+                            final items = _model.pagingController!.itemList!;
                             if (index != null) {
                               items.replaceRange(index, index + 1, [item]);
-                              _pagingController!.itemList = {
+                              _model.pagingController!.itemList = {
                                 for (var item in items) item.reference: item
                               }.values.toList();
                             }
                           });
                           setState(() {});
                         });
-                        _streamSubscriptions.add(streamSubscription);
+                        _model.streamSubscriptions.add(streamSubscription);
                       });
                     });
-                    return _pagingController!;
+                    return _model.pagingController!;
                   }(),
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
+                  reverse: false,
                   scrollDirection: Axis.vertical,
                   builderDelegate: PagedChildBuilderDelegate<ToursRecord>(
                     // Customize what your widget looks like when it's loading the first page.
                     firstPageProgressIndicatorBuilder: (_) => Center(
                       child: SizedBox(
-                        width: 20,
-                        height: 20,
+                        width: 20.0,
+                        height: 20.0,
                         child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).purplePastel,
+                          color: Color(0xFFB19CD9),
                         ),
                       ),
                     ),
                     noItemsFoundIndicatorBuilder: (_) => Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.7,
                         child: HowItWorksEmptyStateWidget(),
                       ),
                     ),
                     itemBuilder: (context, _, listViewIndex) {
                       final listViewToursRecord =
-                          _pagingController!.itemList![listViewIndex];
+                          _model.pagingController!.itemList![listViewIndex];
                       return Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -212,13 +224,13 @@ class _ToursWidgetState extends State<ToursWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
+                                      0.0, 4.0, 0.0, 0.0),
                                   child: Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     color: Colors.white,
-                                    elevation: 2,
+                                    elevation: 2.0,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(28),
+                                      borderRadius: BorderRadius.circular(28.0),
                                     ),
                                     child: StreamBuilder<RegionsRecord>(
                                       stream: RegionsRecord.getDocument(
@@ -228,12 +240,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 20,
-                                              height: 20,
+                                              width: 20.0,
+                                              height: 20.0,
                                               child: CircularProgressIndicator(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .purplePastel,
+                                                color: Color(0xFFB19CD9),
                                               ),
                                             ),
                                           );
@@ -248,7 +258,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                           children: [
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 4, 0),
+                                                  .fromSTEB(0.0, 0.0, 4.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -259,8 +269,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                8, 0, 4, 0),
+                                                            .fromSTEB(8.0, 0.0,
+                                                                4.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -291,7 +301,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                   ClipRRect(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            28),
+                                                                            28.0),
                                                                     child: Image
                                                                         .network(
                                                                       rowRegionsRecord
@@ -323,14 +333,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           0x56000000),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              28),
+                                                                              28.0),
                                                                     ),
                                                                     child:
                                                                         Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
-                                                                              0,
-                                                                              0),
+                                                                              0.0,
+                                                                              0.0),
                                                                       child:
                                                                           Text(
                                                                         rowRegionsRecord
@@ -338,7 +348,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             .override(
                                                                               fontFamily: 'Poppins',
                                                                               color: Color(0xFFF4F4F4),
@@ -367,21 +377,21 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                           .size
                                                           .width *
                                                       0.55,
-                                                  height: 119,
+                                                  height: 119.0,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            28),
+                                                            28.0),
                                                     border: Border.all(
                                                       color: Color(0x4C333333),
-                                                      width: 1,
+                                                      width: 1.0,
                                                     ),
                                                   ),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                10, 4, 10, 4),
+                                                            .fromSTEB(10.0, 4.0,
+                                                                10.0, 4.0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -395,8 +405,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      6, 0, 4),
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      6.0,
+                                                                      0.0,
+                                                                      4.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -406,10 +419,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                 padding:
                                                                     EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            24,
-                                                                            0,
-                                                                            4,
-                                                                            0),
+                                                                            24.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
                                                                 child: Text(
                                                                   listViewToursRecord
                                                                       .tourName!
@@ -421,12 +434,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         fontSize:
-                                                                            14,
+                                                                            14.0,
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
@@ -438,8 +451,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 0, 4),
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      4.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -450,16 +466,16 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                     .people_outline,
                                                                 color: Colors
                                                                     .black,
-                                                                size: 16,
+                                                                size: 16.0,
                                                               ),
                                                               Padding(
                                                                 padding:
                                                                     EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                 child: Text(
                                                                   listViewToursRecord
                                                                       .passengers!
@@ -472,14 +488,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                       ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         color: Color(
                                                                             0xFF333333),
                                                                         fontSize:
-                                                                            12,
+                                                                            12.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                       ),
@@ -491,8 +507,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 0, 4),
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      4.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -503,16 +522,16 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                     .calendar_today_outlined,
                                                                 color: Colors
                                                                     .black,
-                                                                size: 16,
+                                                                size: 16.0,
                                                               ),
                                                               Padding(
                                                                 padding:
                                                                     EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                 child: Text(
                                                                   dateTimeFormat(
                                                                       'MMMMEEEEd',
@@ -520,12 +539,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           .tourDate!),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         fontSize:
-                                                                            12,
+                                                                            12.0,
                                                                         fontWeight:
                                                                             FontWeight.w600,
                                                                       ),
@@ -537,8 +556,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 0, 4),
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      4.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -549,16 +571,16 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                     .pin_drop_outlined,
                                                                 color: Colors
                                                                     .black,
-                                                                size: 16,
+                                                                size: 16.0,
                                                               ),
                                                               Padding(
                                                                 padding:
                                                                     EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            4,
-                                                                            0),
+                                                                            10.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
                                                                 child: Text(
                                                                   listViewToursRecord
                                                                       .pickupAddress!
@@ -570,14 +592,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         color: Color(
                                                                             0xFF333333),
                                                                         fontSize:
-                                                                            12,
+                                                                            12.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                       ),
@@ -601,15 +623,15 @@ class _ToursWidgetState extends State<ToursWidget> {
                                 Align(
                                   alignment: AlignmentDirectional(-0.88, -0.58),
                                   child: Container(
-                                    width: 40,
-                                    height: 40,
+                                    width: 40.0,
+                                    height: 40.0,
                                     decoration: BoxDecoration(
                                       color: Color(0x80000000),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                          10.0, 0.0, 10.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -618,7 +640,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                           Icon(
                                             Icons.directions_bus_rounded,
                                             color: Color(0xFFF4F4F4),
-                                            size: 18,
+                                            size: 18.0,
                                           ),
                                         ],
                                       ),
@@ -626,6 +648,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                                   ),
                                 ),
                                 InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
                                       'TourDetails',
@@ -651,11 +677,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                                     );
                                   },
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height:
-                                        MediaQuery.of(context).size.height * 1,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+                                    height: MediaQuery.of(context).size.height *
+                                        1.0,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(28),
+                                      borderRadius: BorderRadius.circular(28.0),
                                     ),
                                   ),
                                 ),

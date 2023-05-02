@@ -178,49 +178,44 @@ class _$ToursRecordSerializer implements StructuredSerializer<ToursRecord> {
         ..add('sub_total')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    value = object.discountAmount;
-    if (value != null) {
-      result
-        ..add('discount_amount')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     value = object.totalPaid;
     if (value != null) {
       result
         ..add('total_paid')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    value = object.totalBalance;
-    if (value != null) {
-      result
-        ..add('total_balance')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
-    value = object.promoCode;
-    if (value != null) {
-      result
-        ..add('promo_code')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.promoDiscountPercent;
-    if (value != null) {
-      result
-        ..add('promo_discount_percent')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(double)));
-    }
-    value = object.promoCodeSubmitted;
-    if (value != null) {
-      result
-        ..add('promo_code_submitted')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.lunchVenueFee;
     if (value != null) {
       result
         ..add('lunch_venue_fee')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.discountAmount;
+    if (value != null) {
+      result
+        ..add('discount_amount')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.totalBalance;
+    if (value != null) {
+      result
+        ..add('total_balance')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.discountAmountPp;
+    if (value != null) {
+      result
+        ..add('discount_amount_pp')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.pricePpDiscounted;
+    if (value != null) {
+      result
+        ..add('price_pp_discounted')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
@@ -346,32 +341,28 @@ class _$ToursRecordSerializer implements StructuredSerializer<ToursRecord> {
           result.subTotal = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
-        case 'discount_amount':
-          result.discountAmount = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
         case 'total_paid':
           result.totalPaid = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
-        case 'total_balance':
-          result.totalBalance = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
-        case 'promo_code':
-          result.promoCode = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'promo_discount_percent':
-          result.promoDiscountPercent = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double?;
-          break;
-        case 'promo_code_submitted':
-          result.promoCodeSubmitted = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'lunch_venue_fee':
           result.lunchVenueFee = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'discount_amount':
+          result.discountAmount = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'total_balance':
+          result.totalBalance = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'discount_amount_pp':
+          result.discountAmountPp = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'price_pp_discounted':
+          result.pricePpDiscounted = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
         case 'Document__Reference__Field':
@@ -433,19 +424,17 @@ class _$ToursRecord extends ToursRecord {
   @override
   final int? subTotal;
   @override
-  final int? discountAmount;
-  @override
   final int? totalPaid;
   @override
-  final int? totalBalance;
-  @override
-  final String? promoCode;
-  @override
-  final double? promoDiscountPercent;
-  @override
-  final String? promoCodeSubmitted;
-  @override
   final double? lunchVenueFee;
+  @override
+  final double? discountAmount;
+  @override
+  final double? totalBalance;
+  @override
+  final double? discountAmountPp;
+  @override
+  final double? pricePpDiscounted;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -475,13 +464,12 @@ class _$ToursRecord extends ToursRecord {
       this.totalTastingFeePp,
       this.largeGroupVenueEarlySeatingCount,
       this.subTotal,
-      this.discountAmount,
       this.totalPaid,
-      this.totalBalance,
-      this.promoCode,
-      this.promoDiscountPercent,
-      this.promoCodeSubmitted,
       this.lunchVenueFee,
+      this.discountAmount,
+      this.totalBalance,
+      this.discountAmountPp,
+      this.pricePpDiscounted,
       this.ffRef})
       : super._();
 
@@ -519,56 +507,49 @@ class _$ToursRecord extends ToursRecord {
         largeGroupVenueEarlySeatingCount ==
             other.largeGroupVenueEarlySeatingCount &&
         subTotal == other.subTotal &&
-        discountAmount == other.discountAmount &&
         totalPaid == other.totalPaid &&
-        totalBalance == other.totalBalance &&
-        promoCode == other.promoCode &&
-        promoDiscountPercent == other.promoDiscountPercent &&
-        promoCodeSubmitted == other.promoCodeSubmitted &&
         lunchVenueFee == other.lunchVenueFee &&
+        discountAmount == other.discountAmount &&
+        totalBalance == other.totalBalance &&
+        discountAmountPp == other.discountAmountPp &&
+        pricePpDiscounted == other.pricePpDiscounted &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, createdTime.hashCode), tourName.hashCode), regionID.hashCode), uid.hashCode), passengers.hashCode), tourDate.hashCode), pickupAddress.hashCode), pickupLatlng.hashCode), pricePp.hashCode), region.hashCode), venues.hashCode),
-                                                                                guestsUid.hashCode),
-                                                                            pickupUnitNumber.hashCode),
-                                                                        tourState.hashCode),
-                                                                    platformTastingFee.hashCode),
-                                                                driverReff.hashCode),
-                                                            driverUid.hashCode),
-                                                        countryState.hashCode),
-                                                    transportFeePp.hashCode),
-                                                totalTastingFeePp.hashCode),
-                                            largeGroupVenueEarlySeatingCount.hashCode),
-                                        subTotal.hashCode),
-                                    discountAmount.hashCode),
-                                totalPaid.hashCode),
-                            totalBalance.hashCode),
-                        promoCode.hashCode),
-                    promoDiscountPercent.hashCode),
-                promoCodeSubmitted.hashCode),
-            lunchVenueFee.hashCode),
-        ffRef.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, createdTime.hashCode);
+    _$hash = $jc(_$hash, tourName.hashCode);
+    _$hash = $jc(_$hash, regionID.hashCode);
+    _$hash = $jc(_$hash, uid.hashCode);
+    _$hash = $jc(_$hash, passengers.hashCode);
+    _$hash = $jc(_$hash, tourDate.hashCode);
+    _$hash = $jc(_$hash, pickupAddress.hashCode);
+    _$hash = $jc(_$hash, pickupLatlng.hashCode);
+    _$hash = $jc(_$hash, pricePp.hashCode);
+    _$hash = $jc(_$hash, region.hashCode);
+    _$hash = $jc(_$hash, venues.hashCode);
+    _$hash = $jc(_$hash, guestsUid.hashCode);
+    _$hash = $jc(_$hash, pickupUnitNumber.hashCode);
+    _$hash = $jc(_$hash, tourState.hashCode);
+    _$hash = $jc(_$hash, platformTastingFee.hashCode);
+    _$hash = $jc(_$hash, driverReff.hashCode);
+    _$hash = $jc(_$hash, driverUid.hashCode);
+    _$hash = $jc(_$hash, countryState.hashCode);
+    _$hash = $jc(_$hash, transportFeePp.hashCode);
+    _$hash = $jc(_$hash, totalTastingFeePp.hashCode);
+    _$hash = $jc(_$hash, largeGroupVenueEarlySeatingCount.hashCode);
+    _$hash = $jc(_$hash, subTotal.hashCode);
+    _$hash = $jc(_$hash, totalPaid.hashCode);
+    _$hash = $jc(_$hash, lunchVenueFee.hashCode);
+    _$hash = $jc(_$hash, discountAmount.hashCode);
+    _$hash = $jc(_$hash, totalBalance.hashCode);
+    _$hash = $jc(_$hash, discountAmountPp.hashCode);
+    _$hash = $jc(_$hash, pricePpDiscounted.hashCode);
+    _$hash = $jc(_$hash, ffRef.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -597,13 +578,12 @@ class _$ToursRecord extends ToursRecord {
           ..add('largeGroupVenueEarlySeatingCount',
               largeGroupVenueEarlySeatingCount)
           ..add('subTotal', subTotal)
-          ..add('discountAmount', discountAmount)
           ..add('totalPaid', totalPaid)
-          ..add('totalBalance', totalBalance)
-          ..add('promoCode', promoCode)
-          ..add('promoDiscountPercent', promoDiscountPercent)
-          ..add('promoCodeSubmitted', promoCodeSubmitted)
           ..add('lunchVenueFee', lunchVenueFee)
+          ..add('discountAmount', discountAmount)
+          ..add('totalBalance', totalBalance)
+          ..add('discountAmountPp', discountAmountPp)
+          ..add('pricePpDiscounted', pricePpDiscounted)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -714,37 +694,33 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
   int? get subTotal => _$this._subTotal;
   set subTotal(int? subTotal) => _$this._subTotal = subTotal;
 
-  int? _discountAmount;
-  int? get discountAmount => _$this._discountAmount;
-  set discountAmount(int? discountAmount) =>
-      _$this._discountAmount = discountAmount;
-
   int? _totalPaid;
   int? get totalPaid => _$this._totalPaid;
   set totalPaid(int? totalPaid) => _$this._totalPaid = totalPaid;
-
-  int? _totalBalance;
-  int? get totalBalance => _$this._totalBalance;
-  set totalBalance(int? totalBalance) => _$this._totalBalance = totalBalance;
-
-  String? _promoCode;
-  String? get promoCode => _$this._promoCode;
-  set promoCode(String? promoCode) => _$this._promoCode = promoCode;
-
-  double? _promoDiscountPercent;
-  double? get promoDiscountPercent => _$this._promoDiscountPercent;
-  set promoDiscountPercent(double? promoDiscountPercent) =>
-      _$this._promoDiscountPercent = promoDiscountPercent;
-
-  String? _promoCodeSubmitted;
-  String? get promoCodeSubmitted => _$this._promoCodeSubmitted;
-  set promoCodeSubmitted(String? promoCodeSubmitted) =>
-      _$this._promoCodeSubmitted = promoCodeSubmitted;
 
   double? _lunchVenueFee;
   double? get lunchVenueFee => _$this._lunchVenueFee;
   set lunchVenueFee(double? lunchVenueFee) =>
       _$this._lunchVenueFee = lunchVenueFee;
+
+  double? _discountAmount;
+  double? get discountAmount => _$this._discountAmount;
+  set discountAmount(double? discountAmount) =>
+      _$this._discountAmount = discountAmount;
+
+  double? _totalBalance;
+  double? get totalBalance => _$this._totalBalance;
+  set totalBalance(double? totalBalance) => _$this._totalBalance = totalBalance;
+
+  double? _discountAmountPp;
+  double? get discountAmountPp => _$this._discountAmountPp;
+  set discountAmountPp(double? discountAmountPp) =>
+      _$this._discountAmountPp = discountAmountPp;
+
+  double? _pricePpDiscounted;
+  double? get pricePpDiscounted => _$this._pricePpDiscounted;
+  set pricePpDiscounted(double? pricePpDiscounted) =>
+      _$this._pricePpDiscounted = pricePpDiscounted;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -779,13 +755,12 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
       _totalTastingFeePp = $v.totalTastingFeePp;
       _largeGroupVenueEarlySeatingCount = $v.largeGroupVenueEarlySeatingCount;
       _subTotal = $v.subTotal;
-      _discountAmount = $v.discountAmount;
       _totalPaid = $v.totalPaid;
-      _totalBalance = $v.totalBalance;
-      _promoCode = $v.promoCode;
-      _promoDiscountPercent = $v.promoDiscountPercent;
-      _promoCodeSubmitted = $v.promoCodeSubmitted;
       _lunchVenueFee = $v.lunchVenueFee;
+      _discountAmount = $v.discountAmount;
+      _totalBalance = $v.totalBalance;
+      _discountAmountPp = $v.discountAmountPp;
+      _pricePpDiscounted = $v.pricePpDiscounted;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -834,13 +809,12 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
               largeGroupVenueEarlySeatingCount:
                   largeGroupVenueEarlySeatingCount,
               subTotal: subTotal,
-              discountAmount: discountAmount,
               totalPaid: totalPaid,
-              totalBalance: totalBalance,
-              promoCode: promoCode,
-              promoDiscountPercent: promoDiscountPercent,
-              promoCodeSubmitted: promoCodeSubmitted,
               lunchVenueFee: lunchVenueFee,
+              discountAmount: discountAmount,
+              totalBalance: totalBalance,
+              discountAmountPp: discountAmountPp,
+              pricePpDiscounted: pricePpDiscounted,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -860,4 +834,4 @@ class ToursRecordBuilder implements Builder<ToursRecord, ToursRecordBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

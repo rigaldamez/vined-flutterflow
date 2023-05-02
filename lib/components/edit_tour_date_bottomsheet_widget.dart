@@ -1,14 +1,16 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'edit_tour_date_bottomsheet_model.dart';
+export 'edit_tour_date_bottomsheet_model.dart';
 
 class EditTourDateBottomsheetWidget extends StatefulWidget {
   const EditTourDateBottomsheetWidget({
@@ -25,17 +27,33 @@ class EditTourDateBottomsheetWidget extends StatefulWidget {
 
 class _EditTourDateBottomsheetWidgetState
     extends State<EditTourDateBottomsheetWidget> {
-  DateTime? datePicked;
+  late EditTourDateBottomsheetModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => EditTourDateBottomsheetModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<ToursRecord>(
       stream: ToursRecord.getDocument(widget.tourID!),
       builder: (context, snapshot) {
@@ -43,10 +61,10 @@ class _EditTourDateBottomsheetWidgetState
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
-              width: 20,
-              height: 20,
+              width: 20.0,
+              height: 20.0,
               child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).purplePastel,
+                color: Color(0xFFB19CD9),
               ),
             ),
           );
@@ -54,40 +72,40 @@ class _EditTourDateBottomsheetWidgetState
         final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1,
+          height: MediaQuery.of(context).size.height * 1.0,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                blurRadius: 5,
+                blurRadius: 5.0,
                 color: Color(0x3B1D2429),
-                offset: Offset(0, -3),
+                offset: Offset(0.0, -3.0),
               )
             ],
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(0),
-              bottomRight: Radius.circular(0),
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              bottomLeft: Radius.circular(0.0),
+              bottomRight: Radius.circular(0.0),
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
             ),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+            padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.12,
-                        height: 6,
+                        height: 6.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).black,
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(50.0),
                         ),
                       ),
                     ],
@@ -101,21 +119,22 @@ class _EditTourDateBottomsheetWidgetState
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 6.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      12, 0, 0, 0),
+                                      12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Tour Date',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily: 'Poppins',
-                                          fontSize: 18,
+                                          fontSize: 18.0,
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
@@ -124,25 +143,25 @@ class _EditTourDateBottomsheetWidgetState
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  10, 10, 10, 20),
+                                  10.0, 10.0, 10.0, 20.0),
                               child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 100,
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height: 100.0,
                                 decoration: BoxDecoration(
                                   color: Color(0x00EEEEEE),
-                                  borderRadius: BorderRadius.circular(18),
+                                  borderRadius: BorderRadius.circular(18.0),
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
                                     color: Color(0x19000000),
                                   ),
                                 ),
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 4),
+                                      0.0, 4.0, 0.0, 4.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -150,23 +169,24 @@ class _EditTourDateBottomsheetWidgetState
                                       Icon(
                                         Icons.calendar_today_rounded,
                                         color: Colors.black,
-                                        size: 24,
+                                        size: 24.0,
                                       ),
                                       Text(
-                                        dateTimeFormat('MMMMEEEEd', datePicked),
+                                        dateTimeFormat(
+                                            'MMMMEEEEd', _model.datePicked),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily: 'Poppins',
-                                              fontSize: 18,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
                                       Text(
-                                        dateTimeFormat('jm', datePicked),
+                                        dateTimeFormat('jm', _model.datePicked),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                                            .bodyMedium,
                                       ),
                                     ],
                                   ),
@@ -175,23 +195,24 @@ class _EditTourDateBottomsheetWidgetState
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 30.0, 0.0, 0.0),
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.94,
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 58,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+                                    height: 58.0,
                                     decoration: BoxDecoration(
                                       color: Colors.black,
-                                      borderRadius: BorderRadius.circular(34),
+                                      borderRadius: BorderRadius.circular(34.0),
                                     ),
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: StreamBuilder<List<AppConfigRecord>>(
                                       stream: queryAppConfigRecord(
                                         singleRecord: true,
@@ -201,12 +222,10 @@ class _EditTourDateBottomsheetWidgetState
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 20,
-                                              height: 20,
+                                              width: 20.0,
+                                              height: 20.0,
                                               child: CircularProgressIndicator(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .purplePastel,
+                                                color: Color(0xFFB19CD9),
                                               ),
                                             ),
                                           );
@@ -221,20 +240,36 @@ class _EditTourDateBottomsheetWidgetState
                                                 : null;
                                         return FFButtonWidget(
                                           onPressed: () async {
-                                            if (kIsWeb) {
-                                              final _datePickedDate =
-                                                  await showDatePicker(
+                                            final _datePickedDate =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: functions
+                                                  .getCurrentDateTimePlusAweek(
+                                                      getCurrentTimestamp,
+                                                      buttonAppConfigRecord!
+                                                          .tourLeadTime,
+                                                      valueOrDefault<bool>(
+                                                          currentUserDocument
+                                                              ?.tourLeadTimeExempted,
+                                                          false)),
+                                              firstDate: functions
+                                                  .getCurrentDateTimePlusAweek(
+                                                      getCurrentTimestamp,
+                                                      buttonAppConfigRecord!
+                                                          .tourLeadTime,
+                                                      valueOrDefault<bool>(
+                                                          currentUserDocument
+                                                              ?.tourLeadTimeExempted,
+                                                          false)),
+                                              lastDate: DateTime(2050),
+                                            );
+
+                                            TimeOfDay? _datePickedTime;
+                                            if (_datePickedDate != null) {
+                                              _datePickedTime =
+                                                  await showTimePicker(
                                                 context: context,
-                                                initialDate: functions
-                                                    .getCurrentDateTimePlusAweek(
-                                                        getCurrentTimestamp,
-                                                        buttonAppConfigRecord!
-                                                            .tourLeadTime,
-                                                        valueOrDefault<bool>(
-                                                            currentUserDocument
-                                                                ?.tourLeadTimeExempted,
-                                                            false)),
-                                                firstDate:
+                                                initialTime: TimeOfDay.fromDateTime(
                                                     functions.getCurrentDateTimePlusAweek(
                                                         getCurrentTimestamp,
                                                         buttonAppConfigRecord!
@@ -242,77 +277,37 @@ class _EditTourDateBottomsheetWidgetState
                                                         valueOrDefault<bool>(
                                                             currentUserDocument
                                                                 ?.tourLeadTimeExempted,
-                                                            false)),
-                                                lastDate: DateTime(2050),
+                                                            false))),
                                               );
+                                            }
 
-                                              TimeOfDay? _datePickedTime;
-                                              if (_datePickedDate != null) {
-                                                _datePickedTime =
-                                                    await showTimePicker(
-                                                  context: context,
-                                                  initialTime: TimeOfDay.fromDateTime(
-                                                      functions.getCurrentDateTimePlusAweek(
-                                                          getCurrentTimestamp,
-                                                          buttonAppConfigRecord!
-                                                              .tourLeadTime,
-                                                          valueOrDefault<bool>(
-                                                              currentUserDocument
-                                                                  ?.tourLeadTimeExempted,
-                                                              false))),
+                                            if (_datePickedDate != null &&
+                                                _datePickedTime != null) {
+                                              setState(() {
+                                                _model.datePicked = DateTime(
+                                                  _datePickedDate.year,
+                                                  _datePickedDate.month,
+                                                  _datePickedDate.day,
+                                                  _datePickedTime!.hour,
+                                                  _datePickedTime.minute,
                                                 );
-                                              }
-
-                                              if (_datePickedDate != null &&
-                                                  _datePickedTime != null) {
-                                                setState(
-                                                  () => datePicked = DateTime(
-                                                    _datePickedDate.year,
-                                                    _datePickedDate.month,
-                                                    _datePickedDate.day,
-                                                    _datePickedTime!.hour,
-                                                    _datePickedTime.minute,
-                                                  ),
-                                                );
-                                              }
-                                            } else {
-                                              await DatePicker
-                                                  .showDateTimePicker(
-                                                context,
-                                                showTitleActions: true,
-                                                onConfirm: (date) {
-                                                  setState(
-                                                      () => datePicked = date);
-                                                },
-                                                currentTime: functions
-                                                    .getCurrentDateTimePlusAweek(
-                                                        getCurrentTimestamp,
-                                                        buttonAppConfigRecord!
-                                                            .tourLeadTime,
-                                                        valueOrDefault<bool>(
-                                                            currentUserDocument
-                                                                ?.tourLeadTimeExempted,
-                                                            false)),
-                                                minTime: functions
-                                                    .getCurrentDateTimePlusAweek(
-                                                        getCurrentTimestamp,
-                                                        buttonAppConfigRecord!
-                                                            .tourLeadTime,
-                                                        valueOrDefault<bool>(
-                                                            currentUserDocument
-                                                                ?.tourLeadTimeExempted,
-                                                            false)),
-                                              );
+                                              });
                                             }
                                           },
                                           text: 'Select New Date',
                                           options: FFButtonOptions(
-                                            width: 390,
-                                            height: 58,
+                                            width: 390.0,
+                                            height: 58.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
                                             color: Colors.white,
                                             textStyle: FlutterFlowTheme.of(
                                                     context)
-                                                .subtitle2
+                                                .titleSmall
                                                 .override(
                                                   fontFamily: 'Poppins',
                                                   color: FlutterFlowTheme.of(
@@ -320,14 +315,15 @@ class _EditTourDateBottomsheetWidgetState
                                                       .black,
                                                   fontWeight: FontWeight.w600,
                                                 ),
+                                            elevation: 2.0,
                                             borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .black,
-                                              width: 1,
+                                              width: 1.0,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(34),
+                                                BorderRadius.circular(34.0),
                                           ),
                                         );
                                       },
@@ -338,12 +334,12 @@ class _EditTourDateBottomsheetWidgetState
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 final toursUpdateData = createToursRecordData(
-                                  tourDate: datePicked,
+                                  tourDate: _model.datePicked,
                                 );
                                 await widget.tourID!.update(toursUpdateData);
                                 Navigator.pop(context);
@@ -351,47 +347,56 @@ class _EditTourDateBottomsheetWidgetState
                               text: 'Save',
                               options: FFButtonOptions(
                                 width: double.infinity,
-                                height: 60,
+                                height: 60.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).black,
                                 textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
+                                    .titleSmall
                                     .override(
                                       fontFamily: 'Lexend Deca',
                                       color: Color(0xFFF5F5F5),
-                                      fontSize: 16,
+                                      fontSize: 16.0,
                                       fontWeight: FontWeight.normal,
                                     ),
+                                elevation: 2.0,
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
-                                  width: 1,
+                                  width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(40),
+                                borderRadius: BorderRadius.circular(40.0),
                               ),
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
                             child: Stack(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
                                 Text(
                                   'Cancel',
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyText1
+                                      .bodyMedium
                                       .override(
                                         fontFamily: 'Poppins',
-                                        fontSize: 12,
+                                        fontSize: 12.0,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
                                 InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pop();
+                                    Navigator.pop(context);
                                   },
                                   child: Container(
-                                    width: 300,
-                                    height: 40,
+                                    width: 300.0,
+                                    height: 40.0,
                                     decoration: BoxDecoration(),
                                   ),
                                 ),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'lat_lng.dart';
 import 'place.dart';
 import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../auth/auth_util.dart';
+import '../../auth/firebase_auth/auth_util.dart';
 
 String fortmatCurrency(
   double? price,
@@ -490,4 +491,162 @@ double getTotalTourAmountPaid(List<PaymentRecord>? paymentArray) {
   }
 
   return totalAmountPaid;
+}
+
+bool isTourCorrectToSubmit(
+  DateTime? tourDate,
+  int? numberOfPassengers,
+  List<SelectedVenuesRecord>? venuesList,
+) {
+  // Check group capacity and open days
+
+  bool boolVal = false;
+
+  for (var i = 0; i < venuesList!.length; i++) {
+    if (venuesList[i].openDays!.contains(tourDate!.weekday) &&
+        numberOfPassengers! <= venuesList[i].capacity!) {
+      boolVal = true;
+    } else {
+      boolVal = false;
+    } //end if
+
+  } //end for
+
+  return boolVal;
+}
+
+bool isTourVenuesListEmpty(List<DocumentReference>? tourVenuesRefList) {
+  // Add your function code here!
+  if (tourVenuesRefList == null) {
+    return true;
+  } else {
+    return tourVenuesRefList.isEmpty ? true : false;
+  }
+}
+
+bool? isPromoCodeValid(
+  PromoCodesRecord? promoCodeDoc,
+  DocumentReference? userID,
+) {
+  bool validity = false;
+
+  if (promoCodeDoc != null) {
+    //checking for a null document
+    if (DateTime.now().compareTo(promoCodeDoc.expiryDate!) < 0) {
+      //checking that promo code hasn't 'date' expired
+      if (!promoCodeDoc.usedByList!.contains(userID)) {
+        //checking that user hasn't used promo code yet
+        validity = true;
+      }
+    }
+  }
+
+  return validity;
+}
+
+double? calculateDiscountAmount(
+  String? discountType,
+  double? discountAmount,
+  double? totalTourPrice,
+) {
+  switch (discountType!) {
+    case "percent":
+      {
+        return (totalTourPrice! * (discountAmount! / 100)).toDouble();
+      }
+
+    case "fixed":
+      {
+        return discountAmount; //(totalTourPrice! - discountAmount!).toDouble();
+      }
+
+    default:
+      {
+        return 0;
+      }
+  }
+}
+
+double? calculateTotalDiscountAmount(
+  String? discountType,
+  double? discountAmount,
+  double? totalTourPricePP,
+  int numberOfGuests,
+) {
+  switch (discountType!) {
+    case "percent":
+      {
+        return (totalTourPricePP! * (discountAmount! / 100)).toDouble();
+      }
+
+    case "fixed":
+      {
+        return discountAmount! * numberOfGuests;
+      }
+
+    default:
+      {
+        return 0;
+      }
+  }
+}
+
+double? updateTotalBalanceWithDiscountAmount(
+  double? subTotal,
+  double? discountAmount,
+) {
+  if (subTotal != null) {
+    return (subTotal - discountAmount!).toDouble();
+  } else {
+    return 0.0;
+  }
+}
+
+double? updateTotalPPCostWithDiscountAmount(
+  double? pricePP,
+  double? discountAmount,
+) {
+  if (pricePP != null) {
+    return (pricePP - discountAmount!).toDouble();
+  } else {
+    return 0.0;
+  }
+}
+
+double? convertAmountToCents(double? amount) {
+  if (amount != null) {
+    return amount * 100;
+  }
+}
+
+double? displayDiscountedPP(
+  double? pricePP,
+  double? pricePPDiscounted,
+) {
+  if (pricePPDiscounted == null || pricePPDiscounted == 0) {
+    return pricePP;
+  } else {
+    return pricePPDiscounted;
+  }
+}
+
+double? updateTotalBalanceAfterPayment(
+  List<PaymentRecord>? paymentsList,
+  double? lastPayment,
+  double? currentTotalBalance,
+) {
+  double total = currentTotalBalance != null ? currentTotalBalance : 0.0;
+
+  /*if (paymentsList != null) {
+    for (var i = 0; i < paymentsList.length; i++) {
+      total -= paymentsList[i].amountPaid!;
+    } //end for
+
+  }*/
+
+  if (lastPayment != null) {
+    total -= lastPayment;
+  }
+
+  return total;
 }

@@ -1,19 +1,22 @@
-import '../backend/backend.dart';
-import '../components/del_update_venue_btmsheet_widget.dart';
-import '../components/edit_address_bottomsheet_widget.dart';
-import '../components/edit_tour_date_bottomsheet_widget.dart';
-import '../components/update_pickup_time_btmsheet_copy_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/backend/backend.dart';
+import '/components/del_update_venue_btmsheet_widget.dart';
+import '/components/edit_address_bottomsheet_widget.dart';
+import '/components/edit_tour_date_bottomsheet_widget.dart';
+import '/components/update_pickup_time_btmsheet_copy_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'tour_details_model.dart';
+export 'tour_details_model.dart';
 
 class TourDetailsWidget extends StatefulWidget {
   const TourDetailsWidget({
@@ -30,102 +33,32 @@ class TourDetailsWidget extends StatefulWidget {
 }
 
 class _TourDetailsWidgetState extends State<TourDetailsWidget> {
+  late TourDetailsModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => TourDetailsModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
-      floatingActionButton: StreamBuilder<List<SelectedVenuesRecord>>(
-        stream: querySelectedVenuesRecord(
-          queryBuilder: (selectedVenuesRecord) =>
-              selectedVenuesRecord.where('tourRef', isEqualTo: widget.tourID),
-        ),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  color: FlutterFlowTheme.of(context).purplePastel,
-                ),
-              ),
-            );
-          }
-          List<SelectedVenuesRecord>
-              floatingActionButtonSelectedVenuesRecordList = snapshot.data!;
-          return FloatingActionButton.extended(
-            onPressed: () async {
-              if (functions.isSelectedVenuesListEmpty(
-                  floatingActionButtonSelectedVenuesRecordList.toList())) {
-                await showDialog(
-                  context: context,
-                  builder: (alertDialogContext) {
-                    return AlertDialog(
-                      title: Text('Your itinerary is empty'),
-                      content: Text('Add at least one venue to your itinery'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(alertDialogContext),
-                          child: Text('Got it!'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              } else {
-                context.pushNamed(
-                  'submitTour',
-                  queryParams: {
-                    'tourID': serializeParam(
-                      widget.tourID,
-                      ParamType.DocumentReference,
-                    ),
-                    'tourRecord': serializeParam(
-                      widget.tourDocument,
-                      ParamType.Document,
-                    ),
-                  }.withoutNulls,
-                  extra: <String, dynamic>{
-                    'tourRecord': widget.tourDocument,
-                    kTransitionInfoKey: TransitionInfo(
-                      hasTransition: true,
-                      transitionType: PageTransitionType.bottomToTop,
-                      duration: Duration(milliseconds: 150),
-                    ),
-                  },
-                );
-              }
-            },
-            backgroundColor: FlutterFlowTheme.of(context).black,
-            icon: Icon(
-              Icons.directions_bus_rounded,
-              color: FlutterFlowTheme.of(context).cultured,
-              size: 20,
-            ),
-            elevation: 8,
-            label: Text(
-              'Submit',
-              style: FlutterFlowTheme.of(context).bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.of(context).cultured,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          );
-        },
-      ),
       body: StreamBuilder<ToursRecord>(
         stream: ToursRecord.getDocument(widget.tourID!),
         builder: (context, snapshot) {
@@ -133,27 +66,27 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
           if (!snapshot.hasData) {
             return Center(
               child: SizedBox(
-                width: 20,
-                height: 20,
+                width: 20.0,
+                height: 20.0,
                 child: CircularProgressIndicator(
-                  color: FlutterFlowTheme.of(context).purplePastel,
+                  color: Color(0xFFB19CD9),
                 ),
               ),
             );
           }
           final containerTourReffToursRecord = snapshot.data!;
           return Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 1,
+            width: MediaQuery.of(context).size.width * 1.0,
+            height: MediaQuery.of(context).size.height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  FlutterFlowTheme.of(context).purplePastel,
+                  FlutterFlowTheme.of(context).pinkPastel,
                   FlutterFlowTheme.of(context).greenPastel
                 ],
-                stops: [0, 1],
-                begin: AlignmentDirectional(0, -1),
-                end: AlignmentDirectional(0, 1),
+                stops: [0.0, 1.0],
+                begin: AlignmentDirectional(0.0, -1.0),
+                end: AlignmentDirectional(0, 1.0),
               ),
             ),
             child: Column(
@@ -163,7 +96,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 1,
+                  height: MediaQuery.of(context).size.height * 1.0,
                   child: Stack(
                     children: [
                       StreamBuilder<RegionsRecord>(
@@ -174,11 +107,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 20,
-                                height: 20,
+                                width: 20.0,
+                                height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).purplePastel,
+                                  color: Color(0xFFB19CD9),
                                 ),
                               ),
                             );
@@ -187,7 +119,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                               snapshot.data!;
                           return Container(
                             width: double.infinity,
-                            height: 220,
+                            height: 220.0,
                             decoration: BoxDecoration(
                               color: Color(0xFFEEEEEE),
                             ),
@@ -196,12 +128,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                 Image.network(
                                   containerRegionReffRegionsRecord.image!,
                                   width: double.infinity,
-                                  height: 280,
+                                  height: 280.0,
                                   fit: BoxFit.cover,
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  height: 280,
+                                  height: 280.0,
                                   decoration: BoxDecoration(
                                     color: Color(0x4D000000),
                                   ),
@@ -212,7 +144,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                          10.0, 0.0, 10.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -223,53 +155,61 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                 .tourName!,
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily: 'Poppins',
                                                   color: Color(0xFFFAFAFA),
-                                                  fontSize: 28,
+                                                  fontSize: 28.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
                                           Container(
-                                            width: 100,
-                                            height: 40,
+                                            width: 100.0,
+                                            height: 40.0,
                                             decoration: BoxDecoration(),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                FlutterFlowIconButton(
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderRadius: 30,
-                                                  borderWidth: 1,
-                                                  buttonSize: 40,
-                                                  fillColor: Color(0x66000000),
-                                                  icon: FaIcon(
-                                                    FontAwesomeIcons.share,
-                                                    color: Colors.white,
-                                                    size: 14,
+                                                Builder(
+                                                  builder: (context) =>
+                                                      FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderRadius: 30.0,
+                                                    borderWidth: 1.0,
+                                                    buttonSize: 40.0,
+                                                    fillColor:
+                                                        Color(0x66000000),
+                                                    icon: FaIcon(
+                                                      FontAwesomeIcons.share,
+                                                      color: Colors.white,
+                                                      size: 14.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      await Share.share(
+                                                        'vined://vined.com${GoRouter.of(context).location}',
+                                                        sharePositionOrigin:
+                                                            getWidgetBoundingBox(
+                                                                context),
+                                                      );
+                                                    },
                                                   ),
-                                                  onPressed: () async {
-                                                    await Share.share(
-                                                        'vined://vined.com${GoRouter.of(context).location}');
-                                                  },
                                                 ),
                                                 FlutterFlowIconButton(
                                                   borderColor:
                                                       Colors.transparent,
-                                                  borderRadius: 30,
-                                                  borderWidth: 1,
-                                                  buttonSize: 40,
+                                                  borderRadius: 30.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
                                                   fillColor: Color(0x65000000),
                                                   icon: Icon(
                                                     Icons.close_rounded,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .cultured,
-                                                    size: 20,
+                                                    size: 20.0,
                                                   ),
                                                   onPressed: () async {
                                                     context.pop();
@@ -283,7 +223,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                          10.0, 0.0, 10.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -293,11 +233,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             containerTourReffToursRecord
                                                 .region!,
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily: 'Poppins',
                                                   color: Color(0xFFFAFAFA),
-                                                  fontSize: 12,
+                                                  fontSize: 12.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
@@ -312,30 +252,30 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                         },
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0, 1.01),
+                        alignment: AlignmentDirectional(0.0, 1.01),
                         child: Container(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.8,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                FlutterFlowTheme.of(context).purplePastel,
+                                FlutterFlowTheme.of(context).pinkPastel,
                                 FlutterFlowTheme.of(context).greenPastel
                               ],
-                              stops: [0, 1],
-                              begin: AlignmentDirectional(0, -1),
-                              end: AlignmentDirectional(0, 1),
+                              stops: [0.0, 1.0],
+                              begin: AlignmentDirectional(0.0, -1.0),
+                              end: AlignmentDirectional(0, 1.0),
                             ),
                             borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(0),
-                              bottomRight: Radius.circular(0),
-                              topLeft: Radius.circular(38),
-                              topRight: Radius.circular(38),
+                              bottomLeft: Radius.circular(0.0),
+                              bottomRight: Radius.circular(0.0),
+                              topLeft: Radius.circular(38.0),
+                              topRight: Radius.circular(38.0),
                             ),
                           ),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
                             child: StreamBuilder<List<AppConfigRecord>>(
                               stream: queryAppConfigRecord(
                                 singleRecord: true,
@@ -345,11 +285,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 20,
-                                      height: 20,
+                                      width: 20.0,
+                                      height: 20.0,
                                       child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .purplePastel,
+                                        color: Color(0xFFB19CD9),
                                       ),
                                     ),
                                   );
@@ -370,7 +309,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 10, 10, 0),
+                                            10.0, 10.0, 10.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -379,16 +318,16 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 70,
-                                              height: 80,
+                                              width: 70.0,
+                                              height: 80.0,
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFEEEEEE),
                                                 borderRadius:
-                                                    BorderRadius.circular(24),
+                                                    BorderRadius.circular(24.0),
                                               ),
                                               child: Stack(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
                                                 children: [
                                                   Column(
                                                     mainAxisSize:
@@ -400,23 +339,26 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       Icon(
                                                         Icons.calendar_today,
                                                         color: Colors.black,
-                                                        size: 20,
+                                                        size: 20.0,
                                                       ),
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 6, 0, 0),
+                                                                    0.0,
+                                                                    6.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         child: Container(
-                                                          width: 60,
+                                                          width: 60.0,
                                                           child: Stack(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0, 0),
+                                                                    0.0, 0.0),
                                                             children: [
                                                               Container(
-                                                                width: 100,
-                                                                height: 30,
+                                                                width: 100.0,
+                                                                height: 30.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: FlutterFlowTheme.of(
@@ -425,18 +367,19 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              24),
+                                                                              24.0),
                                                                 ),
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0, 0),
+                                                                        0.0,
+                                                                        0.0),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                   child: Text(
                                                                     functions.getDayMonthFromDate(
                                                                         containerTourReffToursRecord
@@ -446,14 +389,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             .center,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
                                                                               'Poppins',
                                                                           color:
                                                                               FlutterFlowTheme.of(context).cultured,
                                                                           fontSize:
-                                                                              12,
+                                                                              12.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                         ),
@@ -467,21 +410,31 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ],
                                                   ),
                                                   InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
                                                     onTap: () async {
                                                       await showModalBottomSheet(
                                                         isScrollControlled:
                                                             true,
                                                         backgroundColor:
                                                             Colors.transparent,
+                                                        barrierColor:
+                                                            Color(0x00000000),
                                                         context: context,
-                                                        builder: (context) {
+                                                        builder:
+                                                            (bottomSheetContext) {
                                                           return Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
+                                                            padding: MediaQuery.of(
+                                                                    bottomSheetContext)
+                                                                .viewInsets,
                                                             child: Container(
-                                                              height: 440,
+                                                              height: 440.0,
                                                               child:
                                                                   EditTourDateBottomsheetWidget(
                                                                 tourID: widget
@@ -494,12 +447,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           setState(() {}));
                                                     },
                                                     child: Container(
-                                                      width: 100,
-                                                      height: 100,
+                                                      width: 100.0,
+                                                      height: 100.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(24),
+                                                                .circular(24.0),
                                                       ),
                                                     ),
                                                   ),
@@ -507,18 +460,18 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                               ),
                                             ),
                                             Container(
-                                              width: 70,
-                                              height: 80,
+                                              width: 70.0,
+                                              height: 80.0,
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFEEEEEE),
                                                 borderRadius:
-                                                    BorderRadius.circular(24),
+                                                    BorderRadius.circular(24.0),
                                               ),
-                                              alignment:
-                                                  AlignmentDirectional(0, 0),
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: Stack(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
                                                 children: [
                                                   Column(
                                                     mainAxisSize:
@@ -530,23 +483,26 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       FaIcon(
                                                         FontAwesomeIcons.users,
                                                         color: Colors.black,
-                                                        size: 20,
+                                                        size: 20.0,
                                                       ),
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 6, 0, 0),
+                                                                    0.0,
+                                                                    6.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         child: Container(
-                                                          width: 60,
+                                                          width: 60.0,
                                                           child: Stack(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0, 0),
+                                                                    0.0, 0.0),
                                                             children: [
                                                               Container(
-                                                                width: 100,
-                                                                height: 30,
+                                                                width: 100.0,
+                                                                height: 30.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: FlutterFlowTheme.of(
@@ -555,18 +511,19 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              24),
+                                                                              24.0),
                                                                 ),
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0, 0),
+                                                                        0.0,
+                                                                        0.0),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                   child: Text(
                                                                     containerTourReffToursRecord
                                                                         .passengers!
@@ -576,14 +533,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             .center,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
                                                                               'Poppins',
                                                                           color:
                                                                               FlutterFlowTheme.of(context).cultured,
                                                                           fontSize:
-                                                                              12,
+                                                                              12.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                         ),
@@ -597,6 +554,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ],
                                                   ),
                                                   InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
                                                     onTap: () async {
                                                       context.pushNamed(
                                                         'EditTourPassengers',
@@ -631,12 +596,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       );
                                                     },
                                                     child: Container(
-                                                      width: 100,
-                                                      height: 100,
+                                                      width: 100.0,
+                                                      height: 100.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(24),
+                                                                .circular(24.0),
                                                       ),
                                                     ),
                                                   ),
@@ -658,14 +623,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 20,
-                                                      height: 20,
+                                                      width: 20.0,
+                                                      height: 20.0,
                                                       child:
                                                           CircularProgressIndicator(
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .purplePastel,
+                                                            Color(0xFFB19CD9),
                                                       ),
                                                     ),
                                                   );
@@ -674,22 +637,22 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     containerSelectedVenuesSelectedVenuesRecordList =
                                                     snapshot.data!;
                                                 return Container(
-                                                  width: 70,
-                                                  height: 80,
+                                                  width: 70.0,
+                                                  height: 80.0,
                                                   decoration: BoxDecoration(
                                                     color: Color(0xFFEEEEEE),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            24),
+                                                            24.0),
                                                   ),
                                                   child: Container(
-                                                    width: 100,
-                                                    height: 100,
+                                                    width: 100.0,
+                                                    height: 100.0,
                                                     decoration: BoxDecoration(
                                                       color: Color(0xFFEEEEEE),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              24),
+                                                              24.0),
                                                     ),
                                                     child: Stack(
                                                       children: [
@@ -713,20 +676,20 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       .dollarSign,
                                                                   color: Colors
                                                                       .black,
-                                                                  size: 20,
+                                                                  size: 20.0,
                                                                 ),
                                                                 Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          4,
-                                                                          0,
-                                                                          0,
-                                                                          0),
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                   child: Text(
                                                                     'ea',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
                                                                               'Poppins',
@@ -741,40 +704,41 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          6,
-                                                                          0,
-                                                                          0),
+                                                                          0.0,
+                                                                          6.0,
+                                                                          0.0,
+                                                                          0.0),
                                                               child: Container(
-                                                                width: 60,
+                                                                width: 60.0,
                                                                 child: Stack(
                                                                   alignment:
                                                                       AlignmentDirectional(
-                                                                          0, 0),
+                                                                          0.0,
+                                                                          0.0),
                                                                   children: [
                                                                     Container(
                                                                       width:
-                                                                          100,
+                                                                          100.0,
                                                                       height:
-                                                                          30,
+                                                                          30.0,
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .black,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(24),
+                                                                            BorderRadius.circular(24.0),
                                                                       ),
                                                                       alignment:
                                                                           AlignmentDirectional(
-                                                                              0,
-                                                                              0),
+                                                                              0.0,
+                                                                              0.0),
                                                                       child:
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            4,
-                                                                            4,
-                                                                            4,
-                                                                            0),
+                                                                            4.0,
+                                                                            4.0,
+                                                                            4.0,
+                                                                            0.0),
                                                                         child:
                                                                             Text(
                                                                           functions.getPerPersonFee(
@@ -784,11 +748,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
+                                                                              .bodyMedium
                                                                               .override(
                                                                                 fontFamily: 'Poppins',
                                                                                 color: FlutterFlowTheme.of(context).cultured,
-                                                                                fontSize: 12,
+                                                                                fontSize: 12.0,
                                                                                 fontWeight: FontWeight.w600,
                                                                               ),
                                                                         ),
@@ -801,6 +765,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           ],
                                                         ),
                                                         InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
                                                           onTap: () async {
                                                             await showDialog(
                                                               context: context,
@@ -834,7 +806,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          24),
+                                                                          24.0),
                                                             ),
                                                           ),
                                                         ),
@@ -845,8 +817,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                               },
                                             ),
                                             Container(
-                                              width: 70,
-                                              height: 80,
+                                              width: 70.0,
+                                              height: 80.0,
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFEEEEEE),
                                                 boxShadow: [
@@ -855,11 +827,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   )
                                                 ],
                                                 borderRadius:
-                                                    BorderRadius.circular(24),
+                                                    BorderRadius.circular(24.0),
                                               ),
                                               child: Stack(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
                                                 children: [
                                                   Column(
                                                     mainAxisSize:
@@ -872,24 +844,27 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         Icons
                                                             .emoji_people_rounded,
                                                         color: Colors.black,
-                                                        size: 24,
+                                                        size: 24.0,
                                                       ),
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 6, 0, 0),
+                                                                    0.0,
+                                                                    6.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         child: Container(
-                                                          width: 60,
+                                                          width: 60.0,
                                                           child: Stack(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0, 0),
+                                                                    0.0, 0.0),
                                                             children: [
                                                               Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: 30,
+                                                                height: 30.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: FlutterFlowTheme.of(
@@ -898,18 +873,19 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              24),
+                                                                              24.0),
                                                                 ),
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0, 0),
+                                                                        0.0,
+                                                                        0.0),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                   child: Text(
                                                                     functions
                                                                         .countNumberOfGuests(containerTourReffToursRecord
@@ -921,14 +897,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             .center,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
                                                                               'Poppins',
                                                                           color:
                                                                               FlutterFlowTheme.of(context).cultured,
                                                                           fontSize:
-                                                                              12,
+                                                                              12.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                         ),
@@ -942,6 +918,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ],
                                                   ),
                                                   InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
                                                     onTap: () async {
                                                       await showDialog(
                                                         context: context,
@@ -971,7 +955,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(24),
+                                                                .circular(24.0),
                                                       ),
                                                     ),
                                                   ),
@@ -983,10 +967,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            40, 20, 40, 0),
+                                            40.0, 20.0, 40.0, 0.0),
                                         child: Container(
                                           width: double.infinity,
-                                          height: 1,
+                                          height: 1.0,
                                           decoration: BoxDecoration(
                                             color: Color(0x24333333),
                                           ),
@@ -994,7 +978,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
+                                            0.0, 20.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1002,15 +986,16 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           children: [
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
+                                                  .fromSTEB(
+                                                      10.0, 0.0, 0.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    width: 50,
-                                                    height: 20,
+                                                    width: 50.0,
+                                                    height: 20.0,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -1018,23 +1003,23 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               .black,
                                                       boxShadow: [
                                                         BoxShadow(
-                                                          blurRadius: 4,
+                                                          blurRadius: 4.0,
                                                           color:
                                                               Color(0x19EEEEEE),
-                                                          spreadRadius: 4,
+                                                          spreadRadius: 4.0,
                                                         )
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10),
+                                                              10.0),
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0, 0),
+                                                            0.0, 0.0),
                                                     child: Stack(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0, 0),
+                                                              0.0, 0.0),
                                                       children: [
                                                         Text(
                                                           functions.getTimeFromDate(
@@ -1042,17 +1027,25 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   .tourDate),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .cultured,
-                                                                fontSize: 9,
+                                                                fontSize: 9.0,
                                                               ),
                                                         ),
                                                         InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
                                                           onTap: () async {
                                                             await showModalBottomSheet(
                                                               isScrollControlled:
@@ -1060,16 +1053,19 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               backgroundColor:
                                                                   Colors
                                                                       .transparent,
+                                                              barrierColor: Color(
+                                                                  0x00000000),
                                                               context: context,
                                                               builder:
-                                                                  (context) {
+                                                                  (bottomSheetContext) {
                                                                 return Padding(
                                                                   padding: MediaQuery.of(
-                                                                          context)
+                                                                          bottomSheetContext)
                                                                       .viewInsets,
                                                                   child:
                                                                       Container(
-                                                                    height: 200,
+                                                                    height:
+                                                                        200.0,
                                                                     child:
                                                                         UpdatePickupTimeBtmsheetCopyWidget(
                                                                       tourReff:
@@ -1084,14 +1080,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     () {}));
                                                           },
                                                           child: Container(
-                                                            width: 100,
-                                                            height: 100,
+                                                            width: 100.0,
+                                                            height: 100.0,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          10),
+                                                                          10.0),
                                                             ),
                                                           ),
                                                         ),
@@ -1099,8 +1095,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: 2,
-                                                    height: 100,
+                                                    width: 2.0,
+                                                    height: 100.0,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -1113,8 +1109,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           .venues!
                                                           .toList()))
                                                     Container(
-                                                      width: 8,
-                                                      height: 8,
+                                                      width: 8.0,
+                                                      height: 8.0,
                                                       decoration: BoxDecoration(
                                                         color:
                                                             FlutterFlowTheme.of(
@@ -1128,7 +1124,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 0, 0, 0),
+                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -1137,8 +1133,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 0, 0, 10),
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 10.0),
                                                     child: Container(
                                                       width:
                                                           MediaQuery.of(context)
@@ -1155,24 +1151,27 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             Color(0xFFEEEEEE),
                                                         boxShadow: [
                                                           BoxShadow(
-                                                            blurRadius: 3,
+                                                            blurRadius: 3.0,
                                                             color: Color(
                                                                 0x34303030),
-                                                            spreadRadius: 1,
+                                                            spreadRadius: 1.0,
                                                           )
                                                         ],
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(28),
+                                                                .circular(28.0),
                                                       ),
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0, 0),
+                                                              0.0, 0.0),
                                                       child: Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
-                                                                .fromSTEB(12, 0,
-                                                                    12, 0),
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1205,14 +1204,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         color: Colors
                                                                             .black,
                                                                         size:
-                                                                            20,
+                                                                            20.0,
                                                                       ),
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            6,
-                                                                            0,
-                                                                            0,
-                                                                            0),
+                                                                            6.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                         child:
                                                                             Text(
                                                                           containerTourReffToursRecord
@@ -1224,11 +1223,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 '…',
                                                                           ),
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
+                                                                              .bodyMedium
                                                                               .override(
                                                                                 fontFamily: 'Poppins',
                                                                                 color: Color(0xFF333333),
-                                                                                fontSize: 12,
+                                                                                fontSize: 12.0,
                                                                                 fontWeight: FontWeight.normal,
                                                                               ),
                                                                         ),
@@ -1241,17 +1240,17 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       Colors
                                                                           .transparent,
                                                                   borderRadius:
-                                                                      30,
+                                                                      30.0,
                                                                   borderWidth:
-                                                                      1,
+                                                                      1.0,
                                                                   buttonSize:
-                                                                      40,
+                                                                      40.0,
                                                                   icon: FaIcon(
                                                                     FontAwesomeIcons
                                                                         .solidEdit,
                                                                     color: Colors
                                                                         .black,
-                                                                    size: 18,
+                                                                    size: 18.0,
                                                                   ),
                                                                   onPressed:
                                                                       () async {
@@ -1261,17 +1260,20 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       backgroundColor:
                                                                           Colors
                                                                               .transparent,
+                                                                      barrierColor:
+                                                                          Color(
+                                                                              0x00000000),
                                                                       context:
                                                                           context,
                                                                       builder:
-                                                                          (context) {
+                                                                          (bottomSheetContext) {
                                                                         return Padding(
                                                                           padding:
-                                                                              MediaQuery.of(context).viewInsets,
+                                                                              MediaQuery.of(bottomSheetContext).viewInsets,
                                                                           child:
                                                                               Container(
                                                                             height:
-                                                                                450,
+                                                                                450.0,
                                                                             child:
                                                                                 EditAddressBottomsheetWidget(
                                                                               tourID: widget.tourID,
@@ -1290,17 +1292,17 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          2,
-                                                                          0,
-                                                                          0),
+                                                                          0.0,
+                                                                          2.0,
+                                                                          0.0,
+                                                                          0.0),
                                                               child: Container(
                                                                 width: MediaQuery.of(
                                                                             context)
                                                                         .size
                                                                         .width *
                                                                     0.7,
-                                                                height: 1,
+                                                                height: 1.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: Color(
@@ -1330,7 +1332,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             width:
                                                                                 MediaQuery.of(context).size.width * 0.7,
                                                                             height:
-                                                                                40,
+                                                                                40.0,
                                                                             decoration:
                                                                                 BoxDecoration(
                                                                               color: Color(0xFFEEEEEE),
@@ -1345,10 +1347,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 if (!snapshot.hasData) {
                                                                                   return Center(
                                                                                     child: SizedBox(
-                                                                                      width: 20,
-                                                                                      height: 20,
+                                                                                      width: 20.0,
+                                                                                      height: 20.0,
                                                                                       child: CircularProgressIndicator(
-                                                                                        color: FlutterFlowTheme.of(context).purplePastel,
+                                                                                        color: Color(0xFFB19CD9),
                                                                                       ),
                                                                                     ),
                                                                                   );
@@ -1365,7 +1367,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                       children: [
                                                                                         Container(
-                                                                                          width: 200,
+                                                                                          width: 200.0,
                                                                                           decoration: BoxDecoration(
                                                                                             color: Color(0xFFEEEEEE),
                                                                                           ),
@@ -1373,38 +1375,38 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             children: [
                                                                                               ClipRRect(
-                                                                                                borderRadius: BorderRadius.circular(50),
+                                                                                                borderRadius: BorderRadius.circular(50.0),
                                                                                                 child: Image.network(
                                                                                                   'https://picsum.photos/seed/954/600',
-                                                                                                  width: 20,
-                                                                                                  height: 20,
+                                                                                                  width: 20.0,
+                                                                                                  height: 20.0,
                                                                                                   fit: BoxFit.cover,
                                                                                                 ),
                                                                                               ),
                                                                                               Padding(
-                                                                                                padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                                                                                                 child: Text(
                                                                                                   listViewUsersRecord.displayName!,
-                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                         fontFamily: 'Poppins',
-                                                                                                        fontSize: 12,
+                                                                                                        fontSize: 12.0,
                                                                                                       ),
                                                                                                 ),
                                                                                               ),
                                                                                               Padding(
-                                                                                                padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                                                                                                 child: Text(
                                                                                                   '5.0',
-                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                         fontFamily: 'Poppins',
-                                                                                                        fontSize: 12,
+                                                                                                        fontSize: 12.0,
                                                                                                       ),
                                                                                                 ),
                                                                                               ),
                                                                                               Icon(
                                                                                                 Icons.star_rounded,
                                                                                                 color: Colors.black,
-                                                                                                size: 20,
+                                                                                                size: 20.0,
                                                                                               ),
                                                                                             ],
                                                                                           ),
@@ -1418,13 +1420,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                             children: [
                                                                                               FlutterFlowIconButton(
                                                                                                 borderColor: Colors.transparent,
-                                                                                                borderRadius: 30,
-                                                                                                borderWidth: 1,
-                                                                                                buttonSize: 40,
+                                                                                                borderRadius: 30.0,
+                                                                                                borderWidth: 1.0,
+                                                                                                buttonSize: 40.0,
                                                                                                 icon: Icon(
                                                                                                   Icons.message_outlined,
                                                                                                   color: Colors.black,
-                                                                                                  size: 20,
+                                                                                                  size: 20.0,
                                                                                                 ),
                                                                                                 onPressed: () async {
                                                                                                   context.pushNamed(
@@ -1471,16 +1473,16 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     children: [
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0,
-                                                                            6,
-                                                                            0,
-                                                                            0),
+                                                                            0.0,
+                                                                            6.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                         child:
                                                                             Container(
                                                                           width:
                                                                               MediaQuery.of(context).size.width * 0.7,
                                                                           height:
-                                                                              40,
+                                                                              40.0,
                                                                           decoration:
                                                                               BoxDecoration(
                                                                             color:
@@ -1494,7 +1496,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 double.infinity,
                                                                             child:
                                                                                 Stack(
-                                                                              alignment: AlignmentDirectional(0, 0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               children: [
                                                                                 Column(
                                                                                   mainAxisSize: MainAxisSize.max,
@@ -1503,23 +1505,27 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                     Text(
                                                                                       'Choose  Driver',
                                                                                       textAlign: TextAlign.center,
-                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Poppins',
-                                                                                            fontSize: 10,
+                                                                                            fontSize: 10.0,
                                                                                             fontWeight: FontWeight.bold,
                                                                                           ),
                                                                                     ),
                                                                                     Text(
                                                                                       'optional',
-                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Poppins',
                                                                                             color: Color(0xFF8E8E8E),
-                                                                                            fontSize: 8,
+                                                                                            fontSize: 8.0,
                                                                                           ),
                                                                                     ),
                                                                                   ],
                                                                                 ),
                                                                                 InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
                                                                                   onTap: () async {
                                                                                     context.pushNamed(
                                                                                       'selectDriver',
@@ -1539,10 +1545,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                     );
                                                                                   },
                                                                                   child: Container(
-                                                                                    width: 120,
-                                                                                    height: 100,
+                                                                                    width: 120.0,
+                                                                                    height: 100.0,
                                                                                     decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.circular(23),
+                                                                                      borderRadius: BorderRadius.circular(23.0),
                                                                                     ),
                                                                                   ),
                                                                                 ),
@@ -1582,13 +1588,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
-                                                width: 20,
-                                                height: 20,
+                                                width: 20.0,
+                                                height: 20.0,
                                                 child:
                                                     CircularProgressIndicator(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .purplePastel,
+                                                  color: Color(0xFFB19CD9),
                                                 ),
                                               ),
                                             );
@@ -1611,7 +1615,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       listViewSelectedVenuesIndex];
                                               return Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(
+                                                        10.0, 0.0, 0.0, 0.0),
                                                 child:
                                                     StreamBuilder<VenuesRecord>(
                                                   stream: VenuesRecord.getDocument(
@@ -1622,13 +1627,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     if (!snapshot.hasData) {
                                                       return Center(
                                                         child: SizedBox(
-                                                          width: 20,
-                                                          height: 20,
+                                                          width: 20.0,
+                                                          height: 20.0,
                                                           child:
                                                               CircularProgressIndicator(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .purplePastel,
+                                                            color: Color(
+                                                                0xFFB19CD9),
                                                           ),
                                                         ),
                                                       );
@@ -1653,8 +1657,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   .start,
                                                           children: [
                                                             Container(
-                                                              width: 50,
-                                                              height: 20,
+                                                              width: 50.0,
+                                                              height: 20.0,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: FlutterFlowTheme.of(
@@ -1663,13 +1667,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            10),
+                                                                            10.0),
                                                                 shape: BoxShape
                                                                     .rectangle,
                                                               ),
                                                               alignment:
                                                                   AlignmentDirectional(
-                                                                      0, 0),
+                                                                      0.0, 0.0),
                                                               child: Text(
                                                                 functions.getTimeFromDate(
                                                                     listViewSelectedVenuesSelectedVenuesRecord
@@ -1679,7 +1683,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         .center,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1
+                                                                    .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
@@ -1687,12 +1691,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               context)
                                                                           .cultured,
                                                                       fontSize:
-                                                                          9,
+                                                                          9.0,
                                                                     ),
                                                               ),
                                                             ),
                                                             Container(
-                                                              width: 2,
+                                                              width: 2.0,
                                                               height: MediaQuery.of(
                                                                           context)
                                                                       .size
@@ -1730,13 +1734,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             context)
                                                                         .size
                                                                         .height *
-                                                                    1,
+                                                                    1.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              28),
+                                                                              28.0),
                                                                 ),
                                                               ),
                                                               Card(
@@ -1744,27 +1748,26 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     .antiAliasWithSaveLayer,
                                                                 color: Colors
                                                                     .white,
-                                                                elevation: 4,
+                                                                elevation: 4.0,
                                                                 shape:
                                                                     RoundedRectangleBorder(
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              28),
+                                                                              28.0),
                                                                 ),
                                                                 child: Stack(
                                                                   children: [
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              6,
-                                                                              6,
-                                                                              6,
-                                                                              6),
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          6.0,
+                                                                          6.0,
+                                                                          6.0,
+                                                                          6.0),
                                                                       child:
                                                                           ClipRRect(
                                                                         borderRadius:
-                                                                            BorderRadius.circular(28),
+                                                                            BorderRadius.circular(28.0),
                                                                         child: Image
                                                                             .network(
                                                                           rowSelectedVenueVenuesRecord
@@ -1781,21 +1784,21 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
-                                                                              0,
-                                                                              1),
+                                                                              0.0,
+                                                                              1.0),
                                                                       child:
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            6,
-                                                                            0,
-                                                                            6,
-                                                                            6),
+                                                                            6.0,
+                                                                            0.0,
+                                                                            6.0,
+                                                                            6.0),
                                                                         child:
                                                                             Container(
                                                                           width:
                                                                               double.infinity,
                                                                           height:
-                                                                              100,
+                                                                              100.0,
                                                                           decoration:
                                                                               BoxDecoration(
                                                                             gradient:
@@ -1805,30 +1808,29 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 Color(0xB3000000)
                                                                               ],
                                                                               stops: [
-                                                                                0,
-                                                                                1
+                                                                                0.0,
+                                                                                1.0
                                                                               ],
-                                                                              begin: AlignmentDirectional(0, -1),
-                                                                              end: AlignmentDirectional(0, 1),
+                                                                              begin: AlignmentDirectional(0.0, -1.0),
+                                                                              end: AlignmentDirectional(0, 1.0),
                                                                             ),
                                                                             borderRadius:
                                                                                 BorderRadius.only(
-                                                                              bottomLeft: Radius.circular(28),
-                                                                              bottomRight: Radius.circular(28),
-                                                                              topLeft: Radius.circular(0),
-                                                                              topRight: Radius.circular(0),
+                                                                              bottomLeft: Radius.circular(28.0),
+                                                                              bottomRight: Radius.circular(28.0),
+                                                                              topLeft: Radius.circular(0.0),
+                                                                              topRight: Radius.circular(0.0),
                                                                             ),
                                                                           ),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              6,
-                                                                              6,
-                                                                              6,
-                                                                              6),
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          6.0,
+                                                                          6.0,
+                                                                          6.0,
+                                                                          6.0),
                                                                       child:
                                                                           Container(
                                                                         width: double
@@ -1838,7 +1840,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           borderRadius:
-                                                                              BorderRadius.circular(28),
+                                                                              BorderRadius.circular(28.0),
                                                                         ),
                                                                         child:
                                                                             Row(
@@ -1850,7 +1852,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               CrossAxisAlignment.end,
                                                                           children: [
                                                                             Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(10, 12, 0, 12),
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(10.0, 12.0, 0.0, 12.0),
                                                                               child: Column(
                                                                                 mainAxisSize: MainAxisSize.max,
                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1862,11 +1864,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                       Align(
                                                                                         alignment: AlignmentDirectional(-0.81, -0.73),
                                                                                         child: Container(
-                                                                                          width: 54,
-                                                                                          height: 30,
+                                                                                          width: 54.0,
+                                                                                          height: 30.0,
                                                                                           decoration: BoxDecoration(
                                                                                             color: FlutterFlowTheme.of(context).black,
-                                                                                            borderRadius: BorderRadius.circular(50),
+                                                                                            borderRadius: BorderRadius.circular(50.0),
                                                                                             shape: BoxShape.rectangle,
                                                                                           ),
                                                                                           child: Row(
@@ -1877,15 +1879,15 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                                 Icon(
                                                                                                   Icons.wine_bar_rounded,
                                                                                                   color: Color(0xFFF4F4F4),
-                                                                                                  size: 14,
+                                                                                                  size: 14.0,
                                                                                                 ),
                                                                                               if (listViewSelectedVenuesSelectedVenuesRecord.isLunchVenue ?? true)
                                                                                                 Padding(
-                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                                                   child: Icon(
                                                                                                     Icons.dinner_dining,
                                                                                                     color: FlutterFlowTheme.of(context).cultured,
-                                                                                                    size: 16,
+                                                                                                    size: 16.0,
                                                                                                   ),
                                                                                                 ),
                                                                                             ],
@@ -1907,20 +1909,20 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                           Text(
                                                                                             functions.upperCaseString(rowSelectedVenueVenuesRecord.name),
                                                                                             textAlign: TextAlign.start,
-                                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                   fontFamily: 'Poppins',
                                                                                                   color: FlutterFlowTheme.of(context).cultured,
-                                                                                                  fontSize: 12,
+                                                                                                  fontSize: 12.0,
                                                                                                   fontWeight: FontWeight.bold,
                                                                                                 ),
                                                                                           ),
                                                                                           Text(
                                                                                             functions.concatenateStrings('Booking Reff:', listViewSelectedVenuesSelectedVenuesRecord.bookingReference),
                                                                                             textAlign: TextAlign.start,
-                                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                   fontFamily: 'Poppins',
                                                                                                   color: FlutterFlowTheme.of(context).cultured,
-                                                                                                  fontSize: 8,
+                                                                                                  fontSize: 8.0,
                                                                                                   fontWeight: FontWeight.bold,
                                                                                                 ),
                                                                                           ),
@@ -1939,14 +1941,23 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 ),
                                                               ),
                                                               Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            10,
-                                                                            10,
-                                                                            10),
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        10.0,
+                                                                        10.0,
+                                                                        10.0,
+                                                                        10.0),
                                                                 child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     await showModalBottomSheet(
@@ -1955,17 +1966,20 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       backgroundColor:
                                                                           Colors
                                                                               .transparent,
+                                                                      barrierColor:
+                                                                          Color(
+                                                                              0x00000000),
                                                                       context:
                                                                           context,
                                                                       builder:
-                                                                          (context) {
+                                                                          (bottomSheetContext) {
                                                                         return Padding(
                                                                           padding:
-                                                                              MediaQuery.of(context).viewInsets,
+                                                                              MediaQuery.of(bottomSheetContext).viewInsets,
                                                                           child:
                                                                               Container(
                                                                             height:
-                                                                                580,
+                                                                                580.0,
                                                                             child:
                                                                                 DelUpdateVenueBtmsheetWidget(
                                                                               tourReff: widget.tourID,
@@ -1988,12 +2002,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     height: MediaQuery.of(context)
                                                                             .size
                                                                             .height *
-                                                                        1,
+                                                                        1.0,
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              28),
+                                                                              28.0),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -2008,12 +2022,24 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          10,
-                                                                          10,
-                                                                          10,
-                                                                          10),
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0),
                                                                   child:
                                                                       InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       await showModalBottomSheet(
@@ -2021,16 +2047,18 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             true,
                                                                         backgroundColor:
                                                                             Colors.transparent,
+                                                                        barrierColor:
+                                                                            Color(0x00000000),
                                                                         context:
                                                                             context,
                                                                         builder:
-                                                                            (context) {
+                                                                            (bottomSheetContext) {
                                                                           return Padding(
                                                                             padding:
-                                                                                MediaQuery.of(context).viewInsets,
+                                                                                MediaQuery.of(bottomSheetContext).viewInsets,
                                                                             child:
                                                                                 Container(
-                                                                              height: 580,
+                                                                              height: 580.0,
                                                                               child: DelUpdateVenueBtmsheetWidget(
                                                                                 tourReff: widget.tourID,
                                                                                 venueDoc: rowSelectedVenueVenuesRecord,
@@ -2056,13 +2084,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         color: Color(
                                                                             0x91F4F4F4),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(28),
+                                                                            BorderRadius.circular(28.0),
                                                                       ),
                                                                       child:
                                                                           Stack(
                                                                         alignment: AlignmentDirectional(
-                                                                            0,
-                                                                            0),
+                                                                            0.0,
+                                                                            0.0),
                                                                         children: [
                                                                           Column(
                                                                             mainAxisSize:
@@ -2072,29 +2100,29 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             children: [
                                                                               Text(
                                                                                 'Consider Replacing',
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'Poppins',
                                                                                       fontWeight: FontWeight.w600,
                                                                                     ),
                                                                               ),
                                                                               if (!functions.isVenueOpen(rowSelectedVenueVenuesRecord.openDays!.toList(), containerTourReffToursRecord))
                                                                                 Align(
-                                                                                  alignment: AlignmentDirectional(0, 0),
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
                                                                                     'Venue closed',
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Poppins',
                                                                                           color: FlutterFlowTheme.of(context).black,
-                                                                                          fontSize: 12,
+                                                                                          fontSize: 12.0,
                                                                                         ),
                                                                                   ),
                                                                                 ),
                                                                               if (functions.doesTourExceedsVenueCapacity(containerTourReffToursRecord, rowSelectedVenueVenuesRecord.capacity))
                                                                                 Text(
                                                                                   'Tour group size exceeded',
-                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Poppins',
-                                                                                        fontSize: 12,
+                                                                                        fontSize: 12.0,
                                                                                       ),
                                                                                 ),
                                                                             ],
@@ -2135,7 +2163,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 10, 0),
+                                                  10.0, 0.0, 10.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -2147,8 +2175,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    width: 50,
-                                                    height: 20,
+                                                    width: 50.0,
+                                                    height: 20.0,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -2156,23 +2184,23 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               .black,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10),
+                                                              10.0),
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0, 0),
+                                                            0.0, 0.0),
                                                     child: Icon(
                                                       Icons.access_time_rounded,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .cultured,
-                                                      size: 12,
+                                                      size: 12.0,
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: 2,
-                                                    height: 90,
+                                                    width: 2.0,
+                                                    height: 90.0,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -2185,8 +2213,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           .venues!
                                                           .toList()))
                                                     Container(
-                                                      width: 8,
-                                                      height: 8,
+                                                      width: 8.0,
+                                                      height: 8.0,
                                                       decoration: BoxDecoration(
                                                         color:
                                                             FlutterFlowTheme.of(
@@ -2199,7 +2227,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(4, 0, 0, 0),
+                                                    .fromSTEB(
+                                                        4.0, 0.0, 0.0, 0.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -2212,20 +2241,23 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   .size
                                                                   .width *
                                                               0.78,
-                                                      height: 80,
+                                                      height: 80.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(23),
+                                                                .circular(23.0),
                                                       ),
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0, 0),
+                                                              0.0, 0.0),
                                                       child: Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
-                                                                .fromSTEB(20,
-                                                                    20, 20, 20),
+                                                                .fromSTEB(
+                                                                    20.0,
+                                                                    20.0,
+                                                                    20.0,
+                                                                    20.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -2268,8 +2300,22 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               text: 'Add Venue',
                                                               options:
                                                                   FFButtonOptions(
-                                                                width: 120,
-                                                                height: 40,
+                                                                width: 120.0,
+                                                                height: 40.0,
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                iconPadding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .black,
@@ -2283,19 +2329,20 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal,
-                                                                  fontSize: 6,
+                                                                  fontSize: 6.0,
                                                                 ),
+                                                                elevation: 2.0,
                                                                 borderSide:
                                                                     BorderSide(
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .black,
-                                                                  width: 1,
+                                                                  width: 1.0,
                                                                 ),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            32),
+                                                                            32.0),
                                                               ),
                                                             ),
                                                           ],
@@ -2314,7 +2361,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 10, 20),
+                                                  10.0, 0.0, 10.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
@@ -2324,8 +2371,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    width: 2,
-                                                    height: 32,
+                                                    width: 2.0,
+                                                    height: 32.0,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -2334,8 +2381,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: 50,
-                                                    height: 20,
+                                                    width: 50.0,
+                                                    height: 20.0,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -2343,24 +2390,24 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               .black,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10),
+                                                              10.0),
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0, 0),
+                                                            0.0, 0.0),
                                                     child: Text(
                                                       '5.00 pm',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .cultured,
-                                                                fontSize: 9,
+                                                                fontSize: 9.0,
                                                               ),
                                                     ),
                                                   ),
@@ -2368,7 +2415,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(
+                                                        10.0, 0.0, 0.0, 0.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -2379,13 +2427,16 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 20, 0, 0),
+                                                                  0.0,
+                                                                  20.0,
+                                                                  0.0,
+                                                                  0.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .width *
-                                                            0.68,
+                                                            0.78,
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
@@ -2393,27 +2444,25 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             0.04,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color:
-                                                              Color(0xFFEEEEEE),
                                                           borderRadius:
                                                               BorderRadius.only(
                                                             bottomLeft:
                                                                 Radius.circular(
-                                                                    12),
+                                                                    12.0),
                                                             bottomRight:
                                                                 Radius.circular(
-                                                                    12),
+                                                                    12.0),
                                                             topLeft:
                                                                 Radius.circular(
-                                                                    10),
+                                                                    10.0),
                                                             topRight:
                                                                 Radius.circular(
-                                                                    12),
+                                                                    12.0),
                                                           ),
                                                         ),
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0, 0),
+                                                                0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -2425,38 +2474,22 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          6,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .flag_rounded,
-                                                                color: Colors
-                                                                    .black,
-                                                                size: 18,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          6,
-                                                                          0,
-                                                                          0,
-                                                                          0),
+                                                                          6.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                               child: Text(
                                                                 'return time',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1
+                                                                    .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       color: Color(
                                                                           0xFF333333),
                                                                       fontSize:
-                                                                          10,
+                                                                          10.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -2473,12 +2506,193 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             ],
                                           ),
                                         ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: 100.0,
+                                            height: 70.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 );
                               },
                             ),
                           ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 0.96),
+                        child: StreamBuilder<List<SelectedVenuesRecord>>(
+                          stream: querySelectedVenuesRecord(
+                            queryBuilder: (selectedVenuesRecord) =>
+                                selectedVenuesRecord.where('tourRef',
+                                    isEqualTo: widget.tourID),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 20.0,
+                                  height: 20.0,
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xFFB19CD9),
+                                  ),
+                                ),
+                              );
+                            }
+                            List<SelectedVenuesRecord>
+                                containerSelectedVenuesRecordList =
+                                snapshot.data!;
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).black,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 20.0,
+                                    color: Color(0x33000000),
+                                    offset: Offset(0.0, 2.0),
+                                    spreadRadius: 4.0,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(38.0),
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Submit Tour',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .cultured,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (functions.isSelectedVenuesListEmpty(
+                                            containerSelectedVenuesRecordList
+                                                .toList())) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'Your itinerary is empty'),
+                                                content: Text(
+                                                    'Add at least one venue to your itinery'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Got it!'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        } else {
+                                          if (functions.isTourCorrectToSubmit(
+                                              containerTourReffToursRecord
+                                                  .tourDate,
+                                              containerTourReffToursRecord
+                                                  .passengers,
+                                              containerSelectedVenuesRecordList
+                                                  .toList())) {
+                                            context.pushNamed(
+                                              'submitTour',
+                                              queryParams: {
+                                                'tourID': serializeParam(
+                                                  widget.tourID,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                                'tourRecord': serializeParam(
+                                                  widget.tourDocument,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'tourRecord':
+                                                    widget.tourDocument,
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 150),
+                                                ),
+                                              },
+                                            );
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('Review Tour'),
+                                                  content: Text(
+                                                      'review tour details before proceeding'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+                                        }
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1.0,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                1.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],

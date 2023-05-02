@@ -1,10 +1,13 @@
-import '../auth/auth_util.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'login_email_model.dart';
+export 'login_email_model.dart';
 
 class LoginEmailWidget extends StatefulWidget {
   const LoginEmailWidget({Key? key}) : super(key: key);
@@ -14,40 +17,40 @@ class LoginEmailWidget extends StatefulWidget {
 }
 
 class _LoginEmailWidgetState extends State<LoginEmailWidget> {
-  TextEditingController? emailTextFieldController;
-  TextEditingController? passwordTextField1Controller;
+  late LoginEmailModel _model;
 
-  late bool passwordTextField1Visibility;
-  final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    emailTextFieldController = TextEditingController();
-    passwordTextField1Controller = TextEditingController();
-    passwordTextField1Visibility = false;
+    _model = createModel(context, () => LoginEmailModel());
+
+    _model.emailTextFieldController ??= TextEditingController();
+    _model.passwordTextField1Controller ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    emailTextFieldController?.dispose();
-    passwordTextField1Controller?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Form(
-        key: formKey,
+        key: _model.formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
+          width: MediaQuery.of(context).size.width * 1.0,
+          height: MediaQuery.of(context).size.height * 1.0,
           decoration: BoxDecoration(
             color: Color(0xFFEEEEEE),
             image: DecorationImage(
@@ -63,18 +66,18 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1, 0),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 220),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 220.0),
                   child: FlutterFlowIconButton(
                     borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 60.0,
                     icon: Icon(
                       Icons.arrow_back_rounded,
                       color: Colors.black,
-                      size: 30,
+                      size: 30.0,
                     ),
                     onPressed: () async {
                       context.pop();
@@ -83,22 +86,22 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: 54,
+                      height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
-                        borderRadius: BorderRadius.circular(34),
+                        borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: TextFormField(
-                          controller: emailTextFieldController,
+                          controller: _model.emailTextFieldController,
                           obscureText: false,
                           decoration: InputDecoration(
                             isDense: true,
@@ -106,48 +109,43 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             errorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             filled: true,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 0.0, 0.0),
                             prefixIcon: Icon(
                               Icons.email_rounded,
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.emailAddress,
-                          validator: (val) {
-                            if (val == null || val.isEmpty) {
-                              return 'Name your tour';
-                            }
-
-                            return null;
-                          },
+                          validator: _model.emailTextFieldControllerValidator
+                              .asValidator(context),
                         ),
                       ),
                     ),
@@ -155,84 +153,80 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: 54,
+                      height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
-                        borderRadius: BorderRadius.circular(34),
+                        borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: TextFormField(
-                          controller: passwordTextField1Controller,
-                          obscureText: !passwordTextField1Visibility,
+                          controller: _model.passwordTextField1Controller,
+                          obscureText: !_model.passwordTextField1Visibility,
                           decoration: InputDecoration(
                             isDense: true,
                             labelText: 'Password',
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             errorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 1,
+                                width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(34),
+                              borderRadius: BorderRadius.circular(34.0),
                             ),
                             filled: true,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 0.0, 0.0),
                             prefixIcon: Icon(
                               Icons.vpn_key_rounded,
                             ),
                             suffixIcon: InkWell(
                               onTap: () => setState(
-                                () => passwordTextField1Visibility =
-                                    !passwordTextField1Visibility,
+                                () => _model.passwordTextField1Visibility =
+                                    !_model.passwordTextField1Visibility,
                               ),
                               focusNode: FocusNode(skipTraversal: true),
                               child: Icon(
-                                passwordTextField1Visibility
+                                _model.passwordTextField1Visibility
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 color: Color(0xFF757575),
-                                size: 22,
+                                size: 22.0,
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
-                          validator: (val) {
-                            if (val == null || val.isEmpty) {
-                              return 'Field is required';
-                            }
-
-                            return null;
-                          },
+                          validator: _model
+                              .passwordTextField1ControllerValidator
+                              .asValidator(context),
                         ),
                       ),
                     ),
@@ -240,7 +234,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -251,10 +245,10 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                           onPressed: () async {
                             GoRouter.of(context).prepareAuthEvent();
 
-                            final user = await signInWithEmail(
+                            final user = await authManager.signInWithEmail(
                               context,
-                              emailTextFieldController!.text,
-                              passwordTextField1Controller!.text,
+                              _model.emailTextFieldController.text,
+                              _model.passwordTextField1Controller.text,
                             );
                             if (user == null) {
                               return;
@@ -264,20 +258,26 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                           },
                           text: 'Log in',
                           options: FFButtonOptions(
-                            width: 310,
-                            height: 54,
+                            width: 310.0,
+                            height: 54.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
                             color: Colors.black,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFF4F4F4),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFFF4F4F4),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            elevation: 2.0,
                             borderSide: BorderSide(
                               color: Colors.transparent,
-                              width: 1,
+                              width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(34),
+                            borderRadius: BorderRadius.circular(34.0),
                           ),
                         ),
                       ],
