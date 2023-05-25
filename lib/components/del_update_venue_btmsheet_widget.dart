@@ -150,7 +150,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                         borderRadius:
                                             BorderRadius.circular(24.0),
                                         child: Image.network(
-                                          widget.venueDoc!.image!,
+                                          widget.venueDoc!.image,
                                           width: 100.0,
                                           height: 100.0,
                                           fit: BoxFit.cover,
@@ -222,7 +222,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                             Stack(
                                               children: [
                                                 if (!columnSelectedVenuesRecord
-                                                    .isLunchVenueOnly!)
+                                                    .isLunchVenueOnly)
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -304,8 +304,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     ],
                                                   ),
                                                 if (columnSelectedVenuesRecord
-                                                        .isLunchVenueOnly ??
-                                                    true)
+                                                    .isLunchVenueOnly)
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -491,7 +490,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                         {
                                                       'is_lunch_venue':
                                                           !columnSelectedVenuesRecord
-                                                              .isLunchVenue!,
+                                                              .isLunchVenue,
                                                     };
                                                     await columnSelectedVenuesRecord
                                                         .reference
@@ -500,7 +499,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                   },
                                                   value:
                                                       columnSelectedVenuesRecord
-                                                          .isLunchVenue!,
+                                                          .isLunchVenue,
                                                   onIcon: Icon(
                                                     Icons.check_box,
                                                     color: Colors.black,
@@ -690,7 +689,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               if (columnSelectedVenuesRecord
-                                                  .isLunchVenue!) {
+                                                  .isLunchVenue) {
                                                 final toursUpdateData1 = {
                                                   ...createToursRecordData(
                                                     totalTastingFeePp: functions
@@ -736,7 +735,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     .delete();
                                               } else {
                                                 if (columnSelectedVenuesRecord
-                                                    .isLargeGroupEarlySeatingOnlyVenue!) {
+                                                    .isLargeGroupEarlySeatingOnlyVenue) {
                                                   final toursUpdateData2 = {
                                                     ...createToursRecordData(
                                                       totalTastingFeePp: functions

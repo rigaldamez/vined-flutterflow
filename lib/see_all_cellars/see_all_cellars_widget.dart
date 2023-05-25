@@ -147,7 +147,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                         borderRadius:
                                             BorderRadius.circular(34.0),
                                         child: Image.network(
-                                          listViewVenuesRecord.image!,
+                                          listViewVenuesRecord.image,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -167,7 +167,7 @@ class _SeeAllCellarsWidgetState extends State<SeeAllCellarsWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     14.0, 6.0, 0.0, 0.0),
                                 child: Text(
-                                  listViewVenuesRecord.name!,
+                                  listViewVenuesRecord.name,
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(

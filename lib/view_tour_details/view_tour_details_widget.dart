@@ -108,7 +108,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                         child: Text(
-                          containerToursRecord.tourName!,
+                          containerToursRecord.tourName,
                           style: FlutterFlowTheme.of(context).titleMedium,
                         ),
                       ),
@@ -206,7 +206,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                               },
                                             );
                                           },
-                                          text: stackVenuesRecord.name!,
+                                          text: stackVenuesRecord.name,
                                           options: FFButtonOptions(
                                             width: 300.0,
                                             height: 300.0,
@@ -250,7 +250,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                           borderRadius:
                                               BorderRadius.circular(28.0),
                                           child: Image.network(
-                                            stackVenuesRecord.image!,
+                                            stackVenuesRecord.image,
                                             width: 100.0,
                                             height: 100.0,
                                             fit: BoxFit.cover,
@@ -274,7 +274,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                         alignment:
                                             AlignmentDirectional(0.0, 0.0),
                                         child: Text(
-                                          stackVenuesRecord.name!,
+                                          stackVenuesRecord.name,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

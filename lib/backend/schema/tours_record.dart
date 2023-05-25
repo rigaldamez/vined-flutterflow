@@ -1,140 +1,218 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'tours_record.g.dart';
+class ToursRecord extends FirestoreRecord {
+  ToursRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class ToursRecord implements Built<ToursRecord, ToursRecordBuilder> {
-  static Serializer<ToursRecord> get serializer => _$toursRecordSerializer;
+  // "created_time" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
 
-  @BuiltValueField(wireName: 'created_time')
-  DateTime? get createdTime;
+  // "tour_name" field.
+  String? _tourName;
+  String get tourName => _tourName ?? '';
+  bool hasTourName() => _tourName != null;
 
-  @BuiltValueField(wireName: 'tour_name')
-  String? get tourName;
+  // "region_ID" field.
+  DocumentReference? _regionID;
+  DocumentReference? get regionID => _regionID;
+  bool hasRegionID() => _regionID != null;
 
-  @BuiltValueField(wireName: 'region_ID')
-  DocumentReference? get regionID;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
-  DocumentReference? get uid;
+  // "passengers" field.
+  int? _passengers;
+  int get passengers => _passengers ?? 0;
+  bool hasPassengers() => _passengers != null;
 
-  int? get passengers;
+  // "tour_date" field.
+  DateTime? _tourDate;
+  DateTime? get tourDate => _tourDate;
+  bool hasTourDate() => _tourDate != null;
 
-  @BuiltValueField(wireName: 'tour_date')
-  DateTime? get tourDate;
+  // "pickup_address" field.
+  String? _pickupAddress;
+  String get pickupAddress => _pickupAddress ?? '';
+  bool hasPickupAddress() => _pickupAddress != null;
 
-  @BuiltValueField(wireName: 'pickup_address')
-  String? get pickupAddress;
+  // "pickup_latlng" field.
+  LatLng? _pickupLatlng;
+  LatLng? get pickupLatlng => _pickupLatlng;
+  bool hasPickupLatlng() => _pickupLatlng != null;
 
-  @BuiltValueField(wireName: 'pickup_latlng')
-  LatLng? get pickupLatlng;
+  // "price_pp" field.
+  double? _pricePp;
+  double get pricePp => _pricePp ?? 0.0;
+  bool hasPricePp() => _pricePp != null;
 
-  @BuiltValueField(wireName: 'price_pp')
-  double? get pricePp;
+  // "region" field.
+  String? _region;
+  String get region => _region ?? '';
+  bool hasRegion() => _region != null;
 
-  String? get region;
+  // "venues" field.
+  List<DocumentReference>? _venues;
+  List<DocumentReference> get venues => _venues ?? const [];
+  bool hasVenues() => _venues != null;
 
-  BuiltList<DocumentReference>? get venues;
+  // "guests_uid" field.
+  List<DocumentReference>? _guestsUid;
+  List<DocumentReference> get guestsUid => _guestsUid ?? const [];
+  bool hasGuestsUid() => _guestsUid != null;
 
-  @BuiltValueField(wireName: 'guests_uid')
-  BuiltList<DocumentReference>? get guestsUid;
+  // "pickup_unit_number" field.
+  String? _pickupUnitNumber;
+  String get pickupUnitNumber => _pickupUnitNumber ?? '';
+  bool hasPickupUnitNumber() => _pickupUnitNumber != null;
 
-  @BuiltValueField(wireName: 'pickup_unit_number')
-  String? get pickupUnitNumber;
+  // "tour_state" field.
+  String? _tourState;
+  String get tourState => _tourState ?? '';
+  bool hasTourState() => _tourState != null;
 
-  @BuiltValueField(wireName: 'tour_state')
-  String? get tourState;
+  // "platformTastingFee" field.
+  double? _platformTastingFee;
+  double get platformTastingFee => _platformTastingFee ?? 0.0;
+  bool hasPlatformTastingFee() => _platformTastingFee != null;
 
-  double? get platformTastingFee;
+  // "driver_reff" field.
+  DocumentReference? _driverReff;
+  DocumentReference? get driverReff => _driverReff;
+  bool hasDriverReff() => _driverReff != null;
 
-  @BuiltValueField(wireName: 'driver_reff')
-  DocumentReference? get driverReff;
+  // "driver_uid" field.
+  String? _driverUid;
+  String get driverUid => _driverUid ?? '';
+  bool hasDriverUid() => _driverUid != null;
 
-  @BuiltValueField(wireName: 'driver_uid')
-  String? get driverUid;
+  // "country_state" field.
+  String? _countryState;
+  String get countryState => _countryState ?? '';
+  bool hasCountryState() => _countryState != null;
 
-  @BuiltValueField(wireName: 'country_state')
-  String? get countryState;
+  // "transport_fee_pp" field.
+  double? _transportFeePp;
+  double get transportFeePp => _transportFeePp ?? 0.0;
+  bool hasTransportFeePp() => _transportFeePp != null;
 
-  @BuiltValueField(wireName: 'transport_fee_pp')
-  double? get transportFeePp;
+  // "total_tasting_fee_pp" field.
+  int? _totalTastingFeePp;
+  int get totalTastingFeePp => _totalTastingFeePp ?? 0;
+  bool hasTotalTastingFeePp() => _totalTastingFeePp != null;
 
-  @BuiltValueField(wireName: 'total_tasting_fee_pp')
-  int? get totalTastingFeePp;
+  // "large_group_venue_early_seating_count" field.
+  int? _largeGroupVenueEarlySeatingCount;
+  int get largeGroupVenueEarlySeatingCount =>
+      _largeGroupVenueEarlySeatingCount ?? 0;
+  bool hasLargeGroupVenueEarlySeatingCount() =>
+      _largeGroupVenueEarlySeatingCount != null;
 
-  @BuiltValueField(wireName: 'large_group_venue_early_seating_count')
-  int? get largeGroupVenueEarlySeatingCount;
+  // "sub_total" field.
+  int? _subTotal;
+  int get subTotal => _subTotal ?? 0;
+  bool hasSubTotal() => _subTotal != null;
 
-  @BuiltValueField(wireName: 'sub_total')
-  int? get subTotal;
+  // "total_paid" field.
+  int? _totalPaid;
+  int get totalPaid => _totalPaid ?? 0;
+  bool hasTotalPaid() => _totalPaid != null;
 
-  @BuiltValueField(wireName: 'total_paid')
-  int? get totalPaid;
+  // "lunch_venue_fee" field.
+  double? _lunchVenueFee;
+  double get lunchVenueFee => _lunchVenueFee ?? 0.0;
+  bool hasLunchVenueFee() => _lunchVenueFee != null;
 
-  @BuiltValueField(wireName: 'lunch_venue_fee')
-  double? get lunchVenueFee;
+  // "discount_amount" field.
+  double? _discountAmount;
+  double get discountAmount => _discountAmount ?? 0.0;
+  bool hasDiscountAmount() => _discountAmount != null;
 
-  @BuiltValueField(wireName: 'discount_amount')
-  double? get discountAmount;
+  // "total_balance" field.
+  double? _totalBalance;
+  double get totalBalance => _totalBalance ?? 0.0;
+  bool hasTotalBalance() => _totalBalance != null;
 
-  @BuiltValueField(wireName: 'total_balance')
-  double? get totalBalance;
+  // "discount_amount_pp" field.
+  double? _discountAmountPp;
+  double get discountAmountPp => _discountAmountPp ?? 0.0;
+  bool hasDiscountAmountPp() => _discountAmountPp != null;
 
-  @BuiltValueField(wireName: 'discount_amount_pp')
-  double? get discountAmountPp;
+  // "price_pp_discounted" field.
+  double? _pricePpDiscounted;
+  double get pricePpDiscounted => _pricePpDiscounted ?? 0.0;
+  bool hasPricePpDiscounted() => _pricePpDiscounted != null;
 
-  @BuiltValueField(wireName: 'price_pp_discounted')
-  double? get pricePpDiscounted;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(ToursRecordBuilder builder) => builder
-    ..tourName = ''
-    ..passengers = 0
-    ..pickupAddress = ''
-    ..pricePp = 0.0
-    ..region = ''
-    ..venues = ListBuilder()
-    ..guestsUid = ListBuilder()
-    ..pickupUnitNumber = ''
-    ..tourState = ''
-    ..platformTastingFee = 0.0
-    ..driverUid = ''
-    ..countryState = ''
-    ..transportFeePp = 0.0
-    ..totalTastingFeePp = 0
-    ..largeGroupVenueEarlySeatingCount = 0
-    ..subTotal = 0
-    ..totalPaid = 0
-    ..lunchVenueFee = 0.0
-    ..discountAmount = 0.0
-    ..totalBalance = 0.0
-    ..discountAmountPp = 0.0
-    ..pricePpDiscounted = 0.0;
+  void _initializeFields() {
+    _createdTime = snapshotData['created_time'] as DateTime?;
+    _tourName = snapshotData['tour_name'] as String?;
+    _regionID = snapshotData['region_ID'] as DocumentReference?;
+    _uid = snapshotData['uid'] as DocumentReference?;
+    _passengers = snapshotData['passengers'] as int?;
+    _tourDate = snapshotData['tour_date'] as DateTime?;
+    _pickupAddress = snapshotData['pickup_address'] as String?;
+    _pickupLatlng = snapshotData['pickup_latlng'] as LatLng?;
+    _pricePp = castToType<double>(snapshotData['price_pp']);
+    _region = snapshotData['region'] as String?;
+    _venues = getDataList(snapshotData['venues']);
+    _guestsUid = getDataList(snapshotData['guests_uid']);
+    _pickupUnitNumber = snapshotData['pickup_unit_number'] as String?;
+    _tourState = snapshotData['tour_state'] as String?;
+    _platformTastingFee =
+        castToType<double>(snapshotData['platformTastingFee']);
+    _driverReff = snapshotData['driver_reff'] as DocumentReference?;
+    _driverUid = snapshotData['driver_uid'] as String?;
+    _countryState = snapshotData['country_state'] as String?;
+    _transportFeePp = castToType<double>(snapshotData['transport_fee_pp']);
+    _totalTastingFeePp = snapshotData['total_tasting_fee_pp'] as int?;
+    _largeGroupVenueEarlySeatingCount =
+        snapshotData['large_group_venue_early_seating_count'] as int?;
+    _subTotal = snapshotData['sub_total'] as int?;
+    _totalPaid = snapshotData['total_paid'] as int?;
+    _lunchVenueFee = castToType<double>(snapshotData['lunch_venue_fee']);
+    _discountAmount = castToType<double>(snapshotData['discount_amount']);
+    _totalBalance = castToType<double>(snapshotData['total_balance']);
+    _discountAmountPp = castToType<double>(snapshotData['discount_amount_pp']);
+    _pricePpDiscounted =
+        castToType<double>(snapshotData['price_pp_discounted']);
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tours');
 
-  static Stream<ToursRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<ToursRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => ToursRecord.fromSnapshot(s));
 
-  static Future<ToursRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<ToursRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => ToursRecord.fromSnapshot(s));
 
-  ToursRecord._();
-  factory ToursRecord([void Function(ToursRecordBuilder) updates]) =
-      _$ToursRecord;
+  static ToursRecord fromSnapshot(DocumentSnapshot snapshot) => ToursRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static ToursRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      ToursRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'ToursRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createToursRecordData({
@@ -165,39 +243,35 @@ Map<String, dynamic> createToursRecordData({
   double? discountAmountPp,
   double? pricePpDiscounted,
 }) {
-  final firestoreData = serializers.toFirestore(
-    ToursRecord.serializer,
-    ToursRecord(
-      (t) => t
-        ..createdTime = createdTime
-        ..tourName = tourName
-        ..regionID = regionID
-        ..uid = uid
-        ..passengers = passengers
-        ..tourDate = tourDate
-        ..pickupAddress = pickupAddress
-        ..pickupLatlng = pickupLatlng
-        ..pricePp = pricePp
-        ..region = region
-        ..venues = null
-        ..guestsUid = null
-        ..pickupUnitNumber = pickupUnitNumber
-        ..tourState = tourState
-        ..platformTastingFee = platformTastingFee
-        ..driverReff = driverReff
-        ..driverUid = driverUid
-        ..countryState = countryState
-        ..transportFeePp = transportFeePp
-        ..totalTastingFeePp = totalTastingFeePp
-        ..largeGroupVenueEarlySeatingCount = largeGroupVenueEarlySeatingCount
-        ..subTotal = subTotal
-        ..totalPaid = totalPaid
-        ..lunchVenueFee = lunchVenueFee
-        ..discountAmount = discountAmount
-        ..totalBalance = totalBalance
-        ..discountAmountPp = discountAmountPp
-        ..pricePpDiscounted = pricePpDiscounted,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'created_time': createdTime,
+      'tour_name': tourName,
+      'region_ID': regionID,
+      'uid': uid,
+      'passengers': passengers,
+      'tour_date': tourDate,
+      'pickup_address': pickupAddress,
+      'pickup_latlng': pickupLatlng,
+      'price_pp': pricePp,
+      'region': region,
+      'pickup_unit_number': pickupUnitNumber,
+      'tour_state': tourState,
+      'platformTastingFee': platformTastingFee,
+      'driver_reff': driverReff,
+      'driver_uid': driverUid,
+      'country_state': countryState,
+      'transport_fee_pp': transportFeePp,
+      'total_tasting_fee_pp': totalTastingFeePp,
+      'large_group_venue_early_seating_count': largeGroupVenueEarlySeatingCount,
+      'sub_total': subTotal,
+      'total_paid': totalPaid,
+      'lunch_venue_fee': lunchVenueFee,
+      'discount_amount': discountAmount,
+      'total_balance': totalBalance,
+      'discount_amount_pp': discountAmountPp,
+      'price_pp_discounted': pricePpDiscounted,
+    }.withoutNulls,
   );
 
   return firestoreData;

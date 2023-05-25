@@ -1,36 +1,48 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'payment_record.g.dart';
+class PaymentRecord extends FirestoreRecord {
+  PaymentRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class PaymentRecord
-    implements Built<PaymentRecord, PaymentRecordBuilder> {
-  static Serializer<PaymentRecord> get serializer => _$paymentRecordSerializer;
+  // "payment_by_user_Ref" field.
+  DocumentReference? _paymentByUserRef;
+  DocumentReference? get paymentByUserRef => _paymentByUserRef;
+  bool hasPaymentByUserRef() => _paymentByUserRef != null;
 
-  @BuiltValueField(wireName: 'payment_by_user_Ref')
-  DocumentReference? get paymentByUserRef;
+  // "amount_paid" field.
+  double? _amountPaid;
+  double get amountPaid => _amountPaid ?? 0.0;
+  bool hasAmountPaid() => _amountPaid != null;
 
-  @BuiltValueField(wireName: 'amount_paid')
-  double? get amountPaid;
+  // "date_paid" field.
+  DateTime? _datePaid;
+  DateTime? get datePaid => _datePaid;
+  bool hasDatePaid() => _datePaid != null;
 
-  @BuiltValueField(wireName: 'date_paid')
-  DateTime? get datePaid;
-
-  @BuiltValueField(wireName: 'stripe_paymentID')
-  String? get stripePaymentID;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "stripe_paymentID" field.
+  String? _stripePaymentID;
+  String get stripePaymentID => _stripePaymentID ?? '';
+  bool hasStripePaymentID() => _stripePaymentID != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
-  static void _initializeBuilder(PaymentRecordBuilder builder) => builder
-    ..amountPaid = 0.0
-    ..stripePaymentID = '';
+  void _initializeFields() {
+    _paymentByUserRef =
+        snapshotData['payment_by_user_Ref'] as DocumentReference?;
+    _amountPaid = castToType<double>(snapshotData['amount_paid']);
+    _datePaid = snapshotData['date_paid'] as DateTime?;
+    _stripePaymentID = snapshotData['stripe_paymentID'] as String?;
+  }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -40,22 +52,27 @@ abstract class PaymentRecord
   static DocumentReference createDoc(DocumentReference parent) =>
       parent.collection('payment').doc();
 
-  static Stream<PaymentRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<PaymentRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => PaymentRecord.fromSnapshot(s));
 
-  static Future<PaymentRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<PaymentRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => PaymentRecord.fromSnapshot(s));
 
-  PaymentRecord._();
-  factory PaymentRecord([void Function(PaymentRecordBuilder) updates]) =
-      _$PaymentRecord;
+  static PaymentRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      PaymentRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static PaymentRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      PaymentRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'PaymentRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createPaymentRecordData({
@@ -64,15 +81,13 @@ Map<String, dynamic> createPaymentRecordData({
   DateTime? datePaid,
   String? stripePaymentID,
 }) {
-  final firestoreData = serializers.toFirestore(
-    PaymentRecord.serializer,
-    PaymentRecord(
-      (p) => p
-        ..paymentByUserRef = paymentByUserRef
-        ..amountPaid = amountPaid
-        ..datePaid = datePaid
-        ..stripePaymentID = stripePaymentID,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'payment_by_user_Ref': paymentByUserRef,
+      'amount_paid': amountPaid,
+      'date_paid': datePaid,
+      'stripe_paymentID': stripePaymentID,
+    }.withoutNulls,
   );
 
   return firestoreData;

@@ -286,7 +286,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                         borderRadius:
                                             BorderRadius.circular(34.0),
                                         child: Image.network(
-                                          listViewFeaturedVenuesRecord.image!,
+                                          listViewFeaturedVenuesRecord.image,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -304,7 +304,7 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8.0, 4.0, 0.0, 0.0),
                                     child: Text(
-                                      listViewFeaturedVenuesRecord.name!,
+                                      listViewFeaturedVenuesRecord.name,
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall,

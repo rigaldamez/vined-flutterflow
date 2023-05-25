@@ -1,63 +1,70 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'transport_pricing_record.g.dart';
+class TransportPricingRecord extends FirestoreRecord {
+  TransportPricingRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class TransportPricingRecord
-    implements Built<TransportPricingRecord, TransportPricingRecordBuilder> {
-  static Serializer<TransportPricingRecord> get serializer =>
-      _$transportPricingRecordSerializer;
+  // "price" field.
+  double? _price;
+  double get price => _price ?? 0.0;
+  bool hasPrice() => _price != null;
 
-  double? get price;
+  // "passengersLbl" field.
+  int? _passengersLbl;
+  int get passengersLbl => _passengersLbl ?? 0;
+  bool hasPassengersLbl() => _passengersLbl != null;
 
-  int? get passengersLbl;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(TransportPricingRecordBuilder builder) =>
-      builder
-        ..price = 0.0
-        ..passengersLbl = 0;
+  void _initializeFields() {
+    _price = castToType<double>(snapshotData['price']);
+    _passengersLbl = snapshotData['passengersLbl'] as int?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('transportPricing');
 
   static Stream<TransportPricingRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.snapshots().map((s) => TransportPricingRecord.fromSnapshot(s));
 
   static Future<TransportPricingRecord> getDocumentOnce(
           DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => TransportPricingRecord.fromSnapshot(s));
 
-  TransportPricingRecord._();
-  factory TransportPricingRecord(
-          [void Function(TransportPricingRecordBuilder) updates]) =
-      _$TransportPricingRecord;
+  static TransportPricingRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      TransportPricingRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static TransportPricingRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      TransportPricingRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'TransportPricingRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createTransportPricingRecordData({
   double? price,
   int? passengersLbl,
 }) {
-  final firestoreData = serializers.toFirestore(
-    TransportPricingRecord.serializer,
-    TransportPricingRecord(
-      (t) => t
-        ..price = price
-        ..passengersLbl = passengersLbl,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'price': price,
+      'passengersLbl': passengersLbl,
+    }.withoutNulls,
   );
 
   return firestoreData;

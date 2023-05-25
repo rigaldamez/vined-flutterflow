@@ -1,88 +1,142 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'selected_venues_record.g.dart';
+class SelectedVenuesRecord extends FirestoreRecord {
+  SelectedVenuesRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class SelectedVenuesRecord
-    implements Built<SelectedVenuesRecord, SelectedVenuesRecordBuilder> {
-  static Serializer<SelectedVenuesRecord> get serializer =>
-      _$selectedVenuesRecordSerializer;
+  // "venueRef" field.
+  DocumentReference? _venueRef;
+  DocumentReference? get venueRef => _venueRef;
+  bool hasVenueRef() => _venueRef != null;
 
-  DocumentReference? get venueRef;
+  // "tourRef" field.
+  DocumentReference? _tourRef;
+  DocumentReference? get tourRef => _tourRef;
+  bool hasTourRef() => _tourRef != null;
 
-  DocumentReference? get tourRef;
+  // "added_by_uid" field.
+  DocumentReference? _addedByUid;
+  DocumentReference? get addedByUid => _addedByUid;
+  bool hasAddedByUid() => _addedByUid != null;
 
-  @BuiltValueField(wireName: 'added_by_uid')
-  DocumentReference? get addedByUid;
+  // "is_lunch_venue" field.
+  bool? _isLunchVenue;
+  bool get isLunchVenue => _isLunchVenue ?? false;
+  bool hasIsLunchVenue() => _isLunchVenue != null;
 
-  @BuiltValueField(wireName: 'is_lunch_venue')
-  bool? get isLunchVenue;
+  // "tastingFee" field.
+  double? _tastingFee;
+  double get tastingFee => _tastingFee ?? 0.0;
+  bool hasTastingFee() => _tastingFee != null;
 
-  double? get tastingFee;
+  // "addedDate" field.
+  DateTime? _addedDate;
+  DateTime? get addedDate => _addedDate;
+  bool hasAddedDate() => _addedDate != null;
 
-  DateTime? get addedDate;
+  // "bookingReference" field.
+  String? _bookingReference;
+  String get bookingReference => _bookingReference ?? '';
+  bool hasBookingReference() => _bookingReference != null;
 
-  String? get bookingReference;
+  // "reservationTime" field.
+  DateTime? _reservationTime;
+  DateTime? get reservationTime => _reservationTime;
+  bool hasReservationTime() => _reservationTime != null;
 
-  DateTime? get reservationTime;
+  // "region_ID" field.
+  DocumentReference? _regionID;
+  DocumentReference? get regionID => _regionID;
+  bool hasRegionID() => _regionID != null;
 
-  @BuiltValueField(wireName: 'region_ID')
-  DocumentReference? get regionID;
+  // "is_large_group_early_seating_only_venue" field.
+  bool? _isLargeGroupEarlySeatingOnlyVenue;
+  bool get isLargeGroupEarlySeatingOnlyVenue =>
+      _isLargeGroupEarlySeatingOnlyVenue ?? false;
+  bool hasIsLargeGroupEarlySeatingOnlyVenue() =>
+      _isLargeGroupEarlySeatingOnlyVenue != null;
 
-  @BuiltValueField(wireName: 'is_large_group_early_seating_only_venue')
-  bool? get isLargeGroupEarlySeatingOnlyVenue;
+  // "is_lunch_venue_only" field.
+  bool? _isLunchVenueOnly;
+  bool get isLunchVenueOnly => _isLunchVenueOnly ?? false;
+  bool hasIsLunchVenueOnly() => _isLunchVenueOnly != null;
 
-  @BuiltValueField(wireName: 'is_lunch_venue_only')
-  bool? get isLunchVenueOnly;
+  // "tasting_experience_description" field.
+  String? _tastingExperienceDescription;
+  String get tastingExperienceDescription =>
+      _tastingExperienceDescription ?? '';
+  bool hasTastingExperienceDescription() =>
+      _tastingExperienceDescription != null;
 
-  @BuiltValueField(wireName: 'tasting_experience_description')
-  String? get tastingExperienceDescription;
+  // "is_tasting_included" field.
+  bool? _isTastingIncluded;
+  bool get isTastingIncluded => _isTastingIncluded ?? false;
+  bool hasIsTastingIncluded() => _isTastingIncluded != null;
 
-  @BuiltValueField(wireName: 'is_tasting_included')
-  bool? get isTastingIncluded;
+  // "openDays" field.
+  List<int>? _openDays;
+  List<int> get openDays => _openDays ?? const [];
+  bool hasOpenDays() => _openDays != null;
 
-  BuiltList<int>? get openDays;
+  // "capacity" field.
+  int? _capacity;
+  int get capacity => _capacity ?? 0;
+  bool hasCapacity() => _capacity != null;
 
-  int? get capacity;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(SelectedVenuesRecordBuilder builder) => builder
-    ..isLunchVenue = false
-    ..tastingFee = 0.0
-    ..bookingReference = ''
-    ..isLargeGroupEarlySeatingOnlyVenue = false
-    ..isLunchVenueOnly = false
-    ..tastingExperienceDescription = ''
-    ..isTastingIncluded = false
-    ..openDays = ListBuilder()
-    ..capacity = 0;
+  void _initializeFields() {
+    _venueRef = snapshotData['venueRef'] as DocumentReference?;
+    _tourRef = snapshotData['tourRef'] as DocumentReference?;
+    _addedByUid = snapshotData['added_by_uid'] as DocumentReference?;
+    _isLunchVenue = snapshotData['is_lunch_venue'] as bool?;
+    _tastingFee = castToType<double>(snapshotData['tastingFee']);
+    _addedDate = snapshotData['addedDate'] as DateTime?;
+    _bookingReference = snapshotData['bookingReference'] as String?;
+    _reservationTime = snapshotData['reservationTime'] as DateTime?;
+    _regionID = snapshotData['region_ID'] as DocumentReference?;
+    _isLargeGroupEarlySeatingOnlyVenue =
+        snapshotData['is_large_group_early_seating_only_venue'] as bool?;
+    _isLunchVenueOnly = snapshotData['is_lunch_venue_only'] as bool?;
+    _tastingExperienceDescription =
+        snapshotData['tasting_experience_description'] as String?;
+    _isTastingIncluded = snapshotData['is_tasting_included'] as bool?;
+    _openDays = getDataList(snapshotData['openDays']);
+    _capacity = snapshotData['capacity'] as int?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('selected_venues');
 
-  static Stream<SelectedVenuesRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<SelectedVenuesRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => SelectedVenuesRecord.fromSnapshot(s));
 
   static Future<SelectedVenuesRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => SelectedVenuesRecord.fromSnapshot(s));
 
-  SelectedVenuesRecord._();
-  factory SelectedVenuesRecord(
-          [void Function(SelectedVenuesRecordBuilder) updates]) =
-      _$SelectedVenuesRecord;
+  static SelectedVenuesRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      SelectedVenuesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static SelectedVenuesRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      SelectedVenuesRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'SelectedVenuesRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createSelectedVenuesRecordData({
@@ -101,26 +155,24 @@ Map<String, dynamic> createSelectedVenuesRecordData({
   bool? isTastingIncluded,
   int? capacity,
 }) {
-  final firestoreData = serializers.toFirestore(
-    SelectedVenuesRecord.serializer,
-    SelectedVenuesRecord(
-      (s) => s
-        ..venueRef = venueRef
-        ..tourRef = tourRef
-        ..addedByUid = addedByUid
-        ..isLunchVenue = isLunchVenue
-        ..tastingFee = tastingFee
-        ..addedDate = addedDate
-        ..bookingReference = bookingReference
-        ..reservationTime = reservationTime
-        ..regionID = regionID
-        ..isLargeGroupEarlySeatingOnlyVenue = isLargeGroupEarlySeatingOnlyVenue
-        ..isLunchVenueOnly = isLunchVenueOnly
-        ..tastingExperienceDescription = tastingExperienceDescription
-        ..isTastingIncluded = isTastingIncluded
-        ..openDays = null
-        ..capacity = capacity,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'venueRef': venueRef,
+      'tourRef': tourRef,
+      'added_by_uid': addedByUid,
+      'is_lunch_venue': isLunchVenue,
+      'tastingFee': tastingFee,
+      'addedDate': addedDate,
+      'bookingReference': bookingReference,
+      'reservationTime': reservationTime,
+      'region_ID': regionID,
+      'is_large_group_early_seating_only_venue':
+          isLargeGroupEarlySeatingOnlyVenue,
+      'is_lunch_venue_only': isLunchVenueOnly,
+      'tasting_experience_description': tastingExperienceDescription,
+      'is_tasting_included': isTastingIncluded,
+      'capacity': capacity,
+    }.withoutNulls,
   );
 
   return firestoreData;

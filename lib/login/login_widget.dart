@@ -207,7 +207,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                                                           context.goNamedAuth(
                                                               'HomePage',
-                                                              mounted);
+                                                              context.mounted);
                                                         },
                                                         text:
                                                             'Continue with Facebook',
@@ -316,7 +316,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     }
 
                                                     context.goNamedAuth(
-                                                        'HomePage', mounted);
+                                                        'HomePage',
+                                                        context.mounted);
                                                   },
                                                   text: 'Continue with Google',
                                                   icon: Icon(
@@ -395,8 +396,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   return;
                                                 }
 
-                                                context.goNamedAuth(
-                                                    'HomePage', mounted);
+                                                context.goNamedAuth('HomePage',
+                                                    context.mounted);
                                               },
                                               text: 'Continue with Apple',
                                               icon: FaIcon(
@@ -586,7 +587,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                                                           context.goNamedAuth(
                                                               'HomePage',
-                                                              mounted);
+                                                              context.mounted);
                                                         },
                                                         text:
                                                             'Sign up with Facebook',
@@ -695,7 +696,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     }
 
                                                     context.goNamedAuth(
-                                                        'HomePage', mounted);
+                                                        'HomePage',
+                                                        context.mounted);
                                                   },
                                                   text: 'Sign up with Google',
                                                   icon: Icon(
@@ -774,8 +776,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   return;
                                                 }
 
-                                                context.goNamedAuth(
-                                                    'HomePage', mounted);
+                                                context.goNamedAuth('HomePage',
+                                                    context.mounted);
                                               },
                                               text: 'Sign up with Apple',
                                               icon: FaIcon(

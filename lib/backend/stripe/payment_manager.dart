@@ -98,7 +98,7 @@ Future<StripePaymentResponse> processStripePayment(
                 testEnv: !_isProd,
               )
             : null,
-        applePay: allowApplePay
+        applePay: isiOS && allowApplePay
             ? PaymentSheetApplePay(
                 merchantCountryCode: 'AU',
               )
@@ -245,11 +245,11 @@ Future<StripePaymentResponse> showWebPaymentSheet(
                     FFButtonWidget(
                       onPressed: () async {
                         final response = await Stripe.instance.confirmPayment(
-                          paymentIntentSecret,
-                          PaymentMethodParams.card(
+                          paymentIntentClientSecret: paymentIntentSecret,
+                          data: PaymentMethodParams.card(
                             paymentMethodData: PaymentMethodData(),
-                            options: PaymentMethodOptions(),
                           ),
+                          options: PaymentMethodOptions(),
                         );
                         if (response.status == PaymentIntentsStatus.Succeeded) {
                           Navigator.pop(

@@ -388,7 +388,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                                                 children: [
                                                                   Text(
                                                                     listViewUsersRecord
-                                                                        .displayName!,
+                                                                        .displayName,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium

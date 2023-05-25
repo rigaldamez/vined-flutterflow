@@ -1,53 +1,70 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'accepted_tours_record.g.dart';
+class AcceptedToursRecord extends FirestoreRecord {
+  AcceptedToursRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class AcceptedToursRecord
-    implements Built<AcceptedToursRecord, AcceptedToursRecordBuilder> {
-  static Serializer<AcceptedToursRecord> get serializer =>
-      _$acceptedToursRecordSerializer;
+  // "tourID" field.
+  DocumentReference? _tourID;
+  DocumentReference? get tourID => _tourID;
+  bool hasTourID() => _tourID != null;
 
-  DocumentReference? get tourID;
+  // "customer_reff" field.
+  DocumentReference? _customerReff;
+  DocumentReference? get customerReff => _customerReff;
+  bool hasCustomerReff() => _customerReff != null;
 
-  @BuiltValueField(wireName: 'customer_reff')
-  DocumentReference? get customerReff;
+  // "driver_reff" field.
+  DocumentReference? _driverReff;
+  DocumentReference? get driverReff => _driverReff;
+  bool hasDriverReff() => _driverReff != null;
 
-  @BuiltValueField(wireName: 'driver_reff')
-  DocumentReference? get driverReff;
+  // "accepted_date" field.
+  DateTime? _acceptedDate;
+  DateTime? get acceptedDate => _acceptedDate;
+  bool hasAcceptedDate() => _acceptedDate != null;
 
-  @BuiltValueField(wireName: 'accepted_date')
-  DateTime? get acceptedDate;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(AcceptedToursRecordBuilder builder) => builder;
+  void _initializeFields() {
+    _tourID = snapshotData['tourID'] as DocumentReference?;
+    _customerReff = snapshotData['customer_reff'] as DocumentReference?;
+    _driverReff = snapshotData['driver_reff'] as DocumentReference?;
+    _acceptedDate = snapshotData['accepted_date'] as DateTime?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('Accepted_Tours');
 
-  static Stream<AcceptedToursRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<AcceptedToursRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => AcceptedToursRecord.fromSnapshot(s));
 
   static Future<AcceptedToursRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => AcceptedToursRecord.fromSnapshot(s));
 
-  AcceptedToursRecord._();
-  factory AcceptedToursRecord(
-          [void Function(AcceptedToursRecordBuilder) updates]) =
-      _$AcceptedToursRecord;
+  static AcceptedToursRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      AcceptedToursRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static AcceptedToursRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      AcceptedToursRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'AcceptedToursRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createAcceptedToursRecordData({
@@ -56,15 +73,13 @@ Map<String, dynamic> createAcceptedToursRecordData({
   DocumentReference? driverReff,
   DateTime? acceptedDate,
 }) {
-  final firestoreData = serializers.toFirestore(
-    AcceptedToursRecord.serializer,
-    AcceptedToursRecord(
-      (a) => a
-        ..tourID = tourID
-        ..customerReff = customerReff
-        ..driverReff = driverReff
-        ..acceptedDate = acceptedDate,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'tourID': tourID,
+      'customer_reff': customerReff,
+      'driver_reff': driverReff,
+      'accepted_date': acceptedDate,
+    }.withoutNulls,
   );
 
   return firestoreData;

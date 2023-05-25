@@ -214,7 +214,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                               AlignmentDirectional(0.0, 0.0),
                                           child: Text(
                                             gridViewTransportPricingRecord
-                                                .passengersLbl!
+                                                .passengersLbl
                                                 .toString(),
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
@@ -317,10 +317,10 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                       FFAppState().update(() {
                                         FFAppState().newTourNoOfPassengers =
                                             gridViewTransportPricingRecord
-                                                .passengersLbl!;
+                                                .passengersLbl;
                                         FFAppState().newTourPricePP =
                                             gridViewTransportPricingRecord
-                                                .price!;
+                                                .price;
                                       });
 
                                       context.pushNamed(
@@ -404,7 +404,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 await launchURL(containerAppConfigRecord!
-                                    .vinedMessengerURL!);
+                                    .vinedMessengerURL);
                               },
                               child: Container(
                                 width: double.infinity,

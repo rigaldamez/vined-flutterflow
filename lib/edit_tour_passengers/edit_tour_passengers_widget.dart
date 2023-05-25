@@ -192,7 +192,7 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                               AlignmentDirectional(0.0, 0.0),
                                           child: Text(
                                             gridViewTransportPricingRecord
-                                                .passengersLbl!
+                                                .passengersLbl
                                                 .toString(),
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
@@ -298,12 +298,11 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                                         .price,
                                                     containerToursRecord
                                                         .totalTastingFeePp
-                                                        ?.toDouble(),
+                                                        .toDouble(),
                                                     containerToursRecord
                                                         .platformTastingFee,
-                                                    containerToursRecord.venues!
-                                                        .toList()
-                                                        .length),
+                                                    containerToursRecord
+                                                        .venues.length),
                                         subTotal: functions.getTourSubTotal(
                                             gridViewTransportPricingRecord
                                                 .passengersLbl,
@@ -313,12 +312,11 @@ class _EditTourPassengersWidgetState extends State<EditTourPassengersWidget> {
                                                         .price,
                                                     containerToursRecord
                                                         .totalTastingFeePp
-                                                        ?.toDouble(),
+                                                        .toDouble(),
                                                     containerToursRecord
                                                         .platformTastingFee,
-                                                    containerToursRecord.venues!
-                                                        .toList()
-                                                        .length)),
+                                                    containerToursRecord
+                                                        .venues.length)),
                                       );
                                       await widget.tourID!
                                           .update(toursUpdateData);

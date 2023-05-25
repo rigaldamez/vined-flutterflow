@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
-import '../../backend/backend.dart';
+import '/backend/backend.dart';
 
 import '../../auth/base_auth_user_provider.dart';
 
@@ -193,7 +193,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'addVenueToTour',
               requireAuth: true,
               asyncParams: {
-                'tourRecord': getDoc(['tours'], ToursRecord.serializer),
+                'tourRecord': getDoc(['tours'], ToursRecord.fromSnapshot),
               },
               builder: (context, params) => AddVenueToTourWidget(
                 tourID: params.getParam(
@@ -239,7 +239,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'tourDetails',
               requireAuth: true,
               asyncParams: {
-                'tourDocument': getDoc(['tours'], ToursRecord.serializer),
+                'tourDocument': getDoc(['tours'], ToursRecord.fromSnapshot),
               },
               builder: (context, params) => TourDetailsWidget(
                 tourID: params.getParam(
@@ -271,7 +271,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'chatScreenSample',
               requireAuth: true,
               asyncParams: {
-                'chatUser': getDoc(['users'], UsersRecord.serializer),
+                'chatUser': getDoc(['users'], UsersRecord.fromSnapshot),
               },
               builder: (context, params) => ChatScreenSampleWidget(
                 chatUser: params.getParam('chatUser', ParamType.Document),
@@ -284,7 +284,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'users',
               requireAuth: true,
               asyncParams: {
-                'tourReff': getDoc(['tours'], ToursRecord.serializer),
+                'tourReff': getDoc(['tours'], ToursRecord.fromSnapshot),
               },
               builder: (context, params) => UsersWidget(
                 tourID: params.getParam(
@@ -306,13 +306,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'submitTour',
               requireAuth: true,
               asyncParams: {
-                'tourRecord': getDoc(['tours'], ToursRecord.serializer),
+                'tourRecord': getDoc(['tours'], ToursRecord.fromSnapshot),
               },
               builder: (context, params) => SubmitTourWidget(
                 tourID: params.getParam(
                     'tourID', ParamType.DocumentReference, false, ['tours']),
                 tourRecord: params.getParam('tourRecord', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'WebView',
+              path: 'webView',
+              requireAuth: true,
+              builder: (context, params) => WebViewWidget(),
+            ),
+            FFRoute(
+              name: 'Home',
+              path: 'home',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Home')
+                  : HomeWidget(),
+            ),
+            FFRoute(
+              name: 'HomeCopy',
+              path: 'homeCopy',
+              requireAuth: true,
+              builder: (context, params) => HomeCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -450,7 +470,8 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionNamePath);
+    return deserializeParam<T>(param, type, isList,
+        collectionNamePath: collectionNamePath);
   }
 }
 

@@ -1,37 +1,47 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'tour_messages_record.g.dart';
+class TourMessagesRecord extends FirestoreRecord {
+  TourMessagesRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class TourMessagesRecord
-    implements Built<TourMessagesRecord, TourMessagesRecordBuilder> {
-  static Serializer<TourMessagesRecord> get serializer =>
-      _$tourMessagesRecordSerializer;
+  // "date_sent" field.
+  DateTime? _dateSent;
+  DateTime? get dateSent => _dateSent;
+  bool hasDateSent() => _dateSent != null;
 
-  @BuiltValueField(wireName: 'date_sent')
-  DateTime? get dateSent;
+  // "sender_user_reff" field.
+  DocumentReference? _senderUserReff;
+  DocumentReference? get senderUserReff => _senderUserReff;
+  bool hasSenderUserReff() => _senderUserReff != null;
 
-  @BuiltValueField(wireName: 'sender_user_reff')
-  DocumentReference? get senderUserReff;
+  // "message_body" field.
+  String? _messageBody;
+  String get messageBody => _messageBody ?? '';
+  bool hasMessageBody() => _messageBody != null;
 
-  @BuiltValueField(wireName: 'message_body')
-  String? get messageBody;
-
-  @BuiltValueField(wireName: 'is_read')
-  bool? get isRead;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "is_read" field.
+  bool? _isRead;
+  bool get isRead => _isRead ?? false;
+  bool hasIsRead() => _isRead != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
-  static void _initializeBuilder(TourMessagesRecordBuilder builder) => builder
-    ..messageBody = ''
-    ..isRead = false;
+  void _initializeFields() {
+    _dateSent = snapshotData['date_sent'] as DateTime?;
+    _senderUserReff = snapshotData['sender_user_reff'] as DocumentReference?;
+    _messageBody = snapshotData['message_body'] as String?;
+    _isRead = snapshotData['is_read'] as bool?;
+  }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -41,23 +51,27 @@ abstract class TourMessagesRecord
   static DocumentReference createDoc(DocumentReference parent) =>
       parent.collection('Tour_Messages').doc();
 
-  static Stream<TourMessagesRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<TourMessagesRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => TourMessagesRecord.fromSnapshot(s));
 
   static Future<TourMessagesRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => TourMessagesRecord.fromSnapshot(s));
 
-  TourMessagesRecord._();
-  factory TourMessagesRecord(
-          [void Function(TourMessagesRecordBuilder) updates]) =
-      _$TourMessagesRecord;
+  static TourMessagesRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      TourMessagesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static TourMessagesRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      TourMessagesRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'TourMessagesRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createTourMessagesRecordData({
@@ -66,15 +80,13 @@ Map<String, dynamic> createTourMessagesRecordData({
   String? messageBody,
   bool? isRead,
 }) {
-  final firestoreData = serializers.toFirestore(
-    TourMessagesRecord.serializer,
-    TourMessagesRecord(
-      (t) => t
-        ..dateSent = dateSent
-        ..senderUserReff = senderUserReff
-        ..messageBody = messageBody
-        ..isRead = isRead,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'date_sent': dateSent,
+      'sender_user_reff': senderUserReff,
+      'message_body': messageBody,
+      'is_read': isRead,
+    }.withoutNulls,
   );
 
   return firestoreData;

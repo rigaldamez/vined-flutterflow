@@ -418,7 +418,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                       28.0),
                                                           child: Image.network(
                                                             listViewVenuesRecord
-                                                                .image!,
+                                                                .image,
                                                             width: 150.0,
                                                             height:
                                                                 double.infinity,
@@ -620,7 +620,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               .tourState)) {
                                                                     if (functions.isTourStopsCountLessThanLimitAllowed(
                                                                         containerToursRecord
-                                                                            .venues!
+                                                                            .venues
                                                                             .toList(),
                                                                         columnAppConfigRecord)) {
                                                                       if (functions.meetsVenueCapacity(
@@ -649,7 +649,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                           );
                                                                         } else {
                                                                           if (listViewVenuesRecord
-                                                                              .isLunchVenueOnly!) {
+                                                                              .isLunchVenueOnly) {
                                                                             await showModalBottomSheet(
                                                                               isScrollControlled: true,
                                                                               backgroundColor: Colors.transparent,
@@ -805,7 +805,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                       ),
                                                       if (!functions.isVenueOpen(
                                                           listViewVenuesRecord
-                                                              .openDays!
+                                                              .openDays
                                                               .toList(),
                                                           containerToursRecord))
                                                         Container(
@@ -905,7 +905,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                           .tourState)) {
                                                                 if (functions.isTourStopsCountLessThanLimitAllowed(
                                                                     containerToursRecord
-                                                                        .venues!
+                                                                        .venues
                                                                         .toList(),
                                                                     columnAppConfigRecord)) {
                                                                   if (functions.meetsVenueCapacity(
@@ -938,7 +938,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                       );
                                                                     } else {
                                                                       if (listViewVenuesRecord
-                                                                          .isLunchVenueOnly!) {
+                                                                          .isLunchVenueOnly) {
                                                                         await showModalBottomSheet(
                                                                           isScrollControlled:
                                                                               true,

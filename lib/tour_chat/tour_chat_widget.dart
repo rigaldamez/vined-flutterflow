@@ -113,7 +113,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                             },
                           ),
                           Text(
-                            containerToursRecord.tourName!,
+                            containerToursRecord.tourName,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -237,7 +237,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                                       12.0),
                                                           child: Text(
                                                             listViewTourMessagesRecord
-                                                                .messageBody!,
+                                                                .messageBody,
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: FlutterFlowTheme

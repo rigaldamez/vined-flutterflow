@@ -1,35 +1,42 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'tasting_experiences_record.g.dart';
+class TastingExperiencesRecord extends FirestoreRecord {
+  TastingExperiencesRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class TastingExperiencesRecord
-    implements
-        Built<TastingExperiencesRecord, TastingExperiencesRecordBuilder> {
-  static Serializer<TastingExperiencesRecord> get serializer =>
-      _$tastingExperiencesRecordSerializer;
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
 
-  String? get image;
+  // "description" field.
+  String? _description;
+  String get description => _description ?? '';
+  bool hasDescription() => _description != null;
 
-  String? get description;
-
-  @BuiltValueField(wireName: 'tasting_experience_price')
-  double? get tastingExperiencePrice;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "tasting_experience_price" field.
+  double? _tastingExperiencePrice;
+  double get tastingExperiencePrice => _tastingExperiencePrice ?? 0.0;
+  bool hasTastingExperiencePrice() => _tastingExperiencePrice != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
-  static void _initializeBuilder(TastingExperiencesRecordBuilder builder) =>
-      builder
-        ..image = ''
-        ..description = ''
-        ..tastingExperiencePrice = 0.0;
+  void _initializeFields() {
+    _image = snapshotData['image'] as String?;
+    _description = snapshotData['description'] as String?;
+    _tastingExperiencePrice =
+        castToType<double>(snapshotData['tasting_experience_price']);
+  }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -40,23 +47,27 @@ abstract class TastingExperiencesRecord
       parent.collection('tasting_experiences').doc();
 
   static Stream<TastingExperiencesRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.snapshots().map((s) => TastingExperiencesRecord.fromSnapshot(s));
 
   static Future<TastingExperiencesRecord> getDocumentOnce(
           DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => TastingExperiencesRecord.fromSnapshot(s));
 
-  TastingExperiencesRecord._();
-  factory TastingExperiencesRecord(
-          [void Function(TastingExperiencesRecordBuilder) updates]) =
-      _$TastingExperiencesRecord;
+  static TastingExperiencesRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      TastingExperiencesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static TastingExperiencesRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      TastingExperiencesRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'TastingExperiencesRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createTastingExperiencesRecordData({
@@ -64,14 +75,12 @@ Map<String, dynamic> createTastingExperiencesRecordData({
   String? description,
   double? tastingExperiencePrice,
 }) {
-  final firestoreData = serializers.toFirestore(
-    TastingExperiencesRecord.serializer,
-    TastingExperiencesRecord(
-      (t) => t
-        ..image = image
-        ..description = description
-        ..tastingExperiencePrice = tastingExperiencePrice,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'image': image,
+      'description': description,
+      'tasting_experience_price': tastingExperiencePrice,
+    }.withoutNulls,
   );
 
   return firestoreData;

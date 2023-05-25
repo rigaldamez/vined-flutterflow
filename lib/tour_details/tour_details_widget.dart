@@ -126,7 +126,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                             child: Stack(
                               children: [
                                 Image.network(
-                                  containerRegionReffRegionsRecord.image!,
+                                  containerRegionReffRegionsRecord.image,
                                   width: double.infinity,
                                   height: 280.0,
                                   fit: BoxFit.cover,
@@ -152,7 +152,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                         children: [
                                           AutoSizeText(
                                             containerTourReffToursRecord
-                                                .tourName!,
+                                                .tourName,
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -230,8 +230,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            containerTourReffToursRecord
-                                                .region!,
+                                            containerTourReffToursRecord.region,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -526,7 +525,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0.0),
                                                                   child: Text(
                                                                     containerTourReffToursRecord
-                                                                        .passengers!
+                                                                        .passengers
                                                                         .toString(),
                                                                     textAlign:
                                                                         TextAlign
@@ -889,7 +888,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   child: Text(
                                                                     functions
                                                                         .countNumberOfGuests(containerTourReffToursRecord
-                                                                            .guestsUid!
+                                                                            .guestsUid
                                                                             .toList())
                                                                         .toString(),
                                                                     textAlign:
@@ -1106,7 +1105,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   ),
                                                   if (functions.isArrayEmpty(
                                                       containerTourReffToursRecord
-                                                          .venues!
+                                                          .venues
                                                           .toList()))
                                                     Container(
                                                       width: 8.0,
@@ -1215,7 +1214,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         child:
                                                                             Text(
                                                                           containerTourReffToursRecord
-                                                                              .pickupAddress!
+                                                                              .pickupAddress
                                                                               .maybeHandleOverflow(
                                                                             maxChars:
                                                                                 30,
@@ -1386,7 +1385,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                               Padding(
                                                                                                 padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                                                                                                 child: Text(
-                                                                                                  listViewUsersRecord.displayName!,
+                                                                                                  listViewUsersRecord.displayName,
                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                         fontFamily: 'Poppins',
                                                                                                         fontSize: 12.0,
@@ -1771,7 +1770,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         child: Image
                                                                             .network(
                                                                           rowSelectedVenueVenuesRecord
-                                                                              .image!,
+                                                                              .image,
                                                                           width:
                                                                               double.infinity,
                                                                           height:
@@ -1875,13 +1874,13 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                                                             children: [
-                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isTastingIncluded ?? true)
+                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isTastingIncluded)
                                                                                                 Icon(
                                                                                                   Icons.wine_bar_rounded,
                                                                                                   color: Color(0xFFF4F4F4),
                                                                                                   size: 14.0,
                                                                                                 ),
-                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isLunchVenue ?? true)
+                                                                                              if (listViewSelectedVenuesSelectedVenuesRecord.isLunchVenue)
                                                                                                 Padding(
                                                                                                   padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                                                   child: Icon(
@@ -2014,7 +2013,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               ),
                                                               if (functions.isVenueClosedOrExceedsCapacity(
                                                                   rowSelectedVenueVenuesRecord
-                                                                      .openDays!
+                                                                      .openDays
                                                                       .toList(),
                                                                   containerTourReffToursRecord,
                                                                   rowSelectedVenueVenuesRecord
@@ -2105,7 +2104,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                       fontWeight: FontWeight.w600,
                                                                                     ),
                                                                               ),
-                                                                              if (!functions.isVenueOpen(rowSelectedVenueVenuesRecord.openDays!.toList(), containerTourReffToursRecord))
+                                                                              if (!functions.isVenueOpen(rowSelectedVenueVenuesRecord.openDays.toList(), containerTourReffToursRecord))
                                                                                 Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
@@ -2157,7 +2156,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       if (functions
                                           .isTourStopsCountLessThanLimitAllowed(
                                               containerTourReffToursRecord
-                                                  .venues!
+                                                  .venues
                                                   .toList(),
                                               columnAppConfigReffAppConfigRecord))
                                         Padding(
@@ -2210,7 +2209,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   ),
                                                   if (functions.isArrayEmpty(
                                                       containerTourReffToursRecord
-                                                          .venues!
+                                                          .venues
                                                           .toList()))
                                                     Container(
                                                       width: 8.0,
@@ -2356,7 +2355,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           ),
                                         ),
                                       if (!functions.isArrayEmpty(
-                                          containerTourReffToursRecord.venues!
+                                          containerTourReffToursRecord.venues
                                               .toList()))
                                         Padding(
                                           padding:

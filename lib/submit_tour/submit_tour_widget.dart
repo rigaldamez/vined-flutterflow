@@ -126,7 +126,6 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                       children: [
                         Container(
                           width: double.infinity,
-                          height: 550.0,
                           decoration: BoxDecoration(),
                           child: Stack(
                             children: [
@@ -305,7 +304,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                       child: Image
                                                                           .network(
                                                                         rowRegionsRecord
-                                                                            .image!,
+                                                                            .image,
                                                                         width:
                                                                             80.0,
                                                                         height:
@@ -339,7 +338,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                               MainAxisSize.max,
                                                                           children: [
                                                                             Text(
-                                                                              widget.tourRecord!.tourName!,
+                                                                              widget.tourRecord!.tourName,
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Poppins',
                                                                                     fontSize: 16.0,
@@ -435,7 +434,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               Text(
                                                                 formatNumber(
                                                                   containerToursRecord
-                                                                      .pricePp!,
+                                                                      .pricePp,
                                                                   formatType:
                                                                       FormatType
                                                                           .decimal,
@@ -582,7 +581,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               Text(
                                                                 formatNumber(
                                                                   containerToursRecord
-                                                                      .subTotal!,
+                                                                      .subTotal,
                                                                   formatType:
                                                                       FormatType
                                                                           .decimal,
@@ -661,7 +660,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               Text(
                                                                 formatNumber(
                                                                   containerToursRecord
-                                                                      .discountAmount!,
+                                                                      .discountAmount,
                                                                   formatType:
                                                                       FormatType
                                                                           .decimal,
@@ -964,17 +963,17 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                               'percent') {
                                                                             final toursUpdateData1 =
                                                                                 createToursRecordData(
-                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal?.toDouble(), widget.tourRecord!.passengers!),
-                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal?.toDouble(), functions.calculateDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.subTotal?.toDouble())),
-                                                                              discountAmountPp: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers!),
-                                                                              pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers!)),
+                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal.toDouble(), widget.tourRecord!.passengers),
+                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal.toDouble(), functions.calculateDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.subTotal.toDouble())),
+                                                                              discountAmountPp: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers),
+                                                                              pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers)),
                                                                             );
                                                                             await containerToursRecord.reference.update(toursUpdateData1);
                                                                           } else {
                                                                             final toursUpdateData2 =
                                                                                 createToursRecordData(
-                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal?.toDouble(), widget.tourRecord!.passengers!),
-                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal?.toDouble(), functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal?.toDouble(), widget.tourRecord!.passengers!)),
+                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal.toDouble(), widget.tourRecord!.passengers),
+                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal.toDouble(), functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal.toDouble(), widget.tourRecord!.passengers)),
                                                                               discountAmountPp: containerPromoCodesRecord!.discountAmount,
                                                                               pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, containerPromoCodesRecord!.discountAmount),
                                                                             );
@@ -1089,7 +1088,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               Text(
                                                                 formatNumber(
                                                                   containerToursRecord
-                                                                      .totalBalance!,
+                                                                      .totalBalance,
                                                                   formatType:
                                                                       FormatType
                                                                           .decimal,
@@ -1323,7 +1322,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               currentUserEmail,
                                                           description:
                                                               containerToursRecord
-                                                                  .tourName!,
+                                                                  .tourName,
                                                           allowGooglePay: false,
                                                           allowApplePay: true,
                                                           buttonColor:
@@ -1456,7 +1455,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                 Text(
                                                   formatNumber(
                                                     containerToursRecord
-                                                        .totalBalance!,
+                                                        .totalBalance,
                                                     formatType:
                                                         FormatType.decimal,
                                                     decimalType: DecimalType

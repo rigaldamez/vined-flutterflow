@@ -254,7 +254,7 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
                               return;
                             }
 
-                            context.goNamedAuth('HomePage', mounted);
+                            context.goNamedAuth('HomePage', context.mounted);
                           },
                           text: 'Log in',
                           options: FFButtonOptions(

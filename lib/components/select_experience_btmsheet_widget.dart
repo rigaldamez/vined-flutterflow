@@ -256,7 +256,7 @@ class _SelectExperienceBtmsheetWidgetState
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       listViewTastingExperiencesRecord
-                                                          .description!,
+                                                          .description,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -276,8 +276,7 @@ class _SelectExperienceBtmsheetWidgetState
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        if (widget
-                                            .venueRec!.isLunchVenueOnly!) {
+                                        if (widget.venueRec!.isLunchVenueOnly) {
                                           final selectedVenuesCreateData1 = {
                                             ...createSelectedVenuesRecordData(
                                               venueRef:
@@ -302,9 +301,8 @@ class _SelectExperienceBtmsheetWidgetState
                                               capacity:
                                                   widget.venueRec!.capacity,
                                             ),
-                                            'openDays': widget
-                                                .venueRec!.openDays!
-                                                .toList(),
+                                            'openDays':
+                                                widget.venueRec!.openDays,
                                           };
                                           var selectedVenuesRecordReference1 =
                                               SelectedVenuesRecord.collection
@@ -376,7 +374,7 @@ class _SelectExperienceBtmsheetWidgetState
                                           );
                                         } else {
                                           if (widget.venueRec!
-                                              .largeGroupEarlySeatingOnly!) {
+                                              .largeGroupEarlySeatingOnly) {
                                             final selectedVenuesCreateData2 = {
                                               ...createSelectedVenuesRecordData(
                                                 venueRef:
@@ -409,9 +407,8 @@ class _SelectExperienceBtmsheetWidgetState
                                                 capacity:
                                                     widget.venueRec!.capacity,
                                               ),
-                                              'openDays': widget
-                                                  .venueRec!.openDays!
-                                                  .toList(),
+                                              'openDays':
+                                                  widget.venueRec!.openDays,
                                             };
                                             var selectedVenuesRecordReference2 =
                                                 SelectedVenuesRecord.collection
@@ -498,9 +495,8 @@ class _SelectExperienceBtmsheetWidgetState
                                                 capacity:
                                                     widget.venueRec!.capacity,
                                               ),
-                                              'openDays': widget
-                                                  .venueRec!.openDays!
-                                                  .toList(),
+                                              'openDays':
+                                                  widget.venueRec!.openDays,
                                             };
                                             var selectedVenuesRecordReference3 =
                                                 SelectedVenuesRecord.collection

@@ -23,6 +23,7 @@ void main() async {
   await initFirebase();
 
   final appState = FFAppState(); // Initialize FFAppState
+  await appState.initializePersistedState();
 
   await initializeStripe();
 
@@ -130,10 +131,21 @@ class _NavBarPageState extends State<NavBarPage> {
       'CreateTour': CreateTourWidget(),
       'Profile': ProfileWidget(),
       'Tours': ToursWidget(),
+      'Home': HomeWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
+
+    final MediaQueryData queryData = MediaQuery.of(context);
+
     return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
+      body: MediaQuery(
+          data: queryData.copyWith(
+            size: Size(
+              queryData.size.width,
+              queryData.size.height + queryData.padding.bottom,
+            ),
+          ),
+          child: _currentPage ?? tabs[_currentPageName]!),
       extendBody: true,
       bottomNavigationBar: FloatingNavbar(
         currentIndex: currentIndex,
@@ -240,6 +252,30 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
+                        ? FlutterFlowTheme.of(context).pinkPastel
+                        : Color(0xFFF4F4F4),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.home_outlined,
+                  color: currentIndex == 4
+                      ? FlutterFlowTheme.of(context).pinkPastel
+                      : Color(0xFFF4F4F4),
+                  size: 24.0,
+                ),
+                Text(
+                  'Home',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).pinkPastel
                         : Color(0xFFF4F4F4),
                     fontSize: 11.0,

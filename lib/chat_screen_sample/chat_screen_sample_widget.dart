@@ -92,7 +92,7 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
           children: [
             if (!isGroupChat())
               Text(
-                widget.chatUser!.displayName!,
+                widget.chatUser!.displayName,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Lexend Deca',
                       color: Colors.black,

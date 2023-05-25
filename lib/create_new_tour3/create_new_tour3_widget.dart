@@ -713,7 +713,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                 borderRadius:
                                                     BorderRadius.circular(20.0),
                                                 child: Image.network(
-                                                  rowRegionsRecord.image!,
+                                                  rowRegionsRecord.image,
                                                   width: 100.0,
                                                   height: 100.0,
                                                   fit: BoxFit.cover,
@@ -737,7 +737,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                     children: [
                                                       Text(
                                                         listViewToursRecord
-                                                            .tourName!,
+                                                            .tourName,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -753,7 +753,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                     0.0),
                                                         child: Text(
                                                           listViewToursRecord
-                                                              .passengers!
+                                                              .passengers
                                                               .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -797,7 +797,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                         children: [
                                                           Text(
                                                             rowRegionsRecord
-                                                                .name!,
+                                                                .name,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium,
@@ -1052,7 +1052,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              rowAppConfigRecord!.tourLeadTime!.toString(),
+                              rowAppConfigRecord!.tourLeadTime.toString(),
                               style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
                           ),

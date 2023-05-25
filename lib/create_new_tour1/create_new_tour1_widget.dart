@@ -174,7 +174,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                       },
                                     );
                                   },
-                                  text: gridViewRegionsRecord.name!,
+                                  text: gridViewRegionsRecord.name,
                                   options: FFButtonOptions(
                                     width: 300.0,
                                     height: 300.0,
@@ -209,7 +209,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(28.0),
                                   child: Image.network(
-                                    gridViewRegionsRecord.image!,
+                                    gridViewRegionsRecord.image,
                                     width: 100.0,
                                     height: 100.0,
                                     fit: BoxFit.cover,
@@ -228,7 +228,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                               Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Text(
-                                  gridViewRegionsRecord.name!,
+                                  gridViewRegionsRecord.name,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -248,9 +248,9 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 onTap: () async {
                                   FFAppState().update(() {
                                     FFAppState().newTourRegionName =
-                                        gridViewRegionsRecord.name!;
+                                        gridViewRegionsRecord.name;
                                     FFAppState().newTourRegionID =
-                                        gridViewRegionsRecord.regionID!;
+                                        gridViewRegionsRecord.regionID;
                                   });
                                   FFAppState().update(() {
                                     FFAppState().newTourRegionRef =

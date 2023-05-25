@@ -1,101 +1,159 @@
 import 'dart:async';
 
 import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/algolia_manager.dart';
+
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'venues_record.g.dart';
+class VenuesRecord extends FirestoreRecord {
+  VenuesRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class VenuesRecord
-    implements Built<VenuesRecord, VenuesRecordBuilder> {
-  static Serializer<VenuesRecord> get serializer => _$venuesRecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "regionID" field.
+  String? _regionID;
+  String get regionID => _regionID ?? '';
+  bool hasRegionID() => _regionID != null;
 
-  String? get regionID;
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
 
-  String? get image;
+  // "regionName" field.
+  String? _regionName;
+  String get regionName => _regionName ?? '';
+  bool hasRegionName() => _regionName != null;
 
-  String? get regionName;
+  // "tastingFee" field.
+  double? _tastingFee;
+  double get tastingFee => _tastingFee ?? 0.0;
+  bool hasTastingFee() => _tastingFee != null;
 
-  double? get tastingFee;
+  // "capacity" field.
+  int? _capacity;
+  int get capacity => _capacity ?? 0;
+  bool hasCapacity() => _capacity != null;
 
-  int? get capacity;
+  // "openDays" field.
+  List<int>? _openDays;
+  List<int> get openDays => _openDays ?? const [];
+  bool hasOpenDays() => _openDays != null;
 
-  BuiltList<int>? get openDays;
+  // "maxCapacityEnforced" field.
+  bool? _maxCapacityEnforced;
+  bool get maxCapacityEnforced => _maxCapacityEnforced ?? false;
+  bool hasMaxCapacityEnforced() => _maxCapacityEnforced != null;
 
-  bool? get maxCapacityEnforced;
+  // "mustAcknowledgeTCs" field.
+  bool? _mustAcknowledgeTCs;
+  bool get mustAcknowledgeTCs => _mustAcknowledgeTCs ?? false;
+  bool hasMustAcknowledgeTCs() => _mustAcknowledgeTCs != null;
 
-  bool? get mustAcknowledgeTCs;
+  // "region_Ref" field.
+  DocumentReference? _regionRef;
+  DocumentReference? get regionRef => _regionRef;
+  bool hasRegionRef() => _regionRef != null;
 
-  @BuiltValueField(wireName: 'region_Ref')
-  DocumentReference? get regionRef;
+  // "is_favourited_by" field.
+  List<DocumentReference>? _isFavouritedBy;
+  List<DocumentReference> get isFavouritedBy => _isFavouritedBy ?? const [];
+  bool hasIsFavouritedBy() => _isFavouritedBy != null;
 
-  @BuiltValueField(wireName: 'is_favourited_by')
-  BuiltList<DocumentReference>? get isFavouritedBy;
+  // "country_state" field.
+  String? _countryState;
+  String get countryState => _countryState ?? '';
+  bool hasCountryState() => _countryState != null;
 
-  @BuiltValueField(wireName: 'country_state')
-  String? get countryState;
+  // "is_lunch_venue_only" field.
+  bool? _isLunchVenueOnly;
+  bool get isLunchVenueOnly => _isLunchVenueOnly ?? false;
+  bool hasIsLunchVenueOnly() => _isLunchVenueOnly != null;
 
-  @BuiltValueField(wireName: 'is_lunch_venue_only')
-  bool? get isLunchVenueOnly;
+  // "large_group_early_seating_only" field.
+  bool? _largeGroupEarlySeatingOnly;
+  bool get largeGroupEarlySeatingOnly => _largeGroupEarlySeatingOnly ?? false;
+  bool hasLargeGroupEarlySeatingOnly() => _largeGroupEarlySeatingOnly != null;
 
-  @BuiltValueField(wireName: 'large_group_early_seating_only')
-  bool? get largeGroupEarlySeatingOnly;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(VenuesRecordBuilder builder) => builder
-    ..name = ''
-    ..regionID = ''
-    ..image = ''
-    ..regionName = ''
-    ..tastingFee = 0.0
-    ..capacity = 0
-    ..openDays = ListBuilder()
-    ..maxCapacityEnforced = false
-    ..mustAcknowledgeTCs = false
-    ..isFavouritedBy = ListBuilder()
-    ..countryState = ''
-    ..isLunchVenueOnly = false
-    ..largeGroupEarlySeatingOnly = false;
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _regionID = snapshotData['regionID'] as String?;
+    _image = snapshotData['image'] as String?;
+    _regionName = snapshotData['regionName'] as String?;
+    _tastingFee = castToType<double>(snapshotData['tastingFee']);
+    _capacity = snapshotData['capacity'] as int?;
+    _openDays = getDataList(snapshotData['openDays']);
+    _maxCapacityEnforced = snapshotData['maxCapacityEnforced'] as bool?;
+    _mustAcknowledgeTCs = snapshotData['mustAcknowledgeTCs'] as bool?;
+    _regionRef = snapshotData['region_Ref'] as DocumentReference?;
+    _isFavouritedBy = getDataList(snapshotData['is_favourited_by']);
+    _countryState = snapshotData['country_state'] as String?;
+    _isLunchVenueOnly = snapshotData['is_lunch_venue_only'] as bool?;
+    _largeGroupEarlySeatingOnly =
+        snapshotData['large_group_early_seating_only'] as bool?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('venues');
 
-  static Stream<VenuesRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<VenuesRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => VenuesRecord.fromSnapshot(s));
 
-  static Future<VenuesRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<VenuesRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => VenuesRecord.fromSnapshot(s));
+
+  static VenuesRecord fromSnapshot(DocumentSnapshot snapshot) => VenuesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
+
+  static VenuesRecord getDocumentFromData(
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      VenuesRecord._(reference, mapFromFirestore(data));
 
   static VenuesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
-      VenuesRecord(
-        (c) => c
-          ..name = snapshot.data['name']
-          ..regionID = snapshot.data['regionID']
-          ..image = snapshot.data['image']
-          ..regionName = snapshot.data['regionName']
-          ..tastingFee = snapshot.data['tastingFee']?.toDouble()
-          ..capacity = snapshot.data['capacity']?.round()
-          ..openDays = safeGet(() => ListBuilder(
-              snapshot.data['openDays'].map((i) => (i as num).round())))
-          ..maxCapacityEnforced = snapshot.data['maxCapacityEnforced']
-          ..mustAcknowledgeTCs = snapshot.data['mustAcknowledgeTCs']
-          ..regionRef = safeGet(() => toRef(snapshot.data['region_Ref']))
-          ..isFavouritedBy = safeGet(() => ListBuilder(
-              snapshot.data['is_favourited_by'].map((s) => toRef(s))))
-          ..countryState = snapshot.data['country_state']
-          ..isLunchVenueOnly = snapshot.data['is_lunch_venue_only']
-          ..largeGroupEarlySeatingOnly =
-              snapshot.data['large_group_early_seating_only']
-          ..ffRef = VenuesRecord.collection.doc(snapshot.objectID),
+      VenuesRecord.getDocumentFromData(
+        {
+          'name': snapshot.data['name'],
+          'regionID': snapshot.data['regionID'],
+          'image': snapshot.data['image'],
+          'regionName': snapshot.data['regionName'],
+          'tastingFee': snapshot.data['tastingFee']?.toDouble(),
+          'capacity': snapshot.data['capacity']?.round(),
+          'openDays': safeGet(
+            () => snapshot.data['openDays']
+                .map((i) => (i as num).round())
+                .toList(),
+          ),
+          'maxCapacityEnforced': snapshot.data['maxCapacityEnforced'],
+          'mustAcknowledgeTCs': snapshot.data['mustAcknowledgeTCs'],
+          'region_Ref': safeGet(
+            () => toRef(snapshot.data['region_Ref']),
+          ),
+          'is_favourited_by': safeGet(
+            () =>
+                snapshot.data['is_favourited_by'].map((s) => toRef(s)).toList(),
+          ),
+          'country_state': snapshot.data['country_state'],
+          'is_lunch_venue_only': snapshot.data['is_lunch_venue_only'],
+          'large_group_early_seating_only':
+              snapshot.data['large_group_early_seating_only'],
+        },
+        VenuesRecord.collection.doc(snapshot.objectID),
       );
 
   static Future<List<VenuesRecord>> search({
@@ -116,14 +174,9 @@ abstract class VenuesRecord
           )
           .then((r) => r.map(fromAlgolia).toList());
 
-  VenuesRecord._();
-  factory VenuesRecord([void Function(VenuesRecordBuilder) updates]) =
-      _$VenuesRecord;
-
-  static VenuesRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+  @override
+  String toString() =>
+      'VenuesRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createVenuesRecordData({
@@ -140,25 +193,21 @@ Map<String, dynamic> createVenuesRecordData({
   bool? isLunchVenueOnly,
   bool? largeGroupEarlySeatingOnly,
 }) {
-  final firestoreData = serializers.toFirestore(
-    VenuesRecord.serializer,
-    VenuesRecord(
-      (v) => v
-        ..name = name
-        ..regionID = regionID
-        ..image = image
-        ..regionName = regionName
-        ..tastingFee = tastingFee
-        ..capacity = capacity
-        ..openDays = null
-        ..maxCapacityEnforced = maxCapacityEnforced
-        ..mustAcknowledgeTCs = mustAcknowledgeTCs
-        ..regionRef = regionRef
-        ..isFavouritedBy = null
-        ..countryState = countryState
-        ..isLunchVenueOnly = isLunchVenueOnly
-        ..largeGroupEarlySeatingOnly = largeGroupEarlySeatingOnly,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'regionID': regionID,
+      'image': image,
+      'regionName': regionName,
+      'tastingFee': tastingFee,
+      'capacity': capacity,
+      'maxCapacityEnforced': maxCapacityEnforced,
+      'mustAcknowledgeTCs': mustAcknowledgeTCs,
+      'region_Ref': regionRef,
+      'country_state': countryState,
+      'is_lunch_venue_only': isLunchVenueOnly,
+      'large_group_early_seating_only': largeGroupEarlySeatingOnly,
+    }.withoutNulls,
   );
 
   return firestoreData;

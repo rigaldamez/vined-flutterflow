@@ -1,52 +1,70 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'regions_record.g.dart';
+class RegionsRecord extends FirestoreRecord {
+  RegionsRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class RegionsRecord
-    implements Built<RegionsRecord, RegionsRecordBuilder> {
-  static Serializer<RegionsRecord> get serializer => _$regionsRecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
 
-  String? get image;
+  // "isServiced" field.
+  bool? _isServiced;
+  bool get isServiced => _isServiced ?? false;
+  bool hasIsServiced() => _isServiced != null;
 
-  bool? get isServiced;
+  // "regionID" field.
+  String? _regionID;
+  String get regionID => _regionID ?? '';
+  bool hasRegionID() => _regionID != null;
 
-  String? get regionID;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(RegionsRecordBuilder builder) => builder
-    ..name = ''
-    ..image = ''
-    ..isServiced = false
-    ..regionID = '';
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _image = snapshotData['image'] as String?;
+    _isServiced = snapshotData['isServiced'] as bool?;
+    _regionID = snapshotData['regionID'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('regions');
 
-  static Stream<RegionsRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<RegionsRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => RegionsRecord.fromSnapshot(s));
 
-  static Future<RegionsRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<RegionsRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => RegionsRecord.fromSnapshot(s));
 
-  RegionsRecord._();
-  factory RegionsRecord([void Function(RegionsRecordBuilder) updates]) =
-      _$RegionsRecord;
+  static RegionsRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      RegionsRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static RegionsRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      RegionsRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'RegionsRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createRegionsRecordData({
@@ -55,15 +73,13 @@ Map<String, dynamic> createRegionsRecordData({
   bool? isServiced,
   String? regionID,
 }) {
-  final firestoreData = serializers.toFirestore(
-    RegionsRecord.serializer,
-    RegionsRecord(
-      (r) => r
-        ..name = name
-        ..image = image
-        ..isServiced = isServiced
-        ..regionID = regionID,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'image': image,
+      'isServiced': isServiced,
+      'regionID': regionID,
+    }.withoutNulls,
   );
 
   return firestoreData;

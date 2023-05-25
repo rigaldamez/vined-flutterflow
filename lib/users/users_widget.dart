@@ -55,6 +55,7 @@ class _UsersWidgetState extends State<UsersWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -127,7 +128,7 @@ class _UsersWidgetState extends State<UsersWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        listViewUsersRecord.displayName!,
+                                        listViewUsersRecord.displayName,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                       ),

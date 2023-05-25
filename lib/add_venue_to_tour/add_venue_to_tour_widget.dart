@@ -266,7 +266,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                           },
                                         );
                                       },
-                                      text: gridViewVenuesRecord.name!,
+                                      text: gridViewVenuesRecord.name,
                                       options: FFButtonOptions(
                                         width: 300.0,
                                         height: 300.0,
@@ -304,7 +304,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(28.0),
                                       child: Image.network(
-                                        gridViewVenuesRecord.image!,
+                                        gridViewVenuesRecord.image,
                                         width: 100.0,
                                         height: 100.0,
                                         fit: BoxFit.cover,
@@ -324,7 +324,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
-                                      gridViewVenuesRecord.name!,
+                                      gridViewVenuesRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

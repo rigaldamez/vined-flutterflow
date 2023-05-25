@@ -1,9 +1,9 @@
-import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth/firebase_auth/auth_util.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
+import 'schema/util/firestore_util.dart';
 
 import 'schema/venues_record.dart';
 import 'schema/users_record.dart';
@@ -19,12 +19,12 @@ import 'schema/accepted_tours_record.dart';
 import 'schema/tasting_experiences_record.dart';
 import 'schema/payment_record.dart';
 import 'schema/promo_codes_record.dart';
-import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'schema/index.dart';
-export 'schema/serializers.dart';
+export 'schema/util/firestore_util.dart';
+export 'schema/util/schema_util.dart';
 
 export 'schema/venues_record.dart';
 export 'schema/users_record.dart';
@@ -59,7 +59,7 @@ Stream<List<VenuesRecord>> queryVenuesRecord({
 }) =>
     queryCollection(
       VenuesRecord.collection,
-      VenuesRecord.serializer,
+      VenuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -72,7 +72,7 @@ Future<List<VenuesRecord>> queryVenuesRecordOnce({
 }) =>
     queryCollectionOnce(
       VenuesRecord.collection,
-      VenuesRecord.serializer,
+      VenuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -86,7 +86,7 @@ Future<FFFirestorePage<VenuesRecord>> queryVenuesRecordPage({
 }) =>
     queryCollectionPage(
       VenuesRecord.collection,
-      VenuesRecord.serializer,
+      VenuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -111,7 +111,7 @@ Stream<List<UsersRecord>> queryUsersRecord({
 }) =>
     queryCollection(
       UsersRecord.collection,
-      UsersRecord.serializer,
+      UsersRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -124,7 +124,7 @@ Future<List<UsersRecord>> queryUsersRecordOnce({
 }) =>
     queryCollectionOnce(
       UsersRecord.collection,
-      UsersRecord.serializer,
+      UsersRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -138,7 +138,7 @@ Future<FFFirestorePage<UsersRecord>> queryUsersRecordPage({
 }) =>
     queryCollectionPage(
       UsersRecord.collection,
-      UsersRecord.serializer,
+      UsersRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -163,7 +163,7 @@ Stream<List<RegionsRecord>> queryRegionsRecord({
 }) =>
     queryCollection(
       RegionsRecord.collection,
-      RegionsRecord.serializer,
+      RegionsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -176,7 +176,7 @@ Future<List<RegionsRecord>> queryRegionsRecordOnce({
 }) =>
     queryCollectionOnce(
       RegionsRecord.collection,
-      RegionsRecord.serializer,
+      RegionsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -190,7 +190,7 @@ Future<FFFirestorePage<RegionsRecord>> queryRegionsRecordPage({
 }) =>
     queryCollectionPage(
       RegionsRecord.collection,
-      RegionsRecord.serializer,
+      RegionsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -215,7 +215,7 @@ Stream<List<TransportPricingRecord>> queryTransportPricingRecord({
 }) =>
     queryCollection(
       TransportPricingRecord.collection,
-      TransportPricingRecord.serializer,
+      TransportPricingRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -228,7 +228,7 @@ Future<List<TransportPricingRecord>> queryTransportPricingRecordOnce({
 }) =>
     queryCollectionOnce(
       TransportPricingRecord.collection,
-      TransportPricingRecord.serializer,
+      TransportPricingRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -243,7 +243,7 @@ Future<FFFirestorePage<TransportPricingRecord>>
 }) =>
         queryCollectionPage(
           TransportPricingRecord.collection,
-          TransportPricingRecord.serializer,
+          TransportPricingRecord.fromSnapshot,
           queryBuilder: queryBuilder,
           nextPageMarker: nextPageMarker,
           pageSize: pageSize,
@@ -268,7 +268,7 @@ Stream<List<ToursRecord>> queryToursRecord({
 }) =>
     queryCollection(
       ToursRecord.collection,
-      ToursRecord.serializer,
+      ToursRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -281,7 +281,7 @@ Future<List<ToursRecord>> queryToursRecordOnce({
 }) =>
     queryCollectionOnce(
       ToursRecord.collection,
-      ToursRecord.serializer,
+      ToursRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -295,7 +295,7 @@ Future<FFFirestorePage<ToursRecord>> queryToursRecordPage({
 }) =>
     queryCollectionPage(
       ToursRecord.collection,
-      ToursRecord.serializer,
+      ToursRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -320,7 +320,7 @@ Stream<List<SelectedVenuesRecord>> querySelectedVenuesRecord({
 }) =>
     queryCollection(
       SelectedVenuesRecord.collection,
-      SelectedVenuesRecord.serializer,
+      SelectedVenuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -333,7 +333,7 @@ Future<List<SelectedVenuesRecord>> querySelectedVenuesRecordOnce({
 }) =>
     queryCollectionOnce(
       SelectedVenuesRecord.collection,
-      SelectedVenuesRecord.serializer,
+      SelectedVenuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -347,7 +347,7 @@ Future<FFFirestorePage<SelectedVenuesRecord>> querySelectedVenuesRecordPage({
 }) =>
     queryCollectionPage(
       SelectedVenuesRecord.collection,
-      SelectedVenuesRecord.serializer,
+      SelectedVenuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -372,7 +372,7 @@ Stream<List<AppConfigRecord>> queryAppConfigRecord({
 }) =>
     queryCollection(
       AppConfigRecord.collection,
-      AppConfigRecord.serializer,
+      AppConfigRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -385,7 +385,7 @@ Future<List<AppConfigRecord>> queryAppConfigRecordOnce({
 }) =>
     queryCollectionOnce(
       AppConfigRecord.collection,
-      AppConfigRecord.serializer,
+      AppConfigRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -399,7 +399,7 @@ Future<FFFirestorePage<AppConfigRecord>> queryAppConfigRecordPage({
 }) =>
     queryCollectionPage(
       AppConfigRecord.collection,
-      AppConfigRecord.serializer,
+      AppConfigRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -426,7 +426,7 @@ Stream<List<TourMessagesRecord>> queryTourMessagesRecord({
 }) =>
     queryCollection(
       TourMessagesRecord.collection(parent),
-      TourMessagesRecord.serializer,
+      TourMessagesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -440,7 +440,7 @@ Future<List<TourMessagesRecord>> queryTourMessagesRecordOnce({
 }) =>
     queryCollectionOnce(
       TourMessagesRecord.collection(parent),
-      TourMessagesRecord.serializer,
+      TourMessagesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -455,7 +455,7 @@ Future<FFFirestorePage<TourMessagesRecord>> queryTourMessagesRecordPage({
 }) =>
     queryCollectionPage(
       TourMessagesRecord.collection(parent),
-      TourMessagesRecord.serializer,
+      TourMessagesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -480,7 +480,7 @@ Stream<List<ChatsRecord>> queryChatsRecord({
 }) =>
     queryCollection(
       ChatsRecord.collection,
-      ChatsRecord.serializer,
+      ChatsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -493,7 +493,7 @@ Future<List<ChatsRecord>> queryChatsRecordOnce({
 }) =>
     queryCollectionOnce(
       ChatsRecord.collection,
-      ChatsRecord.serializer,
+      ChatsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -507,7 +507,7 @@ Future<FFFirestorePage<ChatsRecord>> queryChatsRecordPage({
 }) =>
     queryCollectionPage(
       ChatsRecord.collection,
-      ChatsRecord.serializer,
+      ChatsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -532,7 +532,7 @@ Stream<List<ChatMessagesRecord>> queryChatMessagesRecord({
 }) =>
     queryCollection(
       ChatMessagesRecord.collection,
-      ChatMessagesRecord.serializer,
+      ChatMessagesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -545,7 +545,7 @@ Future<List<ChatMessagesRecord>> queryChatMessagesRecordOnce({
 }) =>
     queryCollectionOnce(
       ChatMessagesRecord.collection,
-      ChatMessagesRecord.serializer,
+      ChatMessagesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -559,7 +559,7 @@ Future<FFFirestorePage<ChatMessagesRecord>> queryChatMessagesRecordPage({
 }) =>
     queryCollectionPage(
       ChatMessagesRecord.collection,
-      ChatMessagesRecord.serializer,
+      ChatMessagesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -584,7 +584,7 @@ Stream<List<AcceptedToursRecord>> queryAcceptedToursRecord({
 }) =>
     queryCollection(
       AcceptedToursRecord.collection,
-      AcceptedToursRecord.serializer,
+      AcceptedToursRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -597,7 +597,7 @@ Future<List<AcceptedToursRecord>> queryAcceptedToursRecordOnce({
 }) =>
     queryCollectionOnce(
       AcceptedToursRecord.collection,
-      AcceptedToursRecord.serializer,
+      AcceptedToursRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -611,7 +611,7 @@ Future<FFFirestorePage<AcceptedToursRecord>> queryAcceptedToursRecordPage({
 }) =>
     queryCollectionPage(
       AcceptedToursRecord.collection,
-      AcceptedToursRecord.serializer,
+      AcceptedToursRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -638,7 +638,7 @@ Stream<List<TastingExperiencesRecord>> queryTastingExperiencesRecord({
 }) =>
     queryCollection(
       TastingExperiencesRecord.collection(parent),
-      TastingExperiencesRecord.serializer,
+      TastingExperiencesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -652,7 +652,7 @@ Future<List<TastingExperiencesRecord>> queryTastingExperiencesRecordOnce({
 }) =>
     queryCollectionOnce(
       TastingExperiencesRecord.collection(parent),
-      TastingExperiencesRecord.serializer,
+      TastingExperiencesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -668,7 +668,7 @@ Future<FFFirestorePage<TastingExperiencesRecord>>
 }) =>
         queryCollectionPage(
           TastingExperiencesRecord.collection(parent),
-          TastingExperiencesRecord.serializer,
+          TastingExperiencesRecord.fromSnapshot,
           queryBuilder: queryBuilder,
           nextPageMarker: nextPageMarker,
           pageSize: pageSize,
@@ -695,7 +695,7 @@ Stream<List<PaymentRecord>> queryPaymentRecord({
 }) =>
     queryCollection(
       PaymentRecord.collection(parent),
-      PaymentRecord.serializer,
+      PaymentRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -709,7 +709,7 @@ Future<List<PaymentRecord>> queryPaymentRecordOnce({
 }) =>
     queryCollectionOnce(
       PaymentRecord.collection(parent),
-      PaymentRecord.serializer,
+      PaymentRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -724,7 +724,7 @@ Future<FFFirestorePage<PaymentRecord>> queryPaymentRecordPage({
 }) =>
     queryCollectionPage(
       PaymentRecord.collection(parent),
-      PaymentRecord.serializer,
+      PaymentRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -749,7 +749,7 @@ Stream<List<PromoCodesRecord>> queryPromoCodesRecord({
 }) =>
     queryCollection(
       PromoCodesRecord.collection,
-      PromoCodesRecord.serializer,
+      PromoCodesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -762,7 +762,7 @@ Future<List<PromoCodesRecord>> queryPromoCodesRecordOnce({
 }) =>
     queryCollectionOnce(
       PromoCodesRecord.collection,
-      PromoCodesRecord.serializer,
+      PromoCodesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -776,7 +776,7 @@ Future<FFFirestorePage<PromoCodesRecord>> queryPromoCodesRecordPage({
 }) =>
     queryCollectionPage(
       PromoCodesRecord.collection,
-      PromoCodesRecord.serializer,
+      PromoCodesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -799,10 +799,13 @@ Future<int> queryCollectionCount(
   }).then((value) => value.count);
 }
 
-Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
-    {Query Function(Query)? queryBuilder,
-    int limit = -1,
-    bool singleRecord = false}) {
+Stream<List<T>> queryCollection<T>(
+  Query collection,
+  RecordBuilder<T> recordBuilder, {
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) {
   final builder = queryBuilder ?? (q) => q;
   var query = builder(collection);
   if (limit > 0 || singleRecord) {
@@ -813,7 +816,7 @@ Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
   }).map((s) => s.docs
       .map(
         (d) => safeGet(
-          () => serializers.deserializeWith(serializer, serializedData(d)),
+          () => recordBuilder(d),
           (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
         ),
       )
@@ -823,10 +826,12 @@ Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
 }
 
 Future<List<T>> queryCollectionOnce<T>(
-    Query collection, Serializer<T> serializer,
-    {Query Function(Query)? queryBuilder,
-    int limit = -1,
-    bool singleRecord = false}) {
+  Query collection,
+  RecordBuilder<T> recordBuilder, {
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) {
   final builder = queryBuilder ?? (q) => q;
   var query = builder(collection);
   if (limit > 0 || singleRecord) {
@@ -835,7 +840,7 @@ Future<List<T>> queryCollectionOnce<T>(
   return query.get().then((s) => s.docs
       .map(
         (d) => safeGet(
-          () => serializers.deserializeWith(serializer, serializedData(d)),
+          () => recordBuilder(d),
           (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
         ),
       )
@@ -869,7 +874,7 @@ class FFFirestorePage<T> {
 
 Future<FFFirestorePage<T>> queryCollectionPage<T>(
   Query collection,
-  Serializer<T> serializer, {
+  RecordBuilder<T> recordBuilder, {
   Query Function(Query)? queryBuilder,
   DocumentSnapshot? nextPageMarker,
   required int pageSize,
@@ -891,7 +896,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   final getDocs = (QuerySnapshot s) => s.docs
       .map(
         (d) => safeGet(
-          () => serializers.deserializeWith(serializer, serializedData(d)),
+          () => recordBuilder(d),
           (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
         ),
       )
@@ -923,6 +928,5 @@ Future maybeCreateUser(User user) async {
   );
 
   await userRecord.set(userData);
-  currentUserDocument =
-      serializers.deserializeWith(UsersRecord.serializer, userData);
+  currentUserDocument = UsersRecord.getDocumentFromData(userData, userRecord);
 }

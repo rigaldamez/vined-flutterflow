@@ -41,6 +41,7 @@ class _ActivityWidgetState extends State<ActivityWidget> {
       key: scaffoldKey,
       backgroundColor: Colors.white,
       body: SafeArea(
+        top: true,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
