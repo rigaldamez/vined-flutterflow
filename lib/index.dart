@@ -35,4 +35,3 @@ export '/select_driver/select_driver_widget.dart' show SelectDriverWidget;
 export '/submit_tour/submit_tour_widget.dart' show SubmitTourWidget;
 export '/web_view/web_view_widget.dart' show WebViewWidget;
 export '/home/home_widget.dart' show HomeWidget;
-export '/home_copy/home_copy_widget.dart' show HomeCopyWidget;

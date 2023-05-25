@@ -82,35 +82,37 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  FlutterFlowTheme.of(context).cultured,
-                  FlutterFlowTheme.of(context).cultured
-                ],
-                stops: [0.0, 1.0],
-                begin: AlignmentDirectional(0.0, -1.0),
-                end: AlignmentDirectional(0, 1.0),
-              ),
+        body: Container(
+          width: MediaQuery.of(context).size.width * 1.0,
+          height: MediaQuery.of(context).size.height * 1.0,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                FlutterFlowTheme.of(context).purplePastelPrimary,
+                FlutterFlowTheme.of(context).greenPastel,
+                Color(0xFFB19CD9)
+              ],
+              stops: [0.0, 0.5, 1.0],
+              begin: AlignmentDirectional(0.64, -1.0),
+              end: AlignmentDirectional(-0.64, 1.0),
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        child: Text(
                           'Explore',
                           style: FlutterFlowTheme.of(context)
                               .displaySmall
@@ -119,109 +121,407 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 fontWeight: FontWeight.w800,
                               ),
                         ),
-                        FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 50.0,
-                          buttonSize: 46.0,
-                          fillColor: Color(0x00F4F4F4),
-                          icon: Icon(
-                            Icons.search_rounded,
-                            color: Colors.black,
-                            size: 24.0,
-                          ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
-                          },
-                        ).animateOnPageLoad(
-                            animationsMap['iconButtonOnPageLoadAnimation']!),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            'Featured',
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.w900,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
+                      ),
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 50.0,
+                        buttonSize: 46.0,
+                        fillColor: Color(0x00F4F4F4),
+                        icon: Icon(
+                          Icons.search_rounded,
+                          color: Colors.black,
+                          size: 24.0,
                         ),
-                        Container(
-                          width: 100.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(),
+                        onPressed: () {
+                          print('IconButton pressed ...');
+                        },
+                      ).animateOnPageLoad(
+                          animationsMap['iconButtonOnPageLoadAnimation']!),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'Featured',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.w900,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(),
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Stack(
                           alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            children: [
-                              Text(
-                                'See All',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(),
-                              ),
-                            ],
-                          ),
+                          children: [
+                            Text(
+                              'See All',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.26,
-                    decoration: BoxDecoration(),
-                    child: StreamBuilder<List<VenuesRecord>>(
-                      stream: queryVenuesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 20.0,
-                              height: 20.0,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  decoration: BoxDecoration(),
+                  child: StreamBuilder<List<VenuesRecord>>(
+                    stream: queryVenuesRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFB19CD9),
+                            ),
+                          ),
+                        );
+                      }
+                      List<VenuesRecord> listViewFeaturedVenuesRecordList =
+                          snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listViewFeaturedVenuesRecordList.length,
+                        itemBuilder: (context, listViewFeaturedIndex) {
+                          final listViewFeaturedVenuesRecord =
+                              listViewFeaturedVenuesRecordList[
+                                  listViewFeaturedIndex];
+                          return Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            color: Colors.white,
+                            elevation: 4.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(34.0),
+                            ),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.96,
+                              child: Stack(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        6.0, 6.0, 6.0, 6.0),
+                                    child: Hero(
+                                      tag: listViewFeaturedVenuesRecord.image,
+                                      transitionOnUserGestures: true,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(34.0),
+                                        child: Image.network(
+                                          listViewFeaturedVenuesRecord.image,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, 0.9),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          6.0, 0.0, 6.0, 0.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.12,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.transparent,
+                                              Color(0xE6000000)
+                                            ],
+                                            stops: [0.0, 1.0],
+                                            begin:
+                                                AlignmentDirectional(0.0, -1.0),
+                                            end: AlignmentDirectional(0, 1.0),
+                                          ),
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(34.0),
+                                            bottomRight: Radius.circular(34.0),
+                                            topLeft: Radius.circular(0.0),
+                                            topRight: Radius.circular(0.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: double.infinity,
+                                    decoration: BoxDecoration(),
+                                    child: Align(
+                                      alignment:
+                                          AlignmentDirectional(-0.9, 0.7),
+                                      child: Text(
+                                        functions
+                                            .upperCaseString(
+                                                listViewFeaturedVenuesRecord
+                                                    .name)
+                                            .maybeHandleOverflow(
+                                              maxChars: 18,
+                                              replacement: '…',
+                                            ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .cultured,
+                                              fontSize: 10.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.8, -0.64),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          100.0, 0.0, 0.0, 100.0),
+                                      child: Container(
+                                        width: 30.0,
+                                        height: 40.0,
+                                        child: Stack(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          children: [
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Container(
+                                                width: 30.0,
+                                                height: 30.0,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0x65000000),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: ToggleIcon(
+                                                  onPressed: () async {
+                                                    final isFavouritedByElement =
+                                                        currentUserReference;
+                                                    final isFavouritedByUpdate =
+                                                        listViewFeaturedVenuesRecord
+                                                                .isFavouritedBy
+                                                                .contains(
+                                                                    isFavouritedByElement)
+                                                            ? FieldValue
+                                                                .arrayRemove([
+                                                                isFavouritedByElement
+                                                              ])
+                                                            : FieldValue
+                                                                .arrayUnion([
+                                                                isFavouritedByElement
+                                                              ]);
+                                                    final venuesUpdateData = {
+                                                      'is_favourited_by':
+                                                          isFavouritedByUpdate,
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData);
+                                                  },
+                                                  value: listViewFeaturedVenuesRecord
+                                                      .isFavouritedBy
+                                                      .contains(
+                                                          currentUserReference),
+                                                  onIcon: Icon(
+                                                    Icons.favorite_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .pinkPastel,
+                                                    size: 16.0,
+                                                  ),
+                                                  offIcon: Icon(
+                                                    Icons
+                                                        .favorite_border_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .cultured,
+                                                    size: 14.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                if (listViewFeaturedVenuesRecord
+                                                    .isFavouritedBy
+                                                    .contains(
+                                                        currentUserReference)) {
+                                                  final venuesUpdateData1 = {
+                                                    'is_favourited_by':
+                                                        FieldValue.arrayRemove([
+                                                      currentUserReference
+                                                    ]),
+                                                  };
+                                                  await listViewFeaturedVenuesRecord
+                                                      .reference
+                                                      .update(
+                                                          venuesUpdateData1);
+                                                } else {
+                                                  final venuesUpdateData2 = {
+                                                    'is_favourited_by':
+                                                        FieldValue.arrayUnion([
+                                                      currentUserReference
+                                                    ]),
+                                                  };
+                                                  await listViewFeaturedVenuesRecord
+                                                      .reference
+                                                      .update(
+                                                          venuesUpdateData2);
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 30.0,
+                                                height: 30.0,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
-                        }
-                        List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listViewFeaturedVenuesRecordList.length,
-                          itemBuilder: (context, listViewFeaturedIndex) {
-                            final listViewFeaturedVenuesRecord =
-                                listViewFeaturedVenuesRecordList[
-                                    listViewFeaturedIndex];
-                            return Card(
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'Adelaide Hills',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w900,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(),
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Stack(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          children: [
+                            Text(
+                              'See All',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  decoration: BoxDecoration(),
+                  child: StreamBuilder<List<VenuesRecord>>(
+                    stream: queryVenuesRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFB19CD9),
+                            ),
+                          ),
+                        );
+                      }
+                      List<VenuesRecord> listViewFeaturedVenuesRecordList =
+                          snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listViewFeaturedVenuesRecordList.length,
+                        itemBuilder: (context, listViewFeaturedIndex) {
+                          final listViewFeaturedVenuesRecord =
+                              listViewFeaturedVenuesRecordList[
+                                  listViewFeaturedIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 0.0, 0.0, 0.0),
+                            child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               color: Colors.white,
                               elevation: 4.0,
@@ -229,13 +529,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 borderRadius: BorderRadius.circular(34.0),
                               ),
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.96,
+                                width: MediaQuery.of(context).size.width * 0.4,
                                 child: Stack(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          6.0, 6.0, 6.0, 6.0),
+                                          4.0, 4.0, 4.0, 4.0),
                                       child: Hero(
                                         tag: listViewFeaturedVenuesRecord.image,
                                         transitionOnUserGestures: true,
@@ -245,6 +545,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           child: Image.network(
                                             listViewFeaturedVenuesRecord.image,
                                             width: double.infinity,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.24,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -254,7 +558,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       alignment: AlignmentDirectional(0.0, 0.9),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            6.0, 0.0, 6.0, 0.0),
+                                            4.0, 0.0, 4.0, 0.0),
                                         child: Container(
                                           width: double.infinity,
                                           height: MediaQuery.of(context)
@@ -288,7 +592,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       decoration: BoxDecoration(),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(-0.9, 0.7),
+                                            AlignmentDirectional(-0.5, 0.7),
                                         child: Text(
                                           functions
                                               .upperCaseString(
@@ -313,12 +617,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(0.8, -0.64),
+                                          AlignmentDirectional(0.9, -0.64),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             100.0, 0.0, 0.0, 100.0),
                                         child: Container(
-                                          width: 30.0,
                                           height: 40.0,
                                           child: Stack(
                                             alignment:
@@ -436,1325 +739,951 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            'Adelaide Hills',
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w900,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                        Container(
-                          width: 100.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            children: [
-                              Text(
-                                'See All',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.26,
-                    decoration: BoxDecoration(),
-                    child: StreamBuilder<List<VenuesRecord>>(
-                      stream: queryVenuesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 20.0,
-                              height: 20.0,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
-                              ),
                             ),
                           );
-                        }
-                        List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listViewFeaturedVenuesRecordList.length,
-                          itemBuilder: (context, listViewFeaturedIndex) {
-                            final listViewFeaturedVenuesRecord =
-                                listViewFeaturedVenuesRecordList[
-                                    listViewFeaturedIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 0.0, 0.0),
-                              child: Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
-                                ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: Hero(
-                                          tag: listViewFeaturedVenuesRecord
-                                              .image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              listViewFeaturedVenuesRecord
-                                                  .image,
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.24,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Container(
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'Barossa Valley',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w900,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(),
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Stack(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          children: [
+                            Text(
+                              'See All',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  decoration: BoxDecoration(),
+                  child: StreamBuilder<List<VenuesRecord>>(
+                    stream: queryVenuesRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFB19CD9),
+                            ),
+                          ),
+                        );
+                      }
+                      List<VenuesRecord> listViewFeaturedVenuesRecordList =
+                          snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listViewFeaturedVenuesRecordList.length,
+                        itemBuilder: (context, listViewFeaturedIndex) {
+                          final listViewFeaturedVenuesRecord =
+                              listViewFeaturedVenuesRecordList[
+                                  listViewFeaturedIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 0.0, 0.0, 0.0),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Colors.white,
+                              elevation: 4.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(34.0),
+                              ),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 4.0, 4.0, 4.0),
+                                      child: Hero(
+                                        tag: listViewFeaturedVenuesRecord.image,
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(34.0),
+                                          child: Image.network(
+                                            listViewFeaturedVenuesRecord.image,
                                             width: double.infinity,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
-                                              ),
+                                                0.24,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.9),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 0.0, 4.0, 0.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.12,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Colors.transparent,
+                                                Color(0xE6000000)
+                                              ],
+                                              stops: [0.0, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  0.0, -1.0),
+                                              end: AlignmentDirectional(0, 1.0),
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(34.0),
+                                              bottomRight:
+                                                  Radius.circular(34.0),
+                                              topLeft: Radius.circular(0.0),
+                                              topRight: Radius.circular(0.0),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    listViewFeaturedVenuesRecord
-                                                        .name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                    ),
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.5, 0.7),
+                                        child: Text(
+                                          functions
+                                              .upperCaseString(
+                                                  listViewFeaturedVenuesRecord
+                                                      .name)
+                                              .maybeHandleOverflow(
+                                                maxChars: 18,
+                                                replacement: '…',
+                                              ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .cultured,
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.9, -0.64),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            height: 40.0,
-                                            child: Stack(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x65000000),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: ToggleIcon(
-                                                      onPressed: () async {
-                                                        final isFavouritedByElement =
-                                                            currentUserReference;
-                                                        final isFavouritedByUpdate =
-                                                            listViewFeaturedVenuesRecord
-                                                                    .isFavouritedBy
-                                                                    .contains(
-                                                                        isFavouritedByElement)
-                                                                ? FieldValue
-                                                                    .arrayRemove([
-                                                                    isFavouritedByElement
-                                                                  ])
-                                                                : FieldValue
-                                                                    .arrayUnion([
-                                                                    isFavouritedByElement
-                                                                  ]);
-                                                        final venuesUpdateData =
-                                                            {
-                                                          'is_favourited_by':
-                                                              isFavouritedByUpdate,
-                                                        };
-                                                        await listViewFeaturedVenuesRecord
-                                                            .reference
-                                                            .update(
-                                                                venuesUpdateData);
-                                                      },
-                                                      value: listViewFeaturedVenuesRecord
-                                                          .isFavouritedBy
-                                                          .contains(
-                                                              currentUserReference),
-                                                      onIcon: Icon(
-                                                        Icons.favorite_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .pinkPastel,
-                                                        size: 16.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .cultured,
-                                                        size: 14.0,
-                                                      ),
-                                                    ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.9, -0.64),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            100.0, 0.0, 0.0, 100.0),
+                                        child: Container(
+                                          height: 40.0,
+                                          child: Stack(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Container(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0x65000000),
+                                                    shape: BoxShape.circle,
                                                   ),
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (listViewFeaturedVenuesRecord
+                                                  child: ToggleIcon(
+                                                    onPressed: () async {
+                                                      final isFavouritedByElement =
+                                                          currentUserReference;
+                                                      final isFavouritedByUpdate =
+                                                          listViewFeaturedVenuesRecord
+                                                                  .isFavouritedBy
+                                                                  .contains(
+                                                                      isFavouritedByElement)
+                                                              ? FieldValue
+                                                                  .arrayRemove([
+                                                                  isFavouritedByElement
+                                                                ])
+                                                              : FieldValue
+                                                                  .arrayUnion([
+                                                                  isFavouritedByElement
+                                                                ]);
+                                                      final venuesUpdateData = {
+                                                        'is_favourited_by':
+                                                            isFavouritedByUpdate,
+                                                      };
+                                                      await listViewFeaturedVenuesRecord
+                                                          .reference
+                                                          .update(
+                                                              venuesUpdateData);
+                                                    },
+                                                    value: listViewFeaturedVenuesRecord
                                                         .isFavouritedBy
                                                         .contains(
-                                                            currentUserReference)) {
-                                                      final venuesUpdateData1 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData1);
-                                                    } else {
-                                                      final venuesUpdateData2 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData2);
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
+                                                            currentUserReference),
+                                                    onIcon: Icon(
+                                                      Icons.favorite_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .pinkPastel,
+                                                      size: 16.0,
+                                                    ),
+                                                    offIcon: Icon(
+                                                      Icons
+                                                          .favorite_border_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .cultured,
+                                                      size: 14.0,
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (listViewFeaturedVenuesRecord
+                                                      .isFavouritedBy
+                                                      .contains(
+                                                          currentUserReference)) {
+                                                    final venuesUpdateData1 = {
+                                                      'is_favourited_by':
+                                                          FieldValue
+                                                              .arrayRemove([
+                                                        currentUserReference
+                                                      ]),
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData1);
+                                                  } else {
+                                                    final venuesUpdateData2 = {
+                                                      'is_favourited_by':
+                                                          FieldValue
+                                                              .arrayUnion([
+                                                        currentUserReference
+                                                      ]),
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData2);
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            'Barossa Valley',
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w900,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                        Container(
-                          width: 100.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            children: [
-                              Text(
-                                'See All',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
                                     ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.26,
-                    decoration: BoxDecoration(),
-                    child: StreamBuilder<List<VenuesRecord>>(
-                      stream: queryVenuesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 20.0,
-                              height: 20.0,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
+                                  ],
+                                ),
                               ),
                             ),
                           );
-                        }
-                        List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listViewFeaturedVenuesRecordList.length,
-                          itemBuilder: (context, listViewFeaturedIndex) {
-                            final listViewFeaturedVenuesRecord =
-                                listViewFeaturedVenuesRecordList[
-                                    listViewFeaturedIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 0.0, 0.0),
-                              child: Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
-                                ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: Hero(
-                                          tag: listViewFeaturedVenuesRecord
-                                              .image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              listViewFeaturedVenuesRecord
-                                                  .image,
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.24,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Container(
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'McLaren Vale',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w800,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(),
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Stack(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          children: [
+                            Text(
+                              'See All',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  decoration: BoxDecoration(),
+                  child: StreamBuilder<List<VenuesRecord>>(
+                    stream: queryVenuesRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFB19CD9),
+                            ),
+                          ),
+                        );
+                      }
+                      List<VenuesRecord> listViewFeaturedVenuesRecordList =
+                          snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listViewFeaturedVenuesRecordList.length,
+                        itemBuilder: (context, listViewFeaturedIndex) {
+                          final listViewFeaturedVenuesRecord =
+                              listViewFeaturedVenuesRecordList[
+                                  listViewFeaturedIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 0.0, 0.0, 0.0),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Colors.white,
+                              elevation: 4.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(34.0),
+                              ),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 4.0, 4.0, 4.0),
+                                      child: Hero(
+                                        tag: listViewFeaturedVenuesRecord.image,
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(34.0),
+                                          child: Image.network(
+                                            listViewFeaturedVenuesRecord.image,
                                             width: double.infinity,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
-                                              ),
+                                                0.24,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.9),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 0.0, 4.0, 0.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.12,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Colors.transparent,
+                                                Color(0xE6000000)
+                                              ],
+                                              stops: [0.0, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  0.0, -1.0),
+                                              end: AlignmentDirectional(0, 1.0),
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(34.0),
+                                              bottomRight:
+                                                  Radius.circular(34.0),
+                                              topLeft: Radius.circular(0.0),
+                                              topRight: Radius.circular(0.0),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    listViewFeaturedVenuesRecord
-                                                        .name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                    ),
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.5, 0.7),
+                                        child: Text(
+                                          functions
+                                              .upperCaseString(
+                                                  listViewFeaturedVenuesRecord
+                                                      .name)
+                                              .maybeHandleOverflow(
+                                                maxChars: 18,
+                                                replacement: '…',
+                                              ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .cultured,
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.9, -0.64),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            height: 40.0,
-                                            child: Stack(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x65000000),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: ToggleIcon(
-                                                      onPressed: () async {
-                                                        final isFavouritedByElement =
-                                                            currentUserReference;
-                                                        final isFavouritedByUpdate =
-                                                            listViewFeaturedVenuesRecord
-                                                                    .isFavouritedBy
-                                                                    .contains(
-                                                                        isFavouritedByElement)
-                                                                ? FieldValue
-                                                                    .arrayRemove([
-                                                                    isFavouritedByElement
-                                                                  ])
-                                                                : FieldValue
-                                                                    .arrayUnion([
-                                                                    isFavouritedByElement
-                                                                  ]);
-                                                        final venuesUpdateData =
-                                                            {
-                                                          'is_favourited_by':
-                                                              isFavouritedByUpdate,
-                                                        };
-                                                        await listViewFeaturedVenuesRecord
-                                                            .reference
-                                                            .update(
-                                                                venuesUpdateData);
-                                                      },
-                                                      value: listViewFeaturedVenuesRecord
-                                                          .isFavouritedBy
-                                                          .contains(
-                                                              currentUserReference),
-                                                      onIcon: Icon(
-                                                        Icons.favorite_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .pinkPastel,
-                                                        size: 16.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .cultured,
-                                                        size: 14.0,
-                                                      ),
-                                                    ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.9, -0.64),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            100.0, 0.0, 0.0, 100.0),
+                                        child: Container(
+                                          height: 40.0,
+                                          child: Stack(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Container(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0x65000000),
+                                                    shape: BoxShape.circle,
                                                   ),
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (listViewFeaturedVenuesRecord
+                                                  child: ToggleIcon(
+                                                    onPressed: () async {
+                                                      final isFavouritedByElement =
+                                                          currentUserReference;
+                                                      final isFavouritedByUpdate =
+                                                          listViewFeaturedVenuesRecord
+                                                                  .isFavouritedBy
+                                                                  .contains(
+                                                                      isFavouritedByElement)
+                                                              ? FieldValue
+                                                                  .arrayRemove([
+                                                                  isFavouritedByElement
+                                                                ])
+                                                              : FieldValue
+                                                                  .arrayUnion([
+                                                                  isFavouritedByElement
+                                                                ]);
+                                                      final venuesUpdateData = {
+                                                        'is_favourited_by':
+                                                            isFavouritedByUpdate,
+                                                      };
+                                                      await listViewFeaturedVenuesRecord
+                                                          .reference
+                                                          .update(
+                                                              venuesUpdateData);
+                                                    },
+                                                    value: listViewFeaturedVenuesRecord
                                                         .isFavouritedBy
                                                         .contains(
-                                                            currentUserReference)) {
-                                                      final venuesUpdateData1 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData1);
-                                                    } else {
-                                                      final venuesUpdateData2 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData2);
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
+                                                            currentUserReference),
+                                                    onIcon: Icon(
+                                                      Icons.favorite_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .pinkPastel,
+                                                      size: 16.0,
+                                                    ),
+                                                    offIcon: Icon(
+                                                      Icons
+                                                          .favorite_border_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .cultured,
+                                                      size: 14.0,
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (listViewFeaturedVenuesRecord
+                                                      .isFavouritedBy
+                                                      .contains(
+                                                          currentUserReference)) {
+                                                    final venuesUpdateData1 = {
+                                                      'is_favourited_by':
+                                                          FieldValue
+                                                              .arrayRemove([
+                                                        currentUserReference
+                                                      ]),
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData1);
+                                                  } else {
+                                                    final venuesUpdateData2 = {
+                                                      'is_favourited_by':
+                                                          FieldValue
+                                                              .arrayUnion([
+                                                        currentUserReference
+                                                      ]),
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData2);
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            'McLaren Vale',
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w800,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                        Container(
-                          width: 100.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            children: [
-                              Text(
-                                'See All',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
                                     ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.26,
-                    decoration: BoxDecoration(),
-                    child: StreamBuilder<List<VenuesRecord>>(
-                      stream: queryVenuesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 20.0,
-                              height: 20.0,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
+                                  ],
+                                ),
                               ),
                             ),
                           );
-                        }
-                        List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listViewFeaturedVenuesRecordList.length,
-                          itemBuilder: (context, listViewFeaturedIndex) {
-                            final listViewFeaturedVenuesRecord =
-                                listViewFeaturedVenuesRecordList[
-                                    listViewFeaturedIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 0.0, 0.0),
-                              child: Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
-                                ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: Hero(
-                                          tag: listViewFeaturedVenuesRecord
-                                              .image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              listViewFeaturedVenuesRecord
-                                                  .image,
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.24,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Container(
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'Langhorne Creek',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w800,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(),
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Stack(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          children: [
+                            Text(
+                              'See All',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  decoration: BoxDecoration(),
+                  child: StreamBuilder<List<VenuesRecord>>(
+                    stream: queryVenuesRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFB19CD9),
+                            ),
+                          ),
+                        );
+                      }
+                      List<VenuesRecord> listViewFeaturedVenuesRecordList =
+                          snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listViewFeaturedVenuesRecordList.length,
+                        itemBuilder: (context, listViewFeaturedIndex) {
+                          final listViewFeaturedVenuesRecord =
+                              listViewFeaturedVenuesRecordList[
+                                  listViewFeaturedIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 0.0, 0.0, 0.0),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Colors.white,
+                              elevation: 4.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(34.0),
+                              ),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 4.0, 4.0, 4.0),
+                                      child: Hero(
+                                        tag: listViewFeaturedVenuesRecord.image,
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(34.0),
+                                          child: Image.network(
+                                            listViewFeaturedVenuesRecord.image,
                                             width: double.infinity,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
-                                              ),
+                                                0.24,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.9),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 0.0, 4.0, 0.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.12,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Colors.transparent,
+                                                Color(0xE6000000)
+                                              ],
+                                              stops: [0.0, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  0.0, -1.0),
+                                              end: AlignmentDirectional(0, 1.0),
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(34.0),
+                                              bottomRight:
+                                                  Radius.circular(34.0),
+                                              topLeft: Radius.circular(0.0),
+                                              topRight: Radius.circular(0.0),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    listViewFeaturedVenuesRecord
-                                                        .name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                    ),
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.5, 0.7),
+                                        child: Text(
+                                          functions
+                                              .upperCaseString(
+                                                  listViewFeaturedVenuesRecord
+                                                      .name)
+                                              .maybeHandleOverflow(
+                                                maxChars: 18,
+                                                replacement: '…',
+                                              ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .cultured,
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.9, -0.64),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            height: 40.0,
-                                            child: Stack(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x65000000),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: ToggleIcon(
-                                                      onPressed: () async {
-                                                        final isFavouritedByElement =
-                                                            currentUserReference;
-                                                        final isFavouritedByUpdate =
-                                                            listViewFeaturedVenuesRecord
-                                                                    .isFavouritedBy
-                                                                    .contains(
-                                                                        isFavouritedByElement)
-                                                                ? FieldValue
-                                                                    .arrayRemove([
-                                                                    isFavouritedByElement
-                                                                  ])
-                                                                : FieldValue
-                                                                    .arrayUnion([
-                                                                    isFavouritedByElement
-                                                                  ]);
-                                                        final venuesUpdateData =
-                                                            {
-                                                          'is_favourited_by':
-                                                              isFavouritedByUpdate,
-                                                        };
-                                                        await listViewFeaturedVenuesRecord
-                                                            .reference
-                                                            .update(
-                                                                venuesUpdateData);
-                                                      },
-                                                      value: listViewFeaturedVenuesRecord
-                                                          .isFavouritedBy
-                                                          .contains(
-                                                              currentUserReference),
-                                                      onIcon: Icon(
-                                                        Icons.favorite_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .pinkPastel,
-                                                        size: 16.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .cultured,
-                                                        size: 14.0,
-                                                      ),
-                                                    ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.9, -0.64),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            100.0, 0.0, 0.0, 100.0),
+                                        child: Container(
+                                          height: 40.0,
+                                          child: Stack(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Container(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0x65000000),
+                                                    shape: BoxShape.circle,
                                                   ),
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (listViewFeaturedVenuesRecord
+                                                  child: ToggleIcon(
+                                                    onPressed: () async {
+                                                      final isFavouritedByElement =
+                                                          currentUserReference;
+                                                      final isFavouritedByUpdate =
+                                                          listViewFeaturedVenuesRecord
+                                                                  .isFavouritedBy
+                                                                  .contains(
+                                                                      isFavouritedByElement)
+                                                              ? FieldValue
+                                                                  .arrayRemove([
+                                                                  isFavouritedByElement
+                                                                ])
+                                                              : FieldValue
+                                                                  .arrayUnion([
+                                                                  isFavouritedByElement
+                                                                ]);
+                                                      final venuesUpdateData = {
+                                                        'is_favourited_by':
+                                                            isFavouritedByUpdate,
+                                                      };
+                                                      await listViewFeaturedVenuesRecord
+                                                          .reference
+                                                          .update(
+                                                              venuesUpdateData);
+                                                    },
+                                                    value: listViewFeaturedVenuesRecord
                                                         .isFavouritedBy
                                                         .contains(
-                                                            currentUserReference)) {
-                                                      final venuesUpdateData1 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData1);
-                                                    } else {
-                                                      final venuesUpdateData2 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData2);
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
+                                                            currentUserReference),
+                                                    onIcon: Icon(
+                                                      Icons.favorite_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .pinkPastel,
+                                                      size: 16.0,
+                                                    ),
+                                                    offIcon: Icon(
+                                                      Icons
+                                                          .favorite_border_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .cultured,
+                                                      size: 14.0,
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (listViewFeaturedVenuesRecord
+                                                      .isFavouritedBy
+                                                      .contains(
+                                                          currentUserReference)) {
+                                                    final venuesUpdateData1 = {
+                                                      'is_favourited_by':
+                                                          FieldValue
+                                                              .arrayRemove([
+                                                        currentUserReference
+                                                      ]),
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData1);
+                                                  } else {
+                                                    final venuesUpdateData2 = {
+                                                      'is_favourited_by':
+                                                          FieldValue
+                                                              .arrayUnion([
+                                                        currentUserReference
+                                                      ]),
+                                                    };
+                                                    await listViewFeaturedVenuesRecord
+                                                        .reference
+                                                        .update(
+                                                            venuesUpdateData2);
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            'Langhorne Creek',
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w800,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                        Container(
-                          width: 100.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            children: [
-                              Text(
-                                'See All',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
                                     ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.26,
-                    decoration: BoxDecoration(),
-                    child: StreamBuilder<List<VenuesRecord>>(
-                      stream: queryVenuesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 20.0,
-                              height: 20.0,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
+                                  ],
+                                ),
                               ),
                             ),
                           );
-                        }
-                        List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listViewFeaturedVenuesRecordList.length,
-                          itemBuilder: (context, listViewFeaturedIndex) {
-                            final listViewFeaturedVenuesRecord =
-                                listViewFeaturedVenuesRecordList[
-                                    listViewFeaturedIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 0.0, 0.0),
-                              child: Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
-                                ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: Hero(
-                                          tag: listViewFeaturedVenuesRecord
-                                              .image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              listViewFeaturedVenuesRecord
-                                                  .image,
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.24,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    listViewFeaturedVenuesRecord
-                                                        .name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.9, -0.64),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            height: 40.0,
-                                            child: Stack(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x65000000),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: ToggleIcon(
-                                                      onPressed: () async {
-                                                        final isFavouritedByElement =
-                                                            currentUserReference;
-                                                        final isFavouritedByUpdate =
-                                                            listViewFeaturedVenuesRecord
-                                                                    .isFavouritedBy
-                                                                    .contains(
-                                                                        isFavouritedByElement)
-                                                                ? FieldValue
-                                                                    .arrayRemove([
-                                                                    isFavouritedByElement
-                                                                  ])
-                                                                : FieldValue
-                                                                    .arrayUnion([
-                                                                    isFavouritedByElement
-                                                                  ]);
-                                                        final venuesUpdateData =
-                                                            {
-                                                          'is_favourited_by':
-                                                              isFavouritedByUpdate,
-                                                        };
-                                                        await listViewFeaturedVenuesRecord
-                                                            .reference
-                                                            .update(
-                                                                venuesUpdateData);
-                                                      },
-                                                      value: listViewFeaturedVenuesRecord
-                                                          .isFavouritedBy
-                                                          .contains(
-                                                              currentUserReference),
-                                                      onIcon: Icon(
-                                                        Icons.favorite_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .pinkPastel,
-                                                        size: 16.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .cultured,
-                                                        size: 14.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (listViewFeaturedVenuesRecord
-                                                        .isFavouritedBy
-                                                        .contains(
-                                                            currentUserReference)) {
-                                                      final venuesUpdateData1 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData1);
-                                                    } else {
-                                                      final venuesUpdateData2 =
-                                                          {
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData2);
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                        },
+                      );
+                    },
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

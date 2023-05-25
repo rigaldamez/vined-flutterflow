@@ -136,7 +136,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color magicMint = Color(0xFF9DF7E5);
   late Color black = Color(0xFF000000);
   late Color magicMint2 = Color(0xFFB9F1D9);
-  late Color cultured = Color(0xFFF4F4F4);
+  late Color cultured = Color(0xFFF5F5F5);
   late Color softPink = Color(0xFFFADADD);
   late Color pinkPastel = Color(0xFFFDBEEB);
   late Color greenPastel = Color(0xFFBEFDE5);
