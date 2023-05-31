@@ -27,6 +27,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  LatLng? currentUserLocationValue;
 
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
@@ -55,6 +56,15 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
     super.initState();
     _model = createModel(context, () => HomeModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      setState(() {
+        _model.currentUserLocation = currentUserLocationValue;
+      });
+    });
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -81,26 +91,34 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).cultured,
         body: Container(
           width: MediaQuery.of(context).size.width * 1.0,
           height: MediaQuery.of(context).size.height * 1.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                FlutterFlowTheme.of(context).purplePastelPrimary,
+                FlutterFlowTheme.of(context).softPurple,
                 FlutterFlowTheme.of(context).greenPastel,
                 Color(0xFFB19CD9)
               ],
-              stops: [0.0, 0.5, 1.0],
-              begin: AlignmentDirectional(0.64, -1.0),
-              end: AlignmentDirectional(-0.64, 1.0),
+              stops: [0.0, 0.6, 1.0],
+              begin: AlignmentDirectional(0.87, -1.0),
+              end: AlignmentDirectional(-0.87, 1.0),
             ),
+            borderRadius: BorderRadius.circular(0.0),
           ),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: 40.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                ),
                 Padding(
                   padding:
                       EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
@@ -1678,7 +1696,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 1.0,
-                  height: 60.0,
+                  height: 80.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),

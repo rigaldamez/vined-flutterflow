@@ -42,6 +42,7 @@ abstract class FlutterFlowTheme {
   late Color pinkPastel;
   late Color greenPastel;
   late Color purplePastelPrimary;
+  late Color softPurple;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -141,6 +142,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color pinkPastel = Color(0xFFFDBEEB);
   late Color greenPastel = Color(0xFFBEFDE5);
   late Color purplePastelPrimary = Color(0xFFB19CD9);
+  late Color softPurple = Color(0xFFFFDCF4);
 }
 
 abstract class Typography {
