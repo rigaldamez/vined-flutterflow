@@ -230,9 +230,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'Tours',
               path: 'tours',
               requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Tours')
-                  : ToursWidget(),
+              builder: (context, params) => ToursWidget(),
             ),
             FFRoute(
               name: 'TourDetails',
@@ -327,6 +325,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'Home')
                   : HomeWidget(),
+            ),
+            FFRoute(
+              name: 'HomeCopy',
+              path: 'homeCopy',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'HomeCopy')
+                  : HomeCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

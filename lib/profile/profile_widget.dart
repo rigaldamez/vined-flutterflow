@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/create_new_tour_empty_state_widget.dart';
+import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -410,21 +411,43 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           children: [
                             Align(
                               alignment: Alignment(0.0, 0),
-                              child: TabBar(
-                                labelColor: FlutterFlowTheme.of(context).black,
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).bodyMedium,
-                                indicatorColor:
-                                    FlutterFlowTheme.of(context).salmonPink,
+                              child: FlutterFlowButtonTabBar(
+                                useToggleButtonStyle: false,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                unselectedLabelStyle:
+                                    FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                labelColor:
+                                    FlutterFlowTheme.of(context).cultured,
+                                unselectedLabelColor:
+                                    FlutterFlowTheme.of(context).black,
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).black,
+                                unselectedBackgroundColor:
+                                    FlutterFlowTheme.of(context).cultured,
+                                borderWidth: 0.0,
+                                borderRadius: 28.0,
+                                elevation: 2.0,
+                                buttonMargin: EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 10.0, 10.0, 10.0),
                                 tabs: [
                                   Tab(
-                                    text: 'My tours',
+                                    text: 'SA',
                                   ),
                                   Tab(
-                                    text: 'Example 2',
+                                    text: 'VIC',
                                   ),
                                   Tab(
-                                    text: 'Example 3',
+                                    text: 'NSW',
                                   ),
                                 ],
                               ),

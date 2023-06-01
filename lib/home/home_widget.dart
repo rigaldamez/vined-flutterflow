@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
@@ -94,7 +95,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
         backgroundColor: FlutterFlowTheme.of(context).cultured,
         body: Container(
           width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.height * 1.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -130,14 +130,24 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          'Explore',
-                          style: FlutterFlowTheme.of(context)
-                              .displaySmall
-                              .override(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w800,
-                              ),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => Text(
+                            currentUserDisplayName != null &&
+                                    currentUserDisplayName != ''
+                                ? ((String var1) {
+                                    return "Hey " + var1;
+                                  }(currentUserDisplayName))
+                                : 'Discover'.maybeHandleOverflow(
+                                    maxChars: 16,
+                                    replacement: '…',
+                                  ),
+                            style: FlutterFlowTheme.of(context)
+                                .displaySmall
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w800,
+                                ),
+                          ),
                         ),
                       ),
                       FlutterFlowIconButton(
@@ -301,6 +311,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   Container(
+                                    width: double.infinity,
                                     height: double.infinity,
                                     decoration: BoxDecoration(),
                                     child: Align(
@@ -329,73 +340,60 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.8, -0.64),
+                                    alignment: AlignmentDirectional(0.8, -0.5),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           100.0, 0.0, 0.0, 100.0),
                                       child: Container(
-                                        width: 30.0,
+                                        width: 40.0,
                                         height: 40.0,
                                         child: Stack(
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
                                           children: [
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Container(
-                                                width: 30.0,
-                                                height: 30.0,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0x65000000),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: ToggleIcon(
-                                                  onPressed: () async {
-                                                    final isFavouritedByElement =
-                                                        currentUserReference;
-                                                    final isFavouritedByUpdate =
-                                                        listViewFeaturedVenuesRecord
-                                                                .isFavouritedBy
-                                                                .contains(
-                                                                    isFavouritedByElement)
-                                                            ? FieldValue
-                                                                .arrayRemove([
-                                                                isFavouritedByElement
-                                                              ])
-                                                            : FieldValue
-                                                                .arrayUnion([
-                                                                isFavouritedByElement
-                                                              ]);
-                                                    final venuesUpdateData = {
-                                                      'is_favourited_by':
-                                                          isFavouritedByUpdate,
-                                                    };
-                                                    await listViewFeaturedVenuesRecord
-                                                        .reference
-                                                        .update(
-                                                            venuesUpdateData);
-                                                  },
-                                                  value: listViewFeaturedVenuesRecord
+                                            ToggleIcon(
+                                              onPressed: () async {
+                                                final isFavouritedByElement =
+                                                    currentUserReference;
+                                                final isFavouritedByUpdate =
+                                                    listViewFeaturedVenuesRecord
+                                                            .isFavouritedBy
+                                                            .contains(
+                                                                isFavouritedByElement)
+                                                        ? FieldValue
+                                                            .arrayRemove([
+                                                            isFavouritedByElement
+                                                          ])
+                                                        : FieldValue
+                                                            .arrayUnion([
+                                                            isFavouritedByElement
+                                                          ]);
+                                                final venuesUpdateData = {
+                                                  'is_favourited_by':
+                                                      isFavouritedByUpdate,
+                                                };
+                                                await listViewFeaturedVenuesRecord
+                                                    .reference
+                                                    .update(venuesUpdateData);
+                                              },
+                                              value:
+                                                  listViewFeaturedVenuesRecord
                                                       .isFavouritedBy
                                                       .contains(
                                                           currentUserReference),
-                                                  onIcon: Icon(
-                                                    Icons.favorite_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                              onIcon: Icon(
+                                                Icons.favorite_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .pinkPastel,
-                                                    size: 16.0,
-                                                  ),
-                                                  offIcon: Icon(
-                                                    Icons
-                                                        .favorite_border_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                                size: 18.0,
+                                              ),
+                                              offIcon: Icon(
+                                                Icons.favorite_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .cultured,
-                                                    size: 14.0,
-                                                  ),
-                                                ),
+                                                size: 18.0,
                                               ),
                                             ),
                                             InkWell(
@@ -433,10 +431,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 }
                                               },
                                               child: Container(
-                                                width: 30.0,
-                                                height: 30.0,
+                                                width: double.infinity,
+                                                height: double.infinity,
                                                 decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
+                                                  shape: BoxShape.rectangle,
                                                 ),
                                               ),
                                             ),
@@ -635,74 +633,60 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(0.9, -0.64),
+                                          AlignmentDirectional(0.5, -0.64),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             100.0, 0.0, 0.0, 100.0),
                                         child: Container(
+                                          width: 40.0,
                                           height: 40.0,
                                           child: Stack(
                                             alignment:
                                                 AlignmentDirectional(0.0, 0.0),
                                             children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Container(
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0x65000000),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: ToggleIcon(
-                                                    onPressed: () async {
-                                                      final isFavouritedByElement =
-                                                          currentUserReference;
-                                                      final isFavouritedByUpdate =
-                                                          listViewFeaturedVenuesRecord
-                                                                  .isFavouritedBy
-                                                                  .contains(
-                                                                      isFavouritedByElement)
-                                                              ? FieldValue
-                                                                  .arrayRemove([
-                                                                  isFavouritedByElement
-                                                                ])
-                                                              : FieldValue
-                                                                  .arrayUnion([
-                                                                  isFavouritedByElement
-                                                                ]);
-                                                      final venuesUpdateData = {
-                                                        'is_favourited_by':
-                                                            isFavouritedByUpdate,
-                                                      };
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update(
-                                                              venuesUpdateData);
-                                                    },
-                                                    value: listViewFeaturedVenuesRecord
+                                              ToggleIcon(
+                                                onPressed: () async {
+                                                  final isFavouritedByElement =
+                                                      currentUserReference;
+                                                  final isFavouritedByUpdate =
+                                                      listViewFeaturedVenuesRecord
+                                                              .isFavouritedBy
+                                                              .contains(
+                                                                  isFavouritedByElement)
+                                                          ? FieldValue
+                                                              .arrayRemove([
+                                                              isFavouritedByElement
+                                                            ])
+                                                          : FieldValue
+                                                              .arrayUnion([
+                                                              isFavouritedByElement
+                                                            ]);
+                                                  final venuesUpdateData = {
+                                                    'is_favourited_by':
+                                                        isFavouritedByUpdate,
+                                                  };
+                                                  await listViewFeaturedVenuesRecord
+                                                      .reference
+                                                      .update(venuesUpdateData);
+                                                },
+                                                value:
+                                                    listViewFeaturedVenuesRecord
                                                         .isFavouritedBy
                                                         .contains(
                                                             currentUserReference),
-                                                    onIcon: Icon(
-                                                      Icons.favorite_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .pinkPastel,
-                                                      size: 16.0,
-                                                    ),
-                                                    offIcon: Icon(
-                                                      Icons
-                                                          .favorite_border_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .cultured,
-                                                      size: 14.0,
-                                                    ),
-                                                  ),
+                                                onIcon: Icon(
+                                                  Icons.favorite_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .pinkPastel,
+                                                  size: 16.0,
+                                                ),
+                                                offIcon: Icon(
+                                                  Icons.favorite_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  size: 16.0,
                                                 ),
                                               ),
                                               InkWell(
@@ -742,10 +726,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   }
                                                 },
                                                 child: Container(
-                                                  width: 30.0,
-                                                  height: 30.0,
+                                                  width: double.infinity,
+                                                  height: double.infinity,
                                                   decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
+                                                    shape: BoxShape.rectangle,
                                                   ),
                                                 ),
                                               ),
@@ -1699,6 +1683,83 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   height: 80.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                ),
+                Container(
+                  height: 200.0,
+                  decoration: BoxDecoration(),
+                  child: DefaultTabController(
+                    length: 3,
+                    initialIndex: 0,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment(0.0, 0),
+                          child: FlutterFlowButtonTabBar(
+                            useToggleButtonStyle: false,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            unselectedLabelStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            labelColor: FlutterFlowTheme.of(context).cultured,
+                            unselectedLabelColor:
+                                FlutterFlowTheme.of(context).black,
+                            backgroundColor: FlutterFlowTheme.of(context).black,
+                            unselectedBackgroundColor:
+                                FlutterFlowTheme.of(context).cultured,
+                            borderWidth: 0.0,
+                            borderRadius: 28.0,
+                            elevation: 2.0,
+                            buttonMargin: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 10.0, 10.0, 10.0),
+                            tabs: [
+                              Tab(
+                                text: 'SA',
+                              ),
+                              Tab(
+                                text: 'VIC',
+                              ),
+                              Tab(
+                                text: 'NSW',
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              Container(),
+                              Text(
+                                'Tab View 2',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 32.0,
+                                    ),
+                              ),
+                              Text(
+                                'Tab View 3',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 32.0,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

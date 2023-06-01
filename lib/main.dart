@@ -130,8 +130,8 @@ class _NavBarPageState extends State<NavBarPage> {
       'HomePage': HomePageWidget(),
       'CreateTour': CreateTourWidget(),
       'Profile': ProfileWidget(),
-      'Tours': ToursWidget(),
       'Home': HomeWidget(),
+      'HomeCopy': HomeCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -241,14 +241,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.location_on_outlined,
+                  Icons.home_outlined,
                   color: currentIndex == 3
                       ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
                   size: 24.0,
                 ),
                 Text(
-                  'Tours',
+                  'Home',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
