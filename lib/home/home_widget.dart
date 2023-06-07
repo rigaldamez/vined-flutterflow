@@ -68,6 +68,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       });
     });
 
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -89,6 +91,20 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+    if (currentUserLocationValue == null) {
+      return Container(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+        child: Center(
+          child: SizedBox(
+            width: 20.0,
+            height: 20.0,
+            child: CircularProgressIndicator(
+              color: Color(0xFFB19CD9),
+            ),
+          ),
+        ),
+      );
+    }
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
@@ -432,8 +448,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               listViewFeaturedVenuesRecord
                                                   .latLong
                                                   ?.toString(),
-                                          origins:
-                                              '-34.92834680474008, 138.60001165070216',
+                                          origins: currentUserLocationValue
+                                              ?.toString(),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
