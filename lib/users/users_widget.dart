@@ -145,7 +145,7 @@ class _UsersWidgetState extends State<UsersWidget> {
                                         onPressed: () async {
                                           context.pushNamed(
                                             'chatScreen_sample',
-                                            queryParams: {
+                                            queryParameters: {
                                               'chatUser': serializeParam(
                                                 listViewUsersRecord,
                                                 ParamType.Document,

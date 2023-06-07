@@ -325,7 +325,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
 
                                       context.pushNamed(
                                         'CreateNewTour3',
-                                        queryParams: {
+                                        queryParameters: {
                                           'regionIDRef': serializeParam(
                                             widget.regionIDRef,
                                             ParamType.DocumentReference,

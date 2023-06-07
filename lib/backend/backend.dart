@@ -19,6 +19,7 @@ import 'schema/accepted_tours_record.dart';
 import 'schema/tasting_experiences_record.dart';
 import 'schema/payment_record.dart';
 import 'schema/promo_codes_record.dart';
+import 'schema/states_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,6 +41,7 @@ export 'schema/accepted_tours_record.dart';
 export 'schema/tasting_experiences_record.dart';
 export 'schema/payment_record.dart';
 export 'schema/promo_codes_record.dart';
+export 'schema/states_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Future<int> queryVenuesRecordCount({
@@ -777,6 +779,58 @@ Future<FFFirestorePage<PromoCodesRecord>> queryPromoCodesRecordPage({
     queryCollectionPage(
       PromoCodesRecord.collection,
       PromoCodesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query StatesRecords (as a Stream and as a Future).
+Future<int> queryStatesRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      StatesRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<StatesRecord>> queryStatesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      StatesRecord.collection,
+      StatesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<StatesRecord>> queryStatesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      StatesRecord.collection,
+      StatesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<StatesRecord>> queryStatesRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      StatesRecord.collection,
+      StatesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

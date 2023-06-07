@@ -426,12 +426,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         barrierColor:
                                                             Color(0x00000000),
                                                         context: context,
-                                                        builder:
-                                                            (bottomSheetContext) {
+                                                        builder: (context) {
                                                           return Padding(
-                                                            padding: MediaQuery.of(
-                                                                    bottomSheetContext)
-                                                                .viewInsets,
+                                                            padding:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
                                                             child: Container(
                                                               height: 440.0,
                                                               child:
@@ -564,7 +564,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     onTap: () async {
                                                       context.pushNamed(
                                                         'EditTourPassengers',
-                                                        queryParams: {
+                                                        queryParameters: {
                                                           'tourID':
                                                               serializeParam(
                                                             containerTourReffToursRecord
@@ -1056,10 +1056,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   0x00000000),
                                                               context: context,
                                                               builder:
-                                                                  (bottomSheetContext) {
+                                                                  (context) {
                                                                 return Padding(
                                                                   padding: MediaQuery.of(
-                                                                          bottomSheetContext)
+                                                                          context)
                                                                       .viewInsets,
                                                                   child:
                                                                       Container(
@@ -1265,10 +1265,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       context:
                                                                           context,
                                                                       builder:
-                                                                          (bottomSheetContext) {
+                                                                          (context) {
                                                                         return Padding(
                                                                           padding:
-                                                                              MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                              MediaQuery.of(context).viewInsets,
                                                                           child:
                                                                               Container(
                                                                             height:
@@ -1430,7 +1430,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                                 onPressed: () async {
                                                                                                   context.pushNamed(
                                                                                                     'chatScreen_sample',
-                                                                                                    queryParams: {
+                                                                                                    queryParameters: {
                                                                                                       'chatUser': serializeParam(
                                                                                                         listViewUsersRecord,
                                                                                                         ParamType.Document,
@@ -1528,7 +1528,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                   onTap: () async {
                                                                                     context.pushNamed(
                                                                                       'selectDriver',
-                                                                                      queryParams: {
+                                                                                      queryParameters: {
                                                                                         'tourID': serializeParam(
                                                                                           widget.tourID,
                                                                                           ParamType.DocumentReference,
@@ -1971,10 +1971,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       context:
                                                                           context,
                                                                       builder:
-                                                                          (bottomSheetContext) {
+                                                                          (context) {
                                                                         return Padding(
                                                                           padding:
-                                                                              MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                              MediaQuery.of(context).viewInsets,
                                                                           child:
                                                                               Container(
                                                                             height:
@@ -2051,10 +2051,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         context:
                                                                             context,
                                                                         builder:
-                                                                            (bottomSheetContext) {
+                                                                            (context) {
                                                                           return Padding(
                                                                             padding:
-                                                                                MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                MediaQuery.of(context).viewInsets,
                                                                             child:
                                                                                 Container(
                                                                               height: 580.0,
@@ -2270,7 +2270,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 context
                                                                     .pushNamed(
                                                                   'addVenue',
-                                                                  queryParams: {
+                                                                  queryParameters:
+                                                                      {
                                                                     'tourReff':
                                                                         serializeParam(
                                                                       widget
@@ -2628,7 +2629,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                   .toList())) {
                                             context.pushNamed(
                                               'submitTour',
-                                              queryParams: {
+                                              queryParameters: {
                                                 'tourID': serializeParam(
                                                   widget.tourID,
                                                   ParamType.DocumentReference,

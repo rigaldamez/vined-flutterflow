@@ -68,12 +68,15 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 20.0,
-              height: 20.0,
-              child: CircularProgressIndicator(
-                color: Color(0xFFB19CD9),
+          return Scaffold(
+            backgroundColor: Color(0xFFF5F5F5),
+            body: Center(
+              child: SizedBox(
+                width: 20.0,
+                height: 20.0,
+                child: CircularProgressIndicator(
+                  color: Color(0xFFB19CD9),
+                ),
               ),
             ),
           );

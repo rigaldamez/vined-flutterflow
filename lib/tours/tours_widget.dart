@@ -97,10 +97,9 @@ class _ToursWidgetState extends State<ToursWidget> {
                             backgroundColor: Colors.transparent,
                             barrierColor: Color(0x00000000),
                             context: context,
-                            builder: (bottomSheetContext) {
+                            builder: (context) {
                               return Padding(
-                                padding: MediaQuery.of(bottomSheetContext)
-                                    .viewInsets,
+                                padding: MediaQuery.of(context).viewInsets,
                                 child: Container(
                                   height: 400.0,
                                   child: NewTourBottomsheetWidget(),
@@ -664,7 +663,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                     onTap: () async {
                                       context.pushNamed(
                                         'TourDetails',
-                                        queryParams: {
+                                        queryParameters: {
                                           'tourID': serializeParam(
                                             listViewToursRecord.reference,
                                             ParamType.DocumentReference,

@@ -62,12 +62,15 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 20.0,
-              height: 20.0,
-              child: CircularProgressIndicator(
-                color: Color(0xFFB19CD9),
+          return Scaffold(
+            backgroundColor: Color(0xFFF5F5F5),
+            body: Center(
+              child: SizedBox(
+                width: 20.0,
+                height: 20.0,
+                child: CircularProgressIndicator(
+                  color: Color(0xFFB19CD9),
+                ),
               ),
             ),
           );
@@ -554,7 +557,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                   }
                                   context.pushNamed(
                                     'AddVenueToTour',
-                                    queryParams: {
+                                    queryParameters: {
                                       'tourID': serializeParam(
                                         _model.createdTourID!.reference,
                                         ParamType.DocumentReference,
@@ -699,7 +702,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                               onTap: () async {
                                                 context.pushNamed(
                                                   'EditTourPassengers',
-                                                  queryParams: {
+                                                  queryParameters: {
                                                     'tourID': serializeParam(
                                                       listViewToursRecord
                                                           .reference,
@@ -837,7 +840,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                           onPressed: () async {
                                                             context.pushNamed(
                                                               'AddVenueToTour',
-                                                              queryParams: {
+                                                              queryParameters: {
                                                                 'tourID':
                                                                     serializeParam(
                                                                   listViewToursRecord
@@ -940,7 +943,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                                 () async {
                                                               context.pushNamed(
                                                                 'ViewTourDetails',
-                                                                queryParams: {
+                                                                queryParameters:
+                                                                    {
                                                                   'tourRef':
                                                                       serializeParam(
                                                                     listViewToursRecord

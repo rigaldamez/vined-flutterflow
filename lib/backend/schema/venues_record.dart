@@ -87,6 +87,16 @@ class VenuesRecord extends FirestoreRecord {
   bool get largeGroupEarlySeatingOnly => _largeGroupEarlySeatingOnly ?? false;
   bool hasLargeGroupEarlySeatingOnly() => _largeGroupEarlySeatingOnly != null;
 
+  // "country_state_display_name" field.
+  String? _countryStateDisplayName;
+  String get countryStateDisplayName => _countryStateDisplayName ?? '';
+  bool hasCountryStateDisplayName() => _countryStateDisplayName != null;
+
+  // "lat_long" field.
+  LatLng? _latLong;
+  LatLng? get latLong => _latLong;
+  bool hasLatLong() => _latLong != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _regionID = snapshotData['regionID'] as String?;
@@ -103,6 +113,9 @@ class VenuesRecord extends FirestoreRecord {
     _isLunchVenueOnly = snapshotData['is_lunch_venue_only'] as bool?;
     _largeGroupEarlySeatingOnly =
         snapshotData['large_group_early_seating_only'] as bool?;
+    _countryStateDisplayName =
+        snapshotData['country_state_display_name'] as String?;
+    _latLong = snapshotData['lat_long'] as LatLng?;
   }
 
   static CollectionReference get collection =>
@@ -152,6 +165,14 @@ class VenuesRecord extends FirestoreRecord {
           'is_lunch_venue_only': snapshot.data['is_lunch_venue_only'],
           'large_group_early_seating_only':
               snapshot.data['large_group_early_seating_only'],
+          'country_state_display_name':
+              snapshot.data['country_state_display_name'],
+          'lat_long': safeGet(
+            () => LatLng(
+              snapshot.data['_geoloc']['lat'],
+              snapshot.data['_geoloc']['lng'],
+            ),
+          ),
         },
         VenuesRecord.collection.doc(snapshot.objectID),
       );
@@ -192,6 +213,8 @@ Map<String, dynamic> createVenuesRecordData({
   String? countryState,
   bool? isLunchVenueOnly,
   bool? largeGroupEarlySeatingOnly,
+  String? countryStateDisplayName,
+  LatLng? latLong,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -207,6 +230,8 @@ Map<String, dynamic> createVenuesRecordData({
       'country_state': countryState,
       'is_lunch_venue_only': isLunchVenueOnly,
       'large_group_early_seating_only': largeGroupEarlySeatingOnly,
+      'country_state_display_name': countryStateDisplayName,
+      'lat_long': latLong,
     }.withoutNulls,
   );
 

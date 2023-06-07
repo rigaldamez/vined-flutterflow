@@ -155,7 +155,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 4.0, 0.0),
+                                  4.0, 8.0, 4.0, 8.0),
                               child: StreamBuilder<List<RegionsRecord>>(
                                 stream: queryRegionsRecord(
                                   queryBuilder: (regionsRecord) => regionsRecord
@@ -217,6 +217,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       elevation: 2.0,
                                     ),
                                     chipSpacing: 10.0,
+                                    rowSpacing: 12.0,
                                     multiselect: false,
                                     initialized:
                                         _model.choiceChipsValue != null,

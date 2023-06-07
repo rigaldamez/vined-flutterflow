@@ -655,11 +655,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               backgroundColor: Colors.transparent,
                                                                               barrierColor: Color(0x00000000),
                                                                               context: context,
-                                                                              builder: (bottomSheetContext) {
+                                                                              builder: (context) {
                                                                                 return GestureDetector(
                                                                                   onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                                                                                   child: Padding(
-                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                    padding: MediaQuery.of(context).viewInsets,
                                                                                     child: Container(
                                                                                       height: 250.0,
                                                                                       child: SelectExperienceBtmsheetWidget(
@@ -683,11 +683,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 backgroundColor: Colors.transparent,
                                                                                 barrierColor: Color(0x00000000),
                                                                                 context: context,
-                                                                                builder: (bottomSheetContext) {
+                                                                                builder: (context) {
                                                                                   return GestureDetector(
                                                                                     onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                                                                                     child: Padding(
-                                                                                      padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                      padding: MediaQuery.of(context).viewInsets,
                                                                                       child: Container(
                                                                                         height: 250.0,
                                                                                         child: SelectExperienceBtmsheetWidget(
@@ -709,11 +709,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   backgroundColor: Colors.transparent,
                                                                                   barrierColor: Color(0x00000000),
                                                                                   context: context,
-                                                                                  builder: (bottomSheetContext) {
+                                                                                  builder: (context) {
                                                                                     return GestureDetector(
                                                                                       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                                                                                       child: Padding(
-                                                                                        padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                        padding: MediaQuery.of(context).viewInsets,
                                                                                         child: Container(
                                                                                           height: 250.0,
                                                                                           child: SelectExperienceBtmsheetWidget(
@@ -949,11 +949,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (bottomSheetContext) {
+                                                                              (context) {
                                                                             return GestureDetector(
                                                                               onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                                                                               child: Padding(
-                                                                                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                padding: MediaQuery.of(context).viewInsets,
                                                                                 child: Container(
                                                                                   height: 250.0,
                                                                                   child: SelectExperienceBtmsheetWidget(
@@ -983,11 +983,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             context:
                                                                                 context,
                                                                             builder:
-                                                                                (bottomSheetContext) {
+                                                                                (context) {
                                                                               return GestureDetector(
                                                                                 onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                                                                                 child: Padding(
-                                                                                  padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                  padding: MediaQuery.of(context).viewInsets,
                                                                                   child: Container(
                                                                                     height: 250.0,
                                                                                     child: SelectExperienceBtmsheetWidget(
@@ -1013,11 +1013,11 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               backgroundColor: Colors.transparent,
                                                                               barrierColor: Color(0x00000000),
                                                                               context: context,
-                                                                              builder: (bottomSheetContext) {
+                                                                              builder: (context) {
                                                                                 return GestureDetector(
                                                                                   onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                                                                                   child: Padding(
-                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                    padding: MediaQuery.of(context).viewInsets,
                                                                                     child: Container(
                                                                                       height: 250.0,
                                                                                       child: SelectExperienceBtmsheetWidget(
