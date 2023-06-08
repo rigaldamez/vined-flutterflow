@@ -59,15 +59,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
     super.initState();
     _model = createModel(context, () => HomeModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      setState(() {
-        _model.currentUserLocation = currentUserLocationValue;
-      });
-    });
-
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => setState(() => currentUserLocationValue = loc));
     setupAnimations(
@@ -444,12 +435,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         future:
                                             GETDistanceBetwenTwoGeopointsCall
                                                 .call(
+                                          origins: currentUserLocationValue
+                                              ?.toString(),
                                           destinations:
                                               listViewFeaturedVenuesRecord
                                                   .latLong
                                                   ?.toString(),
-                                          origins: currentUserLocationValue
-                                              ?.toString(),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.

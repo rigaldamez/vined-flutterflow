@@ -29,7 +29,6 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-  LatLng? currentUserLocationValue;
 
   final animationsMap = {
     'iconButtonOnPageLoadAnimation': AnimationInfo(
@@ -57,15 +56,6 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomeCopyModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      setState(() {
-        _model.currentUserLocation = currentUserLocationValue;
-      });
-    });
 
     setupAnimations(
       animationsMap.values.where((anim) =>
