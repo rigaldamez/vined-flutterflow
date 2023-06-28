@@ -7,19 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
+import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/auth/firebase_auth/auth_util.dart';
-
-String fortmatCurrency(
-  double? price,
-  String? currencySymbol,
-) {
-  //return '$currencySymbol$price.00';
-  double num1 = double.parse(price!.toStringAsFixed(2));
-  //return
-  return '$currencySymbol$num1 pp';
-}
 
 DateTime getCurrentDateTimePlusAweek(
   DateTime? selectedDate,
@@ -509,7 +500,6 @@ bool isTourCorrectToSubmit(
     } else {
       boolVal = false;
     } //end if
-
   } //end for
 
   return boolVal;
@@ -602,6 +592,29 @@ double? updateTotalBalanceWithDiscountAmount(
   }
 }
 
+List<VenuesRecord>? sortVenuesByViewDateTrending(
+    List<VenuesRecord> venuesUnsorted) {
+  List<VenuesRecord> sortedList = venuesUnsorted;
+
+  sortedList.sort((v1, v2) {
+    if (v1.lastVenueViewDate == null && v2.lastVenueViewDate == null) {
+      return 0;
+    } else if (v1.lastVenueViewDate == null) {
+      return 1;
+    } else if (v2.lastVenueViewDate == null) {
+      return -1;
+    } else {
+      return v2.lastVenueViewDate!.compareTo(v1.lastVenueViewDate!);
+    }
+  });
+
+  return sortedList;
+
+  //Returns a value like a Comparator when comparing this to other. That is, it returns a negative integer if 'this' is ordered before 'other', a positive integer if 'this' is ordered after 'other', and zero if this and other are ordered together.
+
+  //viewCountSort: sortedList.sort((a, b) => b.viewsCount.compareTo(a.viewsCount));
+}
+
 double? updateTotalPPCostWithDiscountAmount(
   double? pricePP,
   double? discountAmount,
@@ -649,4 +662,43 @@ double? updateTotalBalanceAfterPayment(
   }
 
   return total;
+}
+
+List<VenuesRecord> shuffleCollection(List<VenuesRecord> originalList) {
+  List<VenuesRecord> shuffledList = originalList;
+
+  shuffledList.shuffle();
+
+  return shuffledList;
+}
+
+List<VenuesRecord>? sortVenuesByViewsCount(List<VenuesRecord> venuesUnsorted) {
+  List<VenuesRecord> sortedList = venuesUnsorted;
+
+  sortedList.sort((a, b) => b.viewsCount.compareTo(a.viewsCount));
+
+  return sortedList;
+}
+
+String? displayVenueDistance(double? distanceDouble) {
+  if (distanceDouble != null) {
+    return (distanceDouble / 1000).toStringAsFixed(2);
+  } else {
+    return "";
+  }
+}
+
+String? getLngLatCoordinatesMapbox(
+  LatLng? l1,
+  LatLng? l2,
+) {
+  if (l1 != null && l2 != null) {
+    String latt1 = l1.latitude.toString();
+    String longg1 = l1.longitude.toString();
+
+    String latt2 = l2.latitude.toString();
+    String longg2 = l2.longitude.toString();
+
+    return '$longg1,$latt1;$longg2,$latt2';
+  }
 }

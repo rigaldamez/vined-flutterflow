@@ -20,6 +20,8 @@ import 'schema/tasting_experiences_record.dart';
 import 'schema/payment_record.dart';
 import 'schema/promo_codes_record.dart';
 import 'schema/states_record.dart';
+import 'schema/upcoming_events_record.dart';
+import 'schema/venue_views_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,6 +44,8 @@ export 'schema/tasting_experiences_record.dart';
 export 'schema/payment_record.dart';
 export 'schema/promo_codes_record.dart';
 export 'schema/states_record.dart';
+export 'schema/upcoming_events_record.dart';
+export 'schema/venue_views_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Future<int> queryVenuesRecordCount({
@@ -831,6 +835,114 @@ Future<FFFirestorePage<StatesRecord>> queryStatesRecordPage({
     queryCollectionPage(
       StatesRecord.collection,
       StatesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query UpcomingEventsRecords (as a Stream and as a Future).
+Future<int> queryUpcomingEventsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      UpcomingEventsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<UpcomingEventsRecord>> queryUpcomingEventsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UpcomingEventsRecord.collection,
+      UpcomingEventsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UpcomingEventsRecord>> queryUpcomingEventsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UpcomingEventsRecord.collection,
+      UpcomingEventsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<UpcomingEventsRecord>> queryUpcomingEventsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      UpcomingEventsRecord.collection,
+      UpcomingEventsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query VenueViewsRecords (as a Stream and as a Future).
+Future<int> queryVenueViewsRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      VenueViewsRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<VenueViewsRecord>> queryVenueViewsRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      VenueViewsRecord.collection(parent),
+      VenueViewsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<VenueViewsRecord>> queryVenueViewsRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      VenueViewsRecord.collection(parent),
+      VenueViewsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<VenueViewsRecord>> queryVenueViewsRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      VenueViewsRecord.collection(parent),
+      VenueViewsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

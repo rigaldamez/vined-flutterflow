@@ -58,14 +58,15 @@ class AppConfigRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _vinedMessengerURL = snapshotData['vinedMessengerURL'] as String?;
-    _itineraryVenueLimit = snapshotData['itineraryVenueLimit'] as int?;
+    _itineraryVenueLimit = castToType<int>(snapshotData['itineraryVenueLimit']);
     _platformTastingFee =
         castToType<double>(snapshotData['platformTastingFee']);
-    _tourLeadTime = snapshotData['tourLeadTime'] as int?;
+    _tourLeadTime = castToType<int>(snapshotData['tourLeadTime']);
     _vinedWebsiteURL = snapshotData['vinedWebsiteURL'] as String?;
-    _largeGroupThreshold = snapshotData['large_group_threshold'] as int?;
-    _largeGroupVenuesEarlySeatingThreshold =
-        snapshotData['large_group_venues_early_seating_threshold'] as int?;
+    _largeGroupThreshold =
+        castToType<int>(snapshotData['large_group_threshold']);
+    _largeGroupVenuesEarlySeatingThreshold = castToType<int>(
+        snapshotData['large_group_venues_early_seating_threshold']);
     _lunchVenueFee = castToType<double>(snapshotData['lunch_venue_fee']);
   }
 
@@ -93,6 +94,14 @@ class AppConfigRecord extends FirestoreRecord {
   @override
   String toString() =>
       'AppConfigRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is AppConfigRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createAppConfigRecordData({

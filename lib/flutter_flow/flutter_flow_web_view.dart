@@ -9,20 +9,22 @@ import 'flutter_flow_util.dart';
 class FlutterFlowWebView extends StatefulWidget {
   const FlutterFlowWebView({
     Key? key,
-    required this.url,
+    required this.content,
     this.width,
     this.height,
     this.bypass = false,
     this.horizontalScroll = false,
     this.verticalScroll = false,
+    this.html = false,
   }) : super(key: key);
 
+  final String content;
+  final double? height;
+  final double? width;
   final bool bypass;
   final bool horizontalScroll;
   final bool verticalScroll;
-  final double? height;
-  final double? width;
-  final String url;
+  final bool html;
 
   @override
   _FlutterFlowWebViewState createState() => _FlutterFlowWebViewState();
@@ -35,11 +37,14 @@ class _FlutterFlowWebViewState extends State<FlutterFlowWebView> {
         width: widget.width ?? MediaQuery.of(context).size.width,
         height: widget.height ?? MediaQuery.of(context).size.height,
         ignoreAllGestures: false,
-        initialContent: widget.url,
+        initialContent: widget.content,
         initialMediaPlaybackPolicy:
             AutoMediaPlaybackPolicy.requireUserActionForAllMediaTypes,
-        initialSourceType:
-            widget.bypass ? SourceType.urlBypass : SourceType.url,
+        initialSourceType: widget.html
+            ? SourceType.html
+            : widget.bypass
+                ? SourceType.urlBypass
+                : SourceType.url,
         javascriptMode: JavascriptMode.unrestricted,
         navigationDelegate: (request) async {
           if (isAndroid) {
@@ -78,12 +83,13 @@ class _FlutterFlowWebViewState extends State<FlutterFlowWebView> {
 
   Key get webviewKey => Key(
         [
-          widget.url,
+          widget.content,
           widget.width,
           widget.height,
           widget.bypass,
           widget.horizontalScroll,
           widget.verticalScroll,
+          widget.html,
         ].map((s) => s?.toString() ?? '').join(),
       );
 }

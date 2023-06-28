@@ -64,6 +64,38 @@ class GETDistanceBetwenTwoGeopointsCall {
       );
 }
 
+class GETMapboxDrivingDirectionsCall {
+  static Future<ApiCallResponse> call({
+    String? coordinates =
+        '151.2149685,-33.857158999999996;151.069576,-33.846503',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GET Mapbox driving directions',
+      apiUrl:
+          'https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'coordinates': coordinates,
+        'annotations': "distance,duration",
+        'geometries': "geojson",
+        'overview': "full",
+        'access_token':
+            "pk.eyJ1IjoicmlnYWxkYW1leiIsImEiOiJjbGo4MXByMzAwdnVpM2VwMjB4dnIyNTFtIn0.M07_W0GyVQVWuILkYCt86g",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic distance(dynamic response) => getJsonField(
+        response,
+        r'''$.routes[:].legs[:].distance''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -89,11 +121,11 @@ String _serializeList(List? list) {
   }
 }
 
-String _serializeJson(dynamic jsonVar) {
-  jsonVar ??= {};
+String _serializeJson(dynamic jsonVar, [bool isList = false]) {
+  jsonVar ??= (isList ? [] : {});
   try {
     return json.encode(jsonVar);
   } catch (_) {
-    return '{}';
+    return isList ? '[]' : '{}';
   }
 }

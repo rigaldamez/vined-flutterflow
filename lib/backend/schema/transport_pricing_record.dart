@@ -26,7 +26,7 @@ class TransportPricingRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _price = castToType<double>(snapshotData['price']);
-    _passengersLbl = snapshotData['passengersLbl'] as int?;
+    _passengersLbl = castToType<int>(snapshotData['passengersLbl']);
   }
 
   static CollectionReference get collection =>
@@ -54,6 +54,14 @@ class TransportPricingRecord extends FirestoreRecord {
   @override
   String toString() =>
       'TransportPricingRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is TransportPricingRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createTransportPricingRecordData({

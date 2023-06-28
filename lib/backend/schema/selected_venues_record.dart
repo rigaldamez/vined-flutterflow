@@ -110,7 +110,7 @@ class SelectedVenuesRecord extends FirestoreRecord {
         snapshotData['tasting_experience_description'] as String?;
     _isTastingIncluded = snapshotData['is_tasting_included'] as bool?;
     _openDays = getDataList(snapshotData['openDays']);
-    _capacity = snapshotData['capacity'] as int?;
+    _capacity = castToType<int>(snapshotData['capacity']);
   }
 
   static CollectionReference get collection =>
@@ -137,6 +137,14 @@ class SelectedVenuesRecord extends FirestoreRecord {
   @override
   String toString() =>
       'SelectedVenuesRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is SelectedVenuesRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createSelectedVenuesRecordData({

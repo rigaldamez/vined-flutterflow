@@ -97,13 +97,23 @@ class VenuesRecord extends FirestoreRecord {
   LatLng? get latLong => _latLong;
   bool hasLatLong() => _latLong != null;
 
+  // "views_count" field.
+  int? _viewsCount;
+  int get viewsCount => _viewsCount ?? 0;
+  bool hasViewsCount() => _viewsCount != null;
+
+  // "last_venue_view_date" field.
+  DateTime? _lastVenueViewDate;
+  DateTime? get lastVenueViewDate => _lastVenueViewDate;
+  bool hasLastVenueViewDate() => _lastVenueViewDate != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _regionID = snapshotData['regionID'] as String?;
     _image = snapshotData['image'] as String?;
     _regionName = snapshotData['regionName'] as String?;
     _tastingFee = castToType<double>(snapshotData['tastingFee']);
-    _capacity = snapshotData['capacity'] as int?;
+    _capacity = castToType<int>(snapshotData['capacity']);
     _openDays = getDataList(snapshotData['openDays']);
     _maxCapacityEnforced = snapshotData['maxCapacityEnforced'] as bool?;
     _mustAcknowledgeTCs = snapshotData['mustAcknowledgeTCs'] as bool?;
@@ -116,6 +126,8 @@ class VenuesRecord extends FirestoreRecord {
     _countryStateDisplayName =
         snapshotData['country_state_display_name'] as String?;
     _latLong = snapshotData['lat_long'] as LatLng?;
+    _viewsCount = castToType<int>(snapshotData['views_count']);
+    _lastVenueViewDate = snapshotData['last_venue_view_date'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -173,6 +185,11 @@ class VenuesRecord extends FirestoreRecord {
               snapshot.data['_geoloc']['lng'],
             ),
           ),
+          'views_count': snapshot.data['views_count']?.round(),
+          'last_venue_view_date': safeGet(
+            () => DateTime.fromMillisecondsSinceEpoch(
+                snapshot.data['last_venue_view_date']),
+          ),
         },
         VenuesRecord.collection.doc(snapshot.objectID),
       );
@@ -198,6 +215,14 @@ class VenuesRecord extends FirestoreRecord {
   @override
   String toString() =>
       'VenuesRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is VenuesRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createVenuesRecordData({
@@ -215,6 +240,8 @@ Map<String, dynamic> createVenuesRecordData({
   bool? largeGroupEarlySeatingOnly,
   String? countryStateDisplayName,
   LatLng? latLong,
+  int? viewsCount,
+  DateTime? lastVenueViewDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -232,6 +259,8 @@ Map<String, dynamic> createVenuesRecordData({
       'large_group_early_seating_only': largeGroupEarlySeatingOnly,
       'country_state_display_name': countryStateDisplayName,
       'lat_long': latLong,
+      'views_count': viewsCount,
+      'last_venue_view_date': lastVenueViewDate,
     }.withoutNulls,
   );
 

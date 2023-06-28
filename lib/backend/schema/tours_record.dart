@@ -161,7 +161,7 @@ class ToursRecord extends FirestoreRecord {
     _tourName = snapshotData['tour_name'] as String?;
     _regionID = snapshotData['region_ID'] as DocumentReference?;
     _uid = snapshotData['uid'] as DocumentReference?;
-    _passengers = snapshotData['passengers'] as int?;
+    _passengers = castToType<int>(snapshotData['passengers']);
     _tourDate = snapshotData['tour_date'] as DateTime?;
     _pickupAddress = snapshotData['pickup_address'] as String?;
     _pickupLatlng = snapshotData['pickup_latlng'] as LatLng?;
@@ -177,11 +177,11 @@ class ToursRecord extends FirestoreRecord {
     _driverUid = snapshotData['driver_uid'] as String?;
     _countryState = snapshotData['country_state'] as String?;
     _transportFeePp = castToType<double>(snapshotData['transport_fee_pp']);
-    _totalTastingFeePp = snapshotData['total_tasting_fee_pp'] as int?;
+    _totalTastingFeePp = castToType<int>(snapshotData['total_tasting_fee_pp']);
     _largeGroupVenueEarlySeatingCount =
-        snapshotData['large_group_venue_early_seating_count'] as int?;
-    _subTotal = snapshotData['sub_total'] as int?;
-    _totalPaid = snapshotData['total_paid'] as int?;
+        castToType<int>(snapshotData['large_group_venue_early_seating_count']);
+    _subTotal = castToType<int>(snapshotData['sub_total']);
+    _totalPaid = castToType<int>(snapshotData['total_paid']);
     _lunchVenueFee = castToType<double>(snapshotData['lunch_venue_fee']);
     _discountAmount = castToType<double>(snapshotData['discount_amount']);
     _totalBalance = castToType<double>(snapshotData['total_balance']);
@@ -213,6 +213,14 @@ class ToursRecord extends FirestoreRecord {
   @override
   String toString() =>
       'ToursRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ToursRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createToursRecordData({

@@ -64,6 +64,14 @@ class StatesRecord extends FirestoreRecord {
   @override
   String toString() =>
       'StatesRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is StatesRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createStatesRecordData({
