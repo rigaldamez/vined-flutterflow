@@ -90,9 +90,13 @@ class GETMapboxDrivingDirectionsCall {
     );
   }
 
+  static dynamic duration(dynamic response) => getJsonField(
+        response,
+        r'''$.routes[:].duration''',
+      );
   static dynamic distance(dynamic response) => getJsonField(
         response,
-        r'''$.routes[:].legs[:].distance''',
+        r'''$.routes[:].distance''',
       );
 }
 

@@ -397,10 +397,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           child: Builder(
                             builder: (context) {
                               final venuesFeatured =
-                                  containerFeaturedVenuesRecordList
-                                      .toList()
-                                      .take(4)
-                                      .toList();
+                                  containerFeaturedVenuesRecordList.toList();
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 primary: false,
@@ -602,11 +599,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       final textGETMapboxDrivingDirectionsResponse =
                                                           snapshot.data!;
                                                       return Text(
-                                                        GETMapboxDrivingDirectionsCall
-                                                            .distance(
-                                                          textGETMapboxDrivingDirectionsResponse
-                                                              .jsonBody,
-                                                        ).toString(),
+                                                        valueOrDefault<String>(
+                                                          functions
+                                                              .convertMtsToKmsLabel(
+                                                                  GETMapboxDrivingDirectionsCall
+                                                                      .distance(
+                                                            textGETMapboxDrivingDirectionsResponse
+                                                                .jsonBody,
+                                                          )),
+                                                          'kms',
+                                                        ),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -625,6 +627,64 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 ),
                                                       );
                                                     },
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(10.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: FutureBuilder<
+                                                        ApiCallResponse>(
+                                                      future:
+                                                          GETMapboxDrivingDirectionsCall
+                                                              .call(
+                                                        coordinates: functions
+                                                            .getLngLatCoordinatesMapbox(
+                                                                currentUserLocationValue,
+                                                                venuesFeaturedItem
+                                                                    .latLong),
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 20.0,
+                                                              height: 20.0,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                color: Color(
+                                                                    0xFFB19CD9),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        final textGETMapboxDrivingDirectionsResponse =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          GETMapboxDrivingDirectionsCall
+                                                              .distance(
+                                                            textGETMapboxDrivingDirectionsResponse
+                                                                .jsonBody,
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .cultured,
+                                                                fontSize: 20.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800,
+                                                              ),
+                                                        );
+                                                      },
+                                                    ),
                                                   ),
                                                 ],
                                               ),

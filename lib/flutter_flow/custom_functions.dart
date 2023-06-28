@@ -702,3 +702,15 @@ String? getLngLatCoordinatesMapbox(
     return '$longg1,$latt1;$longg2,$latt2';
   }
 }
+
+String? convertMtsToKmsLabel(double? distanceMeters) {
+  if (distanceMeters != null) {
+    if (distanceMeters <= 999) {
+      var meters = distanceMeters.toStringAsFixed(0);
+      return '${meters}m';
+    } else {
+      var distanceKms = (distanceMeters / 1000).toStringAsFixed(0);
+      return '${distanceKms}kms';
+    }
+  }
+}
