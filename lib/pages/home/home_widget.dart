@@ -1084,6 +1084,59 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   ),
                                                 ),
                                               ),
+                                              FutureBuilder<ApiCallResponse>(
+                                                future:
+                                                    GETMapboxDrivingDirectionsCall
+                                                        .call(
+                                                  coordinates: functions
+                                                      .getLngLatCoordinatesMapbox(
+                                                          currentUserLocationValue,
+                                                          sortedVenuesByDistanceItem
+                                                              .latLong),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 20.0,
+                                                        height: 20.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color:
+                                                              Color(0xFFB19CD9),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final textGETMapboxDrivingDirectionsResponse =
+                                                      snapshot.data!;
+                                                  return Text(
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .convertMtsToKmsLabel(
+                                                              GETMapboxDrivingDirectionsCall
+                                                                  .distance(
+                                                        textGETMapboxDrivingDirectionsResponse
+                                                            .jsonBody,
+                                                      )),
+                                                      'kms',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .cultured,
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  );
+                                                },
+                                              ),
                                             ],
                                           ),
                                         ),
