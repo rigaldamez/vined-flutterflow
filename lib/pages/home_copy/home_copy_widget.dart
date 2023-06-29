@@ -134,26 +134,44 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                 .displaySmall
                                 .override(
                                   fontFamily: 'Poppins',
+                                  fontSize: 18.0,
                                   fontWeight: FontWeight.w800,
                                 ),
                           ),
                         ),
                       ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 50.0,
-                        buttonSize: 46.0,
-                        fillColor: Color(0x00F4F4F4),
-                        icon: Icon(
-                          Icons.search_rounded,
-                          color: Colors.black,
-                          size: 24.0,
+                      Material(
+                        color: Colors.transparent,
+                        elevation: 2.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        onPressed: () {
-                          print('IconButton pressed ...');
-                        },
-                      ).animateOnPageLoad(
-                          animationsMap['iconButtonOnPageLoadAnimation']!),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).cultured,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                4.0, 4.0, 4.0, 4.0),
+                            child: FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 50.0,
+                              buttonSize: 46.0,
+                              fillColor: Color(0x00F4F4F4),
+                              icon: Icon(
+                                Icons.search_rounded,
+                                color: Colors.black,
+                                size: 24.0,
+                              ),
+                              onPressed: () {
+                                print('IconButton pressed ...');
+                              },
+                            ).animateOnPageLoad(animationsMap[
+                                'iconButtonOnPageLoadAnimation']!),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

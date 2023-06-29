@@ -22,6 +22,7 @@ import 'schema/promo_codes_record.dart';
 import 'schema/states_record.dart';
 import 'schema/upcoming_events_record.dart';
 import 'schema/venue_views_record.dart';
+import 'schema/highlights_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,6 +47,7 @@ export 'schema/promo_codes_record.dart';
 export 'schema/states_record.dart';
 export 'schema/upcoming_events_record.dart';
 export 'schema/venue_views_record.dart';
+export 'schema/highlights_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Future<int> queryVenuesRecordCount({
@@ -943,6 +945,58 @@ Future<FFFirestorePage<VenueViewsRecord>> queryVenueViewsRecordPage({
     queryCollectionPage(
       VenueViewsRecord.collection(parent),
       VenueViewsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query HighlightsRecords (as a Stream and as a Future).
+Future<int> queryHighlightsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      HighlightsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<HighlightsRecord>> queryHighlightsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      HighlightsRecord.collection,
+      HighlightsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<HighlightsRecord>> queryHighlightsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      HighlightsRecord.collection,
+      HighlightsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<HighlightsRecord>> queryHighlightsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      HighlightsRecord.collection,
+      HighlightsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

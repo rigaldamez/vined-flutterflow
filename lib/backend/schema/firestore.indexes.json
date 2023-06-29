@@ -43,20 +43,6 @@
       ]
     },
     {
-      "collectionGroup": "venues",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "country_state_display_name",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "name",
-          "order": "ASCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "chats",
       "queryScope": "COLLECTION",
       "fields": [

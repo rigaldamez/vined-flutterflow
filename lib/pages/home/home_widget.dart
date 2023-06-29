@@ -61,16 +61,29 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.upcomingEventsCount = await actions.countCollectionDocs(
-        'upcoming_events',
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      _model.highlightsCount = await actions.countCollectionDocs(
+        'highlights',
       );
       setState(() {
-        _model.upcomingeventsCount = _model.upcomingEventsCount;
+        _model.activeHighlights = _model.highlightsCount! >= 1;
+      });
+      setState(() {
+        _model.upcomingeventsCount = _model.highlightsCount;
       });
       _model.venuesList = await actions.getDocsFromCollectionVenues();
       setState(() {
         _model.venuesListLocal =
             _model.venuesList!.toList().cast<VenuesRecord>();
+      });
+      _model.sortedVenuesByDistanceOutput = await actions.sortVenuesByDistance(
+        _model.venuesList?.toList(),
+        currentUserLocationValue,
+      );
+      setState(() {
+        _model.venuesSortedByDistance =
+            _model.sortedVenuesByDistanceOutput!.toList().cast<VenuesRecord>();
       });
     });
 
@@ -194,133 +207,321 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 50.0,
-                            buttonSize: 46.0,
-                            fillColor: Color(0x00F4F4F4),
-                            icon: Icon(
-                              Icons.search_rounded,
-                              color: Colors.black,
-                              size: 24.0,
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 4.0, 0.0),
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 2.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14.0),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).cultured,
+                                  borderRadius: BorderRadius.circular(14.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      2.0, 0.0, 0.0, 0.0),
+                                  child: FlutterFlowIconButton(
+                                    borderColor: Colors.transparent,
+                                    borderRadius: 50.0,
+                                    buttonSize: 40.0,
+                                    fillColor: Color(0x00F4F4F4),
+                                    icon: Icon(
+                                      Icons.search_rounded,
+                                      color: Colors.black,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () {
+                                      print('IconButton pressed ...');
+                                    },
+                                  ).animateOnPageLoad(animationsMap[
+                                      'iconButtonOnPageLoadAnimation']!),
+                                ),
+                              ),
                             ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
-                            },
-                          ).animateOnPageLoad(
-                              animationsMap['iconButtonOnPageLoadAnimation']!),
+                          ),
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: 60.0,
-                          decoration: BoxDecoration(
-                            color: Color(0x00F4F4F4),
-                            borderRadius: BorderRadius.circular(30.0),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 1.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                              color: Color(0x00F4F4F4),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4.0, 8.0, 4.0, 8.0),
+                                    child: StreamBuilder<List<StatesRecord>>(
+                                      stream: queryStatesRecord(
+                                        queryBuilder: (statesRecord) =>
+                                            statesRecord.where('isServiced',
+                                                isEqualTo: true),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 20.0,
+                                              height: 20.0,
+                                              child: CircularProgressIndicator(
+                                                color: Color(0xFFB19CD9),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<StatesRecord>
+                                            choiceChipsStatesRecordList =
+                                            snapshot.data!;
+                                        return FlutterFlowChoiceChips(
+                                          options: choiceChipsStatesRecordList
+                                              .map((e) => e.stateDisplayName)
+                                              .toList()
+                                              .map((label) => ChipData(label))
+                                              .toList(),
+                                          onChanged: (val) => setState(() =>
+                                              _model.choiceChipsValue =
+                                                  val?.first),
+                                          selectedChipStyle: ChipStyle(
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .black,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white,
+                                                    ),
+                                            iconColor: Colors.white,
+                                            iconSize: 18.0,
+                                            labelPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 4.0, 6.0, 4.0),
+                                            elevation: 4.0,
+                                          ),
+                                          unselectedChipStyle: ChipStyle(
+                                            backgroundColor: Colors.white,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF262D34),
+                                                    ),
+                                            iconColor: Color(0xFF262D34),
+                                            iconSize: 18.0,
+                                            labelPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 4.0, 10.0, 4.0),
+                                            elevation: 2.0,
+                                          ),
+                                          chipSpacing: 10.0,
+                                          rowSpacing: 12.0,
+                                          multiselect: false,
+                                          initialized:
+                                              _model.choiceChipsValue != null,
+                                          alignment: WrapAlignment.start,
+                                          controller: _model
+                                                  .choiceChipsValueController ??=
+                                              FormFieldController<List<String>>(
+                                            ['South Australia'],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
+                        ],
+                      ),
+                    ),
+                    if (_model.activeHighlights ?? true)
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 10.0, 10.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 8.0, 4.0, 8.0),
-                                  child: StreamBuilder<List<StatesRecord>>(
-                                    stream: queryStatesRecord(
-                                      queryBuilder: (statesRecord) =>
-                                          statesRecord.where('isServiced',
-                                              isEqualTo: true),
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 20.0,
-                                            height: 20.0,
-                                            child: CircularProgressIndicator(
-                                              color: Color(0xFFB19CD9),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<StatesRecord>
-                                          choiceChipsStatesRecordList =
-                                          snapshot.data!;
-                                      return FlutterFlowChoiceChips(
-                                        options: choiceChipsStatesRecordList
-                                            .map((e) => e.stateDisplayName)
-                                            .toList()
-                                            .map((label) => ChipData(label))
-                                            .toList(),
-                                        onChanged: (val) => setState(() =>
-                                            _model.choiceChipsValue =
-                                                val?.first),
-                                        selectedChipStyle: ChipStyle(
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .black,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: Colors.white,
-                                                  ),
-                                          iconColor: Colors.white,
-                                          iconSize: 18.0,
-                                          labelPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 4.0, 6.0, 4.0),
-                                          elevation: 4.0,
+                                      10.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Highlights',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w800,
                                         ),
-                                        unselectedChipStyle: ChipStyle(
-                                          backgroundColor: Colors.white,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodySmall
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: Color(0xFF262D34),
-                                                  ),
-                                          iconColor: Color(0xFF262D34),
-                                          iconSize: 18.0,
-                                          labelPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 4.0, 10.0, 4.0),
-                                          elevation: 2.0,
-                                        ),
-                                        chipSpacing: 10.0,
-                                        rowSpacing: 12.0,
-                                        multiselect: false,
-                                        initialized:
-                                            _model.choiceChipsValue != null,
-                                        alignment: WrapAlignment.start,
-                                        controller: _model
-                                                .choiceChipsValueController ??=
-                                            FormFieldController<List<String>>(
-                                          ['South Australia'],
-                                        ),
-                                      );
-                                    },
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 1.0,
+                              height: MediaQuery.of(context).size.height * 0.26,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFFFFECF6),
+                                    Color(0xFFB19CD9)
+                                  ],
+                                  stops: [0.0, 1.0],
+                                  begin: AlignmentDirectional(0.0, -1.0),
+                                  end: AlignmentDirectional(0, 1.0),
+                                ),
+                              ),
+                              child: StreamBuilder<List<HighlightsRecord>>(
+                                stream: queryHighlightsRecord(
+                                  queryBuilder: (highlightsRecord) =>
+                                      highlightsRecord.where('is_active',
+                                          isEqualTo: true),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 20.0,
+                                        height: 20.0,
+                                        child: CircularProgressIndicator(
+                                          color: Color(0xFFB19CD9),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<HighlightsRecord>
+                                      listViewEventsHighlightsRecordList =
+                                      snapshot.data!;
+                                  return ListView.builder(
+                                    padding: EdgeInsets.fromLTRB(
+                                      10.0,
+                                      0,
+                                      10.0,
+                                      0,
+                                    ),
+                                    primary: false,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        listViewEventsHighlightsRecordList
+                                            .length,
+                                    itemBuilder:
+                                        (context, listViewEventsIndex) {
+                                      final listViewEventsHighlightsRecord =
+                                          listViewEventsHighlightsRecordList[
+                                              listViewEventsIndex];
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 10.0),
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(0.0),
+                                              bottomRight:
+                                                  Radius.circular(50.0),
+                                              topLeft: Radius.circular(50.0),
+                                              topRight: Radius.circular(0.0),
+                                            ),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.92,
+                                            child: Stack(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          6.0, 6.0, 6.0, 6.0),
+                                                  child: Hero(
+                                                    tag:
+                                                        listViewEventsHighlightsRecord
+                                                            .image,
+                                                    transitionOnUserGestures:
+                                                        true,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                0.0),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                50.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                50.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                0.0),
+                                                      ),
+                                                      child: Image.network(
+                                                        listViewEventsHighlightsRecord
+                                                            .image,
+                                                        width: double.infinity,
+                                                        height: double.infinity,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  decoration: BoxDecoration(),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -399,7 +600,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                               final venuesFeatured =
                                   containerFeaturedVenuesRecordList.toList();
                               return ListView.builder(
-                                padding: EdgeInsets.zero,
+                                padding: EdgeInsets.fromLTRB(
+                                  10.0,
+                                  0,
+                                  0,
+                                  0,
+                                ),
                                 primary: false,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -416,7 +622,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     ),
                                     child: Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.96,
+                                          0.92,
                                       child: Stack(
                                         alignment:
                                             AlignmentDirectional(0.0, 0.0),
@@ -434,7 +640,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 child: Image.network(
                                                   venuesFeaturedItem.image,
                                                   width: double.infinity,
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.fill,
                                                 ),
                                               ),
                                             ),
@@ -478,40 +684,51 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               ),
                                             ),
                                           ),
-                                          Container(
-                                            width: double.infinity,
-                                            height: double.infinity,
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(6.0, 0.0, 6.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.9, 0.7),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        functions
-                                                            .upperCaseString(
-                                                                venuesFeaturedItem
-                                                                    .name)
-                                                            .maybeHandleOverflow(
-                                                              maxChars: 18,
-                                                              replacement: '…',
-                                                            ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 1.0),
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.1,
+                                              decoration: BoxDecoration(),
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 1.0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          6.0, 0.0, 6.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0.0, 0.0),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      14.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            functions
+                                                                .upperCaseString(
+                                                                    venuesFeaturedItem
+                                                                        .name)
+                                                                .maybeHandleOverflow(
+                                                                  maxChars: 18,
+                                                                  replacement:
+                                                                      '…',
+                                                                ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
@@ -520,98 +737,57 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           context)
                                                                       .cultured,
                                                                   fontSize:
-                                                                      18.0,
+                                                                      16.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
                                                                 ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.9, 0.7),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          _model
-                                                              .upcomingeventsCount
-                                                              ?.toString(),
-                                                          '0',
-                                                        ).maybeHandleOverflow(
-                                                          maxChars: 18,
-                                                          replacement: '…',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .cultured,
-                                                                  fontSize:
-                                                                      10.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  FutureBuilder<
-                                                      ApiCallResponse>(
-                                                    future:
-                                                        GETMapboxDrivingDirectionsCall
-                                                            .call(
-                                                      coordinates: functions
-                                                          .getLngLatCoordinatesMapbox(
-                                                              currentUserLocationValue,
-                                                              venuesFeaturedItem
-                                                                  .latLong),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 20.0,
-                                                            height: 20.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: Color(
-                                                                  0xFFB19CD9),
-                                                            ),
                                                           ),
-                                                        );
-                                                      }
-                                                      final textGETMapboxDrivingDirectionsResponse =
-                                                          snapshot.data!;
-                                                      return Text(
-                                                        valueOrDefault<String>(
-                                                          functions
-                                                              .convertMtsToKmsLabel(
+                                                        ),
+                                                      ),
+                                                      FutureBuilder<
+                                                          ApiCallResponse>(
+                                                        future:
+                                                            GETMapboxDrivingDirectionsCall
+                                                                .call(
+                                                          coordinates: functions
+                                                              .getLngLatCoordinatesMapbox(
+                                                                  currentUserLocationValue,
+                                                                  venuesFeaturedItem
+                                                                      .latLong),
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 20.0,
+                                                                height: 20.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: Color(
+                                                                      0xFFB19CD9),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          final textGETMapboxDrivingDirectionsResponse =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              functions.convertMtsToKmsLabel(
                                                                   GETMapboxDrivingDirectionsCall
                                                                       .distance(
-                                                            textGETMapboxDrivingDirectionsResponse
-                                                                .jsonBody,
-                                                          )),
-                                                          'kms',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                                textGETMapboxDrivingDirectionsResponse
+                                                                    .jsonBody,
+                                                              )),
+                                                              'kms',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
@@ -620,73 +796,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           context)
                                                                       .cultured,
                                                                   fontSize:
-                                                                      20.0,
+                                                                      14.0,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w800,
+                                                                          .w500,
                                                                 ),
-                                                      );
-                                                    },
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(10.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: FutureBuilder<
-                                                        ApiCallResponse>(
-                                                      future:
-                                                          GETMapboxDrivingDirectionsCall
-                                                              .call(
-                                                        coordinates: functions
-                                                            .getLngLatCoordinatesMapbox(
-                                                                currentUserLocationValue,
-                                                                venuesFeaturedItem
-                                                                    .latLong),
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 20.0,
-                                                              height: 20.0,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                color: Color(
-                                                                    0xFFB19CD9),
-                                                              ),
-                                                            ),
                                                           );
-                                                        }
-                                                        final textGETMapboxDrivingDirectionsResponse =
-                                                            snapshot.data!;
-                                                        return Text(
-                                                          GETMapboxDrivingDirectionsCall
-                                                              .distance(
-                                                            textGETMapboxDrivingDirectionsResponse
-                                                                .jsonBody,
-                                                          ).toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .cultured,
-                                                                fontSize: 20.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                              ),
-                                                        );
-                                                      },
-                                                    ),
+                                                        },
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -712,11 +832,28 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       Icon(
                                                         Icons.favorite_rounded,
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .pinkPastel,
-                                                        size: 24.0,
+                                                            Color(0xFFFF006E),
+                                                        size: 28.0,
                                                       ),
+                                                    if (!venuesFeaturedItem
+                                                        .isFavouritedBy
+                                                        .contains(
+                                                            currentUserReference))
+                                                      Icon(
+                                                        Icons.favorite_rounded,
+                                                        color:
+                                                            Color(0x34000000),
+                                                        size: 28.0,
+                                                      ),
+                                                    Icon(
+                                                      Icons
+                                                          .favorite_border_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .cultured,
+                                                      size: 28.0,
+                                                    ),
                                                     InkWell(
                                                       splashColor:
                                                           Colors.transparent,
@@ -762,20 +899,43 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         ),
                                                       ),
                                                     ),
-                                                    if (!venuesFeaturedItem
-                                                        .isFavouritedBy
-                                                        .contains(
-                                                            currentUserReference))
-                                                      Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: AlignmentDirectional(
+                                                -0.8, -0.7),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.2,
+                                              height: 28.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black,
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                              ),
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Text(
+                                                  venuesFeaturedItem.regionName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .cultured,
-                                                        size: 24.0,
+                                                        fontSize: 9.0,
                                                       ),
-                                                  ],
                                                 ),
                                               ),
                                             ),
@@ -795,39 +955,26 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       width: MediaQuery.of(context).size.width * 1.0,
                       height: MediaQuery.of(context).size.height * 0.26,
                       decoration: BoxDecoration(),
-                      child: StreamBuilder<List<VenuesRecord>>(
-                        stream: queryVenuesRecord(
-                          queryBuilder: (venuesRecord) => venuesRecord
-                              .where('country_state_display_name',
-                                  isEqualTo: _model.choiceChipsValue)
-                              .orderBy('name'),
-                          limit: 2,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 20.0,
-                                height: 20.0,
-                                child: CircularProgressIndicator(
-                                  color: Color(0xFFB19CD9),
-                                ),
-                              ),
-                            );
-                          }
-                          List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                              snapshot.data!;
+                      child: Builder(
+                        builder: (context) {
+                          final sortedVenuesByDistance =
+                              _model.venuesSortedByDistance.toList();
                           return ListView.builder(
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.fromLTRB(
+                              10.0,
+                              0,
+                              10.0,
+                              0,
+                            ),
                             primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: listViewFeaturedVenuesRecordList.length,
-                            itemBuilder: (context, listViewFeaturedIndex) {
-                              final listViewFeaturedVenuesRecord =
-                                  listViewFeaturedVenuesRecordList[
-                                      listViewFeaturedIndex];
+                            itemCount: sortedVenuesByDistance.length,
+                            itemBuilder:
+                                (context, sortedVenuesByDistanceIndex) {
+                              final sortedVenuesByDistanceItem =
+                                  sortedVenuesByDistance[
+                                      sortedVenuesByDistanceIndex];
                               return Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: Colors.white,
@@ -837,7 +984,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.96,
+                                      MediaQuery.of(context).size.width * 0.92,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -845,15 +992,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             6.0, 6.0, 6.0, 6.0),
                                         child: Hero(
-                                          tag: listViewFeaturedVenuesRecord
-                                              .image,
+                                          tag: sortedVenuesByDistanceItem.image,
                                           transitionOnUserGestures: true,
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(34.0),
                                             child: Image.network(
-                                              listViewFeaturedVenuesRecord
-                                                  .image,
+                                              sortedVenuesByDistanceItem.image,
                                               width: double.infinity,
                                               fit: BoxFit.cover,
                                             ),
@@ -918,7 +1063,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   child: Text(
                                                     functions
                                                         .upperCaseString(
-                                                            listViewFeaturedVenuesRecord
+                                                            sortedVenuesByDistanceItem
                                                                 .name)
                                                         .maybeHandleOverflow(
                                                           maxChars: 18,
@@ -933,37 +1078,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   .of(context)
                                                               .cultured,
                                                           fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.9, 0.7),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          10.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    valueOrDefault<String>(
-                                                      _model.upcomingeventsCount
-                                                          ?.toString(),
-                                                      '0',
-                                                    ).maybeHandleOverflow(
-                                                      maxChars: 18,
-                                                      replacement: '…',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .cultured,
-                                                          fontSize: 10.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -988,49 +1102,30 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               children: [
-                                                ToggleIcon(
-                                                  onPressed: () async {
-                                                    final isFavouritedByElement =
-                                                        currentUserReference;
-                                                    final isFavouritedByUpdate =
-                                                        listViewFeaturedVenuesRecord
-                                                                .isFavouritedBy
-                                                                .contains(
-                                                                    isFavouritedByElement)
-                                                            ? FieldValue
-                                                                .arrayRemove([
-                                                                isFavouritedByElement
-                                                              ])
-                                                            : FieldValue
-                                                                .arrayUnion([
-                                                                isFavouritedByElement
-                                                              ]);
-                                                    await listViewFeaturedVenuesRecord
-                                                        .reference
-                                                        .update({
-                                                      'is_favourited_by':
-                                                          isFavouritedByUpdate,
-                                                    });
-                                                  },
-                                                  value: listViewFeaturedVenuesRecord
-                                                      .isFavouritedBy
-                                                      .contains(
-                                                          currentUserReference),
-                                                  onIcon: Icon(
+                                                if (sortedVenuesByDistanceItem
+                                                    .isFavouritedBy
+                                                    .contains(
+                                                        currentUserReference))
+                                                  Icon(
                                                     Icons.favorite_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .pinkPastel,
-                                                    size: 20.0,
+                                                    color: Color(0xFFFF006E),
+                                                    size: 28.0,
                                                   ),
-                                                  offIcon: Icon(
-                                                    Icons
-                                                        .favorite_border_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .cultured,
-                                                    size: 20.0,
+                                                if (!sortedVenuesByDistanceItem
+                                                    .isFavouritedBy
+                                                    .contains(
+                                                        currentUserReference))
+                                                  Icon(
+                                                    Icons.favorite_rounded,
+                                                    color: Color(0x34000000),
+                                                    size: 28.0,
                                                   ),
+                                                Icon(
+                                                  Icons.favorite_border_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  size: 28.0,
                                                 ),
                                                 InkWell(
                                                   splashColor:
@@ -1042,11 +1137,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    if (listViewFeaturedVenuesRecord
+                                                    if (sortedVenuesByDistanceItem
                                                         .isFavouritedBy
                                                         .contains(
                                                             currentUserReference)) {
-                                                      await listViewFeaturedVenuesRecord
+                                                      await sortedVenuesByDistanceItem
                                                           .reference
                                                           .update({
                                                         'is_favourited_by':
@@ -1056,7 +1151,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         ]),
                                                       });
                                                     } else {
-                                                      await listViewFeaturedVenuesRecord
+                                                      await sortedVenuesByDistanceItem
                                                           .reference
                                                           .update({
                                                         'is_favourited_by':
@@ -1152,7 +1247,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                   ?.toList() ??
                               [];
                           return ListView.builder(
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.fromLTRB(
+                              10.0,
+                              0,
+                              10.0,
+                              0,
+                            ),
                             primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -1169,7 +1269,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.44,
+                                      MediaQuery.of(context).size.width * 0.45,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -1491,7 +1591,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                   ?.toList() ??
                               [];
                           return ListView.builder(
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.fromLTRB(
+                              10.0,
+                              0,
+                              10.0,
+                              0,
+                            ),
                             primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -1769,7 +1874,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           List<VenuesRecord> listViewFeaturedVenuesRecordList =
                               snapshot.data!;
                           return ListView.builder(
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.fromLTRB(
+                              10.0,
+                              0,
+                              10.0,
+                              0,
+                            ),
                             primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -2279,284 +2389,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           );
                         },
                       ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 10.0, 10.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Upcoming events',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .override(
-                                        fontFamily: 'Nunito',
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w800,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(),
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Stack(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  children: [
-                                    Text(
-                                      'See All',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w800,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                    Container(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: MediaQuery.of(context).size.height * 0.26,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).cultured,
-                          ),
-                          child: StreamBuilder<List<UpcomingEventsRecord>>(
-                            stream: queryUpcomingEventsRecord(
-                              queryBuilder: (upcomingEventsRecord) =>
-                                  upcomingEventsRecord
-                                      .where('event_date',
-                                          isGreaterThanOrEqualTo:
-                                              getCurrentTimestamp)
-                                      .orderBy('event_date'),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 20.0,
-                                    height: 20.0,
-                                    child: CircularProgressIndicator(
-                                      color: Color(0xFFB19CD9),
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<UpcomingEventsRecord>
-                                  listViewFeaturedUpcomingEventsRecordList =
-                                  snapshot.data!;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount:
-                                    listViewFeaturedUpcomingEventsRecordList
-                                        .length,
-                                itemBuilder: (context, listViewFeaturedIndex) {
-                                  final listViewFeaturedUpcomingEventsRecord =
-                                      listViewFeaturedUpcomingEventsRecordList[
-                                          listViewFeaturedIndex];
-                                  return Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Colors.white,
-                                    elevation: 4.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(34.0),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.96,
-                                      child: Stack(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    6.0, 6.0, 6.0, 6.0),
-                                            child: Hero(
-                                              tag:
-                                                  listViewFeaturedUpcomingEventsRecord
-                                                      .eventImage,
-                                              transitionOnUserGestures: true,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(34.0),
-                                                child: Image.network(
-                                                  listViewFeaturedUpcomingEventsRecord
-                                                      .eventImage,
-                                                  width: double.infinity,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.9),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(6.0, 0.0, 6.0, 0.0),
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.12,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Colors.transparent,
-                                                      Color(0xE6000000)
-                                                    ],
-                                                    stops: [0.0, 1.0],
-                                                    begin: AlignmentDirectional(
-                                                        0.0, -1.0),
-                                                    end: AlignmentDirectional(
-                                                        0, 1.0),
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(34.0),
-                                                    bottomRight:
-                                                        Radius.circular(34.0),
-                                                    topLeft:
-                                                        Radius.circular(0.0),
-                                                    topRight:
-                                                        Radius.circular(0.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: double.infinity,
-                                            height: double.infinity,
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(6.0, 0.0, 6.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.9, 0.7),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        functions
-                                                            .upperCaseString(
-                                                                listViewFeaturedUpcomingEventsRecord
-                                                                    .eventName)
-                                                            .maybeHandleOverflow(
-                                                              maxChars: 18,
-                                                              replacement: '…',
-                                                            ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .cultured,
-                                                                  fontSize:
-                                                                      18.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.9, 0.7),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        dateTimeFormat(
-                                                                'yMMMd',
-                                                                listViewFeaturedUpcomingEventsRecord
-                                                                    .eventDate!)
-                                                            .maybeHandleOverflow(
-                                                          maxChars: 18,
-                                                          replacement: '…',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .cultured,
-                                                                  fontSize:
-                                                                      10.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ],
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 1.0,

@@ -34,13 +34,30 @@ class HomeModel extends FlutterFlowModel {
           int index, Function(VenuesRecord) updateFn) =>
       venuesListLocal[index] = updateFn(venuesListLocal[index]);
 
+  bool? upcomingEventsTrueFalse = false;
+
+  bool? activeHighlights;
+
+  List<VenuesRecord> venuesSortedByDistance = [];
+  void addToVenuesSortedByDistance(VenuesRecord item) =>
+      venuesSortedByDistance.add(item);
+  void removeFromVenuesSortedByDistance(VenuesRecord item) =>
+      venuesSortedByDistance.remove(item);
+  void removeAtIndexFromVenuesSortedByDistance(int index) =>
+      venuesSortedByDistance.removeAt(index);
+  void updateVenuesSortedByDistanceAtIndex(
+          int index, Function(VenuesRecord) updateFn) =>
+      venuesSortedByDistance[index] = updateFn(venuesSortedByDistance[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - countCollectionDocs] action in Home widget.
-  int? upcomingEventsCount;
+  int? highlightsCount;
   // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Home widget.
   List<VenuesRecord>? venuesList;
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Home widget.
+  List<VenuesRecord>? sortedVenuesByDistanceOutput;
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
   FormFieldController<List<String>>? choiceChipsValueController;
