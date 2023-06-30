@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -98,4 +100,24 @@ Map<String, dynamic> createTourMessagesRecordData({
   );
 
   return firestoreData;
+}
+
+class TourMessagesRecordDocumentEquality
+    implements Equality<TourMessagesRecord> {
+  const TourMessagesRecordDocumentEquality();
+
+  @override
+  bool equals(TourMessagesRecord? e1, TourMessagesRecord? e2) {
+    return e1?.dateSent == e2?.dateSent &&
+        e1?.senderUserReff == e2?.senderUserReff &&
+        e1?.messageBody == e2?.messageBody &&
+        e1?.isRead == e2?.isRead;
+  }
+
+  @override
+  int hash(TourMessagesRecord? e) => const ListEquality()
+      .hash([e?.dateSent, e?.senderUserReff, e?.messageBody, e?.isRead]);
+
+  @override
+  bool isValidKey(Object? o) => o is TourMessagesRecord;
 }

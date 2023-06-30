@@ -156,12 +156,12 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.9,
+                              width: MediaQuery.sizeOf(context).width * 0.9,
                               child: Stack(
                                 children: [
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
                                     decoration: BoxDecoration(),
                                     child: TextFormField(
                                       controller: _model.textController,
@@ -360,25 +360,23 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.94,
-                                          height: MediaQuery.of(context)
-                                                  .size
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.94,
+                                          height: MediaQuery.sizeOf(context)
                                                   .height *
                                               0.2,
                                           child: Stack(
                                             children: [
                                               Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    1.0,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    1.0,
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        1.0,
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        1.0,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -657,7 +655,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 return GestureDetector(
                                                                                   onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                   child: Padding(
-                                                                                    padding: MediaQuery.of(context).viewInsets,
+                                                                                    padding: MediaQuery.viewInsetsOf(context),
                                                                                     child: Container(
                                                                                       height: 250.0,
                                                                                       child: SelectExperienceBtmsheetWidget(
@@ -685,7 +683,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   return GestureDetector(
                                                                                     onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                     child: Padding(
-                                                                                      padding: MediaQuery.of(context).viewInsets,
+                                                                                      padding: MediaQuery.viewInsetsOf(context),
                                                                                       child: Container(
                                                                                         height: 250.0,
                                                                                         child: SelectExperienceBtmsheetWidget(
@@ -711,7 +709,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                     return GestureDetector(
                                                                                       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                       child: Padding(
-                                                                                        padding: MediaQuery.of(context).viewInsets,
+                                                                                        padding: MediaQuery.viewInsetsOf(context),
                                                                                         child: Container(
                                                                                           height: 250.0,
                                                                                           child: SelectExperienceBtmsheetWidget(
@@ -807,16 +805,16 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               .toList(),
                                                           containerToursRecord))
                                                         Container(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              1.0,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              1.0,
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width *
+                                                                  1.0,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  1.0,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Color(
@@ -951,7 +949,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             return GestureDetector(
                                                                               onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                               child: Padding(
-                                                                                padding: MediaQuery.of(context).viewInsets,
+                                                                                padding: MediaQuery.viewInsetsOf(context),
                                                                                 child: Container(
                                                                                   height: 250.0,
                                                                                   child: SelectExperienceBtmsheetWidget(
@@ -985,7 +983,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               return GestureDetector(
                                                                                 onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                 child: Padding(
-                                                                                  padding: MediaQuery.of(context).viewInsets,
+                                                                                  padding: MediaQuery.viewInsetsOf(context),
                                                                                   child: Container(
                                                                                     height: 250.0,
                                                                                     child: SelectExperienceBtmsheetWidget(
@@ -1015,7 +1013,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 return GestureDetector(
                                                                                   onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                   child: Padding(
-                                                                                    padding: MediaQuery.of(context).viewInsets,
+                                                                                    padding: MediaQuery.viewInsetsOf(context),
                                                                                     child: Container(
                                                                                       height: 250.0,
                                                                                       child: SelectExperienceBtmsheetWidget(
@@ -1098,14 +1096,14 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               }
                                                             },
                                                             child: Container(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
                                                                       .width *
                                                                   1.0,
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
                                                                       .height *
                                                                   1.0,
                                                               decoration:

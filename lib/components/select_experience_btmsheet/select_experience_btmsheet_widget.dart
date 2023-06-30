@@ -82,7 +82,7 @@ class _SelectExperienceBtmsheetWidgetState
             snapshot.data!;
         return Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -109,7 +109,7 @@ class _SelectExperienceBtmsheetWidgetState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.12,
+                      width: MediaQuery.sizeOf(context).width * 0.12,
                       height: 6.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).black,
@@ -134,7 +134,7 @@ class _SelectExperienceBtmsheetWidgetState
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
                     height: 120.0,
                     decoration: BoxDecoration(),
                     child: StreamBuilder<List<TastingExperiencesRecord>>(
@@ -206,10 +206,9 @@ class _SelectExperienceBtmsheetWidgetState
                                                     .first
                                                 : null;
                                         return Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.94,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.94,
                                           height: double.infinity,
                                           decoration: BoxDecoration(
                                             color: Color(0xFFEEEEEE),
@@ -634,7 +633,7 @@ class _SelectExperienceBtmsheetWidgetState
                                       },
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 0.94,
                                         height: double.infinity,
                                         decoration: BoxDecoration(),

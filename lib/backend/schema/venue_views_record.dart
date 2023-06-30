@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -90,4 +92,22 @@ Map<String, dynamic> createVenueViewsRecordData({
   );
 
   return firestoreData;
+}
+
+class VenueViewsRecordDocumentEquality implements Equality<VenueViewsRecord> {
+  const VenueViewsRecordDocumentEquality();
+
+  @override
+  bool equals(VenueViewsRecord? e1, VenueViewsRecord? e2) {
+    return e1?.viewedBy == e2?.viewedBy &&
+        e1?.viewedDate == e2?.viewedDate &&
+        e1?.viewedFromLatlong == e2?.viewedFromLatlong;
+  }
+
+  @override
+  int hash(VenueViewsRecord? e) => const ListEquality()
+      .hash([e?.viewedBy, e?.viewedDate, e?.viewedFromLatlong]);
+
+  @override
+  bool isValidKey(Object? o) => o is VenueViewsRecord;
 }

@@ -83,7 +83,7 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).cultured,
         body: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
+          width: MediaQuery.sizeOf(context).width * 1.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -102,7 +102,7 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 1.0,
+                  width: MediaQuery.sizeOf(context).width * 1.0,
                   height: 40.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -178,7 +178,7 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 1.0,
                     decoration: BoxDecoration(),
                     child: DefaultTabController(
                       length: 3,
@@ -298,10 +298,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 0.26,
                                         decoration: BoxDecoration(),
                                         child:
@@ -348,11 +348,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                             34.0),
                                                   ),
                                                   child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.96,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.96,
                                                     child: Stack(
                                                       alignment:
                                                           AlignmentDirectional(
@@ -404,9 +403,9 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                             child: Container(
                                                               width: double
                                                                   .infinity,
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
                                                                       .height *
                                                                   0.12,
                                                               decoration:
@@ -690,10 +689,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 0.26,
                                         decoration: BoxDecoration(),
                                         child:
@@ -745,11 +744,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               34.0),
                                                     ),
                                                     child: Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.4,
                                                       child: Stack(
                                                         alignment:
                                                             AlignmentDirectional(
@@ -780,9 +778,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                                       .image,
                                                                   width: double
                                                                       .infinity,
-                                                                  height: MediaQuery.of(
+                                                                  height: MediaQuery.sizeOf(
                                                                               context)
-                                                                          .size
                                                                           .height *
                                                                       0.24,
                                                                   fit: BoxFit
@@ -806,9 +803,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               child: Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: MediaQuery.of(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .height *
                                                                     0.12,
                                                                 decoration:
@@ -1082,10 +1078,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 0.26,
                                         decoration: BoxDecoration(),
                                         child:
@@ -1137,11 +1133,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               34.0),
                                                     ),
                                                     child: Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.4,
                                                       child: Stack(
                                                         alignment:
                                                             AlignmentDirectional(
@@ -1172,9 +1167,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                                       .image,
                                                                   width: double
                                                                       .infinity,
-                                                                  height: MediaQuery.of(
+                                                                  height: MediaQuery.sizeOf(
                                                                               context)
-                                                                          .size
                                                                           .height *
                                                                       0.24,
                                                                   fit: BoxFit
@@ -1198,9 +1192,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               child: Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: MediaQuery.of(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .height *
                                                                     0.12,
                                                                 decoration:
@@ -1488,10 +1481,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 0.26,
                                         decoration: BoxDecoration(),
                                         child:
@@ -1543,11 +1536,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               34.0),
                                                     ),
                                                     child: Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.4,
                                                       child: Stack(
                                                         alignment:
                                                             AlignmentDirectional(
@@ -1578,9 +1570,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                                       .image,
                                                                   width: double
                                                                       .infinity,
-                                                                  height: MediaQuery.of(
+                                                                  height: MediaQuery.sizeOf(
                                                                               context)
-                                                                          .size
                                                                           .height *
                                                                       0.24,
                                                                   fit: BoxFit
@@ -1604,9 +1595,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               child: Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: MediaQuery.of(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .height *
                                                                     0.12,
                                                                 decoration:
@@ -1894,10 +1884,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 0.26,
                                         decoration: BoxDecoration(),
                                         child:
@@ -1949,11 +1939,10 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               34.0),
                                                     ),
                                                     child: Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.4,
                                                       child: Stack(
                                                         alignment:
                                                             AlignmentDirectional(
@@ -1984,9 +1973,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                                       .image,
                                                                   width: double
                                                                       .infinity,
-                                                                  height: MediaQuery.of(
+                                                                  height: MediaQuery.sizeOf(
                                                                               context)
-                                                                          .size
                                                                           .height *
                                                                       0.24,
                                                                   fit: BoxFit
@@ -2010,9 +1998,8 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                                               child: Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: MediaQuery.of(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .height *
                                                                     0.12,
                                                                 decoration:
@@ -2239,7 +2226,7 @@ class _HomeCopyWidgetState extends State<HomeCopyWidget>
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height: 80.0,
                                         decoration: BoxDecoration(

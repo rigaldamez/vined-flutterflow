@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -91,4 +93,24 @@ Map<String, dynamic> createUpcomingEventsRecordData({
   );
 
   return firestoreData;
+}
+
+class UpcomingEventsRecordDocumentEquality
+    implements Equality<UpcomingEventsRecord> {
+  const UpcomingEventsRecordDocumentEquality();
+
+  @override
+  bool equals(UpcomingEventsRecord? e1, UpcomingEventsRecord? e2) {
+    return e1?.eventName == e2?.eventName &&
+        e1?.eventDate == e2?.eventDate &&
+        e1?.eventImage == e2?.eventImage &&
+        e1?.eventLink == e2?.eventLink;
+  }
+
+  @override
+  int hash(UpcomingEventsRecord? e) => const ListEquality()
+      .hash([e?.eventName, e?.eventDate, e?.eventImage, e?.eventLink]);
+
+  @override
+  bool isValidKey(Object? o) => o is UpcomingEventsRecord;
 }

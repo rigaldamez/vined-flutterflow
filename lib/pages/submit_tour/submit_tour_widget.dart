@@ -201,8 +201,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                 containerPaymentRecordList =
                                                 snapshot.data!;
                                             return Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
+                                              width: MediaQuery.sizeOf(context)
                                                       .width *
                                                   0.94,
                                               height: 460.0,
@@ -261,9 +260,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                   .start,
                                                           children: [
                                                             Container(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
                                                                       .width *
                                                                   0.8,
                                                               height: 80.0,
@@ -679,11 +678,10 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                     ),
                                                   ),
                                                   Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.8,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.8,
                                                     height: 2.0,
                                                     decoration: BoxDecoration(
                                                       color:
@@ -711,11 +709,11 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               .spaceBetween,
                                                       children: [
                                                         Container(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.6,
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width *
+                                                                  0.6,
                                                           height: 40.0,
                                                           decoration:
                                                               BoxDecoration(
@@ -871,9 +869,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                         .first
                                                                     : null;
                                                             return Container(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
                                                                       .width *
                                                                   0.18,
                                                               height: 40.0,
@@ -998,9 +996,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                       },
                                                                       child:
                                                                           Container(
-                                                                        width: MediaQuery.of(context).size.width *
+                                                                        width: MediaQuery.sizeOf(context).width *
                                                                             1.0,
-                                                                        height: MediaQuery.of(context).size.height *
+                                                                        height: MediaQuery.sizeOf(context).height *
                                                                             1.0,
                                                                         decoration:
                                                                             BoxDecoration(),
@@ -1123,10 +1121,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                 alignment: AlignmentDirectional(0.0, -0.5),
                                 child: Lottie.asset(
                                   'assets/lottie_animations/129232-rewards-with-confetti.json',
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.4,
+                                      MediaQuery.sizeOf(context).height * 0.4,
                                   fit: BoxFit.cover,
                                   frameRate: FrameRate(60.0),
                                   controller: lottieAnimation2Controller,
@@ -1149,7 +1146,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.94,
+                                width: MediaQuery.sizeOf(context).width * 0.94,
                                 height: 200.0,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
@@ -1220,8 +1217,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                             ),
                                           ),
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.4,
                                             child: Stack(
@@ -1229,10 +1225,10 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                   0.0, 0.0),
                                               children: [
                                                 Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.4,
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.4,
                                                   height: 50.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
@@ -1379,11 +1375,11 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                         setState(() {});
                                                       },
                                                       child: Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.8,
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                0.8,
                                                         height: 50.0,
                                                         decoration:
                                                             BoxDecoration(
@@ -1411,8 +1407,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                             MainAxisAlignment.center,
                                         children: [
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.76,
                                             height: 1.0,
@@ -1474,8 +1469,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                             ),
                                           ),
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.4,
                                             child: Stack(
@@ -1483,10 +1477,10 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                   0.0, 0.0),
                                               children: [
                                                 Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.4,
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.4,
                                                   height: 50.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
@@ -1521,10 +1515,10 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                   ],
                                                 ),
                                                 Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.8,
                                                   height: 50.0,
                                                   decoration: BoxDecoration(
                                                     borderRadius:

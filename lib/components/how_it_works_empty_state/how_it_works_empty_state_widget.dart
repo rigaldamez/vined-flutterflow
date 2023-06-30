@@ -68,8 +68,8 @@ class _HowItWorksEmptyStateWidgetState
                           borderRadius: BorderRadius.circular(34.0),
                           child: Image.network(
                             'https://res.cloudinary.com/rigcloudinary/image/upload/v1614030907/CellarDweller/Design/Onboarding/1_oped_epi0bd.jpg',
-                            width: MediaQuery.of(context).size.width * 1.0,
-                            height: MediaQuery.of(context).size.height * 1.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: MediaQuery.sizeOf(context).height * 1.0,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -85,8 +85,8 @@ class _HowItWorksEmptyStateWidgetState
                           borderRadius: BorderRadius.circular(34.0),
                           child: Image.network(
                             'https://res.cloudinary.com/rigcloudinary/image/upload/v1614030907/CellarDweller/Design/Onboarding/2_oped_tvvkxx.jpg',
-                            width: MediaQuery.of(context).size.width * 1.0,
-                            height: MediaQuery.of(context).size.height * 1.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: MediaQuery.sizeOf(context).height * 1.0,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -107,8 +107,8 @@ class _HowItWorksEmptyStateWidgetState
                           ),
                           child: Image.network(
                             'https://res.cloudinary.com/rigcloudinary/image/upload/v1614030907/CellarDweller/Design/Onboarding/3_oped_oxznkl.jpg',
-                            width: MediaQuery.of(context).size.width * 1.0,
-                            height: MediaQuery.of(context).size.height * 1.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: MediaQuery.sizeOf(context).height * 1.0,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -160,7 +160,7 @@ class _HowItWorksEmptyStateWidgetState
                 context: context,
                 builder: (context) {
                   return Padding(
-                    padding: MediaQuery.of(context).viewInsets,
+                    padding: MediaQuery.viewInsetsOf(context),
                     child: Container(
                       height: 400.0,
                       child: NewTourBottomsheetWidget(),

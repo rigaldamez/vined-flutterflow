@@ -87,8 +87,8 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
           key: scaffoldKey,
           backgroundColor: Color(0xFFF5F5F5),
           body: Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -297,9 +297,9 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   ),
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
-                                    height: MediaQuery.of(context).size.height *
-                                        1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
                                       borderRadius: BorderRadius.circular(28.0),
@@ -316,9 +316,9 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                   ),
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
-                                    height: MediaQuery.of(context).size.height *
-                                        1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
                                     decoration: BoxDecoration(
                                       color: Color(0x6C000000),
                                       borderRadius: BorderRadius.circular(28.0),
@@ -397,10 +397,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                       },
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 1.0,
                                         decoration: BoxDecoration(
                                           color: Color(0x00333333),

@@ -76,7 +76,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
         final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -103,7 +103,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.12,
+                      width: MediaQuery.sizeOf(context).width * 0.12,
                       height: 6.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).black,
@@ -122,7 +122,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.98,
+                              width: MediaQuery.sizeOf(context).width * 0.98,
                               height: 80.0,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),

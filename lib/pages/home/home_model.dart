@@ -61,6 +61,8 @@ class HomeModel extends FlutterFlowModel {
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
   FormFieldController<List<String>>? choiceChipsValueController;
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Container widget.
+  List<VenuesRecord>? sortedVenuesByDistanceOutput2;
 
   /// Initialization and disposal methods.
 

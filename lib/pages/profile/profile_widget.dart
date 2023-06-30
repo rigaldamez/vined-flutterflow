@@ -53,8 +53,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -124,7 +124,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 20.0),
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.98,
+                                width: MediaQuery.sizeOf(context).width * 0.98,
                                 height: 54.0,
                                 decoration: BoxDecoration(
                                   color: Color(0x00EEEEEE),
@@ -192,12 +192,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.94,
+                            width: MediaQuery.sizeOf(context).width * 0.94,
                             child: Stack(
                               children: [
                                 Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height: 58.0,
                                   decoration: BoxDecoration(
                                     color: Colors.black,
@@ -299,13 +298,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   children: [
                     Container(
                       width: 180.0,
-                      height: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.sizeOf(context).height * 0.05,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                       alignment: AlignmentDirectional(0.0, 0.0),
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 1.0,
+                        width: MediaQuery.sizeOf(context).width * 1.0,
                         height: 100.0,
                         child: Stack(
                           alignment: AlignmentDirectional(0.0, 0.0),
@@ -343,9 +342,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 );
                               },
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 1.0,
-                                height:
-                                    MediaQuery.of(context).size.height * 1.0,
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
                                 decoration: BoxDecoration(),
                               ),
                             ),
@@ -357,8 +355,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 1.0,
-                height: MediaQuery.of(context).size.height * 0.53,
+                width: MediaQuery.sizeOf(context).width * 1.0,
+                height: MediaQuery.sizeOf(context).height * 0.53,
                 decoration: BoxDecoration(
                   color: Color(0xFFF5F5F5),
                   boxShadow: [
@@ -506,14 +504,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.98,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.18,
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.98,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.18,
                                                   child: Stack(
                                                     children: [
                                                       Padding(
@@ -612,22 +610,22 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                 children: [
                                                                                   Container(
-                                                                                    width: MediaQuery.of(context).size.width * 0.34,
-                                                                                    height: MediaQuery.of(context).size.height * 0.14,
+                                                                                    width: MediaQuery.sizeOf(context).width * 0.34,
+                                                                                    height: MediaQuery.sizeOf(context).height * 0.14,
                                                                                     child: Stack(
                                                                                       children: [
                                                                                         ClipRRect(
                                                                                           borderRadius: BorderRadius.circular(28.0),
                                                                                           child: Image.network(
                                                                                             rowRegionsRecord.image,
-                                                                                            width: MediaQuery.of(context).size.width * 0.34,
-                                                                                            height: MediaQuery.of(context).size.height * 0.2,
+                                                                                            width: MediaQuery.sizeOf(context).width * 0.34,
+                                                                                            height: MediaQuery.sizeOf(context).height * 0.2,
                                                                                             fit: BoxFit.cover,
                                                                                           ),
                                                                                         ),
                                                                                         Container(
-                                                                                          width: MediaQuery.of(context).size.width * 0.34,
-                                                                                          height: MediaQuery.of(context).size.height * 0.2,
+                                                                                          width: MediaQuery.sizeOf(context).width * 0.34,
+                                                                                          height: MediaQuery.sizeOf(context).height * 0.2,
                                                                                           decoration: BoxDecoration(
                                                                                             color: Color(0x56000000),
                                                                                             borderRadius: BorderRadius.circular(28.0),

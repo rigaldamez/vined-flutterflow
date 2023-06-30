@@ -76,8 +76,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
           }
           final containerTourReffToursRecord = snapshot.data!;
           return Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -96,7 +96,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 1.0,
+                  height: MediaQuery.sizeOf(context).height * 1.0,
                   child: Stack(
                     children: [
                       StreamBuilder<RegionsRecord>(
@@ -254,7 +254,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                         alignment: AlignmentDirectional(0.0, 1.01),
                         child: Container(
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.8,
+                          height: MediaQuery.sizeOf(context).height * 0.8,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -428,10 +428,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         context: context,
                                                         builder: (context) {
                                                           return Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
                                                             child: Container(
                                                               height: 440.0,
                                                               child:
@@ -1058,9 +1057,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               builder:
                                                                   (context) {
                                                                 return Padding(
-                                                                  padding: MediaQuery.of(
-                                                                          context)
-                                                                      .viewInsets,
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
                                                                   child:
                                                                       Container(
                                                                     height:
@@ -1135,16 +1134,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 10.0),
                                                     child: Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.77,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.14,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.77,
+                                                      height: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.14,
                                                       decoration: BoxDecoration(
                                                         color:
                                                             Color(0xFFEEEEEE),
@@ -1268,7 +1265,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           (context) {
                                                                         return Padding(
                                                                           padding:
-                                                                              MediaQuery.of(context).viewInsets,
+                                                                              MediaQuery.viewInsetsOf(context),
                                                                           child:
                                                                               Container(
                                                                             height:
@@ -1296,9 +1293,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           0.0,
                                                                           0.0),
                                                               child: Container(
-                                                                width: MediaQuery.of(
+                                                                width: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .width *
                                                                     0.7,
                                                                 height: 1.0,
@@ -1329,7 +1325,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         children: [
                                                                           Container(
                                                                             width:
-                                                                                MediaQuery.of(context).size.width * 0.7,
+                                                                                MediaQuery.sizeOf(context).width * 0.7,
                                                                             height:
                                                                                 40.0,
                                                                             decoration:
@@ -1479,7 +1475,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         child:
                                                                             Container(
                                                                           width:
-                                                                              MediaQuery.of(context).size.width * 0.7,
+                                                                              MediaQuery.sizeOf(context).width * 0.7,
                                                                           height:
                                                                               40.0,
                                                                           decoration:
@@ -1696,9 +1692,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             ),
                                                             Container(
                                                               width: 2.0,
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
                                                                       .height *
                                                                   0.23,
                                                               decoration:
@@ -1711,27 +1707,25 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           ],
                                                         ),
                                                         Container(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.8,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.24,
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width *
+                                                                  0.8,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.24,
                                                           child: Stack(
                                                             children: [
                                                               Container(
-                                                                width: MediaQuery.of(
+                                                                width: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .width *
                                                                     0.8,
-                                                                height: MediaQuery.of(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .height *
                                                                     1.0,
                                                                 decoration:
@@ -1974,7 +1968,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           (context) {
                                                                         return Padding(
                                                                           padding:
-                                                                              MediaQuery.of(context).viewInsets,
+                                                                              MediaQuery.viewInsetsOf(context),
                                                                           child:
                                                                               Container(
                                                                             height:
@@ -1994,14 +1988,12 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   },
                                                                   child:
                                                                       Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
+                                                                    width: MediaQuery.sizeOf(context)
                                                                             .width *
                                                                         0.8,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        1.0,
+                                                                    height:
+                                                                        MediaQuery.sizeOf(context).height *
+                                                                            1.0,
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       borderRadius:
@@ -2054,7 +2046,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             (context) {
                                                                           return Padding(
                                                                             padding:
-                                                                                MediaQuery.of(context).viewInsets,
+                                                                                MediaQuery.viewInsetsOf(context),
                                                                             child:
                                                                                 Container(
                                                                               height: 580.0,
@@ -2072,8 +2064,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     },
                                                                     child:
                                                                         Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
+                                                                      width: MediaQuery.sizeOf(context)
                                                                               .width *
                                                                           0.8,
                                                                       height: double
@@ -2235,11 +2226,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.78,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.78,
                                                       height: 80.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
@@ -2431,16 +2421,16 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                   0.0,
                                                                   0.0),
                                                       child: Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.78,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.04,
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                0.78,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.04,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -2552,7 +2542,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                 containerSelectedVenuesRecordList =
                                 snapshot.data!;
                             return Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
+                              width: MediaQuery.sizeOf(context).width * 0.8,
                               height: 50.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context).black,
@@ -2676,10 +2666,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                       },
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 1.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)

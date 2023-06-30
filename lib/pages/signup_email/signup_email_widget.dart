@@ -50,8 +50,8 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
         key: _model.formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.height * 1.0,
+          width: MediaQuery.sizeOf(context).width * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             color: Color(0xFFEEEEEE),
             image: DecorationImage(
@@ -93,7 +93,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
                       height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
@@ -156,7 +156,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
                       height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),
@@ -233,7 +233,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
                       height: 54.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4F4F4),

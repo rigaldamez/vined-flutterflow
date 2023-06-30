@@ -331,7 +331,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
+                            width: MediaQuery.sizeOf(context).width * 0.8,
                             decoration: BoxDecoration(),
                             child: TextFormField(
                               controller: _model.textController,

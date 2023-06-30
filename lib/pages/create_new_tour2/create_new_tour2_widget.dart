@@ -78,8 +78,8 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                   ? containerAppConfigRecordList.first
                   : null;
           return Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -193,9 +193,9 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                 children: [
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
-                                    height: MediaQuery.of(context).size.height *
-                                        1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
                                     decoration: BoxDecoration(
                                       color: Colors.black,
                                       borderRadius: BorderRadius.circular(24.0),
@@ -231,8 +231,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 0.0),
                                           child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.16,
                                             height: 24.0,
@@ -280,9 +279,9 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                   ),
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
-                                    height: MediaQuery.of(context).size.height *
-                                        1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(28.0),
                                     ),

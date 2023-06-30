@@ -114,8 +114,7 @@ class _UsersWidgetState extends State<UsersWidget> {
                               Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
+                                  width: MediaQuery.sizeOf(context).width * 0.9,
                                   height: 100.0,
                                   decoration: BoxDecoration(
                                     color: Color(0x91F4F4F4),

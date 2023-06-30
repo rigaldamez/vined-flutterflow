@@ -49,8 +49,8 @@ class _ToursWidgetState extends State<ToursWidget> {
       body: SafeArea(
         top: true,
         child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.height * 1.0,
+          width: MediaQuery.sizeOf(context).width * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -99,7 +99,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                             context: context,
                             builder: (context) {
                               return Padding(
-                                padding: MediaQuery.of(context).viewInsets,
+                                padding: MediaQuery.viewInsetsOf(context),
                                 child: Container(
                                   height: 400.0,
                                   child: NewTourBottomsheetWidget(),
@@ -207,8 +207,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                       ),
                       noItemsFoundIndicatorBuilder: (_) => Center(
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: MediaQuery.sizeOf(context).height * 0.7,
                           child: HowItWorksEmptyStateWidget(),
                         ),
                       ),
@@ -221,8 +221,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.98,
-                              height: MediaQuery.of(context).size.height * 0.18,
+                              width: MediaQuery.sizeOf(context).width * 0.98,
+                              height: MediaQuery.sizeOf(context).height * 0.18,
                               child: Stack(
                                 children: [
                                   Padding(
@@ -298,14 +298,12 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                     .center,
                                                             children: [
                                                               Container(
-                                                                width: MediaQuery.of(
+                                                                width: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .width *
                                                                     0.34,
-                                                                height: MediaQuery.of(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .size
                                                                         .height *
                                                                     0.14,
                                                                 child: Stack(
@@ -318,23 +316,21 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                           .network(
                                                                         rowRegionsRecord
                                                                             .image,
-                                                                        width: MediaQuery.of(context).size.width *
+                                                                        width: MediaQuery.sizeOf(context).width *
                                                                             0.34,
-                                                                        height: MediaQuery.of(context).size.height *
+                                                                        height: MediaQuery.sizeOf(context).height *
                                                                             0.2,
                                                                         fit: BoxFit
                                                                             .cover,
                                                                       ),
                                                                     ),
                                                                     Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
+                                                                      width: MediaQuery.sizeOf(context)
                                                                               .width *
                                                                           0.34,
-                                                                      height: MediaQuery.of(context)
-                                                                              .size
-                                                                              .height *
-                                                                          0.2,
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.2,
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: Color(
@@ -379,11 +375,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.55,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.55,
                                                     height: 119.0,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
@@ -686,10 +681,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                                       );
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       height:
-                                          MediaQuery.of(context).size.height *
+                                          MediaQuery.sizeOf(context).height *
                                               1.0,
                                       decoration: BoxDecoration(
                                         borderRadius:

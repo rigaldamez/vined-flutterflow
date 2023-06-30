@@ -74,7 +74,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.12,
+                  width: MediaQuery.sizeOf(context).width * 0.12,
                   height: 6.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).black,
@@ -118,7 +118,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 10.0, 20.0),
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.98,
+                            width: MediaQuery.sizeOf(context).width * 0.98,
                             height: 54.0,
                             decoration: BoxDecoration(
                               color: Color(0x00EEEEEE),
@@ -160,11 +160,11 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.94,
+                        width: MediaQuery.sizeOf(context).width * 0.94,
                         child: Stack(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
+                              width: MediaQuery.sizeOf(context).width * 1.0,
                               height: 58.0,
                               decoration: BoxDecoration(
                                 color: Colors.black,
@@ -248,7 +248,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
+                          width: MediaQuery.sizeOf(context).width * 1.0,
                           height: 1.0,
                           decoration: BoxDecoration(
                             color: Color(0x4D333333),

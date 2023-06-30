@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -184,4 +186,52 @@ Map<String, dynamic> createSelectedVenuesRecordData({
   );
 
   return firestoreData;
+}
+
+class SelectedVenuesRecordDocumentEquality
+    implements Equality<SelectedVenuesRecord> {
+  const SelectedVenuesRecordDocumentEquality();
+
+  @override
+  bool equals(SelectedVenuesRecord? e1, SelectedVenuesRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.venueRef == e2?.venueRef &&
+        e1?.tourRef == e2?.tourRef &&
+        e1?.addedByUid == e2?.addedByUid &&
+        e1?.isLunchVenue == e2?.isLunchVenue &&
+        e1?.tastingFee == e2?.tastingFee &&
+        e1?.addedDate == e2?.addedDate &&
+        e1?.bookingReference == e2?.bookingReference &&
+        e1?.reservationTime == e2?.reservationTime &&
+        e1?.regionID == e2?.regionID &&
+        e1?.isLargeGroupEarlySeatingOnlyVenue ==
+            e2?.isLargeGroupEarlySeatingOnlyVenue &&
+        e1?.isLunchVenueOnly == e2?.isLunchVenueOnly &&
+        e1?.tastingExperienceDescription == e2?.tastingExperienceDescription &&
+        e1?.isTastingIncluded == e2?.isTastingIncluded &&
+        listEquality.equals(e1?.openDays, e2?.openDays) &&
+        e1?.capacity == e2?.capacity;
+  }
+
+  @override
+  int hash(SelectedVenuesRecord? e) => const ListEquality().hash([
+        e?.venueRef,
+        e?.tourRef,
+        e?.addedByUid,
+        e?.isLunchVenue,
+        e?.tastingFee,
+        e?.addedDate,
+        e?.bookingReference,
+        e?.reservationTime,
+        e?.regionID,
+        e?.isLargeGroupEarlySeatingOnlyVenue,
+        e?.isLunchVenueOnly,
+        e?.tastingExperienceDescription,
+        e?.isTastingIncluded,
+        e?.openDays,
+        e?.capacity
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is SelectedVenuesRecord;
 }

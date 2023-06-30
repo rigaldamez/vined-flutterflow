@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -92,4 +94,23 @@ Map<String, dynamic> createTastingExperiencesRecordData({
   );
 
   return firestoreData;
+}
+
+class TastingExperiencesRecordDocumentEquality
+    implements Equality<TastingExperiencesRecord> {
+  const TastingExperiencesRecordDocumentEquality();
+
+  @override
+  bool equals(TastingExperiencesRecord? e1, TastingExperiencesRecord? e2) {
+    return e1?.image == e2?.image &&
+        e1?.description == e2?.description &&
+        e1?.tastingExperiencePrice == e2?.tastingExperiencePrice;
+  }
+
+  @override
+  int hash(TastingExperiencesRecord? e) => const ListEquality()
+      .hash([e?.image, e?.description, e?.tastingExperiencePrice]);
+
+  @override
+  bool isValidKey(Object? o) => o is TastingExperiencesRecord;
 }

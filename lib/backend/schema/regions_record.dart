@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -91,4 +93,23 @@ Map<String, dynamic> createRegionsRecordData({
   );
 
   return firestoreData;
+}
+
+class RegionsRecordDocumentEquality implements Equality<RegionsRecord> {
+  const RegionsRecordDocumentEquality();
+
+  @override
+  bool equals(RegionsRecord? e1, RegionsRecord? e2) {
+    return e1?.name == e2?.name &&
+        e1?.image == e2?.image &&
+        e1?.isServiced == e2?.isServiced &&
+        e1?.regionID == e2?.regionID;
+  }
+
+  @override
+  int hash(RegionsRecord? e) => const ListEquality()
+      .hash([e?.name, e?.image, e?.isServiced, e?.regionID]);
+
+  @override
+  bool isValidKey(Object? o) => o is RegionsRecord;
 }

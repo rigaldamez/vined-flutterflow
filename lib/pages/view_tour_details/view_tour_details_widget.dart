@@ -67,8 +67,8 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
           }
           final containerToursRecord = snapshot.data!;
           return Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -236,10 +236,10 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 1.0,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFEEEEEE),
@@ -259,10 +259,10 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.sizeOf(context).height *
                                                 1.0,
                                         decoration: BoxDecoration(
                                           color: Color(0x6C000000),
@@ -303,12 +303,10 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                           context.pop();
                                         },
                                         child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1.0,
-                                          height: MediaQuery.of(context)
-                                                  .size
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: MediaQuery.sizeOf(context)
                                                   .height *
                                               1.0,
                                           decoration: BoxDecoration(

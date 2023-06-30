@@ -75,8 +75,8 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -109,11 +109,11 @@ class _BaseHomePageWidgetState extends State<BaseHomePageWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 0.07,
                     constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.94,
-                      maxHeight: MediaQuery.of(context).size.height * 1.0,
+                      maxWidth: MediaQuery.sizeOf(context).width * 0.94,
+                      maxHeight: MediaQuery.sizeOf(context).height * 1.0,
                     ),
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).black,

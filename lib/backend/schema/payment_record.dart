@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -99,4 +101,23 @@ Map<String, dynamic> createPaymentRecordData({
   );
 
   return firestoreData;
+}
+
+class PaymentRecordDocumentEquality implements Equality<PaymentRecord> {
+  const PaymentRecordDocumentEquality();
+
+  @override
+  bool equals(PaymentRecord? e1, PaymentRecord? e2) {
+    return e1?.paymentByUserRef == e2?.paymentByUserRef &&
+        e1?.amountPaid == e2?.amountPaid &&
+        e1?.datePaid == e2?.datePaid &&
+        e1?.stripePaymentID == e2?.stripePaymentID;
+  }
+
+  @override
+  int hash(PaymentRecord? e) => const ListEquality().hash(
+      [e?.paymentByUserRef, e?.amountPaid, e?.datePaid, e?.stripePaymentID]);
+
+  @override
+  bool isValidKey(Object? o) => o is PaymentRecord;
 }

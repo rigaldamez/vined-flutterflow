@@ -51,7 +51,7 @@ class _WebViewWidgetState extends State<WebViewWidget> {
               FlutterFlowWebView(
                 content: 'https://downtherabbitholewines.com.au/',
                 bypass: true,
-                height: MediaQuery.of(context).size.height * 1.0,
+                height: MediaQuery.sizeOf(context).height * 1.0,
                 verticalScroll: true,
                 horizontalScroll: false,
               ),

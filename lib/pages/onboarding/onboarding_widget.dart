@@ -44,8 +44,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         child: Stack(
           children: [
             Container(
@@ -74,8 +74,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         children: [
                           Image.network(
                             'https://res.cloudinary.com/rigcloudinary/image/upload/v1636887096/CellarDweller/Walkthrough%20screens/boudoir-bend-oregon_oped_trkvuj.jpg',
-                            width: MediaQuery.of(context).size.width * 1.0,
-                            height: MediaQuery.of(context).size.height * 1.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: MediaQuery.sizeOf(context).height * 1.0,
                             fit: BoxFit.cover,
                           ),
                           Align(

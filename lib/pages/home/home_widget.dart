@@ -150,7 +150,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
             }
             List<VenuesRecord> containerVenuesRecordList = snapshot.data!;
             return Container(
-              width: MediaQuery.of(context).size.width * 1.0,
+              width: MediaQuery.sizeOf(context).width * 1.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -169,7 +169,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -254,7 +254,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 1.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
                             height: 60.0,
                             decoration: BoxDecoration(
                               color: Color(0x00F4F4F4),
@@ -389,8 +389,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
-                              height: MediaQuery.of(context).size.height * 0.26,
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: MediaQuery.sizeOf(context).height * 0.34,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
@@ -457,8 +457,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             ),
                                           ),
                                           child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.92,
                                             child: Stack(
@@ -592,8 +591,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         List<VenuesRecord> containerFeaturedVenuesRecordList =
                             snapshot.data!;
                         return Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: MediaQuery.of(context).size.height * 0.26,
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: MediaQuery.sizeOf(context).height * 0.26,
                           decoration: BoxDecoration(),
                           child: Builder(
                             builder: (context) {
@@ -621,7 +620,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       borderRadius: BorderRadius.circular(34.0),
                                     ),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width: MediaQuery.sizeOf(context).width *
                                           0.92,
                                       child: Stack(
                                         alignment:
@@ -653,10 +652,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   .fromSTEB(6.0, 0.0, 6.0, 0.0),
                                               child: Container(
                                                 width: double.infinity,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.12,
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.12,
                                                 decoration: BoxDecoration(
                                                   gradient: LinearGradient(
                                                     colors: [
@@ -689,8 +688,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 AlignmentDirectional(0.0, 1.0),
                                             child: Container(
                                               width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
+                                              height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.1,
                                               decoration: BoxDecoration(),
@@ -908,8 +906,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             alignment: AlignmentDirectional(
                                                 -0.8, -0.7),
                                             child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
+                                              width: MediaQuery.sizeOf(context)
                                                       .width *
                                                   0.2,
                                               height: 28.0,
@@ -951,9 +948,60 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         );
                       },
                     ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              'Nearby',
+                              style: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(),
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Stack(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              children: [
+                                Text(
+                                  'See All',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                ),
+                                Container(
+                                  width: 100.0,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 0.26,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.26,
                       decoration: BoxDecoration(),
                       child: Builder(
                         builder: (context) {
@@ -984,7 +1032,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.92,
+                                      MediaQuery.sizeOf(context).width * 0.92,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -1014,8 +1062,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   6.0, 0.0, 6.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
+                                            height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.12,
                                             decoration: BoxDecoration(
@@ -1190,6 +1237,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
+                                                    currentUserLocationValue =
+                                                        await getCurrentUserLocation(
+                                                            defaultLocation:
+                                                                LatLng(
+                                                                    0.0, 0.0));
                                                     if (sortedVenuesByDistanceItem
                                                         .isFavouritedBy
                                                         .contains(
@@ -1203,6 +1255,32 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                           currentUserReference
                                                         ]),
                                                       });
+                                                      setState(() {
+                                                        _model.venuesSortedByDistance = _model
+                                                            .sortedVenuesByDistanceOutput!
+                                                            .toList()
+                                                            .cast<
+                                                                VenuesRecord>();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Remove from set',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .cultured,
+                                                            ),
+                                                          ),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  4000),
+                                                          backgroundColor:
+                                                              Color(0xFFFF006E),
+                                                        ),
+                                                      );
                                                     } else {
                                                       await sortedVenuesByDistanceItem
                                                           .reference
@@ -1213,13 +1291,61 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                           currentUserReference
                                                         ]),
                                                       });
+                                                      setState(() {
+                                                        _model.venuesSortedByDistance = _model
+                                                            .sortedVenuesByDistanceOutput!
+                                                            .toList()
+                                                            .cast<
+                                                                VenuesRecord>();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Add to set',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .black,
+                                                            ),
+                                                          ),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  4000),
+                                                          backgroundColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .magicMint,
+                                                        ),
+                                                      );
                                                     }
+
+                                                    _model.sortedVenuesByDistanceOutput2 =
+                                                        await actions
+                                                            .sortVenuesByDistance(
+                                                      _model.venuesList
+                                                          ?.toList(),
+                                                      currentUserLocationValue,
+                                                    );
+                                                    setState(() {
+                                                      _model.venuesSortedByDistance =
+                                                          _model
+                                                              .sortedVenuesByDistanceOutput2!
+                                                              .toList()
+                                                              .cast<
+                                                                  VenuesRecord>();
+                                                    });
+
+                                                    setState(() {});
                                                   },
                                                   child: Container(
                                                     width: double.infinity,
                                                     height: double.infinity,
                                                     decoration: BoxDecoration(
-                                                      shape: BoxShape.rectangle,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
                                                     ),
                                                   ),
                                                 ),
@@ -1289,8 +1415,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 0.26,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.26,
                       decoration: BoxDecoration(),
                       child: Builder(
                         builder: (context) {
@@ -1322,7 +1448,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.45,
+                                      MediaQuery.sizeOf(context).width * 0.45,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -1338,8 +1464,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             child: Image.network(
                                               popularVenuesItem.image,
                                               width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
+                                              height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.24,
                                               fit: BoxFit.cover,
@@ -1356,8 +1481,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   4.0, 0.0, 4.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
+                                            height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.12,
                                             decoration: BoxDecoration(
@@ -1558,12 +1682,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           );
                                         },
                                         child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1.0,
-                                          height: MediaQuery.of(context)
-                                                  .size
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: MediaQuery.sizeOf(context)
                                                   .height *
                                               0.1,
                                           decoration: BoxDecoration(
@@ -1633,8 +1755,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 0.26,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.26,
                       decoration: BoxDecoration(),
                       child: Builder(
                         builder: (context) {
@@ -1666,7 +1788,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.44,
+                                      MediaQuery.sizeOf(context).width * 0.44,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -1682,8 +1804,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             child: Image.network(
                                               trendingVenuesItem.image,
                                               width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
+                                              height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.24,
                                               fit: BoxFit.cover,
@@ -1700,8 +1821,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   4.0, 0.0, 4.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
+                                            height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.12,
                                             decoration: BoxDecoration(
@@ -1902,8 +2022,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 0.26,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.26,
                       decoration: BoxDecoration(),
                       child: StreamBuilder<List<VenuesRecord>>(
                         stream: queryVenuesRecord(
@@ -1950,7 +2070,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.44,
+                                      MediaQuery.sizeOf(context).width * 0.44,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -1968,8 +2088,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               listViewFeaturedVenuesRecord
                                                   .image,
                                               width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
+                                              height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.24,
                                               fit: BoxFit.cover,
@@ -1986,8 +2105,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   4.0, 0.0, 4.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
+                                            height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.12,
                                             decoration: BoxDecoration(
@@ -2278,8 +2396,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 0.26,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.26,
                       decoration: BoxDecoration(),
                       child: Builder(
                         builder: (context) {
@@ -2307,7 +2425,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.44,
+                                      MediaQuery.sizeOf(context).width * 0.44,
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
@@ -2323,8 +2441,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             child: Image.network(
                                               featuredVenuesItem.image,
                                               width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
+                                              height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.24,
                                               fit: BoxFit.cover,
@@ -2341,8 +2458,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                   4.0, 0.0, 4.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
+                                            height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.12,
                                             decoration: BoxDecoration(
@@ -2444,7 +2560,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 80.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,

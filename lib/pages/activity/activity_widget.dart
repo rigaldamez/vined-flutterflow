@@ -114,7 +114,7 @@ class _ActivityWidgetState extends State<ActivityWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
+                      width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
@@ -255,7 +255,7 @@ class _ActivityWidgetState extends State<ActivityWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
+                      width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
@@ -396,7 +396,7 @@ class _ActivityWidgetState extends State<ActivityWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
+                      width: MediaQuery.sizeOf(context).width * 0.85,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
@@ -526,7 +526,7 @@ class _ActivityWidgetState extends State<ActivityWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    width: MediaQuery.sizeOf(context).width * 0.9,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [

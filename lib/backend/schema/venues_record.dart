@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:from_css_color/from_css_color.dart';
 import '/backend/algolia/algolia_manager.dart';
+import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
@@ -265,4 +266,56 @@ Map<String, dynamic> createVenuesRecordData({
   );
 
   return firestoreData;
+}
+
+class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
+  const VenuesRecordDocumentEquality();
+
+  @override
+  bool equals(VenuesRecord? e1, VenuesRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.name == e2?.name &&
+        e1?.regionID == e2?.regionID &&
+        e1?.image == e2?.image &&
+        e1?.regionName == e2?.regionName &&
+        e1?.tastingFee == e2?.tastingFee &&
+        e1?.capacity == e2?.capacity &&
+        listEquality.equals(e1?.openDays, e2?.openDays) &&
+        e1?.maxCapacityEnforced == e2?.maxCapacityEnforced &&
+        e1?.mustAcknowledgeTCs == e2?.mustAcknowledgeTCs &&
+        e1?.regionRef == e2?.regionRef &&
+        listEquality.equals(e1?.isFavouritedBy, e2?.isFavouritedBy) &&
+        e1?.countryState == e2?.countryState &&
+        e1?.isLunchVenueOnly == e2?.isLunchVenueOnly &&
+        e1?.largeGroupEarlySeatingOnly == e2?.largeGroupEarlySeatingOnly &&
+        e1?.countryStateDisplayName == e2?.countryStateDisplayName &&
+        e1?.latLong == e2?.latLong &&
+        e1?.viewsCount == e2?.viewsCount &&
+        e1?.lastVenueViewDate == e2?.lastVenueViewDate;
+  }
+
+  @override
+  int hash(VenuesRecord? e) => const ListEquality().hash([
+        e?.name,
+        e?.regionID,
+        e?.image,
+        e?.regionName,
+        e?.tastingFee,
+        e?.capacity,
+        e?.openDays,
+        e?.maxCapacityEnforced,
+        e?.mustAcknowledgeTCs,
+        e?.regionRef,
+        e?.isFavouritedBy,
+        e?.countryState,
+        e?.isLunchVenueOnly,
+        e?.largeGroupEarlySeatingOnly,
+        e?.countryStateDisplayName,
+        e?.latLong,
+        e?.viewsCount,
+        e?.lastVenueViewDate
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is VenuesRecord;
 }

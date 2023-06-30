@@ -78,8 +78,8 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -266,8 +266,8 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                             listViewFeaturedVenuesRecordList[
                                 listViewFeaturedIndex];
                         return Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.sizeOf(context).width * 0.9,
+                          height: MediaQuery.sizeOf(context).height * 0.3,
                           decoration: BoxDecoration(
                             color: Color(0x00EEEEEE),
                           ),
@@ -287,12 +287,10 @@ class _FIlterWineriesWidgetState extends State<FIlterWineriesWidget>
                                             BorderRadius.circular(34.0),
                                         child: Image.network(
                                           listViewFeaturedVenuesRecord.image,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.88,
-                                          height: MediaQuery.of(context)
-                                                  .size
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.88,
+                                          height: MediaQuery.sizeOf(context)
                                                   .height *
                                               0.24,
                                           fit: BoxFit.cover,

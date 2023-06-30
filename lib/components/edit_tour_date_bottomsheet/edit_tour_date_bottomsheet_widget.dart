@@ -72,7 +72,7 @@ class _EditTourDateBottomsheetWidgetState
         final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -101,7 +101,7 @@ class _EditTourDateBottomsheetWidgetState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.12,
+                        width: MediaQuery.sizeOf(context).width * 0.12,
                         height: 6.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).black,
@@ -148,7 +148,7 @@ class _EditTourDateBottomsheetWidgetState
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 10.0, 10.0, 20.0),
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 1.0,
+                                width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 100.0,
                                 decoration: BoxDecoration(
                                   color: Color(0x00EEEEEE),
@@ -198,12 +198,12 @@ class _EditTourDateBottomsheetWidgetState
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 30.0, 0.0, 0.0),
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.94,
+                              width: MediaQuery.sizeOf(context).width * 0.94,
                               child: Stack(
                                 children: [
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
                                     height: 58.0,
                                     decoration: BoxDecoration(
                                       color: Colors.black,

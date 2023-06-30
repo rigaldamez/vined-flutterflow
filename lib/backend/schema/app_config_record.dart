@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -129,4 +131,36 @@ Map<String, dynamic> createAppConfigRecordData({
   );
 
   return firestoreData;
+}
+
+class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
+  const AppConfigRecordDocumentEquality();
+
+  @override
+  bool equals(AppConfigRecord? e1, AppConfigRecord? e2) {
+    return e1?.vinedMessengerURL == e2?.vinedMessengerURL &&
+        e1?.itineraryVenueLimit == e2?.itineraryVenueLimit &&
+        e1?.platformTastingFee == e2?.platformTastingFee &&
+        e1?.tourLeadTime == e2?.tourLeadTime &&
+        e1?.vinedWebsiteURL == e2?.vinedWebsiteURL &&
+        e1?.largeGroupThreshold == e2?.largeGroupThreshold &&
+        e1?.largeGroupVenuesEarlySeatingThreshold ==
+            e2?.largeGroupVenuesEarlySeatingThreshold &&
+        e1?.lunchVenueFee == e2?.lunchVenueFee;
+  }
+
+  @override
+  int hash(AppConfigRecord? e) => const ListEquality().hash([
+        e?.vinedMessengerURL,
+        e?.itineraryVenueLimit,
+        e?.platformTastingFee,
+        e?.tourLeadTime,
+        e?.vinedWebsiteURL,
+        e?.largeGroupThreshold,
+        e?.largeGroupVenuesEarlySeatingThreshold,
+        e?.lunchVenueFee
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is AppConfigRecord;
 }

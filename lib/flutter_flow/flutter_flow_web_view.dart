@@ -34,8 +34,8 @@ class _FlutterFlowWebViewState extends State<FlutterFlowWebView> {
   @override
   Widget build(BuildContext context) => WebViewX(
         key: webviewKey,
-        width: widget.width ?? MediaQuery.of(context).size.width,
-        height: widget.height ?? MediaQuery.of(context).size.height,
+        width: widget.width ?? MediaQuery.sizeOf(context).width,
+        height: widget.height ?? MediaQuery.sizeOf(context).height,
         ignoreAllGestures: false,
         initialContent: widget.content,
         initialMediaPlaybackPolicy:

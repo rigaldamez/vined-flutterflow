@@ -141,7 +141,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 60.0,
                       decoration: BoxDecoration(
                         color: Color(0x00F4F4F4),
@@ -288,8 +288,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 1.0,
-                  height: MediaQuery.of(context).size.height * 0.26,
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  height: MediaQuery.sizeOf(context).height * 0.26,
                   decoration: BoxDecoration(),
                   child: StreamBuilder<List<VenuesRecord>>(
                     stream: queryVenuesRecord(),
@@ -342,12 +342,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             BorderRadius.circular(34.0),
                                         child: Image.network(
                                           listViewFeaturedVenuesRecord.image,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          height: MediaQuery.of(context)
-                                                  .size
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.4,
+                                          height: MediaQuery.sizeOf(context)
                                                   .height *
                                               0.24,
                                           fit: BoxFit.cover,
@@ -358,10 +356,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   Align(
                                     alignment: AlignmentDirectional(0.0, 0.9),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width: MediaQuery.sizeOf(context).width *
                                           0.4,
                                       height:
-                                          MediaQuery.of(context).size.height *
+                                          MediaQuery.sizeOf(context).height *
                                               0.12,
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
@@ -385,7 +383,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.4,
+                                        MediaQuery.sizeOf(context).width * 0.4,
                                     height: double.infinity,
                                     decoration: BoxDecoration(),
                                     child: Align(
@@ -591,7 +589,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 ),
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 1.0,
+                  height: MediaQuery.sizeOf(context).height * 1.0,
                   decoration: BoxDecoration(),
                   child:
                       PagedListView<DocumentSnapshot<Object?>?, VenuesRecord>(
@@ -695,10 +693,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             BorderRadius.circular(34.0),
                                         child: Image.network(
                                           listViewVenuesRecord.image,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1.0,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
                                           height: 200.0,
                                           fit: BoxFit.fill,
                                         ),
@@ -735,7 +732,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           6.0, 0.0, 6.0, 0.0),
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height: 50.0,
                                         decoration: BoxDecoration(),

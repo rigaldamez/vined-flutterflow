@@ -46,8 +46,8 @@ class _CreateNewTourEmptyStateWidgetState
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 100.0, 0.0, 0.0),
       child: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 0.5,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 0.5,
         decoration: BoxDecoration(),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),

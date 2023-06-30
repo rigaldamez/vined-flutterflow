@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -283,4 +285,77 @@ Map<String, dynamic> createToursRecordData({
   );
 
   return firestoreData;
+}
+
+class ToursRecordDocumentEquality implements Equality<ToursRecord> {
+  const ToursRecordDocumentEquality();
+
+  @override
+  bool equals(ToursRecord? e1, ToursRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.createdTime == e2?.createdTime &&
+        e1?.tourName == e2?.tourName &&
+        e1?.regionID == e2?.regionID &&
+        e1?.uid == e2?.uid &&
+        e1?.passengers == e2?.passengers &&
+        e1?.tourDate == e2?.tourDate &&
+        e1?.pickupAddress == e2?.pickupAddress &&
+        e1?.pickupLatlng == e2?.pickupLatlng &&
+        e1?.pricePp == e2?.pricePp &&
+        e1?.region == e2?.region &&
+        listEquality.equals(e1?.venues, e2?.venues) &&
+        listEquality.equals(e1?.guestsUid, e2?.guestsUid) &&
+        e1?.pickupUnitNumber == e2?.pickupUnitNumber &&
+        e1?.tourState == e2?.tourState &&
+        e1?.platformTastingFee == e2?.platformTastingFee &&
+        e1?.driverReff == e2?.driverReff &&
+        e1?.driverUid == e2?.driverUid &&
+        e1?.countryState == e2?.countryState &&
+        e1?.transportFeePp == e2?.transportFeePp &&
+        e1?.totalTastingFeePp == e2?.totalTastingFeePp &&
+        e1?.largeGroupVenueEarlySeatingCount ==
+            e2?.largeGroupVenueEarlySeatingCount &&
+        e1?.subTotal == e2?.subTotal &&
+        e1?.totalPaid == e2?.totalPaid &&
+        e1?.lunchVenueFee == e2?.lunchVenueFee &&
+        e1?.discountAmount == e2?.discountAmount &&
+        e1?.totalBalance == e2?.totalBalance &&
+        e1?.discountAmountPp == e2?.discountAmountPp &&
+        e1?.pricePpDiscounted == e2?.pricePpDiscounted;
+  }
+
+  @override
+  int hash(ToursRecord? e) => const ListEquality().hash([
+        e?.createdTime,
+        e?.tourName,
+        e?.regionID,
+        e?.uid,
+        e?.passengers,
+        e?.tourDate,
+        e?.pickupAddress,
+        e?.pickupLatlng,
+        e?.pricePp,
+        e?.region,
+        e?.venues,
+        e?.guestsUid,
+        e?.pickupUnitNumber,
+        e?.tourState,
+        e?.platformTastingFee,
+        e?.driverReff,
+        e?.driverUid,
+        e?.countryState,
+        e?.transportFeePp,
+        e?.totalTastingFeePp,
+        e?.largeGroupVenueEarlySeatingCount,
+        e?.subTotal,
+        e?.totalPaid,
+        e?.lunchVenueFee,
+        e?.discountAmount,
+        e?.totalBalance,
+        e?.discountAmountPp,
+        e?.pricePpDiscounted
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is ToursRecord;
 }

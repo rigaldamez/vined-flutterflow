@@ -51,8 +51,8 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -199,9 +199,8 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 1.0,
-                                height:
-                                    MediaQuery.of(context).size.height * 1.0,
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
                                   borderRadius: BorderRadius.circular(28.0),
@@ -217,9 +216,8 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 1.0,
-                                height:
-                                    MediaQuery.of(context).size.height * 1.0,
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
                                 decoration: BoxDecoration(
                                   color: Color(0x6C000000),
                                   borderRadius: BorderRadius.circular(28.0),
@@ -270,10 +268,9 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                   );
                                 },
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
-                                      MediaQuery.of(context).size.height * 1.0,
+                                      MediaQuery.sizeOf(context).height * 1.0,
                                   decoration: BoxDecoration(
                                     color: Color(0x00333333),
                                     borderRadius: BorderRadius.circular(28.0),

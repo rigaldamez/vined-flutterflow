@@ -178,7 +178,7 @@ class _ChatScreenSampleWidgetState extends State<ChatScreenSampleWidget> {
                 ),
                 emptyChatWidget: Image.asset(
                   'assets/images/messagesEmpty@2x.png',
-                  width: MediaQuery.of(context).size.width * 0.76,
+                  width: MediaQuery.sizeOf(context).width * 0.76,
                 ),
               )
             : Center(

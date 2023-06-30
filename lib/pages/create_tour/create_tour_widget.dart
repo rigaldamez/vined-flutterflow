@@ -57,8 +57,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
         body: SafeArea(
           top: true,
           child: Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -130,8 +130,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 10.0, 20.0),
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.98,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.98,
                                     height: 54.0,
                                     decoration: BoxDecoration(
                                       color: Color(0x00EEEEEE),
@@ -200,11 +200,11 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.94,
+                                width: MediaQuery.sizeOf(context).width * 0.94,
                                 child: Stack(
                                   children: [
                                     Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       height: 58.0,
                                       decoration: BoxDecoration(
@@ -317,13 +317,13 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                       children: [
                         Container(
                           width: 180.0,
-                          height: MediaQuery.of(context).size.height * 0.05,
+                          height: MediaQuery.sizeOf(context).height * 0.05,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 1.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
                             height: 100.0,
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
@@ -362,9 +362,9 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                   },
                                   child: Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
-                                    height: MediaQuery.of(context).size.height *
-                                        1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
                                     decoration: BoxDecoration(),
                                   ),
                                 ),
@@ -400,8 +400,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.53,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 0.53,
                     decoration: BoxDecoration(
                       color: Color(0xFFF5F5F5),
                       boxShadow: [
@@ -487,9 +487,9 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                               children: [
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.98,
+                                      MediaQuery.sizeOf(context).width * 0.98,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.18,
+                                      MediaQuery.sizeOf(context).height * 0.18,
                                   child: Stack(
                                     children: [
                                       Padding(
@@ -570,12 +570,10 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
+                                                                    width: MediaQuery.sizeOf(context)
                                                                             .width *
                                                                         0.34,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
+                                                                    height: MediaQuery.sizeOf(context)
                                                                             .height *
                                                                         0.14,
                                                                     child:
@@ -588,18 +586,18 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                               Image.network(
                                                                             rowRegionsRecord.image,
                                                                             width:
-                                                                                MediaQuery.of(context).size.width * 0.34,
+                                                                                MediaQuery.sizeOf(context).width * 0.34,
                                                                             height:
-                                                                                MediaQuery.of(context).size.height * 0.2,
+                                                                                MediaQuery.sizeOf(context).height * 0.2,
                                                                             fit:
                                                                                 BoxFit.cover,
                                                                           ),
                                                                         ),
                                                                         Container(
                                                                           width:
-                                                                              MediaQuery.of(context).size.width * 0.34,
+                                                                              MediaQuery.sizeOf(context).width * 0.34,
                                                                           height:
-                                                                              MediaQuery.of(context).size.height * 0.2,
+                                                                              MediaQuery.sizeOf(context).height * 0.2,
                                                                           decoration:
                                                                               BoxDecoration(
                                                                             color:

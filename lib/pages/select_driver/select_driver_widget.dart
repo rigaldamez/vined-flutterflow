@@ -154,12 +154,12 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.9,
+                              width: MediaQuery.sizeOf(context).width * 0.9,
                               child: Stack(
                                 children: [
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 1.0,
+                                        MediaQuery.sizeOf(context).width * 1.0,
                                     decoration: BoxDecoration(),
                                     child: TextFormField(
                                       controller: _model.textController,
@@ -296,8 +296,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.96,
                                             height: 80.0,

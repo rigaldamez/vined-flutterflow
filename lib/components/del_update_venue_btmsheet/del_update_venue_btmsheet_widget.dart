@@ -78,7 +78,7 @@ class _DelUpdateVenueBtmsheetWidgetState
         final containerToursRecord = snapshot.data!;
         return Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -105,7 +105,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.12,
+                      width: MediaQuery.sizeOf(context).width * 0.12,
                       height: 6.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).black,
@@ -197,7 +197,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 20.0),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       height: 100.0,
                                       decoration: BoxDecoration(
@@ -399,7 +399,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 20.0),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       height: 100.0,
                                       decoration: BoxDecoration(
@@ -519,7 +519,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                 ),
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.98,
+                                      MediaQuery.sizeOf(context).width * 0.98,
                                   height: 80.0,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.0),
