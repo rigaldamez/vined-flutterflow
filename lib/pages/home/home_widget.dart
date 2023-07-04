@@ -530,6 +530,483 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
+                              'Nearby',
+                              style: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(),
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Stack(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              children: [
+                                Text(
+                                  'See All',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                ),
+                                Container(
+                                  width: 100.0,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.26,
+                      decoration: BoxDecoration(),
+                      child: Builder(
+                        builder: (context) {
+                          final sortedVenuesByDistance =
+                              _model.venuesSortedByDistance.toList();
+                          return ListView.builder(
+                            padding: EdgeInsets.fromLTRB(
+                              10.0,
+                              0,
+                              10.0,
+                              0,
+                            ),
+                            primary: false,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: sortedVenuesByDistance.length,
+                            itemBuilder:
+                                (context, sortedVenuesByDistanceIndex) {
+                              final sortedVenuesByDistanceItem =
+                                  sortedVenuesByDistance[
+                                      sortedVenuesByDistanceIndex];
+                              return Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: Colors.white,
+                                elevation: 4.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(34.0),
+                                ),
+                                child: Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.92,
+                                  child: Stack(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6.0, 6.0, 6.0, 6.0),
+                                        child: Hero(
+                                          tag: sortedVenuesByDistanceItem.image,
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(34.0),
+                                            child: Image.network(
+                                              sortedVenuesByDistanceItem.image,
+                                              width: double.infinity,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.9),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  6.0, 0.0, 6.0, 0.0),
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.12,
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Colors.transparent,
+                                                  Color(0xE6000000)
+                                                ],
+                                                stops: [0.0, 1.0],
+                                                begin: AlignmentDirectional(
+                                                    0.0, -1.0),
+                                                end: AlignmentDirectional(
+                                                    0, 1.0),
+                                              ),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft:
+                                                    Radius.circular(34.0),
+                                                bottomRight:
+                                                    Radius.circular(34.0),
+                                                topLeft: Radius.circular(0.0),
+                                                topRight: Radius.circular(0.0),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 1.0),
+                                        child: Container(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.05,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .cultured,
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 1.0),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(6.0, 0.0, 6.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  10.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        functions
+                                                            .upperCaseString(
+                                                                sortedVenuesByDistanceItem
+                                                                    .name)
+                                                            .maybeHandleOverflow(
+                                                              maxChars: 18,
+                                                              replacement: '…',
+                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .black,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.location_on_sharp,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .black,
+                                                    size: 20.0,
+                                                  ),
+                                                  FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future:
+                                                        GETMapboxDrivingDirectionsCall
+                                                            .call(
+                                                      coordinates: functions
+                                                          .getLngLatCoordinatesMapbox(
+                                                              currentUserLocationValue,
+                                                              sortedVenuesByDistanceItem
+                                                                  .latLong),
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 20.0,
+                                                            height: 20.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              color: Color(
+                                                                  0xFFB19CD9),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final textGETMapboxDrivingDirectionsResponse =
+                                                          snapshot.data!;
+                                                      return Text(
+                                                        valueOrDefault<String>(
+                                                          functions
+                                                              .convertMtsToKmsLabel(
+                                                                  GETMapboxDrivingDirectionsCall
+                                                                      .distance(
+                                                            textGETMapboxDrivingDirectionsResponse
+                                                                .jsonBody,
+                                                          )),
+                                                          'kms',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .black,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ]
+                                                    .divide(
+                                                        SizedBox(width: 2.0))
+                                                    .addToStart(
+                                                        SizedBox(width: 4.0)),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.8, -0.5),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  100.0, 0.0, 0.0, 100.0),
+                                          child: Container(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            child: Stack(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              children: [
+                                                if (sortedVenuesByDistanceItem
+                                                    .isFavouritedBy
+                                                    .contains(
+                                                        currentUserReference))
+                                                  Icon(
+                                                    Icons.favorite_rounded,
+                                                    color: Color(0xFFFF006E),
+                                                    size: 28.0,
+                                                  ),
+                                                if (!sortedVenuesByDistanceItem
+                                                    .isFavouritedBy
+                                                    .contains(
+                                                        currentUserReference))
+                                                  Icon(
+                                                    Icons.favorite_rounded,
+                                                    color: Color(0x34000000),
+                                                    size: 28.0,
+                                                  ),
+                                                Icon(
+                                                  Icons.favorite_border_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  size: 28.0,
+                                                ),
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    currentUserLocationValue =
+                                                        await getCurrentUserLocation(
+                                                            defaultLocation:
+                                                                LatLng(
+                                                                    0.0, 0.0));
+                                                    if (sortedVenuesByDistanceItem
+                                                        .isFavouritedBy
+                                                        .contains(
+                                                            currentUserReference)) {
+                                                      await sortedVenuesByDistanceItem
+                                                          .reference
+                                                          .update({
+                                                        'is_favourited_by':
+                                                            FieldValue
+                                                                .arrayRemove([
+                                                          currentUserReference
+                                                        ]),
+                                                      });
+                                                      setState(() {
+                                                        _model.venuesSortedByDistance = _model
+                                                            .sortedVenuesByDistanceOutput!
+                                                            .toList()
+                                                            .cast<
+                                                                VenuesRecord>();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Remove from set',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .cultured,
+                                                            ),
+                                                          ),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  4000),
+                                                          backgroundColor:
+                                                              Color(0xFFFF006E),
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      await sortedVenuesByDistanceItem
+                                                          .reference
+                                                          .update({
+                                                        'is_favourited_by':
+                                                            FieldValue
+                                                                .arrayUnion([
+                                                          currentUserReference
+                                                        ]),
+                                                      });
+                                                      setState(() {
+                                                        _model.venuesSortedByDistance = _model
+                                                            .sortedVenuesByDistanceOutput!
+                                                            .toList()
+                                                            .cast<
+                                                                VenuesRecord>();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Add to set',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .black,
+                                                            ),
+                                                          ),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  4000),
+                                                          backgroundColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .magicMint,
+                                                        ),
+                                                      );
+                                                    }
+
+                                                    _model.venuesList2 =
+                                                        await actions
+                                                            .getDocsFromCollectionVenues();
+                                                    _model.sortedVenuesByDistanceOutput2 =
+                                                        await actions
+                                                            .sortVenuesByDistance(
+                                                      _model.venuesList2
+                                                          ?.toList(),
+                                                      currentUserLocationValue,
+                                                    );
+                                                    setState(() {
+                                                      _model.venuesSortedByDistance =
+                                                          _model
+                                                              .sortedVenuesByDistanceOutput2!
+                                                              .toList()
+                                                              .cast<
+                                                                  VenuesRecord>();
+                                                    });
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'completed action chain',
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .black,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                      ),
+                                                    );
+
+                                                    setState(() {});
+                                                  },
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 0.0, 0.0, 0.0),
+                            child: Text(
                               'Featured',
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
@@ -950,421 +1427,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Nearby',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Stack(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              children: [
-                                Text(
-                                  'See All',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                ),
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 0.26,
-                      decoration: BoxDecoration(),
-                      child: Builder(
-                        builder: (context) {
-                          final sortedVenuesByDistance =
-                              _model.venuesSortedByDistance.toList();
-                          return ListView.builder(
-                            padding: EdgeInsets.fromLTRB(
-                              10.0,
-                              0,
-                              10.0,
-                              0,
-                            ),
-                            primary: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: sortedVenuesByDistance.length,
-                            itemBuilder:
-                                (context, sortedVenuesByDistanceIndex) {
-                              final sortedVenuesByDistanceItem =
-                                  sortedVenuesByDistance[
-                                      sortedVenuesByDistanceIndex];
-                              return Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
-                                ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.92,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            6.0, 6.0, 6.0, 6.0),
-                                        child: Hero(
-                                          tag: sortedVenuesByDistanceItem.image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              sortedVenuesByDistanceItem.image,
-                                              width: double.infinity,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  6.0, 0.0, 6.0, 0.0),
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  6.0, 0.0, 6.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.9, 0.7),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          10.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    functions
-                                                        .upperCaseString(
-                                                            sortedVenuesByDistanceItem
-                                                                .name)
-                                                        .maybeHandleOverflow(
-                                                          maxChars: 18,
-                                                          replacement: '…',
-                                                        ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .cultured,
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                              FutureBuilder<ApiCallResponse>(
-                                                future:
-                                                    GETMapboxDrivingDirectionsCall
-                                                        .call(
-                                                  coordinates: functions
-                                                      .getLngLatCoordinatesMapbox(
-                                                          currentUserLocationValue,
-                                                          sortedVenuesByDistanceItem
-                                                              .latLong),
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 20.0,
-                                                        height: 20.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          color:
-                                                              Color(0xFFB19CD9),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  final textGETMapboxDrivingDirectionsResponse =
-                                                      snapshot.data!;
-                                                  return Text(
-                                                    valueOrDefault<String>(
-                                                      functions
-                                                          .convertMtsToKmsLabel(
-                                                              GETMapboxDrivingDirectionsCall
-                                                                  .distance(
-                                                        textGETMapboxDrivingDirectionsResponse
-                                                            .jsonBody,
-                                                      )),
-                                                      'kms',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .cultured,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  );
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.8, -0.5),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            width: 40.0,
-                                            height: 40.0,
-                                            child: Stack(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              children: [
-                                                if (sortedVenuesByDistanceItem
-                                                    .isFavouritedBy
-                                                    .contains(
-                                                        currentUserReference))
-                                                  Icon(
-                                                    Icons.favorite_rounded,
-                                                    color: Color(0xFFFF006E),
-                                                    size: 28.0,
-                                                  ),
-                                                if (!sortedVenuesByDistanceItem
-                                                    .isFavouritedBy
-                                                    .contains(
-                                                        currentUserReference))
-                                                  Icon(
-                                                    Icons.favorite_rounded,
-                                                    color: Color(0x34000000),
-                                                    size: 28.0,
-                                                  ),
-                                                Icon(
-                                                  Icons.favorite_border_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  size: 28.0,
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    currentUserLocationValue =
-                                                        await getCurrentUserLocation(
-                                                            defaultLocation:
-                                                                LatLng(
-                                                                    0.0, 0.0));
-                                                    if (sortedVenuesByDistanceItem
-                                                        .isFavouritedBy
-                                                        .contains(
-                                                            currentUserReference)) {
-                                                      await sortedVenuesByDistanceItem
-                                                          .reference
-                                                          .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
-                                                      });
-                                                      setState(() {
-                                                        _model.venuesSortedByDistance = _model
-                                                            .sortedVenuesByDistanceOutput!
-                                                            .toList()
-                                                            .cast<
-                                                                VenuesRecord>();
-                                                      });
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Remove from set',
-                                                            style: TextStyle(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .cultured,
-                                                            ),
-                                                          ),
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  4000),
-                                                          backgroundColor:
-                                                              Color(0xFFFF006E),
-                                                        ),
-                                                      );
-                                                    } else {
-                                                      await sortedVenuesByDistanceItem
-                                                          .reference
-                                                          .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
-                                                      });
-                                                      setState(() {
-                                                        _model.venuesSortedByDistance = _model
-                                                            .sortedVenuesByDistanceOutput!
-                                                            .toList()
-                                                            .cast<
-                                                                VenuesRecord>();
-                                                      });
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Add to set',
-                                                            style: TextStyle(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .black,
-                                                            ),
-                                                          ),
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  4000),
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .magicMint,
-                                                        ),
-                                                      );
-                                                    }
-
-                                                    _model.sortedVenuesByDistanceOutput2 =
-                                                        await actions
-                                                            .sortVenuesByDistance(
-                                                      _model.venuesList
-                                                          ?.toList(),
-                                                      currentUserLocationValue,
-                                                    );
-                                                    setState(() {
-                                                      _model.venuesSortedByDistance =
-                                                          _model
-                                                              .sortedVenuesByDistanceOutput2!
-                                                              .toList()
-                                                              .cast<
-                                                                  VenuesRecord>();
-                                                    });
-
-                                                    setState(() {});
-                                                  },
-                                                  child: Container(
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding:
                           EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -1375,7 +1437,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Popular',
+                              'Most viewed',
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
