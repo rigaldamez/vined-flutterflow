@@ -38,16 +38,19 @@ class HomeModel extends FlutterFlowModel {
 
   bool? activeHighlights;
 
-  List<VenuesRecord> venuesSortedByDistance = [];
-  void addToVenuesSortedByDistance(VenuesRecord item) =>
-      venuesSortedByDistance.add(item);
-  void removeFromVenuesSortedByDistance(VenuesRecord item) =>
-      venuesSortedByDistance.remove(item);
-  void removeAtIndexFromVenuesSortedByDistance(int index) =>
-      venuesSortedByDistance.removeAt(index);
-  void updateVenuesSortedByDistanceAtIndex(
+  List<VenuesRecord> venuesSortedByDistancePS = [];
+  void addToVenuesSortedByDistancePS(VenuesRecord item) =>
+      venuesSortedByDistancePS.add(item);
+  void removeFromVenuesSortedByDistancePS(VenuesRecord item) =>
+      venuesSortedByDistancePS.remove(item);
+  void removeAtIndexFromVenuesSortedByDistancePS(int index) =>
+      venuesSortedByDistancePS.removeAt(index);
+  void updateVenuesSortedByDistancePSAtIndex(
           int index, Function(VenuesRecord) updateFn) =>
-      venuesSortedByDistance[index] = updateFn(venuesSortedByDistance[index]);
+      venuesSortedByDistancePS[index] =
+          updateFn(venuesSortedByDistancePS[index]);
+
+  bool? pageLoaded;
 
   ///  State fields for stateful widgets in this page.
 
@@ -61,6 +64,10 @@ class HomeModel extends FlutterFlowModel {
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
   FormFieldController<List<String>>? choiceChipsValueController;
+  // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in ChoiceChips widget.
+  List<VenuesRecord>? venuesListChoiceChips;
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in ChoiceChips widget.
+  List<VenuesRecord>? sortedVenuesByDistanceOutputChoiceChips;
   // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Container widget.
   List<VenuesRecord>? venuesList2;
   // Stores action output result for [Custom Action - sortVenuesByDistance] action in Container widget.

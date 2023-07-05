@@ -63,6 +63,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      _model.pageLoaded = true;
       _model.highlightsCount = await actions.countCollectionDocs(
         'highlights',
       );
@@ -72,19 +73,29 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       setState(() {
         _model.upcomingeventsCount = _model.highlightsCount;
       });
-      _model.venuesList = await actions.getDocsFromCollectionVenues();
-      setState(() {
-        _model.venuesListLocal =
-            _model.venuesList!.toList().cast<VenuesRecord>();
-      });
+      _model.venuesList = await actions.getDocsFromCollectionVenues(
+        _model.choiceChipsValue,
+      );
       _model.sortedVenuesByDistanceOutput = await actions.sortVenuesByDistance(
         _model.venuesList?.toList(),
         currentUserLocationValue,
       );
       setState(() {
-        _model.venuesSortedByDistance =
+        _model.venuesSortedByDistancePS =
             _model.sortedVenuesByDistanceOutput!.toList().cast<VenuesRecord>();
       });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'On Page Load completed',
+            style: TextStyle(
+              color: FlutterFlowTheme.of(context).black,
+            ),
+          ),
+          duration: Duration(milliseconds: 1000),
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
+        ),
+      );
     });
 
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
@@ -148,7 +159,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 ),
               );
             }
-            List<VenuesRecord> containerVenuesRecordList = snapshot.data!;
+            List<VenuesRecord> containerMainVenuesRecordList = snapshot.data!;
             return Container(
               width: MediaQuery.sizeOf(context).width * 1.0,
               decoration: BoxDecoration(
@@ -297,9 +308,68 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               .toList()
                                               .map((label) => ChipData(label))
                                               .toList(),
-                                          onChanged: (val) => setState(() =>
-                                              _model.choiceChipsValue =
-                                                  val?.first),
+                                          onChanged: (val) async {
+                                            setState(() => _model
+                                                .choiceChipsValue = val?.first);
+                                            currentUserLocationValue =
+                                                await getCurrentUserLocation(
+                                                    defaultLocation:
+                                                        LatLng(0.0, 0.0));
+                                            var _shouldSetState = false;
+                                            if (_model.pageLoaded == true) {
+                                              setState(() {
+                                                _model.pageLoaded = false;
+                                              });
+                                            } else {
+                                              _model.venuesListChoiceChips =
+                                                  await actions
+                                                      .getDocsFromCollectionVenues(
+                                                _model.choiceChipsValue,
+                                              );
+                                              _shouldSetState = true;
+                                              _model.sortedVenuesByDistanceOutputChoiceChips =
+                                                  await actions
+                                                      .sortVenuesByDistance(
+                                                _model.venuesListChoiceChips
+                                                    ?.toList(),
+                                                currentUserLocationValue,
+                                              );
+                                              _shouldSetState = true;
+                                              setState(() {
+                                                _model.venuesSortedByDistancePS =
+                                                    _model
+                                                        .sortedVenuesByDistanceOutputChoiceChips!
+                                                        .toList()
+                                                        .cast<VenuesRecord>();
+                                              });
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Choice Chip selected',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .black,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 2000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
+                                                ),
+                                              );
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
+                                            }
+
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                          },
                                           selectedChipStyle: ChipStyle(
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
@@ -576,7 +646,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       child: Builder(
                         builder: (context) {
                           final sortedVenuesByDistance =
-                              _model.venuesSortedByDistance.toList();
+                              _model.venuesSortedByDistancePS.toList();
                           return ListView.builder(
                             padding: EdgeInsets.fromLTRB(
                               10.0,
@@ -865,7 +935,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         ]),
                                                       });
                                                       setState(() {
-                                                        _model.venuesSortedByDistance = _model
+                                                        _model.venuesSortedByDistancePS = _model
                                                             .sortedVenuesByDistanceOutput!
                                                             .toList()
                                                             .cast<
@@ -885,7 +955,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                           ),
                                                           duration: Duration(
                                                               milliseconds:
-                                                                  4000),
+                                                                  1000),
                                                           backgroundColor:
                                                               Color(0xFFFF006E),
                                                         ),
@@ -901,7 +971,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         ]),
                                                       });
                                                       setState(() {
-                                                        _model.venuesSortedByDistance = _model
+                                                        _model.venuesSortedByDistancePS = _model
                                                             .sortedVenuesByDistanceOutput!
                                                             .toList()
                                                             .cast<
@@ -932,7 +1002,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
 
                                                     _model.venuesList2 =
                                                         await actions
-                                                            .getDocsFromCollectionVenues();
+                                                            .getDocsFromCollectionVenues(
+                                                      _model.choiceChipsValue,
+                                                    );
                                                     _model.sortedVenuesByDistanceOutput2 =
                                                         await actions
                                                             .sortVenuesByDistance(
@@ -941,7 +1013,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       currentUserLocationValue,
                                                     );
                                                     setState(() {
-                                                      _model.venuesSortedByDistance =
+                                                      _model.venuesSortedByDistancePS =
                                                           _model
                                                               .sortedVenuesByDistanceOutput2!
                                                               .toList()
@@ -953,7 +1025,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         .showSnackBar(
                                                       SnackBar(
                                                         content: Text(
-                                                          'completed action chain',
+                                                          'completed \'fav\' action chain',
                                                           style: TextStyle(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
@@ -1484,7 +1556,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         builder: (context) {
                           final popularVenues = functions
                                   .sortVenuesByViewsCount(
-                                      containerVenuesRecordList.toList())
+                                      containerMainVenuesRecordList.toList())
                                   ?.toList() ??
                               [];
                           return ListView.builder(
@@ -1824,7 +1896,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         builder: (context) {
                           final trendingVenues = functions
                                   .sortVenuesByViewDateTrending(
-                                      containerVenuesRecordList.toList())
+                                      containerMainVenuesRecordList.toList())
                                   ?.toList() ??
                               [];
                           return ListView.builder(
@@ -2465,7 +2537,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         builder: (context) {
                           final featuredVenues = functions
                               .shuffleCollection(
-                                  containerVenuesRecordList.toList())
+                                  containerMainVenuesRecordList.toList())
                               .toList()
                               .take(4)
                               .toList();

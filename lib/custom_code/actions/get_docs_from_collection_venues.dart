@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<VenuesRecord>> getDocsFromCollectionVenues() async {
-  // TODO change the name here
+Future<List<VenuesRecord>> getDocsFromCollectionVenues(
+    String? countrystatedisplayname) async {
+  // Add your function code here!
   List<VenuesRecord> docs = [];
 
   // Get a reference to the Firestore database
@@ -19,7 +20,8 @@ Future<List<VenuesRecord>> getDocsFromCollectionVenues() async {
   final collectionRef = firestore.collection('venues');
 
   // Fetch all documents from the usersdata collection
-  Query query = collectionRef;
+  Query query = collectionRef.where("country_state_display_name",
+      isEqualTo: countrystatedisplayname);
 
   final querySnapshot = await query.get();
 
