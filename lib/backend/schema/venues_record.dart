@@ -108,6 +108,16 @@ class VenuesRecord extends FirestoreRecord {
   DateTime? get lastVenueViewDate => _lastVenueViewDate;
   bool hasLastVenueViewDate() => _lastVenueViewDate != null;
 
+  // "featured_venue" field.
+  bool? _featuredVenue;
+  bool get featuredVenue => _featuredVenue ?? false;
+  bool hasFeaturedVenue() => _featuredVenue != null;
+
+  // "isActive" field.
+  bool? _isActive;
+  bool get isActive => _isActive ?? false;
+  bool hasIsActive() => _isActive != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _regionID = snapshotData['regionID'] as String?;
@@ -129,6 +139,8 @@ class VenuesRecord extends FirestoreRecord {
     _latLong = snapshotData['lat_long'] as LatLng?;
     _viewsCount = castToType<int>(snapshotData['views_count']);
     _lastVenueViewDate = snapshotData['last_venue_view_date'] as DateTime?;
+    _featuredVenue = snapshotData['featured_venue'] as bool?;
+    _isActive = snapshotData['isActive'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -191,6 +203,8 @@ class VenuesRecord extends FirestoreRecord {
             () => DateTime.fromMillisecondsSinceEpoch(
                 snapshot.data['last_venue_view_date']),
           ),
+          'featured_venue': snapshot.data['featured_venue'],
+          'isActive': snapshot.data['isActive'],
         },
         VenuesRecord.collection.doc(snapshot.objectID),
       );
@@ -243,6 +257,8 @@ Map<String, dynamic> createVenuesRecordData({
   LatLng? latLong,
   int? viewsCount,
   DateTime? lastVenueViewDate,
+  bool? featuredVenue,
+  bool? isActive,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -262,6 +278,8 @@ Map<String, dynamic> createVenuesRecordData({
       'lat_long': latLong,
       'views_count': viewsCount,
       'last_venue_view_date': lastVenueViewDate,
+      'featured_venue': featuredVenue,
+      'isActive': isActive,
     }.withoutNulls,
   );
 
@@ -291,7 +309,9 @@ class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
         e1?.countryStateDisplayName == e2?.countryStateDisplayName &&
         e1?.latLong == e2?.latLong &&
         e1?.viewsCount == e2?.viewsCount &&
-        e1?.lastVenueViewDate == e2?.lastVenueViewDate;
+        e1?.lastVenueViewDate == e2?.lastVenueViewDate &&
+        e1?.featuredVenue == e2?.featuredVenue &&
+        e1?.isActive == e2?.isActive;
   }
 
   @override
@@ -313,7 +333,9 @@ class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
         e?.countryStateDisplayName,
         e?.latLong,
         e?.viewsCount,
-        e?.lastVenueViewDate
+        e?.lastVenueViewDate,
+        e?.featuredVenue,
+        e?.isActive
       ]);
 
   @override

@@ -20,8 +20,9 @@ Future<List<VenuesRecord>> getDocsFromCollectionVenues(
   final collectionRef = firestore.collection('venues');
 
   // Fetch all documents from the usersdata collection
-  Query query = collectionRef.where("country_state_display_name",
-      isEqualTo: countrystatedisplayname);
+  Query query = collectionRef
+      .where("country_state_display_name", isEqualTo: countrystatedisplayname)
+      .where("isActive", isEqualTo: true);
 
   final querySnapshot = await query.get();
 
