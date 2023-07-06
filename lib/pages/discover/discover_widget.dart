@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -14,20 +13,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'home_model.dart';
-export 'home_model.dart';
+import 'discover_model.dart';
+export 'discover_model.dart';
 
-class HomeWidget extends StatefulWidget {
-  const HomeWidget({Key? key}) : super(key: key);
+class DiscoverWidget extends StatefulWidget {
+  const DiscoverWidget({Key? key}) : super(key: key);
 
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  _DiscoverWidgetState createState() => _DiscoverWidgetState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
-  late HomeModel _model;
+class _DiscoverWidgetState extends State<DiscoverWidget>
+    with TickerProviderStateMixin {
+  late DiscoverModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng? currentUserLocationValue;
@@ -57,7 +58,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomeModel());
+    _model = createModel(context, () => DiscoverModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -215,42 +216,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       fontSize: 40.0,
                                       fontWeight: FontWeight.w800,
                                     ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 4.0, 0.0),
-                            child: Material(
-                              color: Colors.transparent,
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14.0),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).cultured,
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      2.0, 0.0, 0.0, 0.0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor: Colors.transparent,
-                                    borderRadius: 50.0,
-                                    buttonSize: 40.0,
-                                    fillColor: Color(0x00F4F4F4),
-                                    icon: Icon(
-                                      Icons.search_rounded,
-                                      color: Colors.black,
-                                      size: 24.0,
-                                    ),
-                                    onPressed: () {
-                                      print('IconButton pressed ...');
-                                    },
-                                  ).animateOnPageLoad(animationsMap[
-                                      'iconButtonOnPageLoadAnimation']!),
-                                ),
                               ),
                             ),
                           ),
@@ -590,6 +555,102 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     Padding(
                       padding:
+                          EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 10.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14.0),
+                              ),
+                              child: Container(
+                                height: 48.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0x8DF5F5F5),
+                                  borderRadius: BorderRadius.circular(14.0),
+                                  border: Border.all(
+                                    color: Color(0x19000000),
+                                    width: 1.0,
+                                  ),
+                                ),
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 4.0, 0.0),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            elevation: 2.0,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Color(0x7FF5F5F5),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                buttonSize: 30.0,
+                                                fillColor: Color(0x00F4F4F4),
+                                                icon: FaIcon(
+                                                  FontAwesomeIcons.search,
+                                                  color: Colors.black,
+                                                  size: 14.0,
+                                                ),
+                                                onPressed: () {
+                                                  print(
+                                                      'IconButton pressed ...');
+                                                },
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'iconButtonOnPageLoadAnimation']!),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Search venue',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF878787),
+                                              ),
+                                        ),
+                                      ]
+                                          .divide(SizedBox(width: 6.0))
+                                          .addToStart(SizedBox(width: 6.0)),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
                           EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -733,135 +794,137 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         alignment:
                                             AlignmentDirectional(0.0, 1.0),
                                         child: Container(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.05,
+                                          height: 46.0,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .cultured,
                                             borderRadius:
-                                                BorderRadius.circular(20.0),
+                                                BorderRadius.circular(40.0),
                                           ),
                                           child: Align(
                                             alignment:
                                                 AlignmentDirectional(0.0, 1.0),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(6.0, 0.0, 6.0, 0.0),
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 20.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
                                                             0.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        functions
-                                                            .upperCaseString(
-                                                                sortedVenuesByDistanceItem
-                                                                    .name)
-                                                            .maybeHandleOverflow(
-                                                              maxChars: 18,
-                                                              replacement: '…',
-                                                            ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .black,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.location_on_sharp,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .black,
-                                                    size: 20.0,
-                                                  ),
-                                                  FutureBuilder<
-                                                      ApiCallResponse>(
-                                                    future:
-                                                        GETMapboxDrivingDirectionsCall
-                                                            .call(
-                                                      coordinates: functions
-                                                          .getLngLatCoordinatesMapbox(
-                                                              currentUserLocationValue,
+                                                    child: Text(
+                                                      functions
+                                                          .upperCaseString(
                                                               sortedVenuesByDistanceItem
-                                                                  .latLong),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 20.0,
-                                                            height: 20.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: Color(
-                                                                  0xFFB19CD9),
-                                                            ),
+                                                                  .name)
+                                                          .maybeHandleOverflow(
+                                                            maxChars: 24,
+                                                            replacement: '…',
                                                           ),
-                                                        );
-                                                      }
-                                                      final textGETMapboxDrivingDirectionsResponse =
-                                                          snapshot.data!;
-                                                      return Text(
-                                                        valueOrDefault<String>(
-                                                          functions
-                                                              .convertMtsToKmsLabel(
-                                                                  GETMapboxDrivingDirectionsCall
-                                                                      .distance(
-                                                            textGETMapboxDrivingDirectionsResponse
-                                                                .jsonBody,
-                                                          )),
-                                                          'kms',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .black,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      );
-                                                    },
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .black,
+                                                                fontSize: 12.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                    ),
                                                   ),
-                                                ]
-                                                    .divide(
-                                                        SizedBox(width: 2.0))
-                                                    .addToStart(
-                                                        SizedBox(width: 4.0)),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.location_pin,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .black,
+                                                          size: 16.0,
+                                                        ),
+                                                        FutureBuilder<
+                                                            ApiCallResponse>(
+                                                          future:
+                                                              GETMapboxDrivingDirectionsCall
+                                                                  .call(
+                                                            coordinates: functions
+                                                                .getLngLatCoordinatesMapbox(
+                                                                    currentUserLocationValue,
+                                                                    sortedVenuesByDistanceItem
+                                                                        .latLong),
+                                                          ),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 20.0,
+                                                                  height: 20.0,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    color: Color(
+                                                                        0xFFB19CD9),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                            final textGETMapboxDrivingDirectionsResponse =
+                                                                snapshot.data!;
+                                                            return Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                functions.convertMtsToKmsLabel(
+                                                                    GETMapboxDrivingDirectionsCall
+                                                                        .distance(
+                                                                  textGETMapboxDrivingDirectionsResponse
+                                                                      .jsonBody,
+                                                                )),
+                                                                'kms',
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .black,
+                                                                    fontSize:
+                                                                        12.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                  ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ].divide(
+                                                          SizedBox(width: 4.0)),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -896,7 +959,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         currentUserReference))
                                                   Icon(
                                                     Icons.favorite_rounded,
-                                                    color: Color(0x34000000),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .black,
                                                     size: 28.0,
                                                   ),
                                                 Icon(
@@ -1058,6 +1123,45 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.8, -0.8),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.24,
+                                          height: 28.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .black,
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                          ),
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            child: Text(
+                                              sortedVenuesByDistanceItem
+                                                  .regionName
+                                                  .maybeHandleOverflow(
+                                                maxChars: 14,
+                                                replacement: '…',
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .cultured,
+                                                        fontSize: 11.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1145,8 +1249,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           decoration: BoxDecoration(),
                           child: Builder(
                             builder: (context) {
-                              final venuesFeatured =
-                                  containerFeaturedVenuesRecordList.toList();
+                              final venuesFeatured = functions
+                                  .shuffleCollection(
+                                      containerFeaturedVenuesRecordList
+                                          .toList())
+                                  .toList()
+                                  .take(4)
+                                  .toList();
                               return ListView.builder(
                                 padding: EdgeInsets.fromLTRB(
                                   10.0,
@@ -1237,119 +1346,140 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 AlignmentDirectional(0.0, 1.0),
                                             child: Container(
                                               width: double.infinity,
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  0.1,
-                                              decoration: BoxDecoration(),
+                                              height: 46.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .cultured,
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
                                               child: Align(
                                                 alignment: AlignmentDirectional(
                                                     0.0, 1.0),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          6.0, 0.0, 6.0, 0.0),
+                                                          20.0, 0.0, 20.0, 0.0),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
                                                                 0.0, 0.0),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      14.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            functions
-                                                                .upperCaseString(
-                                                                    venuesFeaturedItem
-                                                                        .name)
-                                                                .maybeHandleOverflow(
-                                                                  maxChars: 18,
-                                                                  replacement:
-                                                                      '…',
-                                                                ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .cultured,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                          ),
+                                                        child: Text(
+                                                          functions
+                                                              .upperCaseString(
+                                                                  venuesFeaturedItem
+                                                                      .name)
+                                                              .maybeHandleOverflow(
+                                                                maxChars: 18,
+                                                                replacement:
+                                                                    '…',
+                                                              ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .black,
+                                                                fontSize: 12.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
                                                         ),
                                                       ),
-                                                      FutureBuilder<
-                                                          ApiCallResponse>(
-                                                        future:
-                                                            GETMapboxDrivingDirectionsCall
-                                                                .call(
-                                                          coordinates: functions
-                                                              .getLngLatCoordinatesMapbox(
-                                                                  currentUserLocationValue,
-                                                                  venuesFeaturedItem
-                                                                      .latLong),
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
                                                         ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 20.0,
-                                                                height: 20.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: Color(
-                                                                      0xFFB19CD9),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final textGETMapboxDrivingDirectionsResponse =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              functions.convertMtsToKmsLabel(
-                                                                  GETMapboxDrivingDirectionsCall
-                                                                      .distance(
-                                                                textGETMapboxDrivingDirectionsResponse
-                                                                    .jsonBody,
-                                                              )),
-                                                              'kms',
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .location_pin,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .black,
+                                                              size: 16.0,
                                                             ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
+                                                            FutureBuilder<
+                                                                ApiCallResponse>(
+                                                              future:
+                                                                  GETMapboxDrivingDirectionsCall
+                                                                      .call(
+                                                                coordinates: functions.getLngLatCoordinatesMapbox(
+                                                                    currentUserLocationValue,
+                                                                    venuesFeaturedItem
+                                                                        .latLong),
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          20.0,
+                                                                      height:
+                                                                          20.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        color: Color(
+                                                                            0xFFB19CD9),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                final textGETMapboxDrivingDirectionsResponse =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    functions.convertMtsToKmsLabel(
+                                                                        GETMapboxDrivingDirectionsCall
+                                                                            .distance(
+                                                                      textGETMapboxDrivingDirectionsResponse
+                                                                          .jsonBody,
+                                                                    )),
+                                                                    'kms',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .cultured,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                          );
-                                                        },
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .black,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ].divide(SizedBox(
+                                                              width: 4.0)),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -1389,7 +1519,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                       Icon(
                                                         Icons.favorite_rounded,
                                                         color:
-                                                            Color(0x34000000),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black,
                                                         size: 28.0,
                                                       ),
                                                     Icon(
@@ -1453,11 +1585,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                           Align(
                                             alignment: AlignmentDirectional(
-                                                -0.8, -0.7),
+                                                -0.8, -0.8),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
-                                                  0.2,
+                                                  0.24,
                                               height: 28.0,
                                               decoration: BoxDecoration(
                                                 color:
@@ -1470,7 +1602,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Text(
-                                                  venuesFeaturedItem.regionName,
+                                                  venuesFeaturedItem.regionName
+                                                      .maybeHandleOverflow(
+                                                    maxChars: 14,
+                                                    replacement: '…',
+                                                  ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -1480,7 +1616,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .cultured,
-                                                        fontSize: 9.0,
+                                                        fontSize: 11.0,
                                                       ),
                                                 ),
                                               ),
@@ -1642,30 +1778,42 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 1.0),
+                                        child: Container(
+                                          height: 40.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .cultured,
+                                            borderRadius:
+                                                BorderRadius.circular(40.0),
+                                          ),
                                           alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    popularVenuesItem.name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            child: Text(
+                                              functions
+                                                  .upperCaseString(
+                                                      popularVenuesItem.name)
+                                                  .maybeHandleOverflow(
+                                                    maxChars: 18,
+                                                    replacement: '…',
+                                                  ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .black,
+                                                    fontSize: 10.0,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -1689,9 +1837,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         currentUserReference))
                                                   Icon(
                                                     Icons.favorite_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .black,
+                                                    color: Color(0xFFFF006E),
                                                     size: 24.0,
                                                   ),
                                                 if (!popularVenuesItem
@@ -1702,9 +1848,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                     Icons.favorite_rounded,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .cultured,
+                                                        .black,
                                                     size: 24.0,
                                                   ),
+                                                Icon(
+                                                  Icons.favorite_border,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  size: 24.0,
+                                                ),
                                                 InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -1825,6 +1978,44 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.7, -0.8),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.2,
+                                          height: 28.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .black,
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                          ),
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            child: Text(
+                                              popularVenuesItem.regionName
+                                                  .maybeHandleOverflow(
+                                                maxChars: 14,
+                                                replacement: '…',
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .cultured,
+                                                        fontSize: 9.0,
+                                                      ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -1982,30 +2173,42 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 1.0),
+                                        child: Container(
+                                          height: 40.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .cultured,
+                                            borderRadius:
+                                                BorderRadius.circular(40.0),
+                                          ),
                                           alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    trendingVenuesItem.name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            child: Text(
+                                              functions
+                                                  .upperCaseString(
+                                                      trendingVenuesItem.name)
+                                                  .maybeHandleOverflow(
+                                                    maxChars: 18,
+                                                    replacement: '…',
+                                                  ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .black,
+                                                    fontSize: 10.0,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -2029,9 +2232,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         currentUserReference))
                                                   Icon(
                                                     Icons.favorite_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .black,
+                                                    color: Color(0xFFFF006E),
                                                     size: 24.0,
                                                   ),
                                                 if (!trendingVenuesItem
@@ -2042,9 +2243,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                     Icons.favorite_rounded,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .cultured,
+                                                        .black,
                                                     size: 24.0,
                                                   ),
+                                                Icon(
+                                                  Icons.favorite_border_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .cultured,
+                                                  size: 24.0,
+                                                ),
                                                 InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -2093,323 +2301,40 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'McLaren Vale',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Nunito',
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w800,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Stack(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              children: [
-                                Text(
-                                  'See All',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Nunito',
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w800,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 0.26,
-                      decoration: BoxDecoration(),
-                      child: StreamBuilder<List<VenuesRecord>>(
-                        stream: queryVenuesRecord(
-                          queryBuilder: (venuesRecord) => venuesRecord.where(
-                              'country_state_display_name',
-                              isEqualTo: _model.choiceChipsValue),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 20.0,
-                                height: 20.0,
-                                child: CircularProgressIndicator(
-                                  color: Color(0xFFB19CD9),
-                                ),
-                              ),
-                            );
-                          }
-                          List<VenuesRecord> listViewFeaturedVenuesRecordList =
-                              snapshot.data!;
-                          return ListView.builder(
-                            padding: EdgeInsets.fromLTRB(
-                              10.0,
-                              0,
-                              10.0,
-                              0,
-                            ),
-                            primary: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: listViewFeaturedVenuesRecordList.length,
-                            itemBuilder: (context, listViewFeaturedIndex) {
-                              final listViewFeaturedVenuesRecord =
-                                  listViewFeaturedVenuesRecordList[
-                                      listViewFeaturedIndex];
-                              return Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
-                                ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.44,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: Hero(
-                                          tag: listViewFeaturedVenuesRecord
-                                              .image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.7, -0.8),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.2,
+                                          height: 28.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .black,
                                             borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              listViewFeaturedVenuesRecord
-                                                  .image,
-                                              width: double.infinity,
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  0.24,
-                                              fit: BoxFit.cover,
-                                            ),
+                                                BorderRadius.circular(50.0),
                                           ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            child: Text(
+                                              trendingVenuesItem.regionName
+                                                  .maybeHandleOverflow(
+                                                maxChars: 14,
+                                                replacement: '…',
                                               ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    listViewFeaturedVenuesRecord
-                                                        .name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
-                                                ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.9, -0.64),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            height: 40.0,
-                                            child: Stack(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x65000000),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: ToggleIcon(
-                                                      onPressed: () async {
-                                                        final isFavouritedByElement =
-                                                            currentUserReference;
-                                                        final isFavouritedByUpdate =
-                                                            listViewFeaturedVenuesRecord
-                                                                    .isFavouritedBy
-                                                                    .contains(
-                                                                        isFavouritedByElement)
-                                                                ? FieldValue
-                                                                    .arrayRemove([
-                                                                    isFavouritedByElement
-                                                                  ])
-                                                                : FieldValue
-                                                                    .arrayUnion([
-                                                                    isFavouritedByElement
-                                                                  ]);
-                                                        await listViewFeaturedVenuesRecord
-                                                            .reference
-                                                            .update({
-                                                          'is_favourited_by':
-                                                              isFavouritedByUpdate,
-                                                        });
-                                                      },
-                                                      value: listViewFeaturedVenuesRecord
-                                                          .isFavouritedBy
-                                                          .contains(
-                                                              currentUserReference),
-                                                      onIcon: Icon(
-                                                        Icons.favorite_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .pinkPastel,
-                                                        size: 16.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .cultured,
-                                                        size: 14.0,
+                                                        fontSize: 9.0,
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (listViewFeaturedVenuesRecord
-                                                        .isFavouritedBy
-                                                        .contains(
-                                                            currentUserReference)) {
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
-                                                      });
-                                                    } else {
-                                                      await listViewFeaturedVenuesRecord
-                                                          .reference
-                                                          .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
-                                                      });
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
                                             ),
                                           ),
                                         ),
@@ -2435,14 +2360,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Langhorne Creek',
+                              'Just for You',
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
-                                    fontFamily: 'Nunito',
+                                    fontFamily: 'Poppins',
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.w800,
-                                    useGoogleFonts: false,
                                   ),
                             ),
                           ),
@@ -2459,10 +2383,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Nunito',
+                                        fontFamily: 'Poppins',
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.w800,
-                                        useGoogleFonts: false,
                                       ),
                                 ),
                                 Container(
@@ -2476,221 +2399,359 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Langhorne Creek',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Nunito',
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w800,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Stack(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              children: [
-                                Text(
-                                  'See All',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Nunito',
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w800,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                    FutureBuilder<List<VenuesRecord>>(
+                      future: queryVenuesRecordOnce(
+                        queryBuilder: (venuesRecord) => venuesRecord.where(
+                            'country_state_display_name',
+                            isEqualTo: _model.choiceChipsValue),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 0.26,
-                      decoration: BoxDecoration(),
-                      child: Builder(
-                        builder: (context) {
-                          final featuredVenues = functions
-                              .shuffleCollection(
-                                  containerMainVenuesRecordList.toList())
-                              .toList()
-                              .take(4)
-                              .toList();
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            primary: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: featuredVenues.length,
-                            itemBuilder: (context, featuredVenuesIndex) {
-                              final featuredVenuesItem =
-                                  featuredVenues[featuredVenuesIndex];
-                              return Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Colors.white,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34.0),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 20.0,
+                              height: 20.0,
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFB19CD9),
+                              ),
+                            ),
+                          );
+                        }
+                        List<VenuesRecord> containerJustForYouVenuesRecordList =
+                            snapshot.data!;
+                        return Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: MediaQuery.sizeOf(context).height * 0.26,
+                          decoration: BoxDecoration(),
+                          child: Builder(
+                            builder: (context) {
+                              final venuesJustForYou = functions
+                                  .shuffleCollection(
+                                      containerJustForYouVenuesRecordList
+                                          .toList())
+                                  .toList()
+                                  .take(4)
+                                  .toList();
+                              return ListView.builder(
+                                padding: EdgeInsets.fromLTRB(
+                                  10.0,
+                                  0,
+                                  10.0,
+                                  0,
                                 ),
-                                child: Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.44,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: Hero(
-                                          tag: featuredVenuesItem.image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              featuredVenuesItem.image,
-                                              width: double.infinity,
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  0.24,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: venuesJustForYou.length,
+                                itemBuilder: (context, venuesJustForYouIndex) {
+                                  final venuesJustForYouItem =
+                                      venuesJustForYou[venuesJustForYouIndex];
+                                  return Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    color: Colors.white,
+                                    elevation: 4.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(34.0),
+                                    ),
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.44,
+                                      child: Stack(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.9),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.12,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xE6000000)
-                                                ],
-                                                stops: [0.0, 1.0],
-                                                begin: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                end: AlignmentDirectional(
-                                                    0, 1.0),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(34.0),
-                                                bottomRight:
-                                                    Radius.circular(34.0),
-                                                topLeft: Radius.circular(0.0),
-                                                topRight: Radius.circular(0.0),
+                                            AlignmentDirectional(0.0, 0.0),
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    4.0, 4.0, 4.0, 4.0),
+                                            child: Hero(
+                                              tag: venuesJustForYouItem.image,
+                                              transitionOnUserGestures: true,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(34.0),
+                                                child: Image.network(
+                                                  venuesJustForYouItem.image,
+                                                  width: double.infinity,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.24,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.5, 0.7),
-                                          child: Text(
-                                            functions
-                                                .upperCaseString(
-                                                    featuredVenuesItem.name)
-                                                .maybeHandleOverflow(
-                                                  maxChars: 18,
-                                                  replacement: '…',
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.9),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(4.0, 0.0, 4.0, 0.0),
+                                              child: Container(
+                                                width: double.infinity,
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.12,
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      Colors.transparent,
+                                                      Color(0xE6000000)
+                                                    ],
+                                                    stops: [0.0, 1.0],
+                                                    begin: AlignmentDirectional(
+                                                        0.0, -1.0),
+                                                    end: AlignmentDirectional(
+                                                        0, 1.0),
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(34.0),
+                                                    bottomRight:
+                                                        Radius.circular(34.0),
+                                                    topLeft:
+                                                        Radius.circular(0.0),
+                                                    topRight:
+                                                        Radius.circular(0.0),
+                                                  ),
                                                 ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cultured,
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.9, -0.64),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  100.0, 0.0, 0.0, 100.0),
-                                          child: Container(
-                                            height: 40.0,
-                                            child: Stack(
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 1.0),
+                                            child: Container(
+                                              height: 40.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .cultured,
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 30.0,
-                                                    height: 30.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x65000000),
-                                                      shape: BoxShape.circle,
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Text(
+                                                  functions
+                                                      .upperCaseString(
+                                                          venuesJustForYouItem
+                                                              .name)
+                                                      .maybeHandleOverflow(
+                                                        maxChars: 18,
+                                                        replacement: '…',
+                                                      ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black,
+                                                        fontSize: 10.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: AlignmentDirectional(
+                                                -0.7, -0.8),
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.2,
+                                              height: 28.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black,
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                              ),
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Text(
+                                                  venuesJustForYouItem
+                                                      .regionName
+                                                      .maybeHandleOverflow(
+                                                    maxChars: 14,
+                                                    replacement: '…',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .cultured,
+                                                        fontSize: 9.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 0.3,
+                        decoration: BoxDecoration(),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(0.0),
+                              child: Image.network(
+                                'https://res.cloudinary.com/rigcloudinary/image/upload/v1688608846/CellarDweller/App%20Images/French-Chateau_pydq7j.webp',
+                                width: double.infinity,
+                                height: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Container(
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.22,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20.0, 0.0, 20.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      14.0, 14.0, 14.0, 14.0),
+                                              child: Text(
+                                                'Can\'t find your favourite Venue?',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .cultured,
+                                                          fontSize: 30.0,
+                                                          letterSpacing: 0.1,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          lineHeight: 1.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              Material(
+                                                color: Colors.transparent,
+                                                elevation: 4.0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .black,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                16.0,
+                                                                10.0,
+                                                                16.0,
+                                                                10.0),
+                                                    child: Text(
+                                                      'Suggest venue',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .cultured,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                     ),
                                                   ),
                                                 ),
-                                                Container(
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
+                                    ]
+                                        .divide(SizedBox(height: 10.0))
+                                        .around(SizedBox(height: 10.0)),
                                   ),
                                 ),
-                              );
-                            },
-                          );
-                        },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Container(

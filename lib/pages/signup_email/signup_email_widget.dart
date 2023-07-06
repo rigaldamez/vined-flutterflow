@@ -336,7 +336,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                               return;
                             }
 
-                            context.goNamedAuth('HomePage', context.mounted);
+                            context.goNamedAuth('Discover', context.mounted);
                           },
                           text: 'Sign up',
                           options: FFButtonOptions(

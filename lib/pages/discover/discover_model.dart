@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -14,10 +13,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class HomeModel extends FlutterFlowModel {
+class DiscoverModel extends FlutterFlowModel {
   ///  Local state fields for this page.
 
   LatLng? currentUserLocation;
@@ -55,11 +55,11 @@ class HomeModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - countCollectionDocs] action in Home widget.
+  // Stores action output result for [Custom Action - countCollectionDocs] action in Discover widget.
   int? highlightsCount;
-  // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Home widget.
+  // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Discover widget.
   List<VenuesRecord>? venuesList;
-  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Home widget.
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Discover widget.
   List<VenuesRecord>? sortedVenuesByDistanceOutput;
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;

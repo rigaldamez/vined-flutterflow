@@ -115,7 +115,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'HomePage';
+  String _currentPageName = 'Discover';
   late Widget? _currentPage;
 
   @override
@@ -128,10 +128,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'Discover': DiscoverWidget(),
       'HomePage': HomePageWidget(),
       'CreateTour': CreateTourWidget(),
       'Profile': ProfileWidget(),
-      'Home': HomeWidget(),
       'HomeCopy': HomeCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -160,21 +160,21 @@ class _NavBarPageState extends State<NavBarPage> {
         margin: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
         padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
         width: MediaQuery.sizeOf(context).width * 0.9,
-        elevation: 60.0,
+        elevation: 70.0,
         items: [
           FloatingNavbarItem(
             customWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.wine_bar,
+                  Icons.grain,
                   color: currentIndex == 0
                       ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
                   size: 24.0,
                 ),
                 Text(
-                  'Explore',
+                  'Discover',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -191,14 +191,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.directions_bus_rounded,
+                  Icons.wine_bar,
                   color: currentIndex == 1
                       ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
                   size: 24.0,
                 ),
                 Text(
-                  'Tours',
+                  'Explore',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -215,14 +215,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.person,
+                  Icons.directions_bus_rounded,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
                   size: 24.0,
                 ),
                 Text(
-                  'Profile',
+                  'Tours',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -239,14 +239,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.grain,
+                  Icons.person,
                   color: currentIndex == 3
                       ? FlutterFlowTheme.of(context).pinkPastel
                       : Color(0xFFF4F4F4),
                   size: 24.0,
                 ),
                 Text(
-                  'Home',
+                  'Profile',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3

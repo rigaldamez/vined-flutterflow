@@ -205,7 +205,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           }
 
                                                           context.goNamedAuth(
-                                                              'HomePage',
+                                                              'Discover',
                                                               context.mounted);
                                                         },
                                                         text:
@@ -314,7 +314,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     }
 
                                                     context.goNamedAuth(
-                                                        'HomePage',
+                                                        'Discover',
                                                         context.mounted);
                                                   },
                                                   text: 'Continue with Google',
@@ -394,7 +394,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   return;
                                                 }
 
-                                                context.goNamedAuth('HomePage',
+                                                context.goNamedAuth('Discover',
                                                     context.mounted);
                                               },
                                               text: 'Continue with Apple',
@@ -583,7 +583,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           }
 
                                                           context.goNamedAuth(
-                                                              'HomePage',
+                                                              'Discover',
                                                               context.mounted);
                                                         },
                                                         text:
@@ -692,7 +692,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     }
 
                                                     context.goNamedAuth(
-                                                        'HomePage',
+                                                        'Discover',
                                                         context.mounted);
                                                   },
                                                   text: 'Sign up with Google',
@@ -772,7 +772,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   return;
                                                 }
 
-                                                context.goNamedAuth('HomePage',
+                                                context.goNamedAuth('Discover',
                                                     context.mounted);
                                               },
                                               text: 'Sign up with Apple',

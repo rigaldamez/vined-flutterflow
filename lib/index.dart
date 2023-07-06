@@ -37,5 +37,5 @@ export '/pages/users/users_widget.dart' show UsersWidget;
 export '/pages/select_driver/select_driver_widget.dart' show SelectDriverWidget;
 export '/pages/submit_tour/submit_tour_widget.dart' show SubmitTourWidget;
 export '/pages/web_view/web_view_widget.dart' show WebViewWidget;
-export '/pages/home/home_widget.dart' show HomeWidget;
+export '/pages/discover/discover_widget.dart' show DiscoverWidget;
 export '/pages/home_copy/home_copy_widget.dart' show HomeCopyWidget;

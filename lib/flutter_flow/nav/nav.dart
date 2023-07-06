@@ -327,12 +327,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => WebViewWidget(),
             ),
             FFRoute(
-              name: 'Home',
-              path: 'home',
+              name: 'Discover',
+              path: 'Discover',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Home')
-                  : HomeWidget(),
+                  ? NavBarPage(initialPage: 'Discover')
+                  : DiscoverWidget(),
             ),
             FFRoute(
               name: 'HomeCopy',
