@@ -72,6 +72,18 @@ class DiscoverModel extends FlutterFlowModel {
   List<VenuesRecord>? venuesList2;
   // Stores action output result for [Custom Action - sortVenuesByDistance] action in Container widget.
   List<VenuesRecord>? sortedVenuesByDistanceOutput2;
+  // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Container widget.
+  List<VenuesRecord>? venuesList3;
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Container widget.
+  List<VenuesRecord>? sortedVenuesByDistanceOutput3;
+  // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Container widget.
+  List<VenuesRecord>? venuesList5;
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Container widget.
+  List<VenuesRecord>? sortedVenuesByDistanceOutput5;
+  // Stores action output result for [Custom Action - getDocsFromCollectionVenues] action in Container widget.
+  List<VenuesRecord>? venuesList4;
+  // Stores action output result for [Custom Action - sortVenuesByDistance] action in Container widget.
+  List<VenuesRecord>? sortedVenuesByDistanceOutput4;
 
   /// Initialization and disposal methods.
 
