@@ -34,7 +34,26 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
   LatLng? currentUserLocationValue;
 
   final animationsMap = {
-    'iconButtonOnPageLoadAnimation': AnimationInfo(
+    'iconButtonOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(1.0, 1.0),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'iconButtonOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         FadeEffect(
@@ -591,14 +610,70 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                   children: [
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(4.0, 0.0, 4.0, 0.0),
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                elevation: 1.0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0x7FF5F5F5),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  child: FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    buttonSize: 30.0,
+                                                    fillColor:
+                                                        Color(0x00F4F4F4),
+                                                    icon: FaIcon(
+                                                      FontAwesomeIcons.search,
+                                                      color: Colors.black,
+                                                      size: 14.0,
+                                                    ),
+                                                    onPressed: () {
+                                                      print(
+                                                          'IconButton pressed ...');
+                                                    },
+                                                  ).animateOnPageLoad(animationsMap[
+                                                      'iconButtonOnPageLoadAnimation1']!),
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Search venue, apply filters',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF878787),
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 4.0, 0.0),
                                           child: Material(
                                             color: Colors.transparent,
-                                            elevation: 2.0,
+                                            elevation: 1.0,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
@@ -611,10 +686,11 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                               ),
                                               child: FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
+                                                borderRadius: 30.0,
                                                 buttonSize: 30.0,
                                                 fillColor: Color(0x00F4F4F4),
                                                 icon: FaIcon(
-                                                  FontAwesomeIcons.search,
+                                                  FontAwesomeIcons.stream,
                                                   color: Colors.black,
                                                   size: 14.0,
                                                 ),
@@ -623,22 +699,11 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       'IconButton pressed ...');
                                                 },
                                               ).animateOnPageLoad(animationsMap[
-                                                  'iconButtonOnPageLoadAnimation']!),
+                                                  'iconButtonOnPageLoadAnimation2']!),
                                             ),
                                           ),
                                         ),
-                                        Text(
-                                          'Search venue, apply filters',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF878787),
-                                              ),
-                                        ),
-                                      ]
-                                          .divide(SizedBox(width: 6.0))
-                                          .addToStart(SizedBox(width: 6.0)),
+                                      ],
                                     ),
                                     Container(
                                       width: double.infinity,
@@ -858,79 +923,97 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       color: FlutterFlowTheme
                                                               .of(context)
                                                           .secondaryBackground,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6.0),
+                                                      border: Border.all(
+                                                        width: 1.0,
+                                                      ),
                                                     ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_pin,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .black,
-                                                          size: 16.0,
-                                                        ),
-                                                        FutureBuilder<
-                                                            ApiCallResponse>(
-                                                          future:
-                                                              GETMapboxDrivingDirectionsCall
-                                                                  .call(
-                                                            coordinates: functions
-                                                                .getLngLatCoordinatesMapbox(
-                                                                    currentUserLocationValue,
-                                                                    sortedVenuesByDistanceItem
-                                                                        .latLong),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2.0,
+                                                                  2.0,
+                                                                  2.0,
+                                                                  2.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.location_pin,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .black,
+                                                            size: 16.0,
                                                           ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 20.0,
-                                                                  height: 20.0,
+                                                          FutureBuilder<
+                                                              ApiCallResponse>(
+                                                            future:
+                                                                GETMapboxDrivingDirectionsCall
+                                                                    .call(
+                                                              coordinates: functions
+                                                                  .getLngLatCoordinatesMapbox(
+                                                                      currentUserLocationValue,
+                                                                      sortedVenuesByDistanceItem
+                                                                          .latLong),
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
                                                                   child:
-                                                                      CircularProgressIndicator(
-                                                                    color: Color(
-                                                                        0xFFB19CD9),
+                                                                      SizedBox(
+                                                                    width: 20.0,
+                                                                    height:
+                                                                        20.0,
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                      color: Color(
+                                                                          0xFFB19CD9),
+                                                                    ),
                                                                   ),
+                                                                );
+                                                              }
+                                                              final textGETMapboxDrivingDirectionsResponse =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  functions.convertMtsToKmsLabel(
+                                                                      GETMapboxDrivingDirectionsCall
+                                                                          .distance(
+                                                                    textGETMapboxDrivingDirectionsResponse
+                                                                        .jsonBody,
+                                                                  )),
+                                                                  'kms',
                                                                 ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .black,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
                                                               );
-                                                            }
-                                                            final textGETMapboxDrivingDirectionsResponse =
-                                                                snapshot.data!;
-                                                            return Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                functions.convertMtsToKmsLabel(
-                                                                    GETMapboxDrivingDirectionsCall
-                                                                        .distance(
-                                                                  textGETMapboxDrivingDirectionsResponse
-                                                                      .jsonBody,
-                                                                )),
-                                                                'kms',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .black,
-                                                                    fontSize:
-                                                                        12.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ].divide(
-                                                          SizedBox(width: 2.0)),
+                                                            },
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 1.0)),
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -1402,79 +1485,97 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       color: FlutterFlowTheme
                                                               .of(context)
                                                           .secondaryBackground,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6.0),
+                                                      border: Border.all(
+                                                        width: 1.0,
+                                                      ),
                                                     ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_pin,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .black,
-                                                          size: 16.0,
-                                                        ),
-                                                        FutureBuilder<
-                                                            ApiCallResponse>(
-                                                          future:
-                                                              GETMapboxDrivingDirectionsCall
-                                                                  .call(
-                                                            coordinates: functions
-                                                                .getLngLatCoordinatesMapbox(
-                                                                    currentUserLocationValue,
-                                                                    listViewFeaturedVenuesRecord
-                                                                        .latLong),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2.0,
+                                                                  2.0,
+                                                                  2.0,
+                                                                  2.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.location_pin,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .black,
+                                                            size: 16.0,
                                                           ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 20.0,
-                                                                  height: 20.0,
+                                                          FutureBuilder<
+                                                              ApiCallResponse>(
+                                                            future:
+                                                                GETMapboxDrivingDirectionsCall
+                                                                    .call(
+                                                              coordinates: functions
+                                                                  .getLngLatCoordinatesMapbox(
+                                                                      currentUserLocationValue,
+                                                                      listViewFeaturedVenuesRecord
+                                                                          .latLong),
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
                                                                   child:
-                                                                      CircularProgressIndicator(
-                                                                    color: Color(
-                                                                        0xFFB19CD9),
+                                                                      SizedBox(
+                                                                    width: 20.0,
+                                                                    height:
+                                                                        20.0,
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                      color: Color(
+                                                                          0xFFB19CD9),
+                                                                    ),
                                                                   ),
+                                                                );
+                                                              }
+                                                              final textGETMapboxDrivingDirectionsResponse =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  functions.convertMtsToKmsLabel(
+                                                                      GETMapboxDrivingDirectionsCall
+                                                                          .distance(
+                                                                    textGETMapboxDrivingDirectionsResponse
+                                                                        .jsonBody,
+                                                                  )),
+                                                                  'kms',
                                                                 ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .black,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
                                                               );
-                                                            }
-                                                            final textGETMapboxDrivingDirectionsResponse =
-                                                                snapshot.data!;
-                                                            return Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                functions.convertMtsToKmsLabel(
-                                                                    GETMapboxDrivingDirectionsCall
-                                                                        .distance(
-                                                                  textGETMapboxDrivingDirectionsResponse
-                                                                      .jsonBody,
-                                                                )),
-                                                                'kms',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .black,
-                                                                    fontSize:
-                                                                        12.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ].divide(
-                                                          SizedBox(width: 2.0)),
+                                                            },
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 1.0)),
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -2415,275 +2516,6 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                     0.0, 0.0),
                                                 child: Text(
                                                   popularVenuesItem.regionName
-                                                      .maybeHandleOverflow(
-                                                    maxChars: 14,
-                                                    replacement: '…',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .cultured,
-                                                        fontSize: 9.0,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Just for You',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Stack(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              children: [
-                                Text(
-                                  'See All',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                ),
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    StreamBuilder<List<VenuesRecord>>(
-                      stream: queryVenuesRecord(
-                        queryBuilder: (venuesRecord) => venuesRecord
-                            .where('country_state_display_name',
-                                isEqualTo: _model.choiceChipsValue)
-                            .where('isActive', isEqualTo: true),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 20.0,
-                              height: 20.0,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
-                              ),
-                            ),
-                          );
-                        }
-                        List<VenuesRecord> containerJustForYouVenuesRecordList =
-                            snapshot.data!;
-                        return Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: MediaQuery.sizeOf(context).height * 0.26,
-                          decoration: BoxDecoration(),
-                          child: Builder(
-                            builder: (context) {
-                              final venuesJustForYou = functions
-                                  .shuffleCollection(
-                                      containerJustForYouVenuesRecordList
-                                          .toList())
-                                  .toList()
-                                  .take(4)
-                                  .toList();
-                              return ListView.builder(
-                                padding: EdgeInsets.fromLTRB(
-                                  10.0,
-                                  0,
-                                  10.0,
-                                  0,
-                                ),
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: venuesJustForYou.length,
-                                itemBuilder: (context, venuesJustForYouIndex) {
-                                  final venuesJustForYouItem =
-                                      venuesJustForYou[venuesJustForYouIndex];
-                                  return Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Colors.white,
-                                    elevation: 4.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(34.0),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.44,
-                                      child: Stack(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    4.0, 4.0, 4.0, 4.0),
-                                            child: Hero(
-                                              tag: venuesJustForYouItem.image,
-                                              transitionOnUserGestures: true,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(34.0),
-                                                child: Image.network(
-                                                  venuesJustForYouItem.image,
-                                                  width: double.infinity,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.24,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.9),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(4.0, 0.0, 4.0, 0.0),
-                                              child: Container(
-                                                width: double.infinity,
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.12,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Colors.transparent,
-                                                      Color(0xE6000000)
-                                                    ],
-                                                    stops: [0.0, 1.0],
-                                                    begin: AlignmentDirectional(
-                                                        0.0, -1.0),
-                                                    end: AlignmentDirectional(
-                                                        0, 1.0),
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(34.0),
-                                                    bottomRight:
-                                                        Radius.circular(34.0),
-                                                    topLeft:
-                                                        Radius.circular(0.0),
-                                                    topRight:
-                                                        Radius.circular(0.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 1.0),
-                                            child: Container(
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .cultured,
-                                                borderRadius:
-                                                    BorderRadius.circular(40.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Text(
-                                                  functions
-                                                      .upperCaseString(
-                                                          venuesJustForYouItem
-                                                              .name)
-                                                      .maybeHandleOverflow(
-                                                        maxChars: 18,
-                                                        replacement: '…',
-                                                      ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .black,
-                                                        fontSize: 10.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.7, -0.8),
-                                            child: Container(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.2,
-                                              height: 28.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .black,
-                                                borderRadius:
-                                                    BorderRadius.circular(50.0),
-                                              ),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Text(
-                                                  venuesJustForYouItem
-                                                      .regionName
                                                       .maybeHandleOverflow(
                                                     maxChars: 14,
                                                     replacement: '…',
