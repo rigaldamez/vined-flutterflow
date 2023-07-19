@@ -58,6 +58,11 @@ class AppConfigRecord extends FirestoreRecord {
   double get lunchVenueFee => _lunchVenueFee ?? 0.0;
   bool hasLunchVenueFee() => _lunchVenueFee != null;
 
+  // "mapbox_key" field.
+  String? _mapboxKey;
+  String get mapboxKey => _mapboxKey ?? '';
+  bool hasMapboxKey() => _mapboxKey != null;
+
   void _initializeFields() {
     _vinedMessengerURL = snapshotData['vinedMessengerURL'] as String?;
     _itineraryVenueLimit = castToType<int>(snapshotData['itineraryVenueLimit']);
@@ -70,6 +75,7 @@ class AppConfigRecord extends FirestoreRecord {
     _largeGroupVenuesEarlySeatingThreshold = castToType<int>(
         snapshotData['large_group_venues_early_seating_threshold']);
     _lunchVenueFee = castToType<double>(snapshotData['lunch_venue_fee']);
+    _mapboxKey = snapshotData['mapbox_key'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -115,6 +121,7 @@ Map<String, dynamic> createAppConfigRecordData({
   int? largeGroupThreshold,
   int? largeGroupVenuesEarlySeatingThreshold,
   double? lunchVenueFee,
+  String? mapboxKey,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -127,6 +134,7 @@ Map<String, dynamic> createAppConfigRecordData({
       'large_group_venues_early_seating_threshold':
           largeGroupVenuesEarlySeatingThreshold,
       'lunch_venue_fee': lunchVenueFee,
+      'mapbox_key': mapboxKey,
     }.withoutNulls,
   );
 
@@ -146,7 +154,8 @@ class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
         e1?.largeGroupThreshold == e2?.largeGroupThreshold &&
         e1?.largeGroupVenuesEarlySeatingThreshold ==
             e2?.largeGroupVenuesEarlySeatingThreshold &&
-        e1?.lunchVenueFee == e2?.lunchVenueFee;
+        e1?.lunchVenueFee == e2?.lunchVenueFee &&
+        e1?.mapboxKey == e2?.mapboxKey;
   }
 
   @override
@@ -158,7 +167,8 @@ class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
         e?.vinedWebsiteURL,
         e?.largeGroupThreshold,
         e?.largeGroupVenuesEarlySeatingThreshold,
-        e?.lunchVenueFee
+        e?.lunchVenueFee,
+        e?.mapboxKey
       ]);
 
   @override

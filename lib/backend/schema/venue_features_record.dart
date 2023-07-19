@@ -21,16 +21,10 @@ class VenueFeaturesRecord extends FirestoreRecord {
   String get featureName => _featureName ?? '';
   bool hasFeatureName() => _featureName != null;
 
-  // "feature_emoji" field.
-  String? _featureEmoji;
-  String get featureEmoji => _featureEmoji ?? '';
-  bool hasFeatureEmoji() => _featureEmoji != null;
-
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _featureName = snapshotData['feature_name'] as String?;
-    _featureEmoji = snapshotData['feature_emoji'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -74,12 +68,10 @@ class VenueFeaturesRecord extends FirestoreRecord {
 
 Map<String, dynamic> createVenueFeaturesRecordData({
   String? featureName,
-  String? featureEmoji,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'feature_name': featureName,
-      'feature_emoji': featureEmoji,
     }.withoutNulls,
   );
 
@@ -92,13 +84,12 @@ class VenueFeaturesRecordDocumentEquality
 
   @override
   bool equals(VenueFeaturesRecord? e1, VenueFeaturesRecord? e2) {
-    return e1?.featureName == e2?.featureName &&
-        e1?.featureEmoji == e2?.featureEmoji;
+    return e1?.featureName == e2?.featureName;
   }
 
   @override
   int hash(VenueFeaturesRecord? e) =>
-      const ListEquality().hash([e?.featureName, e?.featureEmoji]);
+      const ListEquality().hash([e?.featureName]);
 
   @override
   bool isValidKey(Object? o) => o is VenueFeaturesRecord;
