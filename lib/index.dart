@@ -3,11 +3,7 @@ export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/pages/onboarding/onboarding_widget.dart' show OnboardingWidget;
 export '/pages/see_all_cellars/see_all_cellars_widget.dart'
     show SeeAllCellarsWidget;
-export '/pages/base_home_page/base_home_page_widget.dart'
-    show BaseHomePageWidget;
 export '/pages/activity/activity_widget.dart' show ActivityWidget;
-export '/pages/f_ilter_wineries/f_ilter_wineries_widget.dart'
-    show FIlterWineriesWidget;
 export '/pages/create_tour/create_tour_widget.dart' show CreateTourWidget;
 export '/pages/create_new_tour1/create_new_tour1_widget.dart'
     show CreateNewTour1Widget;
@@ -38,4 +34,5 @@ export '/pages/select_driver/select_driver_widget.dart' show SelectDriverWidget;
 export '/pages/submit_tour/submit_tour_widget.dart' show SubmitTourWidget;
 export '/pages/web_view/web_view_widget.dart' show WebViewWidget;
 export '/pages/discover/discover_widget.dart' show DiscoverWidget;
-export '/pages/home_copy/home_copy_widget.dart' show HomeCopyWidget;
+export '/pages/search_all/search_all_widget.dart' show SearchAllWidget;
+export '/pages/venue_details/venue_details_widget.dart' show VenueDetailsWidget;

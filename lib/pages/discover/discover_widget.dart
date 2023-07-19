@@ -116,18 +116,6 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
         _model.venuesSortedByDistancePS =
             _model.sortedVenuesByDistanceOutput!.toList().cast<VenuesRecord>();
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'On Page Load completed',
-            style: TextStyle(
-              color: FlutterFlowTheme.of(context).black,
-            ),
-          ),
-          duration: Duration(milliseconds: 1000),
-          backgroundColor: FlutterFlowTheme.of(context).secondary,
-        ),
-      );
     });
 
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
@@ -154,7 +142,9 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
             width: 20.0,
             height: 20.0,
             child: CircularProgressIndicator(
-              color: Color(0xFFB19CD9),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Color(0xFFB19CD9),
+              ),
             ),
           ),
         ),
@@ -181,7 +171,9 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                   width: 20.0,
                   height: 20.0,
                   child: CircularProgressIndicator(
-                    color: Color(0xFFB19CD9),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFFB19CD9),
+                    ),
                   ),
                 ),
               );
@@ -285,7 +277,11 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                               width: 20.0,
                                               height: 20.0,
                                               child: CircularProgressIndicator(
-                                                color: Color(0xFFB19CD9),
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  Color(0xFFB19CD9),
+                                                ),
                                               ),
                                             ),
                                           );
@@ -477,7 +473,10 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                         width: 20.0,
                                         height: 20.0,
                                         child: CircularProgressIndicator(
-                                          color: Color(0xFFB19CD9),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Color(0xFFB19CD9),
+                                          ),
                                         ),
                                       ),
                                     );
@@ -597,7 +596,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                               child: Container(
                                 height: 48.0,
                                 decoration: BoxDecoration(
-                                  color: Color(0x8DF5F5F5),
+                                  color: Color(0xFFF5F5F5),
                                   borderRadius: BorderRadius.circular(14.0),
                                   border: Border.all(
                                     color: Color(0x19000000),
@@ -814,16 +813,48 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             6.0, 6.0, 6.0, 6.0),
-                                        child: Hero(
-                                          tag: sortedVenuesByDistanceItem.image,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(34.0),
-                                            child: Image.network(
-                                              sortedVenuesByDistanceItem.image,
-                                              width: double.infinity,
-                                              fit: BoxFit.cover,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              'VenueDetails',
+                                              queryParameters: {
+                                                'selectedVenueReff':
+                                                    serializeParam(
+                                                  sortedVenuesByDistanceItem
+                                                      .reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 100),
+                                                ),
+                                              },
+                                            );
+                                          },
+                                          child: Hero(
+                                            tag: sortedVenuesByDistanceItem
+                                                .image,
+                                            transitionOnUserGestures: true,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(34.0),
+                                              child: Image.network(
+                                                sortedVenuesByDistanceItem
+                                                    .image,
+                                                width: double.infinity,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -973,8 +1004,12 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                                         20.0,
                                                                     child:
                                                                         CircularProgressIndicator(
-                                                                      color: Color(
-                                                                          0xFFB19CD9),
+                                                                      valueColor:
+                                                                          AlwaysStoppedAnimation<
+                                                                              Color>(
+                                                                        Color(
+                                                                            0xFFB19CD9),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 );
@@ -1098,25 +1133,6 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                             .cast<
                                                                 VenuesRecord>();
                                                       });
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Remove from set',
-                                                            style: TextStyle(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .cultured,
-                                                            ),
-                                                          ),
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  1000),
-                                                          backgroundColor:
-                                                              Color(0xFFFF006E),
-                                                        ),
-                                                      );
                                                     } else {
                                                       await sortedVenuesByDistanceItem
                                                           .reference
@@ -1134,27 +1150,6 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                             .cast<
                                                                 VenuesRecord>();
                                                       });
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Add to set',
-                                                            style: TextStyle(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .black,
-                                                            ),
-                                                          ),
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  4000),
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .magicMint,
-                                                        ),
-                                                      );
                                                     }
 
                                                     _model.venuesList2 =
@@ -1177,26 +1172,6 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                               .cast<
                                                                   VenuesRecord>();
                                                     });
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      SnackBar(
-                                                        content: Text(
-                                                          'completed \'fav\' action chain',
-                                                          style: TextStyle(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .black,
-                                                          ),
-                                                        ),
-                                                        duration: Duration(
-                                                            milliseconds: 4000),
-                                                        backgroundColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                      ),
-                                                    );
 
                                                     setState(() {});
                                                   },
@@ -1335,7 +1310,9 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                 width: 20.0,
                                 height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color: Color(0xFFB19CD9),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFFB19CD9),
+                                  ),
                                 ),
                               ),
                             );
@@ -1535,8 +1512,12 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                                         20.0,
                                                                     child:
                                                                         CircularProgressIndicator(
-                                                                      color: Color(
-                                                                          0xFFB19CD9),
+                                                                      valueColor:
+                                                                          AlwaysStoppedAnimation<
+                                                                              Color>(
+                                                                        Color(
+                                                                            0xFFB19CD9),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 );
@@ -2163,7 +2144,9 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                               width: 20.0,
                               height: 20.0,
                               child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFFB19CD9),
+                                ),
                               ),
                             ),
                           );

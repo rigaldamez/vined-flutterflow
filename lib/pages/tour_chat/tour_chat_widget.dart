@@ -64,7 +64,9 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                   width: 20.0,
                   height: 20.0,
                   child: CircularProgressIndicator(
-                    color: Color(0xFFB19CD9),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFFB19CD9),
+                    ),
                   ),
                 ),
               );
@@ -141,7 +143,9 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                   width: 20.0,
                                   height: 20.0,
                                   child: CircularProgressIndicator(
-                                    color: Color(0xFFB19CD9),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xFFB19CD9),
+                                    ),
                                   ),
                                 ),
                               );

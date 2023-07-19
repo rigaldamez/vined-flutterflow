@@ -169,7 +169,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         width: 20.0,
                                         height: 20.0,
                                         child: CircularProgressIndicator(
-                                          color: Color(0xFFB19CD9),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Color(0xFFB19CD9),
+                                          ),
                                         ),
                                       ),
                                     );
@@ -301,7 +304,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             width: 20.0,
                             height: 20.0,
                             child: CircularProgressIndicator(
-                              color: Color(0xFFB19CD9),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Color(0xFFB19CD9),
+                              ),
                             ),
                           ),
                         );
@@ -593,61 +598,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   decoration: BoxDecoration(),
                   child:
                       PagedListView<DocumentSnapshot<Object?>?, VenuesRecord>(
-                    pagingController: () {
-                      final Query<Object?> Function(Query<Object?>)
-                          queryBuilder = (venuesRecord) => venuesRecord;
-                      if (_model.pagingController != null) {
-                        final query = queryBuilder(VenuesRecord.collection);
-                        if (query != _model.pagingQuery) {
-                          // The query has changed
-                          _model.pagingQuery = query;
-                          _model.streamSubscriptions
-                              .forEach((s) => s?.cancel());
-                          _model.streamSubscriptions.clear();
-                          _model.pagingController!.refresh();
-                        }
-                        return _model.pagingController!;
-                      }
-
-                      _model.pagingController =
-                          PagingController(firstPageKey: null);
-                      _model.pagingQuery =
-                          queryBuilder(VenuesRecord.collection);
-                      _model.pagingController!
-                          .addPageRequestListener((nextPageMarker) {
-                        queryVenuesRecordPage(
-                          queryBuilder: (venuesRecord) => venuesRecord,
-                          nextPageMarker: nextPageMarker,
-                          pageSize: 10,
-                          isStream: true,
-                        ).then((page) {
-                          _model.pagingController!.appendPage(
-                            page.data,
-                            page.nextPageMarker,
-                          );
-                          final streamSubscription =
-                              page.dataStream?.listen((data) {
-                            data.forEach((item) {
-                              final itemIndexes = _model
-                                  .pagingController!.itemList!
-                                  .asMap()
-                                  .map((k, v) => MapEntry(v.reference.id, k));
-                              final index = itemIndexes[item.reference.id];
-                              final items = _model.pagingController!.itemList!;
-                              if (index != null) {
-                                items.replaceRange(index, index + 1, [item]);
-                                _model.pagingController!.itemList = {
-                                  for (var item in items) item.reference: item
-                                }.values.toList();
-                              }
-                            });
-                            setState(() {});
-                          });
-                          _model.streamSubscriptions.add(streamSubscription);
-                        });
-                      });
-                      return _model.pagingController!;
-                    }(),
+                    pagingController: _model.setListViewController(
+                      VenuesRecord.collection,
+                    ),
                     padding: EdgeInsets.zero,
                     primary: false,
                     shrinkWrap: true,
@@ -660,14 +613,28 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           width: 20.0,
                           height: 20.0,
                           child: CircularProgressIndicator(
-                            color: Color(0xFFB19CD9),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFB19CD9),
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Customize what your widget looks like when it's loading another page.
+                      newPageProgressIndicatorBuilder: (_) => Center(
+                        child: SizedBox(
+                          width: 20.0,
+                          height: 20.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFB19CD9),
+                            ),
                           ),
                         ),
                       ),
 
                       itemBuilder: (context, _, listViewIndex) {
-                        final listViewVenuesRecord =
-                            _model.pagingController!.itemList![listViewIndex];
+                        final listViewVenuesRecord = _model
+                            .listViewPagingController!.itemList![listViewIndex];
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 10.0, 20.0),

@@ -422,44 +422,11 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 2.0, 0.0),
                       child: PagedListView<DocumentSnapshot<Object?>?,
                           ToursRecord>(
-                        pagingController: () {
-                          final Query<Object?> Function(Query<Object?>)
-                              queryBuilder = (toursRecord) => toursRecord
-                                  .where('uid', isEqualTo: currentUserReference)
-                                  .orderBy('tour_date', descending: true);
-                          if (_model.pagingController != null) {
-                            final query = queryBuilder(ToursRecord.collection);
-                            if (query != _model.pagingQuery) {
-                              // The query has changed
-                              _model.pagingQuery = query;
-
-                              _model.pagingController!.refresh();
-                            }
-                            return _model.pagingController!;
-                          }
-
-                          _model.pagingController =
-                              PagingController(firstPageKey: null);
-                          _model.pagingQuery =
-                              queryBuilder(ToursRecord.collection);
-                          _model.pagingController!
-                              .addPageRequestListener((nextPageMarker) {
-                            queryToursRecordPage(
-                              queryBuilder: (toursRecord) => toursRecord
-                                  .where('uid', isEqualTo: currentUserReference)
-                                  .orderBy('tour_date', descending: true),
-                              nextPageMarker: nextPageMarker,
-                              pageSize: 25,
-                              isStream: false,
-                            ).then((page) {
-                              _model.pagingController!.appendPage(
-                                page.data,
-                                page.nextPageMarker,
-                              );
-                            });
-                          });
-                          return _model.pagingController!;
-                        }(),
+                        pagingController: _model.setListViewController(
+                          ToursRecord.collection
+                              .where('uid', isEqualTo: currentUserReference)
+                              .orderBy('tour_date', descending: true),
+                        ),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         reverse: false,
@@ -471,7 +438,21 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                               width: 20.0,
                               height: 20.0,
                               child: CircularProgressIndicator(
-                                color: Color(0xFFB19CD9),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFFB19CD9),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // Customize what your widget looks like when it's loading another page.
+                          newPageProgressIndicatorBuilder: (_) => Center(
+                            child: SizedBox(
+                              width: 20.0,
+                              height: 20.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFFB19CD9),
+                                ),
                               ),
                             ),
                           ),
@@ -479,7 +460,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                               CreateNewTourEmptyStateWidget(),
                           itemBuilder: (context, _, listViewIndex) {
                             final listViewToursRecord = _model
-                                .pagingController!.itemList![listViewIndex];
+                                .listViewPagingController!
+                                .itemList![listViewIndex];
                             return Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -516,7 +498,11 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                     height: 20.0,
                                                     child:
                                                         CircularProgressIndicator(
-                                                      color: Color(0xFFB19CD9),
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        Color(0xFFB19CD9),
+                                                      ),
                                                     ),
                                                   ),
                                                 );

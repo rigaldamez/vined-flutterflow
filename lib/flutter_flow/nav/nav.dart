@@ -107,22 +107,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'BaseHomePage',
-              path: 'baseHomePage',
-              requireAuth: true,
-              builder: (context, params) => BaseHomePageWidget(),
-            ),
-            FFRoute(
               name: 'activity',
               path: 'activity',
               requireAuth: true,
               builder: (context, params) => ActivityWidget(),
-            ),
-            FFRoute(
-              name: 'FIlterWineries',
-              path: 'fIlterWineries',
-              requireAuth: true,
-              builder: (context, params) => FIlterWineriesWidget(),
             ),
             FFRoute(
               name: 'CreateTour',
@@ -335,12 +323,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : DiscoverWidget(),
             ),
             FFRoute(
-              name: 'HomeCopy',
-              path: 'homeCopy',
+              name: 'SearchAll',
+              path: 'searchAll',
               requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'HomeCopy')
-                  : HomeCopyWidget(),
+              builder: (context, params) => SearchAllWidget(),
+            ),
+            FFRoute(
+              name: 'VenueDetails',
+              path: 'venueDetails',
+              requireAuth: true,
+              builder: (context, params) => VenueDetailsWidget(
+                selectedVenueReff: params.getParam('selectedVenueReff',
+                    ParamType.DocumentReference, false, ['venues']),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -527,7 +522,9 @@ class FFRoute {
                     width: 20.0,
                     height: 20.0,
                     child: CircularProgressIndicator(
-                      color: Color(0xFFB19CD9),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Color(0xFFB19CD9),
+                      ),
                     ),
                   ),
                 )

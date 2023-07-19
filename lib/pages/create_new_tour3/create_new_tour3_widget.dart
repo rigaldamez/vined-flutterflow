@@ -69,7 +69,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                 width: 20.0,
                 height: 20.0,
                 child: CircularProgressIndicator(
-                  color: Color(0xFFB19CD9),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Color(0xFFB19CD9),
+                  ),
                 ),
               ),
             ),
@@ -223,7 +225,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       width: 20.0,
                                       height: 20.0,
                                       child: CircularProgressIndicator(
-                                        color: Color(0xFFB19CD9),
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          Color(0xFFB19CD9),
+                                        ),
                                       ),
                                     ),
                                   );
@@ -251,8 +256,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       initialDate:
                                           functions.getCurrentDateTimePlusAweek(
                                               _model.datePicked,
-                                              containerAppConfigRecord!
-                                                  .tourLeadTime,
+                                              containerAppConfigRecord
+                                                  ?.tourLeadTime,
                                               valueOrDefault<bool>(
                                                   currentUserDocument
                                                       ?.tourLeadTimeExempted,
@@ -260,8 +265,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                       firstDate:
                                           functions.getCurrentDateTimePlusAweek(
                                               _model.datePicked,
-                                              containerAppConfigRecord!
-                                                  .tourLeadTime,
+                                              containerAppConfigRecord
+                                                  ?.tourLeadTime,
                                               valueOrDefault<bool>(
                                                   currentUserDocument
                                                       ?.tourLeadTimeExempted,
@@ -276,8 +281,8 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                         initialTime: TimeOfDay.fromDateTime(
                                             functions.getCurrentDateTimePlusAweek(
                                                 _model.datePicked,
-                                                containerAppConfigRecord!
-                                                    .tourLeadTime,
+                                                containerAppConfigRecord
+                                                    ?.tourLeadTime,
                                                 valueOrDefault<bool>(
                                                     currentUserDocument
                                                         ?.tourLeadTimeExempted,
@@ -487,7 +492,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 width: 20.0,
                                 height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color: Color(0xFFB19CD9),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFFB19CD9),
+                                  ),
                                 ),
                               ),
                             );
@@ -584,7 +591,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                     'AddVenueToTour',
                                     queryParameters: {
                                       'tourID': serializeParam(
-                                        _model.createdTourID!.reference,
+                                        _model.createdTourID?.reference,
                                         ParamType.DocumentReference,
                                       ),
                                       'tourName': serializeParam(
@@ -671,7 +678,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                 width: 20.0,
                                 height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color: Color(0xFFB19CD9),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFFB19CD9),
+                                  ),
                                 ),
                               ),
                             );
@@ -709,7 +718,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                               width: 20.0,
                                               height: 20.0,
                                               child: CircularProgressIndicator(
-                                                color: Color(0xFFB19CD9),
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  Color(0xFFB19CD9),
+                                                ),
                                               ),
                                             ),
                                           );
@@ -805,8 +818,12 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                                             height: 20.0,
                                                             child:
                                                                 CircularProgressIndicator(
-                                                              color: Color(
-                                                                  0xFFB19CD9),
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                Color(
+                                                                    0xFFB19CD9),
+                                                              ),
                                                             ),
                                                           ),
                                                         );
@@ -1059,7 +1076,9 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                             width: 20.0,
                             height: 20.0,
                             child: CircularProgressIndicator(
-                              color: Color(0xFFB19CD9),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Color(0xFFB19CD9),
+                              ),
                             ),
                           ),
                         );

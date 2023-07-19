@@ -65,7 +65,9 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                   width: 20.0,
                   height: 20.0,
                   child: CircularProgressIndicator(
-                    color: Color(0xFFB19CD9),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFFB19CD9),
+                    ),
                   ),
                 ),
               );
@@ -99,7 +101,9 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                           width: 20.0,
                           height: 20.0,
                           child: CircularProgressIndicator(
-                            color: Color(0xFFB19CD9),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFB19CD9),
+                            ),
                           ),
                         ),
                       );
@@ -262,74 +266,10 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                 0.0, 10.0, 0.0, 0.0),
                             child: PagedListView<DocumentSnapshot<Object?>?,
                                 VenuesRecord>(
-                              pagingController: () {
-                                final Query<Object?> Function(Query<Object?>)
-                                    queryBuilder = (venuesRecord) =>
-                                        venuesRecord.where('region_Ref',
-                                            isEqualTo:
-                                                containerToursRecord.regionID);
-                                if (_model.pagingController != null) {
-                                  final query =
-                                      queryBuilder(VenuesRecord.collection);
-                                  if (query != _model.pagingQuery) {
-                                    // The query has changed
-                                    _model.pagingQuery = query;
-                                    _model.streamSubscriptions
-                                        .forEach((s) => s?.cancel());
-                                    _model.streamSubscriptions.clear();
-                                    _model.pagingController!.refresh();
-                                  }
-                                  return _model.pagingController!;
-                                }
-
-                                _model.pagingController =
-                                    PagingController(firstPageKey: null);
-                                _model.pagingQuery =
-                                    queryBuilder(VenuesRecord.collection);
-                                _model.pagingController!
-                                    .addPageRequestListener((nextPageMarker) {
-                                  queryVenuesRecordPage(
-                                    queryBuilder: (venuesRecord) =>
-                                        venuesRecord.where('region_Ref',
-                                            isEqualTo:
-                                                containerToursRecord.regionID),
-                                    nextPageMarker: nextPageMarker,
-                                    pageSize: 25,
-                                    isStream: true,
-                                  ).then((page) {
-                                    _model.pagingController!.appendPage(
-                                      page.data,
-                                      page.nextPageMarker,
-                                    );
-                                    final streamSubscription =
-                                        page.dataStream?.listen((data) {
-                                      data.forEach((item) {
-                                        final itemIndexes = _model
-                                            .pagingController!.itemList!
-                                            .asMap()
-                                            .map((k, v) =>
-                                                MapEntry(v.reference.id, k));
-                                        final index =
-                                            itemIndexes[item.reference.id];
-                                        final items =
-                                            _model.pagingController!.itemList!;
-                                        if (index != null) {
-                                          items.replaceRange(
-                                              index, index + 1, [item]);
-                                          _model.pagingController!.itemList = {
-                                            for (var item in items)
-                                              item.reference: item
-                                          }.values.toList();
-                                        }
-                                      });
-                                      setState(() {});
-                                    });
-                                    _model.streamSubscriptions
-                                        .add(streamSubscription);
-                                  });
-                                });
-                                return _model.pagingController!;
-                              }(),
+                              pagingController: _model.setListViewController(
+                                VenuesRecord.collection.where('region_Ref',
+                                    isEqualTo: containerToursRecord.regionID),
+                              ),
                               padding: EdgeInsets.zero,
                               reverse: false,
                               scrollDirection: Axis.vertical,
@@ -342,14 +282,28 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                     width: 20.0,
                                     height: 20.0,
                                     child: CircularProgressIndicator(
-                                      color: Color(0xFFB19CD9),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Color(0xFFB19CD9),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // Customize what your widget looks like when it's loading another page.
+                                newPageProgressIndicatorBuilder: (_) => Center(
+                                  child: SizedBox(
+                                    width: 20.0,
+                                    height: 20.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Color(0xFFB19CD9),
+                                      ),
                                     ),
                                   ),
                                 ),
 
                                 itemBuilder: (context, _, listViewIndex) {
                                   final listViewVenuesRecord = _model
-                                      .pagingController!
+                                      .listViewPagingController!
                                       .itemList![listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -581,8 +535,12 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                   height: 20.0,
                                                                   child:
                                                                       CircularProgressIndicator(
-                                                                    color: Color(
-                                                                        0xFFB19CD9),
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      Color(
+                                                                          0xFFB19CD9),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -673,7 +631,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 setState(() {}));
                                                                           } else {
                                                                             if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord.passengers,
-                                                                                columnAppConfigRecord!.largeGroupThreshold)) {
+                                                                                columnAppConfigRecord?.largeGroupThreshold)) {
                                                                               await showModalBottomSheet(
                                                                                 isScrollControlled: true,
                                                                                 backgroundColor: Colors.transparent,
@@ -699,7 +657,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 },
                                                                               ).then((value) => setState(() {}));
                                                                             } else {
-                                                                              if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord.largeGroupVenueEarlySeatingCount, columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
+                                                                              if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord.largeGroupVenueEarlySeatingCount, columnAppConfigRecord?.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
                                                                                 await showModalBottomSheet(
                                                                                   isScrollControlled: true,
                                                                                   backgroundColor: Colors.transparent,
@@ -875,8 +833,12 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                 height: 20.0,
                                                                 child:
                                                                     CircularProgressIndicator(
-                                                                  color: Color(
-                                                                      0xFFB19CD9),
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    Color(
+                                                                        0xFFB19CD9),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );
@@ -968,7 +930,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                       } else {
                                                                         if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(
                                                                             containerToursRecord.passengers,
-                                                                            columnAppConfigRecord!.largeGroupThreshold)) {
+                                                                            columnAppConfigRecord?.largeGroupThreshold)) {
                                                                           await showModalBottomSheet(
                                                                             isScrollControlled:
                                                                                 true,
@@ -1002,7 +964,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                         } else {
                                                                           if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(
                                                                               containerToursRecord.largeGroupVenueEarlySeatingCount,
-                                                                              columnAppConfigRecord!.largeGroupVenuesEarlySeatingThreshold,
+                                                                              columnAppConfigRecord?.largeGroupVenuesEarlySeatingThreshold,
                                                                               listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
                                                                             await showModalBottomSheet(
                                                                               isScrollControlled: true,

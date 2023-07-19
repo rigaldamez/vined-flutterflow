@@ -132,64 +132,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(2.0, 4.0, 2.0, 0.0),
                   child: PagedListView<DocumentSnapshot<Object?>?, ToursRecord>(
-                    pagingController: () {
-                      final Query<Object?> Function(Query<Object?>)
-                          queryBuilder = (toursRecord) => toursRecord
-                              .where('uid', isEqualTo: currentUserReference)
-                              .orderBy('tour_date');
-                      if (_model.pagingController != null) {
-                        final query = queryBuilder(ToursRecord.collection);
-                        if (query != _model.pagingQuery) {
-                          // The query has changed
-                          _model.pagingQuery = query;
-                          _model.streamSubscriptions
-                              .forEach((s) => s?.cancel());
-                          _model.streamSubscriptions.clear();
-                          _model.pagingController!.refresh();
-                        }
-                        return _model.pagingController!;
-                      }
-
-                      _model.pagingController =
-                          PagingController(firstPageKey: null);
-                      _model.pagingQuery = queryBuilder(ToursRecord.collection);
-                      _model.pagingController!
-                          .addPageRequestListener((nextPageMarker) {
-                        queryToursRecordPage(
-                          queryBuilder: (toursRecord) => toursRecord
-                              .where('uid', isEqualTo: currentUserReference)
-                              .orderBy('tour_date'),
-                          nextPageMarker: nextPageMarker,
-                          pageSize: 25,
-                          isStream: true,
-                        ).then((page) {
-                          _model.pagingController!.appendPage(
-                            page.data,
-                            page.nextPageMarker,
-                          );
-                          final streamSubscription =
-                              page.dataStream?.listen((data) {
-                            data.forEach((item) {
-                              final itemIndexes = _model
-                                  .pagingController!.itemList!
-                                  .asMap()
-                                  .map((k, v) => MapEntry(v.reference.id, k));
-                              final index = itemIndexes[item.reference.id];
-                              final items = _model.pagingController!.itemList!;
-                              if (index != null) {
-                                items.replaceRange(index, index + 1, [item]);
-                                _model.pagingController!.itemList = {
-                                  for (var item in items) item.reference: item
-                                }.values.toList();
-                              }
-                            });
-                            setState(() {});
-                          });
-                          _model.streamSubscriptions.add(streamSubscription);
-                        });
-                      });
-                      return _model.pagingController!;
-                    }(),
+                    pagingController: _model.setListViewController(
+                      ToursRecord.collection
+                          .where('uid', isEqualTo: currentUserReference)
+                          .orderBy('tour_date'),
+                    ),
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     reverse: false,
@@ -201,7 +148,21 @@ class _ToursWidgetState extends State<ToursWidget> {
                           width: 20.0,
                           height: 20.0,
                           child: CircularProgressIndicator(
-                            color: Color(0xFFB19CD9),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFB19CD9),
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Customize what your widget looks like when it's loading another page.
+                      newPageProgressIndicatorBuilder: (_) => Center(
+                        child: SizedBox(
+                          width: 20.0,
+                          height: 20.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFB19CD9),
+                            ),
                           ),
                         ),
                       ),
@@ -213,8 +174,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                         ),
                       ),
                       itemBuilder: (context, _, listViewIndex) {
-                        final listViewToursRecord =
-                            _model.pagingController!.itemList![listViewIndex];
+                        final listViewToursRecord = _model
+                            .listViewPagingController!.itemList![listViewIndex];
                         return Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -248,7 +209,11 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                 height: 20.0,
                                                 child:
                                                     CircularProgressIndicator(
-                                                  color: Color(0xFFB19CD9),
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    Color(0xFFB19CD9),
+                                                  ),
                                                 ),
                                               ),
                                             );

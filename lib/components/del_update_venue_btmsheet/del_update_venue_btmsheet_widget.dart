@@ -70,7 +70,9 @@ class _DelUpdateVenueBtmsheetWidgetState
               width: 20.0,
               height: 20.0,
               child: CircularProgressIndicator(
-                color: Color(0xFFB19CD9),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Color(0xFFB19CD9),
+                ),
               ),
             ),
           );
@@ -131,7 +133,9 @@ class _DelUpdateVenueBtmsheetWidgetState
                                   width: 20.0,
                                   height: 20.0,
                                   child: CircularProgressIndicator(
-                                    color: Color(0xFFB19CD9),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xFFB19CD9),
+                                    ),
                                   ),
                                 ),
                               );
@@ -171,7 +175,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                       12.0, 0.0, 0.0, 0.0),
                                               child: AutoSizeText(
                                                 functions.upperCaseString(
-                                                    widget.venueDoc!.name),
+                                                    widget.venueDoc?.name),
                                                 textAlign: TextAlign.start,
                                                 maxLines: 2,
                                                 style:
@@ -647,7 +651,10 @@ class _DelUpdateVenueBtmsheetWidgetState
                                           width: 20.0,
                                           height: 20.0,
                                           child: CircularProgressIndicator(
-                                            color: Color(0xFFB19CD9),
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              Color(0xFFB19CD9),
+                                            ),
                                           ),
                                         ),
                                       );
@@ -715,7 +722,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                   ),
                                                   'venues':
                                                       FieldValue.arrayRemove([
-                                                    widget.venueDoc!.reference
+                                                    widget.venueDoc?.reference
                                                   ]),
                                                 });
                                                 FFAppState().update(() {
@@ -760,7 +767,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     ),
                                                     'venues':
                                                         FieldValue.arrayRemove([
-                                                      widget.venueDoc!.reference
+                                                      widget.venueDoc?.reference
                                                     ]),
                                                     'large_group_venue_early_seating_count':
                                                         FieldValue.increment(
@@ -803,7 +810,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     ),
                                                     'venues':
                                                         FieldValue.arrayRemove([
-                                                      widget.venueDoc!.reference
+                                                      widget.venueDoc?.reference
                                                     ]),
                                                   });
                                                   Navigator.pop(context);

@@ -118,6 +118,16 @@ class VenuesRecord extends FirestoreRecord {
   bool get isActive => _isActive ?? false;
   bool hasIsActive() => _isActive != null;
 
+  // "venueDescription" field.
+  String? _venueDescription;
+  String get venueDescription => _venueDescription ?? '';
+  bool hasVenueDescription() => _venueDescription != null;
+
+  // "address" field.
+  String? _address;
+  String get address => _address ?? '';
+  bool hasAddress() => _address != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _regionID = snapshotData['regionID'] as String?;
@@ -141,6 +151,8 @@ class VenuesRecord extends FirestoreRecord {
     _lastVenueViewDate = snapshotData['last_venue_view_date'] as DateTime?;
     _featuredVenue = snapshotData['featured_venue'] as bool?;
     _isActive = snapshotData['isActive'] as bool?;
+    _venueDescription = snapshotData['venueDescription'] as String?;
+    _address = snapshotData['address'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -205,6 +217,8 @@ class VenuesRecord extends FirestoreRecord {
           ),
           'featured_venue': snapshot.data['featured_venue'],
           'isActive': snapshot.data['isActive'],
+          'venueDescription': snapshot.data['venueDescription'],
+          'address': snapshot.data['address'],
         },
         VenuesRecord.collection.doc(snapshot.objectID),
       );
@@ -259,6 +273,8 @@ Map<String, dynamic> createVenuesRecordData({
   DateTime? lastVenueViewDate,
   bool? featuredVenue,
   bool? isActive,
+  String? venueDescription,
+  String? address,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -280,6 +296,8 @@ Map<String, dynamic> createVenuesRecordData({
       'last_venue_view_date': lastVenueViewDate,
       'featured_venue': featuredVenue,
       'isActive': isActive,
+      'venueDescription': venueDescription,
+      'address': address,
     }.withoutNulls,
   );
 
@@ -311,7 +329,9 @@ class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
         e1?.viewsCount == e2?.viewsCount &&
         e1?.lastVenueViewDate == e2?.lastVenueViewDate &&
         e1?.featuredVenue == e2?.featuredVenue &&
-        e1?.isActive == e2?.isActive;
+        e1?.isActive == e2?.isActive &&
+        e1?.venueDescription == e2?.venueDescription &&
+        e1?.address == e2?.address;
   }
 
   @override
@@ -335,7 +355,9 @@ class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
         e?.viewsCount,
         e?.lastVenueViewDate,
         e?.featuredVenue,
-        e?.isActive
+        e?.isActive,
+        e?.venueDescription,
+        e?.address
       ]);
 
   @override

@@ -60,7 +60,9 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                 width: 20.0,
                 height: 20.0,
                 child: CircularProgressIndicator(
-                  color: Color(0xFFB19CD9),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Color(0xFFB19CD9),
+                  ),
                 ),
               ),
             );
@@ -145,7 +147,9 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                 width: 20.0,
                                 height: 20.0,
                                 child: CircularProgressIndicator(
-                                  color: Color(0xFFB19CD9),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFFB19CD9),
+                                  ),
                                 ),
                               ),
                             );
@@ -178,7 +182,10 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                         width: 20.0,
                                         height: 20.0,
                                         child: CircularProgressIndicator(
-                                          color: Color(0xFFB19CD9),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Color(0xFFB19CD9),
+                                          ),
                                         ),
                                       ),
                                     );

@@ -64,7 +64,9 @@ class _EditTourDateBottomsheetWidgetState
               width: 20.0,
               height: 20.0,
               child: CircularProgressIndicator(
-                color: Color(0xFFB19CD9),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Color(0xFFB19CD9),
+                ),
               ),
             ),
           );
@@ -225,7 +227,11 @@ class _EditTourDateBottomsheetWidgetState
                                               width: 20.0,
                                               height: 20.0,
                                               child: CircularProgressIndicator(
-                                                color: Color(0xFFB19CD9),
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  Color(0xFFB19CD9),
+                                                ),
                                               ),
                                             ),
                                           );
@@ -246,8 +252,8 @@ class _EditTourDateBottomsheetWidgetState
                                               initialDate: functions
                                                   .getCurrentDateTimePlusAweek(
                                                       getCurrentTimestamp,
-                                                      buttonAppConfigRecord!
-                                                          .tourLeadTime,
+                                                      buttonAppConfigRecord
+                                                          ?.tourLeadTime,
                                                       valueOrDefault<bool>(
                                                           currentUserDocument
                                                               ?.tourLeadTimeExempted,
@@ -255,8 +261,8 @@ class _EditTourDateBottomsheetWidgetState
                                               firstDate: functions
                                                   .getCurrentDateTimePlusAweek(
                                                       getCurrentTimestamp,
-                                                      buttonAppConfigRecord!
-                                                          .tourLeadTime,
+                                                      buttonAppConfigRecord
+                                                          ?.tourLeadTime,
                                                       valueOrDefault<bool>(
                                                           currentUserDocument
                                                               ?.tourLeadTimeExempted,
@@ -269,15 +275,17 @@ class _EditTourDateBottomsheetWidgetState
                                               _datePickedTime =
                                                   await showTimePicker(
                                                 context: context,
-                                                initialTime: TimeOfDay.fromDateTime(
-                                                    functions.getCurrentDateTimePlusAweek(
-                                                        getCurrentTimestamp,
-                                                        buttonAppConfigRecord!
-                                                            .tourLeadTime,
-                                                        valueOrDefault<bool>(
-                                                            currentUserDocument
-                                                                ?.tourLeadTimeExempted,
-                                                            false))),
+                                                initialTime: TimeOfDay
+                                                    .fromDateTime(functions
+                                                        .getCurrentDateTimePlusAweek(
+                                                            getCurrentTimestamp,
+                                                            buttonAppConfigRecord
+                                                                ?.tourLeadTime,
+                                                            valueOrDefault<
+                                                                    bool>(
+                                                                currentUserDocument
+                                                                    ?.tourLeadTimeExempted,
+                                                                false))),
                                               );
                                             }
 

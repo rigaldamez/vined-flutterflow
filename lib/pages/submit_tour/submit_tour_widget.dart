@@ -69,7 +69,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                   width: 20.0,
                   height: 20.0,
                   child: CircularProgressIndicator(
-                    color: Color(0xFFB19CD9),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFFB19CD9),
+                    ),
                   ),
                 ),
               );
@@ -103,7 +105,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                           width: 20.0,
                           height: 20.0,
                           child: CircularProgressIndicator(
-                            color: Color(0xFFB19CD9),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFFB19CD9),
+                            ),
                           ),
                         ),
                       );
@@ -192,7 +196,11 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                   height: 20.0,
                                                   child:
                                                       CircularProgressIndicator(
-                                                    color: Color(0xFFB19CD9),
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      Color(0xFFB19CD9),
+                                                    ),
                                                   ),
                                                 ),
                                               );
@@ -244,8 +252,12 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                               height: 20.0,
                                                               child:
                                                                   CircularProgressIndicator(
-                                                                color: Color(
-                                                                    0xFFB19CD9),
+                                                                valueColor:
+                                                                    AlwaysStoppedAnimation<
+                                                                        Color>(
+                                                                  Color(
+                                                                      0xFFB19CD9),
+                                                                ),
                                                               ),
                                                             ),
                                                           );
@@ -853,8 +865,12 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                   height: 20.0,
                                                                   child:
                                                                       CircularProgressIndicator(
-                                                                    color: Color(
-                                                                        0xFFB19CD9),
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      Color(
+                                                                          0xFFB19CD9),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -953,20 +969,20 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                               () {
                                                                             _model.textController?.clear();
                                                                           });
-                                                                          if (containerPromoCodesRecord!.discountType ==
+                                                                          if (containerPromoCodesRecord?.discountType ==
                                                                               'percent') {
                                                                             await containerToursRecord.reference.update(createToursRecordData(
-                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal.toDouble(), widget.tourRecord!.passengers),
-                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal.toDouble(), functions.calculateDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.subTotal.toDouble())),
-                                                                              discountAmountPp: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers),
-                                                                              pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers)),
+                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord?.discountType, containerPromoCodesRecord?.discountAmount, widget.tourRecord?.subTotal?.toDouble(), widget.tourRecord!.passengers),
+                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal.toDouble(), functions.calculateDiscountAmount(containerPromoCodesRecord?.discountType, containerPromoCodesRecord?.discountAmount, containerToursRecord.subTotal.toDouble())),
+                                                                              discountAmountPp: functions.calculateTotalDiscountAmount(containerPromoCodesRecord?.discountType, containerPromoCodesRecord?.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers),
+                                                                              pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, functions.calculateTotalDiscountAmount(containerPromoCodesRecord?.discountType, containerPromoCodesRecord?.discountAmount, containerToursRecord.pricePp, widget.tourRecord!.passengers)),
                                                                             ));
                                                                           } else {
                                                                             await containerToursRecord.reference.update(createToursRecordData(
-                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal.toDouble(), widget.tourRecord!.passengers),
-                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal.toDouble(), functions.calculateTotalDiscountAmount(containerPromoCodesRecord!.discountType, containerPromoCodesRecord!.discountAmount, widget.tourRecord!.subTotal.toDouble(), widget.tourRecord!.passengers)),
-                                                                              discountAmountPp: containerPromoCodesRecord!.discountAmount,
-                                                                              pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, containerPromoCodesRecord!.discountAmount),
+                                                                              discountAmount: functions.calculateTotalDiscountAmount(containerPromoCodesRecord?.discountType, containerPromoCodesRecord?.discountAmount, widget.tourRecord?.subTotal?.toDouble(), widget.tourRecord!.passengers),
+                                                                              totalBalance: functions.updateTotalBalanceWithDiscountAmount(containerToursRecord.subTotal.toDouble(), functions.calculateTotalDiscountAmount(containerPromoCodesRecord?.discountType, containerPromoCodesRecord?.discountAmount, widget.tourRecord?.subTotal?.toDouble(), widget.tourRecord!.passengers)),
+                                                                              discountAmountPp: containerPromoCodesRecord?.discountAmount,
+                                                                              pricePpDiscounted: functions.updateTotalPPCostWithDiscountAmount(containerToursRecord.pricePp, containerPromoCodesRecord?.discountAmount),
                                                                             ));
                                                                           }
 
@@ -1276,8 +1292,11 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                           height: 20.0,
                                                           child:
                                                               CircularProgressIndicator(
-                                                            color: Color(
-                                                                0xFFB19CD9),
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              Color(0xFFB19CD9),
+                                                            ),
                                                           ),
                                                         ),
                                                       );
