@@ -63,6 +63,11 @@ class AppConfigRecord extends FirestoreRecord {
   String get mapboxKey => _mapboxKey ?? '';
   bool hasMapboxKey() => _mapboxKey != null;
 
+  // "google_api_key" field.
+  String? _googleApiKey;
+  String get googleApiKey => _googleApiKey ?? '';
+  bool hasGoogleApiKey() => _googleApiKey != null;
+
   void _initializeFields() {
     _vinedMessengerURL = snapshotData['vinedMessengerURL'] as String?;
     _itineraryVenueLimit = castToType<int>(snapshotData['itineraryVenueLimit']);
@@ -76,6 +81,7 @@ class AppConfigRecord extends FirestoreRecord {
         snapshotData['large_group_venues_early_seating_threshold']);
     _lunchVenueFee = castToType<double>(snapshotData['lunch_venue_fee']);
     _mapboxKey = snapshotData['mapbox_key'] as String?;
+    _googleApiKey = snapshotData['google_api_key'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -122,6 +128,7 @@ Map<String, dynamic> createAppConfigRecordData({
   int? largeGroupVenuesEarlySeatingThreshold,
   double? lunchVenueFee,
   String? mapboxKey,
+  String? googleApiKey,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +142,7 @@ Map<String, dynamic> createAppConfigRecordData({
           largeGroupVenuesEarlySeatingThreshold,
       'lunch_venue_fee': lunchVenueFee,
       'mapbox_key': mapboxKey,
+      'google_api_key': googleApiKey,
     }.withoutNulls,
   );
 
@@ -155,7 +163,8 @@ class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
         e1?.largeGroupVenuesEarlySeatingThreshold ==
             e2?.largeGroupVenuesEarlySeatingThreshold &&
         e1?.lunchVenueFee == e2?.lunchVenueFee &&
-        e1?.mapboxKey == e2?.mapboxKey;
+        e1?.mapboxKey == e2?.mapboxKey &&
+        e1?.googleApiKey == e2?.googleApiKey;
   }
 
   @override
@@ -168,7 +177,8 @@ class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
         e?.largeGroupThreshold,
         e?.largeGroupVenuesEarlySeatingThreshold,
         e?.lunchVenueFee,
-        e?.mapboxKey
+        e?.mapboxKey,
+        e?.googleApiKey
       ]);
 
   @override

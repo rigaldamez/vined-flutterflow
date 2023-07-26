@@ -59,6 +59,7 @@ dependencies:
       url: https://github.com/fluttercommunity/flutter_google_places
       ref: v0.3.2
   flutter_plugin_android_lifecycle: 2.0.9
+  flutter_rating_bar: 4.0.1
   flutter_stripe: 9.2.1
   flutter_stripe_web: 4.1.1
   font_awesome_flutter: 10.1.0

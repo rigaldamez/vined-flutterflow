@@ -159,5 +159,17 @@ service cloud.firestore {
       allow read: if true;
     }
 
+
+    match /users/{parent}/tasting_diary/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/tasting_diary/{document} {
+      allow read: if true;
+    }
+
   }
 }

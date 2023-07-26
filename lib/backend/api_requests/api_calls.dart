@@ -100,6 +100,106 @@ class GETMapboxDrivingDirectionsCall {
       );
 }
 
+class GETFindPlaceFromTextCall {
+  static Future<ApiCallResponse> call({
+    String? inputVenueAddress = '',
+    String? googleApiKey = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GET Find Place from Text',
+      apiUrl:
+          'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'inputtype': "textquery",
+        'input': inputVenueAddress,
+        'key': googleApiKey,
+        'fields': "place_id,opening_hours",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic placeID(dynamic response) => getJsonField(
+        response,
+        r'''$.candidates[:].place_id''',
+      );
+  static dynamic isOpenNow(dynamic response) => getJsonField(
+        response,
+        r'''$.candidates[:].opening_hours.open_now''',
+      );
+}
+
+class GETFindPlaceFromTextCopyCall {
+  static Future<ApiCallResponse> call({
+    String? inputVenueAddress = '',
+    String? googleApiKey = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GET Find Place from Text Copy',
+      apiUrl:
+          'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'inputtype': "textquery",
+        'input': inputVenueAddress,
+        'key': googleApiKey,
+        'fields': "place_id,opening_hours",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic placeID(dynamic response) => getJsonField(
+        response,
+        r'''$.candidates[:].place_id''',
+      );
+  static dynamic isOpenNow(dynamic response) => getJsonField(
+        response,
+        r'''$.candidates[:].opening_hours.open_now''',
+      );
+}
+
+class GETPlaceDetailsCall {
+  static Future<ApiCallResponse> call({
+    String? placeId = '',
+    String? googleApiKey = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GET Place Details',
+      apiUrl: 'https://maps.googleapis.com/maps/api/place/details/json',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'place_id': placeId,
+        'key': googleApiKey,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  static dynamic openingHours(dynamic response) => getJsonField(
+        response,
+        r'''$.result.opening_hours.weekday_text''',
+        true,
+      );
+  static dynamic isOpenNow(dynamic response) => getJsonField(
+        response,
+        r'''$.result.opening_hours.open_now''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
