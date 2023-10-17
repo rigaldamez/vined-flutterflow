@@ -16,7 +16,7 @@ final _isProd = false;
 // Stripe Credentials
 const _kProdStripePublishableKey = 'pk_live_u625lHO33UT8Dco4nglqpV6j';
 const _kTestStripePublishableKey = 'pk_test_tcWyjR60o7OsscK6rZVNzfoA';
-const _kAppleMerchantId = 'Vined Merchant';
+const _kAppleMerchantId = 'merchant.com.flutterflow.vined';
 
 String stripePublishableKey() =>
     _isProd ? _kProdStripePublishableKey : _kTestStripePublishableKey;
