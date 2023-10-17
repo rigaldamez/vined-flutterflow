@@ -17,7 +17,8 @@ class LoginWidget extends StatefulWidget {
   _LoginWidgetState createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _LoginWidgetState extends State<LoginWidget>
+    with TickerProviderStateMixin {
   late LoginModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -27,6 +28,11 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.initState();
     _model = createModel(context, () => LoginModel());
 
+    _model.tabBarController = TabController(
+      vsync: this,
+      length: 2,
+      initialIndex: 0,
+    )..addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -61,7 +67,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Align(
-              alignment: AlignmentDirectional(-1.0, 0.0),
+              alignment: AlignmentDirectional(-1.00, 0.00),
               child: FlutterFlowIconButton(
                 borderColor: Colors.transparent,
                 borderRadius: 30.0,
@@ -81,64 +87,322 @@ class _LoginWidgetState extends State<LoginWidget> {
               child: Padding(
                 padding:
                     EdgeInsetsDirectional.fromSTEB(30.0, 190.0, 30.0, 80.0),
-                child: DefaultTabController(
-                  length: 2,
-                  initialIndex: 0,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment(0.0, 0),
-                        child: TabBar(
-                          labelColor: FlutterFlowTheme.of(context).pinkPastel,
-                          labelStyle: FlutterFlowTheme.of(context).titleMedium,
-                          indicatorColor:
-                              FlutterFlowTheme.of(context).pinkPastel,
-                          tabs: [
-                            Tab(
-                              text: 'Log In',
-                            ),
-                            Tab(
-                              text: 'Sign Up',
-                            ),
-                          ],
-                        ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment(0.0, 0),
+                      child: TabBar(
+                        labelColor: FlutterFlowTheme.of(context).pinkPastel,
+                        labelStyle: FlutterFlowTheme.of(context).titleMedium,
+                        unselectedLabelStyle: TextStyle(),
+                        indicatorColor: FlutterFlowTheme.of(context).pinkPastel,
+                        tabs: [
+                          Tab(
+                            text: 'Log In',
+                          ),
+                          Tab(
+                            text: 'Sign Up',
+                          ),
+                        ],
+                        controller: _model.tabBarController,
                       ),
-                      Expanded(
-                        child: TabBarView(
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 30.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              context.pushNamed(
-                                                'LoginEmail',
-                                                extra: <String, dynamic>{
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType
-                                                            .rightToLeft,
-                                                    duration: Duration(
-                                                        milliseconds: 150),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _model.tabBarController,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 30.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            context.pushNamed(
+                                              'LoginEmail',
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 150),
+                                                ),
+                                              },
+                                            );
+                                          },
+                                          text: 'Log in with Email',
+                                          icon: Icon(
+                                            Icons.email_rounded,
+                                            size: 15.0,
+                                          ),
+                                          options: FFButtonOptions(
+                                            width: 310.0,
+                                            height: 54.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0xFFF4F4F4),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.black,
+                                                    ),
+                                            elevation: 2.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(34.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
+                                        height: 54.0,
+                                        child: Stack(
+                                          children: [
+                                            isAndroid
+                                                ? Container()
+                                                : Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.00, 0.00),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        GoRouter.of(context)
+                                                            .prepareAuthEvent();
+                                                        final user =
+                                                            await authManager
+                                                                .signInWithApple(
+                                                                    context);
+                                                        if (user == null) {
+                                                          return;
+                                                        }
+
+                                                        context.goNamedAuth(
+                                                            'Discover',
+                                                            context.mounted);
+                                                      },
+                                                      text:
+                                                          'Continue with Facebook',
+                                                      icon: Icon(
+                                                        Icons.add,
+                                                        color:
+                                                            Colors.transparent,
+                                                        size: 20.0,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: 310.0,
+                                                        height: 54.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        color: Colors.white,
+                                                        textStyle:
+                                                            GoogleFonts.getFont(
+                                                          'Roboto',
+                                                          color:
+                                                              Color(0xFF1877F2),
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 17.0,
+                                                        ),
+                                                        elevation: 4.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 0.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(34.0),
+                                                      ),
+                                                    ),
                                                   ),
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  -0.68, 0.00),
+                                              child: Container(
+                                                width: 22.0,
+                                                height: 22.0,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
+                                        height: 54.0,
+                                        child: Stack(
+                                          children: [
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.00, 0.00),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  GoRouter.of(context)
+                                                      .prepareAuthEvent();
+                                                  final user = await authManager
+                                                      .signInWithGoogle(
+                                                          context);
+                                                  if (user == null) {
+                                                    return;
+                                                  }
+
+                                                  context.goNamedAuth(
+                                                      'Discover',
+                                                      context.mounted);
                                                 },
-                                              );
+                                                text: 'Continue with Google',
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: Colors.transparent,
+                                                  size: 20.0,
+                                                ),
+                                                options: FFButtonOptions(
+                                                  width: 310.0,
+                                                  height: 54.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              8.0, 0.0),
+                                                  color: Colors.white,
+                                                  textStyle:
+                                                      GoogleFonts.getFont(
+                                                    'Roboto',
+                                                    color: Color(0xFF606060),
+                                                    fontSize: 17.0,
+                                                  ),
+                                                  elevation: 4.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 0.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          34.0),
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  -0.60, 0.00),
+                                              child: Container(
+                                                width: 22.0,
+                                                height: 22.0,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    isAndroid
+                                        ? Container()
+                                        : FFButtonWidget(
+                                            onPressed: () async {
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
+                                              final user = await authManager
+                                                  .signInWithApple(context);
+                                              if (user == null) {
+                                                return;
+                                              }
+
+                                              context.goNamedAuth(
+                                                  'Discover', context.mounted);
                                             },
-                                            text: 'Log in with Email',
-                                            icon: Icon(
-                                              Icons.email_rounded,
-                                              size: 15.0,
+                                            text: 'Continue with Apple',
+                                            icon: FaIcon(
+                                              FontAwesomeIcons.apple,
+                                              size: 20.0,
                                             ),
                                             options: FFButtonOptions(
                                               width: 310.0,
@@ -146,377 +410,372 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: Color(0xFFF4F4F4),
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.black,
-                                                      ),
-                                              elevation: 2.0,
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 10.0, 1.0),
+                                              color: Colors.black,
+                                              textStyle: GoogleFonts.getFont(
+                                                'Roboto',
+                                                color: Color(0xFFF4F4F4),
+                                                fontSize: 17.0,
+                                              ),
+                                              elevation: 4.0,
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,
-                                                width: 1.0,
+                                                width: 0.0,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(34.0),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                          height: 54.0,
-                                          child: Stack(
-                                            children: [
-                                              isAndroid
-                                                  ? Container()
-                                                  : Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: FFButtonWidget(
-                                                        onPressed: () async {
-                                                          GoRouter.of(context)
-                                                              .prepareAuthEvent();
-                                                          final user =
-                                                              await authManager
-                                                                  .signInWithApple(
-                                                                      context);
-                                                          if (user == null) {
-                                                            return;
-                                                          }
-
-                                                          context.goNamedAuth(
-                                                              'Discover',
-                                                              context.mounted);
-                                                        },
-                                                        text:
-                                                            'Continue with Facebook',
-                                                        icon: Icon(
-                                                          Icons.add,
-                                                          color: Colors
-                                                              .transparent,
-                                                          size: 20.0,
-                                                        ),
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 310.0,
-                                                          height: 54.0,
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          iconPadding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0),
-                                                          color: Colors.white,
-                                                          textStyle: GoogleFonts
-                                                              .getFont(
-                                                            'Roboto',
-                                                            color: Color(
-                                                                0xFF1877F2),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 17.0,
-                                                          ),
-                                                          elevation: 4.0,
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 0.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      34.0),
-                                                        ),
-                                                      ),
-                                                    ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.68, 0.0),
-                                                child: Container(
-                                                  width: 22.0,
-                                                  height: 22.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    'https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                          height: 54.0,
-                                          child: Stack(
-                                            children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    GoRouter.of(context)
-                                                        .prepareAuthEvent();
-                                                    final user =
-                                                        await authManager
-                                                            .signInWithGoogle(
-                                                                context);
-                                                    if (user == null) {
-                                                      return;
-                                                    }
-
-                                                    context.goNamedAuth(
-                                                        'Discover',
-                                                        context.mounted);
-                                                  },
-                                                  text: 'Continue with Google',
-                                                  icon: Icon(
-                                                    Icons.add,
-                                                    color: Colors.transparent,
-                                                    size: 20.0,
-                                                  ),
-                                                  options: FFButtonOptions(
-                                                    width: 310.0,
-                                                    height: 54.0,
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                8.0, 0.0),
-                                                    color: Colors.white,
-                                                    textStyle:
-                                                        GoogleFonts.getFont(
-                                                      'Roboto',
-                                                      color: Color(0xFF606060),
-                                                      fontSize: 17.0,
-                                                    ),
-                                                    elevation: 4.0,
-                                                    borderSide: BorderSide(
-                                                      color: Colors.transparent,
-                                                      width: 0.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            34.0),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.6, 0.0),
-                                                child: Container(
-                                                  width: 22.0,
-                                                  height: 22.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      isAndroid
-                                          ? Container()
-                                          : FFButtonWidget(
-                                              onPressed: () async {
-                                                GoRouter.of(context)
-                                                    .prepareAuthEvent();
-                                                final user = await authManager
-                                                    .signInWithApple(context);
-                                                if (user == null) {
-                                                  return;
-                                                }
-
-                                                context.goNamedAuth('Discover',
-                                                    context.mounted);
-                                              },
-                                              text: 'Continue with Apple',
-                                              icon: FaIcon(
-                                                FontAwesomeIcons.apple,
-                                                size: 20.0,
-                                              ),
-                                              options: FFButtonOptions(
-                                                width: 310.0,
-                                                height: 54.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(0.0, 0.0,
-                                                            10.0, 1.0),
-                                                color: Colors.black,
-                                                textStyle: GoogleFonts.getFont(
-                                                  'Roboto',
-                                                  color: Color(0xFFF4F4F4),
-                                                  fontSize: 17.0,
-                                                ),
-                                                elevation: 4.0,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 0.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(34.0),
-                                              ),
-                                            ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 4.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'By continuing you agree to our Terms and Privacy policy.',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFFF4F4F4),
-                                                fontSize: 12.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Row(
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 4.0),
+                                child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Don\'t have an account?',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFF4F4F4),
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 0.0, 0.0, 0.0),
+                                    Expanded(
                                       child: Text(
-                                        'Sign Up',
+                                        'By continuing you agree to our Terms and Privacy policy.',
+                                        textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Poppins',
                                               color: Color(0xFFF4F4F4),
-                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12.0,
                                             ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 30.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              context.pushNamed(
-                                                'SignupEmail',
-                                                extra: <String, dynamic>{
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType
-                                                            .rightToLeft,
-                                                    duration: Duration(
-                                                        milliseconds: 150),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Don\'t have an account?',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFFF4F4F4),
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Sign Up',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFF4F4F4),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 30.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            context.pushNamed(
+                                              'SignupEmail',
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 150),
+                                                ),
+                                              },
+                                            );
+                                          },
+                                          text: 'Sign up with Email',
+                                          icon: Icon(
+                                            Icons.email_rounded,
+                                            size: 15.0,
+                                          ),
+                                          options: FFButtonOptions(
+                                            width: 310.0,
+                                            height: 54.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0xFFF4F4F4),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.black,
+                                                    ),
+                                            elevation: 2.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(34.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
+                                        height: 54.0,
+                                        child: Stack(
+                                          children: [
+                                            isAndroid
+                                                ? Container()
+                                                : Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.00, 0.00),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        GoRouter.of(context)
+                                                            .prepareAuthEvent();
+                                                        final user =
+                                                            await authManager
+                                                                .signInWithApple(
+                                                                    context);
+                                                        if (user == null) {
+                                                          return;
+                                                        }
+
+                                                        context.goNamedAuth(
+                                                            'Discover',
+                                                            context.mounted);
+                                                      },
+                                                      text:
+                                                          'Sign up with Facebook',
+                                                      icon: Icon(
+                                                        Icons.add,
+                                                        color:
+                                                            Colors.transparent,
+                                                        size: 20.0,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: 310.0,
+                                                        height: 54.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        color: Colors.white,
+                                                        textStyle:
+                                                            GoogleFonts.getFont(
+                                                          'Roboto',
+                                                          color:
+                                                              Color(0xFF1877F2),
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 17.0,
+                                                        ),
+                                                        elevation: 4.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 0.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(34.0),
+                                                      ),
+                                                    ),
                                                   ),
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  -0.63, 0.00),
+                                              child: Container(
+                                                width: 22.0,
+                                                height: 22.0,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
+                                        height: 54.0,
+                                        child: Stack(
+                                          children: [
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.00, 0.00),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  GoRouter.of(context)
+                                                      .prepareAuthEvent();
+                                                  final user = await authManager
+                                                      .signInWithGoogle(
+                                                          context);
+                                                  if (user == null) {
+                                                    return;
+                                                  }
+
+                                                  context.goNamedAuth(
+                                                      'Discover',
+                                                      context.mounted);
                                                 },
-                                              );
+                                                text: 'Sign up with Google',
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: Colors.transparent,
+                                                  size: 20.0,
+                                                ),
+                                                options: FFButtonOptions(
+                                                  width: 310.0,
+                                                  height: 54.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              8.0, 0.0),
+                                                  color: Colors.white,
+                                                  textStyle:
+                                                      GoogleFonts.getFont(
+                                                    'Roboto',
+                                                    color: Color(0xFF606060),
+                                                    fontSize: 17.0,
+                                                  ),
+                                                  elevation: 4.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 0.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          34.0),
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  -0.60, 0.00),
+                                              child: Container(
+                                                width: 22.0,
+                                                height: 22.0,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    isAndroid
+                                        ? Container()
+                                        : FFButtonWidget(
+                                            onPressed: () async {
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
+                                              final user = await authManager
+                                                  .signInWithApple(context);
+                                              if (user == null) {
+                                                return;
+                                              }
+
+                                              context.goNamedAuth(
+                                                  'Discover', context.mounted);
                                             },
-                                            text: 'Sign up with Email',
-                                            icon: Icon(
-                                              Icons.email_rounded,
-                                              size: 15.0,
+                                            text: 'Sign up with Apple',
+                                            icon: FaIcon(
+                                              FontAwesomeIcons.apple,
+                                              size: 20.0,
                                             ),
                                             options: FFButtonOptions(
                                               width: 310.0,
@@ -524,349 +783,84 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: Color(0xFFF4F4F4),
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.black,
-                                                      ),
-                                              elevation: 2.0,
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 10.0, 1.0),
+                                              color: Colors.black,
+                                              textStyle: GoogleFonts.getFont(
+                                                'Roboto',
+                                                color: Color(0xFFF4F4F4),
+                                                fontSize: 17.0,
+                                              ),
+                                              elevation: 4.0,
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,
-                                                width: 1.0,
+                                                width: 0.0,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(34.0),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                          height: 54.0,
-                                          child: Stack(
-                                            children: [
-                                              isAndroid
-                                                  ? Container()
-                                                  : Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: FFButtonWidget(
-                                                        onPressed: () async {
-                                                          GoRouter.of(context)
-                                                              .prepareAuthEvent();
-                                                          final user =
-                                                              await authManager
-                                                                  .signInWithApple(
-                                                                      context);
-                                                          if (user == null) {
-                                                            return;
-                                                          }
-
-                                                          context.goNamedAuth(
-                                                              'Discover',
-                                                              context.mounted);
-                                                        },
-                                                        text:
-                                                            'Sign up with Facebook',
-                                                        icon: Icon(
-                                                          Icons.add,
-                                                          color: Colors
-                                                              .transparent,
-                                                          size: 20.0,
-                                                        ),
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 310.0,
-                                                          height: 54.0,
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          iconPadding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0),
-                                                          color: Colors.white,
-                                                          textStyle: GoogleFonts
-                                                              .getFont(
-                                                            'Roboto',
-                                                            color: Color(
-                                                                0xFF1877F2),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 17.0,
-                                                          ),
-                                                          elevation: 4.0,
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 0.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      34.0),
-                                                        ),
-                                                      ),
-                                                    ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.63, 0.0),
-                                                child: Container(
-                                                  width: 22.0,
-                                                  height: 22.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    'https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                          height: 54.0,
-                                          child: Stack(
-                                            children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    GoRouter.of(context)
-                                                        .prepareAuthEvent();
-                                                    final user =
-                                                        await authManager
-                                                            .signInWithGoogle(
-                                                                context);
-                                                    if (user == null) {
-                                                      return;
-                                                    }
-
-                                                    context.goNamedAuth(
-                                                        'Discover',
-                                                        context.mounted);
-                                                  },
-                                                  text: 'Sign up with Google',
-                                                  icon: Icon(
-                                                    Icons.add,
-                                                    color: Colors.transparent,
-                                                    size: 20.0,
-                                                  ),
-                                                  options: FFButtonOptions(
-                                                    width: 310.0,
-                                                    height: 54.0,
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                8.0, 0.0),
-                                                    color: Colors.white,
-                                                    textStyle:
-                                                        GoogleFonts.getFont(
-                                                      'Roboto',
-                                                      color: Color(0xFF606060),
-                                                      fontSize: 17.0,
-                                                    ),
-                                                    elevation: 4.0,
-                                                    borderSide: BorderSide(
-                                                      color: Colors.transparent,
-                                                      width: 0.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            34.0),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.6, 0.0),
-                                                child: Container(
-                                                  width: 22.0,
-                                                  height: 22.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      isAndroid
-                                          ? Container()
-                                          : FFButtonWidget(
-                                              onPressed: () async {
-                                                GoRouter.of(context)
-                                                    .prepareAuthEvent();
-                                                final user = await authManager
-                                                    .signInWithApple(context);
-                                                if (user == null) {
-                                                  return;
-                                                }
-
-                                                context.goNamedAuth('Discover',
-                                                    context.mounted);
-                                              },
-                                              text: 'Sign up with Apple',
-                                              icon: FaIcon(
-                                                FontAwesomeIcons.apple,
-                                                size: 20.0,
-                                              ),
-                                              options: FFButtonOptions(
-                                                width: 310.0,
-                                                height: 54.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(0.0, 0.0,
-                                                            10.0, 1.0),
-                                                color: Colors.black,
-                                                textStyle: GoogleFonts.getFont(
-                                                  'Roboto',
-                                                  color: Color(0xFFF4F4F4),
-                                                  fontSize: 17.0,
-                                                ),
-                                                elevation: 4.0,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 0.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(34.0),
-                                              ),
-                                            ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 4.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'By creating an account you agree to our Terms and Privacy policy.',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFFF4F4F4),
-                                                fontSize: 12.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Row(
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 4.0),
+                                child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Already have an account?',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFF4F4F4),
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 0.0, 0.0, 0.0),
+                                    Expanded(
                                       child: Text(
-                                        'Log In',
+                                        'By creating an account you agree to our Terms and Privacy policy.',
+                                        textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Poppins',
                                               color: Color(0xFFF4F4F4),
-                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12.0,
                                             ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Already have an account?',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFFF4F4F4),
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Log In',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFF4F4F4),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

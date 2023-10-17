@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -206,7 +207,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -214,7 +215,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.00, 0.00),
                                           child: Text(
                                             gridViewTransportPricingRecord
                                                 .passengersLbl
@@ -246,7 +247,7 @@ class _CreateNewTour2WidgetState extends State<CreateNewTour2Widget> {
                                             ),
                                             child: Align(
                                               alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
+                                                  0.00, 0.00),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(

@@ -714,3 +714,12 @@ String? convertMtsToKmsLabel(double? distanceMeters) {
     }
   }
 }
+
+String? parsePlaceFromTextResponse(String? payloadJSON) {
+  if (payloadJSON != null) {
+    final jsonData = payloadJSON;
+    //final parsedJson = jsonDecode(jsonData);
+    Map<String, dynamic> map = jsonDecode(jsonData);
+    return map['candidates'] as String;
+  }
+}

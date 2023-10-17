@@ -56,8 +56,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
 
     return StreamBuilder<List<ToursRecord>>(
       stream: queryToursRecord(
-        queryBuilder: (toursRecord) =>
-            toursRecord.where('uid', isEqualTo: currentUserReference),
+        queryBuilder: (toursRecord) => toursRecord.where(
+          'uid',
+          isEqualTo: currentUserReference,
+        ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -292,7 +294,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
 
                                     if (_datePickedDate != null &&
                                         _datePickedTime != null) {
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.datePicked = DateTime(
                                           _datePickedDate.year,
                                           _datePickedDate.month,
@@ -537,7 +539,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                           _model.textController.text,
                                       tourState: 'draft',
                                     ),
-                                    'guests_uid': [currentUserReference],
+                                    ...mapToFirestore(
+                                      {
+                                        'guests_uid': [currentUserReference],
+                                      },
+                                    ),
                                   });
                                   _model.createdTourID =
                                       ToursRecord.getDocumentFromData({
@@ -568,7 +574,11 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                           _model.textController.text,
                                       tourState: 'draft',
                                     ),
-                                    'guests_uid': [currentUserReference],
+                                    ...mapToFirestore(
+                                      {
+                                        'guests_uid': [currentUserReference],
+                                      },
+                                    ),
                                   }, toursRecordReference);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -667,7 +677,10 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                       child: StreamBuilder<List<ToursRecord>>(
                         stream: queryToursRecord(
                           queryBuilder: (toursRecord) => toursRecord
-                              .where('uid', isEqualTo: currentUserReference)
+                              .where(
+                                'uid',
+                                isEqualTo: currentUserReference,
+                              )
                               .orderBy('tour_date', descending: true),
                         ),
                         builder: (context, snapshot) {

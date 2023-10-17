@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,9 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).cultured,
@@ -153,7 +156,7 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
                                 width: 1.0,
                               ),
                             ),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
@@ -320,7 +323,8 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
                                       ),
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.9),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.90),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             6.0, 0.0, 6.0, 0.0),
@@ -357,7 +361,7 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
                                       decoration: BoxDecoration(),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(-0.9, 0.7),
+                                            AlignmentDirectional(-0.90, 0.70),
                                         child: Text(
                                           functions
                                               .upperCaseString(
@@ -382,7 +386,7 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(0.8, -0.5),
+                                          AlignmentDirectional(0.80, -0.50),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             100.0, 0.0, 0.0, 100.0),
@@ -413,8 +417,12 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
                                                   await listViewFeaturedVenuesRecord
                                                       .reference
                                                       .update({
-                                                    'is_favourited_by':
-                                                        isFavouritedByUpdate,
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'is_favourited_by':
+                                                            isFavouritedByUpdate,
+                                                      },
+                                                    ),
                                                   });
                                                 },
                                                 value:
@@ -451,21 +459,29 @@ class _SearchAllWidgetState extends State<SearchAllWidget>
                                                     await listViewFeaturedVenuesRecord
                                                         .reference
                                                         .update({
-                                                      'is_favourited_by':
-                                                          FieldValue
-                                                              .arrayRemove([
-                                                        currentUserReference
-                                                      ]),
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'is_favourited_by':
+                                                              FieldValue
+                                                                  .arrayRemove([
+                                                            currentUserReference
+                                                          ]),
+                                                        },
+                                                      ),
                                                     });
                                                   } else {
                                                     await listViewFeaturedVenuesRecord
                                                         .reference
                                                         .update({
-                                                      'is_favourited_by':
-                                                          FieldValue
-                                                              .arrayUnion([
-                                                        currentUserReference
-                                                      ]),
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'is_favourited_by':
+                                                              FieldValue
+                                                                  .arrayUnion([
+                                                            currentUserReference
+                                                          ]),
+                                                        },
+                                                      ),
                                                     });
                                                   }
                                                 },

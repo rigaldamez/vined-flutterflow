@@ -62,8 +62,10 @@ class _SelectExperienceBtmsheetWidgetState
 
     return FutureBuilder<List<SelectedVenuesRecord>>(
       future: querySelectedVenuesRecordOnce(
-        queryBuilder: (selectedVenuesRecord) =>
-            selectedVenuesRecord.where('tourRef', isEqualTo: widget.tourReff),
+        queryBuilder: (selectedVenuesRecord) => selectedVenuesRecord.where(
+          'tourRef',
+          isEqualTo: widget.tourReff,
+        ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -260,7 +262,7 @@ class _SelectExperienceBtmsheetWidgetState
                                                     decoration: BoxDecoration(),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            -1.0, 0.0),
+                                                            -1.00, 0.00),
                                                     child: Text(
                                                       listViewTastingExperiencesRecord
                                                           .description,
@@ -312,8 +314,12 @@ class _SelectExperienceBtmsheetWidgetState
                                               capacity:
                                                   widget.venueRec?.capacity,
                                             ),
-                                            'openDays':
-                                                widget.venueRec?.openDays,
+                                            ...mapToFirestore(
+                                              {
+                                                'openDays':
+                                                    widget.venueRec?.openDays,
+                                              },
+                                            ),
                                           });
                                           _model.lastVenueAdded =
                                               SelectedVenuesRecord
@@ -341,8 +347,12 @@ class _SelectExperienceBtmsheetWidgetState
                                               capacity:
                                                   widget.venueRec?.capacity,
                                             ),
-                                            'openDays':
-                                                widget.venueRec?.openDays,
+                                            ...mapToFirestore(
+                                              {
+                                                'openDays':
+                                                    widget.venueRec?.openDays,
+                                              },
+                                            ),
                                           }, selectedVenuesRecordReference1);
 
                                           await widget.tourReff!.update({
@@ -376,8 +386,14 @@ class _SelectExperienceBtmsheetWidgetState
                                                           _model.lastVenueAdded)
                                                       .toDouble()),
                                             ),
-                                            'venues': FieldValue.arrayUnion(
-                                                [widget.venueRec?.reference]),
+                                            ...mapToFirestore(
+                                              {
+                                                'venues':
+                                                    FieldValue.arrayUnion([
+                                                  widget.venueRec?.reference
+                                                ]),
+                                              },
+                                            ),
                                           });
                                           context.pop();
                                           ScaffoldMessenger.of(context)
@@ -439,8 +455,12 @@ class _SelectExperienceBtmsheetWidgetState
                                                 capacity:
                                                     widget.venueRec?.capacity,
                                               ),
-                                              'openDays':
-                                                  widget.venueRec?.openDays,
+                                              ...mapToFirestore(
+                                                {
+                                                  'openDays':
+                                                      widget.venueRec?.openDays,
+                                                },
+                                              ),
                                             });
                                             _model.lastSelectedVenue2 =
                                                 SelectedVenuesRecord
@@ -476,8 +496,12 @@ class _SelectExperienceBtmsheetWidgetState
                                                 capacity:
                                                     widget.venueRec?.capacity,
                                               ),
-                                              'openDays':
-                                                  widget.venueRec?.openDays,
+                                              ...mapToFirestore(
+                                                {
+                                                  'openDays':
+                                                      widget.venueRec?.openDays,
+                                                },
+                                              ),
                                             }, selectedVenuesRecordReference2);
 
                                             await widget.tourReff!.update({
@@ -513,10 +537,16 @@ class _SelectExperienceBtmsheetWidgetState
                                                                 .lastSelectedVenue2)
                                                         .toDouble()),
                                               ),
-                                              'venues': FieldValue.arrayUnion(
-                                                  [widget.venueRec?.reference]),
-                                              'large_group_venue_early_seating_count':
-                                                  FieldValue.increment(1),
+                                              ...mapToFirestore(
+                                                {
+                                                  'venues':
+                                                      FieldValue.arrayUnion([
+                                                    widget.venueRec?.reference
+                                                  ]),
+                                                  'large_group_venue_early_seating_count':
+                                                      FieldValue.increment(1),
+                                                },
+                                              ),
                                             });
                                             context.pop();
                                           } else {
@@ -556,8 +586,12 @@ class _SelectExperienceBtmsheetWidgetState
                                                 capacity:
                                                     widget.venueRec?.capacity,
                                               ),
-                                              'openDays':
-                                                  widget.venueRec?.openDays,
+                                              ...mapToFirestore(
+                                                {
+                                                  'openDays':
+                                                      widget.venueRec?.openDays,
+                                                },
+                                              ),
                                             });
                                             _model.lastSelectedVenue3 =
                                                 SelectedVenuesRecord
@@ -593,8 +627,12 @@ class _SelectExperienceBtmsheetWidgetState
                                                 capacity:
                                                     widget.venueRec?.capacity,
                                               ),
-                                              'openDays':
-                                                  widget.venueRec?.openDays,
+                                              ...mapToFirestore(
+                                                {
+                                                  'openDays':
+                                                      widget.venueRec?.openDays,
+                                                },
+                                              ),
                                             }, selectedVenuesRecordReference3);
 
                                             await widget.tourReff!.update({
@@ -630,8 +668,14 @@ class _SelectExperienceBtmsheetWidgetState
                                                                 .lastSelectedVenue3)
                                                         .toDouble()),
                                               ),
-                                              'venues': FieldValue.arrayUnion(
-                                                  [widget.venueRec?.reference]),
+                                              ...mapToFirestore(
+                                                {
+                                                  'venues':
+                                                      FieldValue.arrayUnion([
+                                                    widget.venueRec?.reference
+                                                  ]),
+                                                },
+                                              ),
                                             });
                                             context.pop();
                                           }

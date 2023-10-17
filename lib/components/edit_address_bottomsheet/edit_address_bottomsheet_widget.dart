@@ -168,7 +168,7 @@ class _EditAddressBottomsheetWidgetState
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 10.0, 10.0, 20.0),
@@ -185,7 +185,8 @@ class _EditAddressBottomsheetWidgetState
                                           color: Color(0x19000000),
                                         ),
                                       ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 4.0, 0.0, 4.0),
@@ -236,7 +237,7 @@ class _EditAddressBottomsheetWidgetState
                                                 BorderRadius.circular(34.0),
                                           ),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.00, 0.00),
                                           child: FlutterFlowPlacePicker(
                                             iOSGoogleMapsApiKey:
                                                 'AIzaSyDMvQ-0VfFVRtzlYA-8oxKroXhswUCQCi0',

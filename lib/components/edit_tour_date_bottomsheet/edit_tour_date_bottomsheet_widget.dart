@@ -145,7 +145,7 @@ class _EditTourDateBottomsheetWidgetState
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 10.0, 10.0, 20.0),
@@ -160,7 +160,7 @@ class _EditTourDateBottomsheetWidgetState
                                     color: Color(0x19000000),
                                   ),
                                 ),
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
@@ -211,10 +211,10 @@ class _EditTourDateBottomsheetWidgetState
                                       color: Colors.black,
                                       borderRadius: BorderRadius.circular(34.0),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
                                     child: StreamBuilder<List<AppConfigRecord>>(
                                       stream: queryAppConfigRecord(
                                         singleRecord: true,
@@ -291,7 +291,7 @@ class _EditTourDateBottomsheetWidgetState
 
                                             if (_datePickedDate != null &&
                                                 _datePickedTime != null) {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.datePicked = DateTime(
                                                   _datePickedDate.year,
                                                   _datePickedDate.month,

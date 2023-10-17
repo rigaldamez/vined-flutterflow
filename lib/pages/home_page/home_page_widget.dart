@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -158,8 +159,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   4.0, 8.0, 4.0, 8.0),
                               child: StreamBuilder<List<RegionsRecord>>(
                                 stream: queryRegionsRecord(
-                                  queryBuilder: (regionsRecord) => regionsRecord
-                                      .where('isServiced', isEqualTo: true),
+                                  queryBuilder: (regionsRecord) =>
+                                      regionsRecord.where(
+                                    'isServiced',
+                                    isEqualTo: true,
+                                  ),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -230,6 +234,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             FormFieldController<List<String>>(
                                       ['Adelaide Hills'],
                                     ),
+                                    wrapped: true,
                                   );
                                 },
                               ),
@@ -264,7 +269,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         width: 100.0,
                         height: 40.0,
                         decoration: BoxDecoration(),
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: Stack(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           children: [
@@ -359,7 +364,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.9),
+                                    alignment: AlignmentDirectional(0.00, 0.90),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.4,
@@ -393,7 +398,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     decoration: BoxDecoration(),
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-0.5, 0.7),
+                                          AlignmentDirectional(-0.50, 0.70),
                                       child: Text(
                                         functions
                                             .upperCaseString(
@@ -417,7 +422,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.9, -0.64),
+                                    alignment:
+                                        AlignmentDirectional(0.90, -0.64),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           100.0, 0.0, 0.0, 100.0),
@@ -429,7 +435,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           children: [
                                             Align(
                                               alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
+                                                  0.00, 0.00),
                                               child: Container(
                                                 width: 30.0,
                                                 height: 30.0,
@@ -457,8 +463,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     await listViewFeaturedVenuesRecord
                                                         .reference
                                                         .update({
-                                                      'is_favourited_by':
-                                                          isFavouritedByUpdate,
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'is_favourited_by':
+                                                              isFavouritedByUpdate,
+                                                        },
+                                                      ),
                                                     });
                                                   },
                                                   value: listViewFeaturedVenuesRecord
@@ -497,19 +507,29 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   await listViewFeaturedVenuesRecord
                                                       .reference
                                                       .update({
-                                                    'is_favourited_by':
-                                                        FieldValue.arrayRemove([
-                                                      currentUserReference
-                                                    ]),
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'is_favourited_by':
+                                                            FieldValue
+                                                                .arrayRemove([
+                                                          currentUserReference
+                                                        ]),
+                                                      },
+                                                    ),
                                                   });
                                                 } else {
                                                   await listViewFeaturedVenuesRecord
                                                       .reference
                                                       .update({
-                                                    'is_favourited_by':
-                                                        FieldValue.arrayUnion([
-                                                      currentUserReference
-                                                    ]),
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'is_favourited_by':
+                                                            FieldValue
+                                                                .arrayUnion([
+                                                          currentUserReference
+                                                        ]),
+                                                      },
+                                                    ),
                                                   });
                                                 }
                                               },
@@ -564,7 +584,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
@@ -729,7 +749,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.9, -0.64),
+                                                    0.90, -0.64),
                                                 child: Container(
                                                   width: 50.0,
                                                   child: Stack(
@@ -737,7 +757,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.0, 0.0),
+                                                                0.00, 0.00),
                                                         child: Container(
                                                           width: 34.0,
                                                           height: 34.0,
@@ -768,8 +788,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               await listViewVenuesRecord
                                                                   .reference
                                                                   .update({
-                                                                'is_favourited_by':
-                                                                    isFavouritedByUpdate,
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'is_favourited_by':
+                                                                        isFavouritedByUpdate,
+                                                                  },
+                                                                ),
                                                               });
                                                             },
                                                             value: listViewVenuesRecord
@@ -798,7 +822,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.0, 0.0),
+                                                                0.00, 0.00),
                                                         child: InkWell(
                                                           splashColor: Colors
                                                               .transparent,
@@ -816,21 +840,29 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               await listViewVenuesRecord
                                                                   .reference
                                                                   .update({
-                                                                'is_favourited_by':
-                                                                    FieldValue
-                                                                        .arrayRemove([
-                                                                  currentUserReference
-                                                                ]),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'is_favourited_by':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      currentUserReference
+                                                                    ]),
+                                                                  },
+                                                                ),
                                                               });
                                                             } else {
                                                               await listViewVenuesRecord
                                                                   .reference
                                                                   .update({
-                                                                'is_favourited_by':
-                                                                    FieldValue
-                                                                        .arrayUnion([
-                                                                  currentUserReference
-                                                                ]),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'is_favourited_by':
+                                                                        FieldValue
+                                                                            .arrayUnion([
+                                                                      currentUserReference
+                                                                    ]),
+                                                                  },
+                                                                ),
                                                               });
                                                             }
                                                           },

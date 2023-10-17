@@ -223,7 +223,7 @@ class _UpdatePickupTimeBtmsheetCopyWidgetState
                                                   .getTodayTimestampZeroMinutes()),
                                         );
                                         if (_datePickedTime != null) {
-                                          setState(() {
+                                          safeSetState(() {
                                             _model.datePicked = DateTime(
                                               functions
                                                   .getTodayTimestampZeroMinutes()

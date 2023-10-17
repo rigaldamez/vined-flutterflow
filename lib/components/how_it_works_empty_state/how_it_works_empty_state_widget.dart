@@ -118,7 +118,7 @@ class _HowItWorksEmptyStateWidgetState
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.00, 1.00),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                   child: smooth_page_indicator.SmoothPageIndicator(
@@ -167,7 +167,7 @@ class _HowItWorksEmptyStateWidgetState
                     ),
                   );
                 },
-              ).then((value) => setState(() {}));
+              ).then((value) => safeSetState(() {}));
             },
             text: 'Create Tour',
             options: FFButtonOptions(

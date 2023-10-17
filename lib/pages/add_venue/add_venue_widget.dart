@@ -3,6 +3,7 @@ import '/components/select_experience_btmsheet/select_experience_btmsheet_widget
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -51,7 +52,9 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -240,7 +243,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                    alignment: AlignmentDirectional(1.00, 0.00),
                                     child: Container(
                                       width: 50.0,
                                       height: 50.0,
@@ -267,8 +270,10 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                             child: PagedListView<DocumentSnapshot<Object?>?,
                                 VenuesRecord>(
                               pagingController: _model.setListViewController(
-                                VenuesRecord.collection.where('region_Ref',
-                                    isEqualTo: containerToursRecord.regionID),
+                                VenuesRecord.collection.where(
+                                  'region_Ref',
+                                  isEqualTo: containerToursRecord.regionID,
+                                ),
                               ),
                               padding: EdgeInsets.zero,
                               reverse: false,
@@ -379,7 +384,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                1.0, 0.0),
+                                                                1.00, 0.00),
                                                         child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
@@ -511,18 +516,20 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.89, 0.0),
+                                                                0.89, 0.00),
                                                         child: FutureBuilder<
                                                             List<
                                                                 SelectedVenuesRecord>>(
                                                           future:
                                                               querySelectedVenuesRecordOnce(
-                                                            queryBuilder: (selectedVenuesRecord) =>
-                                                                selectedVenuesRecord.where(
-                                                                    'tourRef',
-                                                                    isEqualTo:
-                                                                        widget
-                                                                            .tourReff),
+                                                            queryBuilder:
+                                                                (selectedVenuesRecord) =>
+                                                                    selectedVenuesRecord
+                                                                        .where(
+                                                              'tourRef',
+                                                              isEqualTo: widget
+                                                                  .tourReff,
+                                                            ),
                                                           ),
                                                           builder: (context,
                                                               snapshot) {
@@ -611,7 +618,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               context: context,
                                                                               builder: (context) {
                                                                                 return GestureDetector(
-                                                                                  onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                                  onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                   child: Padding(
                                                                                     padding: MediaQuery.viewInsetsOf(context),
                                                                                     child: Container(
@@ -628,7 +635,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 );
                                                                               },
                                                                             ).then((value) =>
-                                                                                setState(() {}));
+                                                                                safeSetState(() {}));
                                                                           } else {
                                                                             if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(containerToursRecord.passengers,
                                                                                 columnAppConfigRecord?.largeGroupThreshold)) {
@@ -639,7 +646,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 context: context,
                                                                                 builder: (context) {
                                                                                   return GestureDetector(
-                                                                                    onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                                    onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                     child: Padding(
                                                                                       padding: MediaQuery.viewInsetsOf(context),
                                                                                       child: Container(
@@ -655,7 +662,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                     ),
                                                                                   );
                                                                                 },
-                                                                              ).then((value) => setState(() {}));
+                                                                              ).then((value) => safeSetState(() {}));
                                                                             } else {
                                                                               if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(containerToursRecord.largeGroupVenueEarlySeatingCount, columnAppConfigRecord?.largeGroupVenuesEarlySeatingThreshold, listViewVenuesRecord.largeGroupEarlySeatingOnly)) {
                                                                                 await showModalBottomSheet(
@@ -665,7 +672,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   context: context,
                                                                                   builder: (context) {
                                                                                     return GestureDetector(
-                                                                                      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                                      onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                       child: Padding(
                                                                                         padding: MediaQuery.viewInsetsOf(context),
                                                                                         child: Container(
@@ -681,7 +688,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       ),
                                                                                     );
                                                                                   },
-                                                                                ).then((value) => setState(() {}));
+                                                                                ).then((value) => safeSetState(() {}));
                                                                               } else {
                                                                                 await showDialog(
                                                                                   context: context,
@@ -785,7 +792,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                           child: Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.0, 0.0),
+                                                                    0.00, 0.00),
                                                             child: Text(
                                                               'CLOSED',
                                                               textAlign:
@@ -814,13 +821,14 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                               SelectedVenuesRecord>>(
                                                         stream:
                                                             querySelectedVenuesRecord(
-                                                          queryBuilder: (selectedVenuesRecord) =>
-                                                              selectedVenuesRecord
-                                                                  .where(
-                                                                      'tourRef',
-                                                                      isEqualTo:
-                                                                          widget
-                                                                              .tourReff),
+                                                          queryBuilder:
+                                                              (selectedVenuesRecord) =>
+                                                                  selectedVenuesRecord
+                                                                      .where(
+                                                            'tourRef',
+                                                            isEqualTo:
+                                                                widget.tourReff,
+                                                          ),
                                                         ),
                                                         builder: (context,
                                                             snapshot) {
@@ -909,7 +917,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                           builder:
                                                                               (context) {
                                                                             return GestureDetector(
-                                                                              onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                              onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                               child: Padding(
                                                                                 padding: MediaQuery.viewInsetsOf(context),
                                                                                 child: Container(
@@ -926,7 +934,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             );
                                                                           },
                                                                         ).then((value) =>
-                                                                            setState(() {}));
+                                                                            safeSetState(() {}));
                                                                       } else {
                                                                         if (functions.isIntegerOneSmallOrEqualThanIntegerTwo(
                                                                             containerToursRecord.passengers,
@@ -943,7 +951,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             builder:
                                                                                 (context) {
                                                                               return GestureDetector(
-                                                                                onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                                onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                 child: Padding(
                                                                                   padding: MediaQuery.viewInsetsOf(context),
                                                                                   child: Container(
@@ -960,7 +968,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               );
                                                                             },
                                                                           ).then((value) =>
-                                                                              setState(() {}));
+                                                                              safeSetState(() {}));
                                                                         } else {
                                                                           if (functions.isIntegerOneSmallerThanIntegerTwoOrArguement3IsTrue(
                                                                               containerToursRecord.largeGroupVenueEarlySeatingCount,
@@ -973,7 +981,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               context: context,
                                                                               builder: (context) {
                                                                                 return GestureDetector(
-                                                                                  onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                                  onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                   child: Padding(
                                                                                     padding: MediaQuery.viewInsetsOf(context),
                                                                                     child: Container(
@@ -990,7 +998,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 );
                                                                               },
                                                                             ).then((value) =>
-                                                                                setState(() {}));
+                                                                                safeSetState(() {}));
                                                                           } else {
                                                                             await showDialog(
                                                                               context: context,

@@ -113,7 +113,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 10.0, 20.0),
@@ -130,7 +130,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                               ),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: TextFormField(
                                 controller: _model.tourNameTextFieldController,
                                 obscureText: false,
@@ -170,10 +170,10 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(34.0),
                               ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   if (!functions.isStringNotEmpty(_model

@@ -67,7 +67,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(-1.00, 0.00),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 220.0),
                   child: FlutterFlowIconButton(
@@ -100,7 +100,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                         borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: TextFormField(
                           controller: _model.emailTextFieldController,
                           obscureText: false,
@@ -163,7 +163,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                         borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: TextFormField(
                           controller: _model.passwordTextField1Controller,
                           obscureText: !_model.passwordTextField1Visibility,
@@ -240,7 +240,7 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
                         borderRadius: BorderRadius.circular(34.0),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: TextFormField(
                           controller: _model.passwordTextField2Controller,
                           obscureText: !_model.passwordTextField2Visibility,

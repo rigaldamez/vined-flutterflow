@@ -136,8 +136,10 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                       child: StreamBuilder<List<SelectedVenuesRecord>>(
                         stream: querySelectedVenuesRecord(
                           queryBuilder: (selectedVenuesRecord) =>
-                              selectedVenuesRecord.where('tourRef',
-                                  isEqualTo: widget.tourRef),
+                              selectedVenuesRecord.where(
+                            'tourRef',
+                            isEqualTo: widget.tourRef,
+                          ),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -195,7 +197,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             context.pushNamed(
@@ -279,7 +281,7 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: Text(
                                           stackVenuesRecord.name,
                                           style: FlutterFlowTheme.of(context)
@@ -301,8 +303,14 @@ class _ViewTourDetailsWidgetState extends State<ViewTourDetailsWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           await widget.tourRef!.update({
-                                            'venues': FieldValue.arrayRemove(
-                                                [stackVenuesRecord.reference]),
+                                            ...mapToFirestore(
+                                              {
+                                                'venues':
+                                                    FieldValue.arrayRemove([
+                                                  stackVenuesRecord.reference
+                                                ]),
+                                              },
+                                            ),
                                           });
                                           await gridViewSelectedVenuesRecord
                                               .reference

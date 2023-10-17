@@ -4,6 +4,7 @@ import '/backend/stripe/payment_manager.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
     context.watch<FFAppState>();
     final lottieAnimation2Controller = AnimationController(vsync: this);
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -745,8 +748,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                 child: Align(
                                                                   alignment:
                                                                       AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0),
+                                                                          0.00,
+                                                                          0.00),
                                                                   child:
                                                                       TextFormField(
                                                                     controller:
@@ -846,12 +849,15 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                 PromoCodesRecord>>(
                                                           stream:
                                                               queryPromoCodesRecord(
-                                                            queryBuilder: (promoCodesRecord) =>
-                                                                promoCodesRecord.where(
-                                                                    'promo_code',
-                                                                    isEqualTo: _model
-                                                                        .textController
-                                                                        .text),
+                                                            queryBuilder:
+                                                                (promoCodesRecord) =>
+                                                                    promoCodesRecord
+                                                                        .where(
+                                                              'promo_code',
+                                                              isEqualTo: _model
+                                                                  .textController
+                                                                  .text,
+                                                            ),
                                                             singleRecord: true,
                                                           ),
                                                           builder: (context,
@@ -960,10 +966,13 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                           await containerPromoCodesRecord!
                                                                               .reference
                                                                               .update({
-                                                                            'used_by_list':
-                                                                                FieldValue.arrayUnion([
-                                                                              currentUserReference
-                                                                            ]),
+                                                                            ...mapToFirestore(
+                                                                              {
+                                                                                'used_by_list': FieldValue.arrayUnion([
+                                                                                  currentUserReference
+                                                                                ]),
+                                                                              },
+                                                                            ),
                                                                           });
                                                                           setState(
                                                                               () {
@@ -1134,7 +1143,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                 ],
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, -0.5),
+                                alignment: AlignmentDirectional(0.00, -0.50),
                                 child: Lottie.asset(
                                   'assets/lottie_animations/129232-rewards-with-confetti.json',
                                   width: MediaQuery.sizeOf(context).width * 1.0,
@@ -1342,21 +1351,20 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                   .cultured,
                                                         );
                                                         if (paymentResponse
-                                                                .paymentId ==
-                                                            null) {
-                                                          if (paymentResponse
-                                                                  .errorMessage !=
-                                                              null) {
-                                                            showSnackbar(
-                                                              context,
-                                                              'Error: ${paymentResponse.errorMessage}',
-                                                            );
-                                                          }
-                                                          return;
+                                                                    .paymentId ==
+                                                                null &&
+                                                            paymentResponse
+                                                                    .errorMessage !=
+                                                                null) {
+                                                          showSnackbar(
+                                                            context,
+                                                            'Error: ${paymentResponse.errorMessage}',
+                                                          );
                                                         }
                                                         _model.paymentId =
                                                             paymentResponse
-                                                                .paymentId!;
+                                                                    .paymentId ??
+                                                                '';
 
                                                         await PaymentRecord.createDoc(
                                                                 containerToursRecord

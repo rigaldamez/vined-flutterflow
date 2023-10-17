@@ -50,7 +50,9 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF5F5F5),
@@ -125,7 +127,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 10.0, 20.0),
@@ -143,7 +145,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: TextFormField(
                                         controller:
                                             _model.tourNameTextFieldController,
@@ -219,10 +222,12 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                         borderRadius:
                                             BorderRadius.circular(34.0),
                                       ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           if (!functions.isStringNotEmpty(_model
@@ -321,7 +326,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50.0),
                           ),
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.00, 0.00),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
                             height: 100.0,
@@ -424,7 +429,10 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                           ToursRecord>(
                         pagingController: _model.setListViewController(
                           ToursRecord.collection
-                              .where('uid', isEqualTo: currentUserReference)
+                              .where(
+                                'uid',
+                                isEqualTo: currentUserReference,
+                              )
                               .orderBy('tour_date', descending: true),
                         ),
                         padding: EdgeInsets.zero,
@@ -594,7 +602,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                                                           child:
                                                                               Align(
                                                                             alignment:
-                                                                                AlignmentDirectional(0.0, 0.0),
+                                                                                AlignmentDirectional(0.00, 0.00),
                                                                             child:
                                                                                 Text(
                                                                               rowRegionsRecord.name,

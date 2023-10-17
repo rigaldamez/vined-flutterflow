@@ -151,8 +151,8 @@ service cloud.firestore {
     match /venues/{parent}/venue_features/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/venue_features/{document} {
@@ -161,15 +161,10 @@ service cloud.firestore {
 
 
     match /users/{parent}/tasting_diary/{document} {
-      allow create: if true;
+      allow create: if request.auth.uid == parent;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if request.auth.uid == parent;
+      allow delete: if false;
     }
-
-    match /{path=**}/tasting_diary/{document} {
-      allow read: if true;
-    }
-
   }
 }

@@ -9,13 +9,14 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/place.dart';
 import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'create_new_tour3_widget.dart' show CreateNewTour3Widget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CreateNewTour3Model extends FlutterFlowModel {
+class CreateNewTour3Model extends FlutterFlowModel<CreateNewTour3Widget> {
   ///  State fields for stateful widgets in this page.
 
   DateTime? datePicked;

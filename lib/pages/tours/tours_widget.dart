@@ -5,6 +5,7 @@ import '/components/new_tour_bottomsheet/new_tour_bottomsheet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -106,7 +107,7 @@ class _ToursWidgetState extends State<ToursWidget> {
                                 ),
                               );
                             },
-                          ).then((value) => setState(() {}));
+                          ).then((value) => safeSetState(() {}));
                         },
                       ),
                     ],
@@ -134,7 +135,10 @@ class _ToursWidgetState extends State<ToursWidget> {
                   child: PagedListView<DocumentSnapshot<Object?>?, ToursRecord>(
                     pagingController: _model.setListViewController(
                       ToursRecord.collection
-                          .where('uid', isEqualTo: currentUserReference)
+                          .where(
+                            'uid',
+                            isEqualTo: currentUserReference,
+                          )
                           .orderBy('tour_date'),
                     ),
                     padding: EdgeInsets.zero,
@@ -306,8 +310,8 @@ class _ToursWidgetState extends State<ToursWidget> {
                                                                       child:
                                                                           Align(
                                                                         alignment: AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
+                                                                            0.00,
+                                                                            0.00),
                                                                         child:
                                                                             Text(
                                                                           rowRegionsRecord

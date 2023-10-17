@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +49,9 @@ class _UsersWidgetState extends State<UsersWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -114,14 +117,14 @@ class _UsersWidgetState extends State<UsersWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 0.9,
                                   height: 100.0,
                                   decoration: BoxDecoration(
                                     color: Color(0x91F4F4F4),
                                   ),
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,

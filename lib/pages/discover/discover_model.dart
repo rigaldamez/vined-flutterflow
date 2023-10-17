@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'discover_widget.dart' show DiscoverWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,7 +19,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class DiscoverModel extends FlutterFlowModel {
+class DiscoverModel extends FlutterFlowModel<DiscoverWidget> {
   ///  Local state fields for this page.
 
   LatLng? currentUserLocation;
@@ -30,6 +32,8 @@ class DiscoverModel extends FlutterFlowModel {
       venuesListLocal.remove(item);
   void removeAtIndexFromVenuesListLocal(int index) =>
       venuesListLocal.removeAt(index);
+  void insertAtIndexInVenuesListLocal(int index, VenuesRecord item) =>
+      venuesListLocal.insert(index, item);
   void updateVenuesListLocalAtIndex(
           int index, Function(VenuesRecord) updateFn) =>
       venuesListLocal[index] = updateFn(venuesListLocal[index]);
@@ -45,6 +49,8 @@ class DiscoverModel extends FlutterFlowModel {
       venuesSortedByDistancePS.remove(item);
   void removeAtIndexFromVenuesSortedByDistancePS(int index) =>
       venuesSortedByDistancePS.removeAt(index);
+  void insertAtIndexInVenuesSortedByDistancePS(int index, VenuesRecord item) =>
+      venuesSortedByDistancePS.insert(index, item);
   void updateVenuesSortedByDistancePSAtIndex(
           int index, Function(VenuesRecord) updateFn) =>
       venuesSortedByDistancePS[index] =

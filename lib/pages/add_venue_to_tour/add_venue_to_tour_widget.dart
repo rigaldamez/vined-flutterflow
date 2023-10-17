@@ -62,8 +62,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
 
     return StreamBuilder<List<SelectedVenuesRecord>>(
       stream: querySelectedVenuesRecord(
-        queryBuilder: (selectedVenuesRecord) =>
-            selectedVenuesRecord.where('tourRef', isEqualTo: widget.tourID),
+        queryBuilder: (selectedVenuesRecord) => selectedVenuesRecord.where(
+          'tourRef',
+          isEqualTo: widget.tourID,
+        ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -145,8 +147,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                         StreamBuilder<List<SelectedVenuesRecord>>(
                           stream: querySelectedVenuesRecord(
                             queryBuilder: (selectedVenuesRecord) =>
-                                selectedVenuesRecord.where('tourRef',
-                                    isEqualTo: widget.tourID),
+                                selectedVenuesRecord.where(
+                              'tourRef',
+                              isEqualTo: widget.tourID,
+                            ),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -222,8 +226,10 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                           EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                       child: StreamBuilder<List<VenuesRecord>>(
                         stream: queryVenuesRecord(
-                          queryBuilder: (venuesRecord) => venuesRecord
-                              .where('regionID', isEqualTo: widget.regionID),
+                          queryBuilder: (venuesRecord) => venuesRecord.where(
+                            'regionID',
+                            isEqualTo: widget.regionID,
+                          ),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -259,7 +265,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                               return Stack(
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         context.pushNamed(
@@ -331,7 +337,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
                                     child: Text(
                                       gridViewVenuesRecord.name,
                                       style: FlutterFlowTheme.of(context)
@@ -378,9 +384,14 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                         }
                                         if (widget.venueCount! < 4) {
                                           await widget.tourID!.update({
-                                            'venues': FieldValue.arrayUnion([
-                                              gridViewVenuesRecord.reference
-                                            ]),
+                                            ...mapToFirestore(
+                                              {
+                                                'venues':
+                                                    FieldValue.arrayUnion([
+                                                  gridViewVenuesRecord.reference
+                                                ]),
+                                              },
+                                            ),
                                           });
                                         } else {
                                           return;
@@ -421,7 +432,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                       gridViewVenuesRecord.reference))
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(0.9, -0.9),
+                                          AlignmentDirectional(0.90, -0.90),
                                       child: Icon(
                                         Icons.check_circle_rounded,
                                         color: FlutterFlowTheme.of(context)
@@ -430,7 +441,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                       ),
                                     ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.55),
+                                    alignment: AlignmentDirectional(0.00, 0.55),
                                     child: Text(
                                       'Hello World',
                                       style: FlutterFlowTheme.of(context)

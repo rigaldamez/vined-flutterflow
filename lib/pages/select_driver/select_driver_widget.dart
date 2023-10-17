@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -238,7 +241,7 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                    alignment: AlignmentDirectional(1.00, 0.00),
                                     child: Container(
                                       width: 50.0,
                                       height: 50.0,
@@ -265,9 +268,11 @@ class _SelectDriverWidgetState extends State<SelectDriverWidget> {
                             child: StreamBuilder<List<UsersRecord>>(
                               stream: queryUsersRecord(
                                 queryBuilder: (usersRecord) =>
-                                    usersRecord.where('driver_onboarded_market',
-                                        arrayContains:
-                                            containerToursRecord.countryState),
+                                    usersRecord.where(
+                                  'driver_onboarded_market',
+                                  arrayContains:
+                                      containerToursRecord.countryState,
+                                ),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.

@@ -43,6 +43,20 @@
       ]
     },
     {
+      "collectionGroup": "tasting_diary",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "venue_reff",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "chats",
       "queryScope": "COLLECTION",
       "fields": [

@@ -24,7 +24,8 @@ class ProfileWidget extends StatefulWidget {
   _ProfileWidgetState createState() => _ProfileWidgetState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget> {
+class _ProfileWidgetState extends State<ProfileWidget>
+    with TickerProviderStateMixin {
   late ProfileModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,6 +36,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _model = createModel(context, () => ProfileModel());
 
     _model.tourNameTextFieldController ??= TextEditingController();
+    _model.tabBarController = TabController(
+      vsync: this,
+      length: 3,
+      initialIndex: 0,
+    )..addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -119,7 +125,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 20.0),
@@ -136,7 +142,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ),
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: TextFormField(
                                     controller:
                                         _model.tourNameTextFieldController,
@@ -209,10 +215,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     ],
                                     borderRadius: BorderRadius.circular(34.0),
                                   ),
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       if (!functions.isStringNotEmpty(_model
@@ -302,7 +308,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50.0),
                       ),
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.00, 0.00),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: 100.0,
@@ -402,252 +408,349 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Expanded(
-                      child: DefaultTabController(
-                        length: 3,
-                        initialIndex: 0,
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment(0.0, 0),
-                              child: FlutterFlowButtonTabBar(
-                                useToggleButtonStyle: false,
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                unselectedLabelStyle:
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                labelColor:
-                                    FlutterFlowTheme.of(context).cultured,
-                                unselectedLabelColor:
-                                    FlutterFlowTheme.of(context).black,
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).black,
-                                unselectedBackgroundColor:
-                                    FlutterFlowTheme.of(context).cultured,
-                                borderWidth: 0.0,
-                                borderRadius: 28.0,
-                                elevation: 2.0,
-                                buttonMargin: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 10.0, 10.0, 10.0),
-                                tabs: [
-                                  Tab(
-                                    text: 'SA',
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment(0.0, 0),
+                            child: FlutterFlowButtonTabBar(
+                              useToggleButtonStyle: false,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                  Tab(
-                                    text: 'VIC',
-                                  ),
-                                  Tab(
-                                    text: 'NSW',
-                                  ),
-                                ],
-                              ),
+                              unselectedLabelStyle: TextStyle(),
+                              labelColor: FlutterFlowTheme.of(context).cultured,
+                              unselectedLabelColor:
+                                  FlutterFlowTheme.of(context).black,
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).black,
+                              unselectedBackgroundColor:
+                                  FlutterFlowTheme.of(context).cultured,
+                              borderWidth: 0.0,
+                              borderRadius: 28.0,
+                              elevation: 2.0,
+                              buttonMargin: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 10.0, 10.0, 10.0),
+                              tabs: [
+                                Tab(
+                                  text: 'SA',
+                                ),
+                                Tab(
+                                  text: 'VIC',
+                                ),
+                                Tab(
+                                  text: 'NSW',
+                                ),
+                              ],
+                              controller: _model.tabBarController,
                             ),
-                            Expanded(
-                              child: TabBarView(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 2.0, 80.0),
-                                    child: StreamBuilder<List<ToursRecord>>(
-                                      stream: queryToursRecord(
-                                        queryBuilder: (toursRecord) =>
-                                            toursRecord
-                                                .where('uid',
-                                                    isEqualTo:
-                                                        currentUserReference)
-                                                .orderBy('tour_date',
-                                                    descending: true),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 20.0,
-                                              height: 20.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  Color(0xFFB19CD9),
-                                                ),
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                              controller: _model.tabBarController,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 2.0, 80.0),
+                                  child: StreamBuilder<List<ToursRecord>>(
+                                    stream: queryToursRecord(
+                                      queryBuilder: (toursRecord) => toursRecord
+                                          .where(
+                                            'uid',
+                                            isEqualTo: currentUserReference,
+                                          )
+                                          .orderBy('tour_date',
+                                              descending: true),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 20.0,
+                                            height: 20.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                Color(0xFFB19CD9),
                                               ),
                                             ),
-                                          );
-                                        }
-                                        List<ToursRecord>
-                                            listViewToursRecordList =
-                                            snapshot.data!;
-                                        if (listViewToursRecordList.isEmpty) {
-                                          return CreateNewTourEmptyStateWidget();
-                                        }
-                                        return ListView.builder(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount:
-                                              listViewToursRecordList.length,
-                                          itemBuilder:
-                                              (context, listViewIndex) {
-                                            final listViewToursRecord =
-                                                listViewToursRecordList[
-                                                    listViewIndex];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.98,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.18,
-                                                  child: Stack(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    4.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Card(
-                                                          clipBehavior: Clip
-                                                              .antiAliasWithSaveLayer,
-                                                          color: Colors.white,
-                                                          elevation: 2.0,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        28.0),
-                                                          ),
-                                                          child: StreamBuilder<
-                                                              RegionsRecord>(
-                                                            stream: RegionsRecord
-                                                                .getDocument(
-                                                                    listViewToursRecord
-                                                                        .regionID!),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
+                                          ),
+                                        );
+                                      }
+                                      List<ToursRecord>
+                                          listViewToursRecordList =
+                                          snapshot.data!;
+                                      if (listViewToursRecordList.isEmpty) {
+                                        return CreateNewTourEmptyStateWidget();
+                                      }
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount:
+                                            listViewToursRecordList.length,
+                                        itemBuilder: (context, listViewIndex) {
+                                          final listViewToursRecord =
+                                              listViewToursRecordList[
+                                                  listViewIndex];
+                                          return Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        0.98,
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.18,
+                                                child: Stack(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Card(
+                                                        clipBehavior: Clip
+                                                            .antiAliasWithSaveLayer,
+                                                        color: Colors.white,
+                                                        elevation: 2.0,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      28.0),
+                                                        ),
+                                                        child: StreamBuilder<
+                                                            RegionsRecord>(
+                                                          stream: RegionsRecord
+                                                              .getDocument(
+                                                                  listViewToursRecord
+                                                                      .regionID!),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 20.0,
+                                                                  height: 20.0,
                                                                   child:
-                                                                      SizedBox(
-                                                                    width: 20.0,
-                                                                    height:
-                                                                        20.0,
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      valueColor:
-                                                                          AlwaysStoppedAnimation<
-                                                                              Color>(
-                                                                        Color(
-                                                                            0xFFB19CD9),
-                                                                      ),
+                                                                      CircularProgressIndicator(
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      Color(
+                                                                          0xFFB19CD9),
                                                                     ),
                                                                   ),
-                                                                );
-                                                              }
-                                                              final rowRegionsRecord =
-                                                                  snapshot
-                                                                      .data!;
-                                                              return Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
+                                                                ),
+                                                              );
+                                                            }
+                                                            final rowRegionsRecord =
+                                                                snapshot.data!;
+                                                            return Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            8.0,
                                                                             0.0,
                                                                             4.0,
                                                                             0.0),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              0.0,
-                                                                              4.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Column(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  Container(
-                                                                                    width: MediaQuery.sizeOf(context).width * 0.34,
-                                                                                    height: MediaQuery.sizeOf(context).height * 0.14,
-                                                                                    child: Stack(
-                                                                                      children: [
-                                                                                        ClipRRect(
-                                                                                          borderRadius: BorderRadius.circular(28.0),
-                                                                                          child: Image.network(
-                                                                                            rowRegionsRecord.image,
-                                                                                            width: MediaQuery.sizeOf(context).width * 0.34,
-                                                                                            height: MediaQuery.sizeOf(context).height * 0.2,
-                                                                                            fit: BoxFit.cover,
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Column(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: MediaQuery.sizeOf(context).width * 0.34,
+                                                                                  height: MediaQuery.sizeOf(context).height * 0.14,
+                                                                                  child: Stack(
+                                                                                    children: [
+                                                                                      ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(28.0),
+                                                                                        child: Image.network(
+                                                                                          rowRegionsRecord.image,
                                                                                           width: MediaQuery.sizeOf(context).width * 0.34,
                                                                                           height: MediaQuery.sizeOf(context).height * 0.2,
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: Color(0x56000000),
-                                                                                            borderRadius: BorderRadius.circular(28.0),
+                                                                                          fit: BoxFit.cover,
+                                                                                        ),
+                                                                                      ),
+                                                                                      Container(
+                                                                                        width: MediaQuery.sizeOf(context).width * 0.34,
+                                                                                        height: MediaQuery.sizeOf(context).height * 0.2,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Color(0x56000000),
+                                                                                          borderRadius: BorderRadius.circular(28.0),
+                                                                                        ),
+                                                                                        child: Align(
+                                                                                          alignment: AlignmentDirectional(0.00, 0.00),
+                                                                                          child: Text(
+                                                                                            rowRegionsRecord.name,
+                                                                                            textAlign: TextAlign.center,
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'Poppins',
+                                                                                                  color: Color(0xFFF4F4F4),
+                                                                                                ),
                                                                                           ),
-                                                                                          child: Align(
-                                                                                            alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                            child: Text(
-                                                                                              rowRegionsRecord.name,
-                                                                                              textAlign: TextAlign.center,
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Poppins',
-                                                                                                    color: Color(0xFFF4F4F4),
-                                                                                                  ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 4.0, 0.0),
+                                                                              child: Column(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 4.0),
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 4.0, 0.0),
+                                                                                          child: Text(
+                                                                                            listViewToursRecord.tourName.maybeHandleOverflow(
+                                                                                              maxChars: 16,
+                                                                                              replacement: '…',
                                                                                             ),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'Poppins',
+                                                                                                  fontSize: 14.0,
+                                                                                                  fontWeight: FontWeight.bold,
+                                                                                                ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.people_outline,
+                                                                                          color: Colors.black,
+                                                                                          size: 16.0,
+                                                                                        ),
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                                          child: Text(
+                                                                                            listViewToursRecord.passengers.toString().maybeHandleOverflow(
+                                                                                                  maxChars: 25,
+                                                                                                  replacement: '…',
+                                                                                                ),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'Poppins',
+                                                                                                  color: Color(0xFF333333),
+                                                                                                  fontSize: 12.0,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.calendar_today_outlined,
+                                                                                          color: Colors.black,
+                                                                                          size: 16.0,
+                                                                                        ),
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                                          child: Text(
+                                                                                            dateTimeFormat('MMMMEEEEd', listViewToursRecord.tourDate!),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'Poppins',
+                                                                                                  fontSize: 12.0,
+                                                                                                  fontWeight: FontWeight.w600,
+                                                                                                ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.person_pin_circle_outlined,
+                                                                                          color: Colors.black,
+                                                                                          size: 16.0,
+                                                                                        ),
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 4.0, 0.0),
+                                                                                          child: Text(
+                                                                                            listViewToursRecord.pickupAddress.maybeHandleOverflow(
+                                                                                              maxChars: 20,
+                                                                                              replacement: '…',
+                                                                                            ),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'Poppins',
+                                                                                                  color: Color(0xFF333333),
+                                                                                                  fontSize: 12.0,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                ),
                                                                                           ),
                                                                                         ),
                                                                                       ],
@@ -655,205 +758,93 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                   ),
                                                                                 ],
                                                                               ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 4.0, 0.0),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 4.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        children: [
-                                                                                          Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 4.0, 0.0),
-                                                                                            child: Text(
-                                                                                              listViewToursRecord.tourName.maybeHandleOverflow(
-                                                                                                maxChars: 16,
-                                                                                                replacement: '…',
-                                                                                              ),
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Poppins',
-                                                                                                    fontSize: 14.0,
-                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        children: [
-                                                                                          Icon(
-                                                                                            Icons.people_outline,
-                                                                                            color: Colors.black,
-                                                                                            size: 16.0,
-                                                                                          ),
-                                                                                          Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                                                                                            child: Text(
-                                                                                              listViewToursRecord.passengers.toString().maybeHandleOverflow(
-                                                                                                    maxChars: 25,
-                                                                                                    replacement: '…',
-                                                                                                  ),
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Poppins',
-                                                                                                    color: Color(0xFF333333),
-                                                                                                    fontSize: 12.0,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        children: [
-                                                                                          Icon(
-                                                                                            Icons.calendar_today_outlined,
-                                                                                            color: Colors.black,
-                                                                                            size: 16.0,
-                                                                                          ),
-                                                                                          Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                                                                                            child: Text(
-                                                                                              dateTimeFormat('MMMMEEEEd', listViewToursRecord.tourDate!),
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Poppins',
-                                                                                                    fontSize: 12.0,
-                                                                                                    fontWeight: FontWeight.w600,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        children: [
-                                                                                          Icon(
-                                                                                            Icons.person_pin_circle_outlined,
-                                                                                            color: Colors.black,
-                                                                                            size: 16.0,
-                                                                                          ),
-                                                                                          Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 4.0, 0.0),
-                                                                                            child: Text(
-                                                                                              listViewToursRecord.pickupAddress.maybeHandleOverflow(
-                                                                                                maxChars: 20,
-                                                                                                replacement: '…',
-                                                                                              ),
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Poppins',
-                                                                                                    color: Color(0xFF333333),
-                                                                                                    fontSize: 12.0,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                      ],
-                                                                    ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                -0.88, -0.58),
-                                                        child: Container(
-                                                          width: 40.0,
-                                                          height: 40.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0x80000000),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .directions_bus_rounded,
-                                                                  color: Color(
-                                                                      0xFFF4F4F4),
-                                                                  size: 18.0,
                                                                 ),
                                                               ],
-                                                            ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.88, -0.58),
+                                                      child: Container(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0x80000000),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      10.0,
+                                                                      0.0,
+                                                                      10.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .directions_bus_rounded,
+                                                                color: Color(
+                                                                    0xFFF4F4F4),
+                                                                size: 18.0,
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
-                                  Text(
-                                    'Tab View 2',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 32.0,
-                                        ),
-                                  ),
-                                  Text(
-                                    'Tab View 3',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 32.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Text(
+                                  'Tab View 2',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 32.0,
+                                      ),
+                                ),
+                                Text(
+                                  'Tab View 3',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 32.0,
+                                      ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

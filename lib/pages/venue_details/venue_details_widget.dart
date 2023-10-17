@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
+import '/components/add_drop_bottomseet/add_drop_bottomseet_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_static_map.dart';
@@ -11,10 +11,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -68,7 +68,6 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
 
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => setState(() => currentUserLocationValue = loc));
-    _model.textController ??= TextEditingController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -101,7 +100,9 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
     }
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).cultured,
@@ -177,7 +178,8 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                 alignment: AlignmentDirectional(0.0, 1.0),
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, -1.0),
+                                    alignment:
+                                        AlignmentDirectional(0.00, -1.00),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 2.0),
@@ -199,7 +201,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    alignment: AlignmentDirectional(0.00, 1.00),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
@@ -508,7 +510,8 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, -1.0),
+                                    alignment:
+                                        AlignmentDirectional(0.00, -1.00),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 20.0, 0.0, 0.0),
@@ -612,11 +615,12 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                             ),
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.0, 0.0),
+                                                                    0.00, 0.00),
                                                             child: Align(
                                                               alignment:
                                                                   AlignmentDirectional(
-                                                                      0.0, 0.0),
+                                                                      0.00,
+                                                                      0.00),
                                                               child: ToggleIcon(
                                                                 onPressed:
                                                                     () async {
@@ -637,8 +641,12 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                   await containerVenuesRecord
                                                                       .reference
                                                                       .update({
-                                                                    'is_favourited_by':
-                                                                        isFavouritedByUpdate,
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'is_favourited_by':
+                                                                            isFavouritedByUpdate,
+                                                                      },
+                                                                    ),
                                                                   });
                                                                 },
                                                                 value: containerVenuesRecord
@@ -681,21 +689,29 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                 await containerVenuesRecord
                                                                     .reference
                                                                     .update({
-                                                                  'is_favourited_by':
-                                                                      FieldValue
-                                                                          .arrayRemove([
-                                                                    currentUserReference
-                                                                  ]),
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'is_favourited_by':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        currentUserReference
+                                                                      ]),
+                                                                    },
+                                                                  ),
                                                                 });
                                                               } else {
                                                                 await containerVenuesRecord
                                                                     .reference
                                                                     .update({
-                                                                  'is_favourited_by':
-                                                                      FieldValue
-                                                                          .arrayUnion([
-                                                                    currentUserReference
-                                                                  ]),
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'is_favourited_by':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        currentUserReference
+                                                                      ]),
+                                                                    },
+                                                                  ),
                                                                 });
                                                               }
                                                             },
@@ -731,7 +747,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                           child: Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.0, 0.0),
+                                                                    0.00, 0.00),
                                                             child: FaIcon(
                                                               FontAwesomeIcons
                                                                   .share,
@@ -819,7 +835,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                   ),
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                          0.00, 0.00),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -871,7 +887,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                   color: Color(0xFFEEEEEE),
                                   borderRadius: BorderRadius.circular(24.0),
                                 ),
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Stack(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   children: [
@@ -908,7 +924,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                   ),
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                          0.00, 0.00),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -1010,7 +1026,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
@@ -1135,7 +1151,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                   ),
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                          0.00, 0.00),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -1245,7 +1261,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                     decoration: BoxDecoration(),
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          AlignmentDirectional(-1.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
@@ -1315,6 +1331,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                               FormFieldController<List<String>>(
                                             [],
                                           ),
+                                          wrapped: true,
                                         ),
                                       ),
                                     ),
@@ -1590,7 +1607,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                   ),
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                          0.00, 0.00),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -1613,6 +1630,23 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                               ),
                                                     ),
                                                   ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        20.0, 50.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'Get directions',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 10.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
                                                 ),
                                               ),
                                             ],
@@ -1691,40 +1725,11 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            AutoSizeText(
-                                                              GETFindPlaceFromTextCall
-                                                                  .placeID(
-                                                                containerGETFindPlaceFromTextResponse
-                                                                    .jsonBody,
-                                                              ).toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    20.0,
-                                                                    20.0,
-                                                                    20.0,
-                                                                    10.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
                                                             Text(
                                                               'Opening hours',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1733,7 +1738,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         'Poppins',
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold,
+                                                                            .w800,
                                                                   ),
                                                             ),
                                                           ],
@@ -1747,94 +1752,134 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                     0.0,
                                                                     20.0,
                                                                     20.0),
-                                                        child: FutureBuilder<
-                                                            ApiCallResponse>(
-                                                          future:
-                                                              GETPlaceDetailsCall
-                                                                  .call(
-                                                            placeId:
-                                                                GETFindPlaceFromTextCall
-                                                                    .placeID(
-                                                              containerGETFindPlaceFromTextResponse
-                                                                  .jsonBody,
-                                                            ).toString(),
-                                                            googleApiKey:
-                                                                columnAppConfigRecord
-                                                                    ?.googleApiKey,
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 20.0,
-                                                                  height: 20.0,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    valueColor:
-                                                                        AlwaysStoppedAnimation<
-                                                                            Color>(
-                                                                      Color(
-                                                                          0xFFB19CD9),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            if (GETFindPlaceFromTextCall
+                                                                    .isOpenNow(
+                                                                  containerGETFindPlaceFromTextResponse
+                                                                      .jsonBody,
+                                                                ) ==
+                                                                null)
+                                                              Text(
+                                                                '  currently unavailable',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            final listViewGETPlaceDetailsResponse =
-                                                                snapshot.data!;
-                                                            return Builder(
-                                                              builder:
-                                                                  (context) {
-                                                                final openingHours = (GETPlaceDetailsCall
-                                                                            .openingHours(
-                                                                      listViewGETPlaceDetailsResponse
-                                                                          .jsonBody,
-                                                                    ) as List)
-                                                                        .map<String>((s) =>
-                                                                            s.toString())
-                                                                        .toList()
-                                                                        ?.toList() ??
-                                                                    [];
-                                                                return ListView
-                                                                    .builder(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  scrollDirection:
-                                                                      Axis.vertical,
-                                                                  itemCount:
-                                                                      openingHours
-                                                                          .length,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          openingHoursIndex) {
-                                                                    final openingHoursItem =
-                                                                        openingHours[
-                                                                            openingHoursIndex];
-                                                                    return Text(
-                                                                      openingHoursItem,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Poppins',
-                                                                            fontSize:
-                                                                                12.0,
-                                                                          ),
-                                                                    );
-                                                                  },
-                                                                );
-                                                              },
-                                                            );
-                                                          },
+                                                              ),
+                                                          ],
                                                         ),
                                                       ),
+                                                      if (GETFindPlaceFromTextCall
+                                                              .isOpenNow(
+                                                            containerGETFindPlaceFromTextResponse
+                                                                .jsonBody,
+                                                          ) !=
+                                                          null)
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      20.0,
+                                                                      0.0,
+                                                                      20.0,
+                                                                      20.0),
+                                                          child: FutureBuilder<
+                                                              ApiCallResponse>(
+                                                            future:
+                                                                GETPlaceDetailsCall
+                                                                    .call(
+                                                              placeId:
+                                                                  containerVenuesRecord
+                                                                      .googlePlaceID,
+                                                              googleApiKey:
+                                                                  columnAppConfigRecord
+                                                                      ?.googleApiKey,
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 20.0,
+                                                                    height:
+                                                                        20.0,
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                      valueColor:
+                                                                          AlwaysStoppedAnimation<
+                                                                              Color>(
+                                                                        Color(
+                                                                            0xFFB19CD9),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              final listViewGETPlaceDetailsResponse =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return Builder(
+                                                                builder:
+                                                                    (context) {
+                                                                  final openingHours = (GETPlaceDetailsCall
+                                                                              .openingHours(
+                                                                        listViewGETPlaceDetailsResponse
+                                                                            .jsonBody,
+                                                                      ) as List)
+                                                                          .map<String>((s) =>
+                                                                              s.toString())
+                                                                          .toList()
+                                                                          ?.toList() ??
+                                                                      [];
+                                                                  return ListView
+                                                                      .builder(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    scrollDirection:
+                                                                        Axis.vertical,
+                                                                    itemCount:
+                                                                        openingHours
+                                                                            .length,
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            openingHoursIndex) {
+                                                                      final openingHoursItem =
+                                                                          openingHours[
+                                                                              openingHoursIndex];
+                                                                      return Text(
+                                                                        openingHoursItem,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Poppins',
+                                                                              fontSize: 12.0,
+                                                                            ),
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
                                                     ],
                                                   ),
                                                 );
@@ -1914,7 +1959,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         20.0,
                                                                         0.0),
                                                             child: AutoSizeText(
-                                                              'Record your favourite drops from this venue',
+                                                              'Save your favourite drops from this venue',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1956,7 +2001,6 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
                                                   0.9,
-                                              height: 120.0,
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
@@ -1966,455 +2010,337 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                               ),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Stack(
-                                                        alignment:
-                                                            AlignmentDirectional(
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 20.0,
                                                                 0.0, 0.0),
-                                                        children: [
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              FaIcon(
-                                                                FontAwesomeIcons
-                                                                    .image,
-                                                                color: Color(
-                                                                    0xFF888888),
-                                                                size: 28.0,
+                                                    child: Container(
+                                                      height: 230.0,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                      ),
+                                                      child: StreamBuilder<
+                                                          List<
+                                                              TastingDiaryRecord>>(
+                                                        stream:
+                                                            queryTastingDiaryRecord(
+                                                          parent:
+                                                              currentUserReference,
+                                                          queryBuilder:
+                                                              (tastingDiaryRecord) =>
+                                                                  tastingDiaryRecord
+                                                                      .where(
+                                                                        'venue_reff',
+                                                                        isEqualTo:
+                                                                            widget.selectedVenueReff,
+                                                                      )
+                                                                      .orderBy(
+                                                                          'date'),
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 20.0,
+                                                                height: 20.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    Color(
+                                                                        0xFFB19CD9),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                              Text(
-                                                                'Upload photo',
+                                                            );
+                                                          }
+                                                          List<TastingDiaryRecord>
+                                                              lWTastingEntriesTastingDiaryRecordList =
+                                                              snapshot.data!;
+                                                          if (lWTastingEntriesTastingDiaryRecordList
+                                                              .isEmpty) {
+                                                            return Image.asset(
+                                                              'https://firebasestorage.googleapis.com/v0/b/vined-f38a6.appspot.com/o/appAssets%2FAdd_to_your_diary_empty_list.png?alt=media&token=499f973a-a9d6-444c-89d2-116904287496&_gl=1*rajsa7*_ga*MTIwMDY2NTg3LjE2MzU4Mjg5ODA.*_ga_CW55HF8NVT*MTY5NzUwNzkzNS44My4xLjE2OTc1MTM3NDguMjcuMC4w',
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width *
+                                                                  0.8,
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  0.8,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            );
+                                                          }
+                                                          return ListView
+                                                              .separated(
+                                                            padding: EdgeInsets
+                                                                .fromLTRB(
+                                                              8.0,
+                                                              0,
+                                                              8.0,
+                                                              0,
+                                                            ),
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            itemCount:
+                                                                lWTastingEntriesTastingDiaryRecordList
+                                                                    .length,
+                                                            separatorBuilder: (_,
+                                                                    __) =>
+                                                                SizedBox(
+                                                                    width: 4.0),
+                                                            itemBuilder: (context,
+                                                                lWTastingEntriesIndex) {
+                                                              final lWTastingEntriesTastingDiaryRecord =
+                                                                  lWTastingEntriesTastingDiaryRecordList[
+                                                                      lWTastingEntriesIndex];
+                                                              return Container(
+                                                                width: 100.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                ),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20.0),
+                                                                      child: Image
+                                                                          .network(
+                                                                        lWTastingEntriesTastingDiaryRecord
+                                                                            .image,
+                                                                        height: MediaQuery.sizeOf(context).height *
+                                                                            0.18,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          RatingBarIndicator(
+                                                                            itemBuilder: (context, index) =>
+                                                                                Icon(
+                                                                              Icons.star_rounded,
+                                                                              color: Color(0xFFFCD12A),
+                                                                            ),
+                                                                            direction:
+                                                                                Axis.horizontal,
+                                                                            rating:
+                                                                                lWTastingEntriesTastingDiaryRecord.rating.toDouble(),
+                                                                            unratedColor:
+                                                                                Color(0xFFCCCCCC),
+                                                                            itemCount:
+                                                                                5,
+                                                                            itemSize:
+                                                                                14.0,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Text(
+                                                                            lWTastingEntriesTastingDiaryRecord.tastingNotes.maybeHandleOverflow(
+                                                                              maxChars: 14,
+                                                                              replacement: '…',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontSize: 12.0,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Text(
+                                                                            dateTimeFormat('MMMEd',
+                                                                                lWTastingEntriesTastingDiaryRecord.date!),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontSize: 8.0,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                20.0,
+                                                                20.0,
+                                                                20.0,
+                                                                20.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          width: 130.0,
+                                                          height: 30.0,
+                                                          child: Stack(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            children: [
+                                                              AutoSizeText(
+                                                                'Add ',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
-                                                                      color: Color(
-                                                                          0xFF888888),
                                                                       fontSize:
                                                                           10.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
                                                                     ),
+                                                              ),
+                                                              InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await showModalBottomSheet(
+                                                                    isScrollControlled:
+                                                                        true,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    enableDrag:
+                                                                        false,
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) {
+                                                                      return GestureDetector(
+                                                                        onTap: () => _model.unfocusNode.canRequestFocus
+                                                                            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                                                                            : FocusScope.of(context).unfocus(),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              MediaQuery.viewInsetsOf(context),
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                MediaQuery.sizeOf(context).height * 0.6,
+                                                                            child:
+                                                                                AddDropBottomseetWidget(
+                                                                              venueReff: widget.selectedVenueReff!,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ).then((value) =>
+                                                                      safeSetState(
+                                                                          () {}));
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: double
+                                                                      .infinity,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20.0),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .black,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ],
                                                           ),
-                                                          Container(
-                                                            width: 120.0,
-                                                            height: 120.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20.0),
-                                                            ),
-                                                            child: Visibility(
-                                                              visible: _model
-                                                                          .uploadedFileUrl !=
-                                                                      null &&
-                                                                  _model.uploadedFileUrl !=
-                                                                      '',
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20.0),
-                                                                  child: Image
-                                                                      .network(
-                                                                    _model
-                                                                        .uploadedFileUrl,
-                                                                    width:
-                                                                        300.0,
-                                                                    height:
-                                                                        200.0,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              final selectedMedia =
-                                                                  await selectMediaWithSourceBottomSheet(
-                                                                context:
-                                                                    context,
-                                                                maxWidth:
-                                                                    300.00,
-                                                                maxHeight:
-                                                                    200.00,
-                                                                imageQuality:
-                                                                    90,
-                                                                allowPhoto:
-                                                                    true,
-                                                              );
-                                                              if (selectedMedia !=
-                                                                      null &&
-                                                                  selectedMedia.every((m) =>
-                                                                      validateFileFormat(
-                                                                          m.storagePath,
-                                                                          context))) {
-                                                                setState(() =>
-                                                                    _model.isDataUploading =
-                                                                        true);
-                                                                var selectedUploadedFiles =
-                                                                    <FFUploadedFile>[];
-
-                                                                var downloadUrls =
-                                                                    <String>[];
-                                                                try {
-                                                                  showUploadMessage(
-                                                                    context,
-                                                                    'Uploading file...',
-                                                                    showLoading:
-                                                                        true,
-                                                                  );
-                                                                  selectedUploadedFiles =
-                                                                      selectedMedia
-                                                                          .map((m) =>
-                                                                              FFUploadedFile(
-                                                                                name: m.storagePath.split('/').last,
-                                                                                bytes: m.bytes,
-                                                                                height: m.dimensions?.height,
-                                                                                width: m.dimensions?.width,
-                                                                                blurHash: m.blurHash,
-                                                                              ))
-                                                                          .toList();
-
-                                                                  downloadUrls = (await Future
-                                                                          .wait(
-                                                                    selectedMedia
-                                                                        .map(
-                                                                      (m) async => await uploadData(
-                                                                          m.storagePath,
-                                                                          m.bytes),
-                                                                    ),
-                                                                  ))
-                                                                      .where((u) =>
-                                                                          u !=
-                                                                          null)
-                                                                      .map((u) =>
-                                                                          u!)
-                                                                      .toList();
-                                                                } finally {
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .hideCurrentSnackBar();
-                                                                  _model.isDataUploading =
-                                                                      false;
-                                                                }
-                                                                if (selectedUploadedFiles
-                                                                            .length ==
-                                                                        selectedMedia
-                                                                            .length &&
-                                                                    downloadUrls
-                                                                            .length ==
-                                                                        selectedMedia
-                                                                            .length) {
-                                                                  setState(() {
-                                                                    _model.uploadedLocalFile =
-                                                                        selectedUploadedFiles
-                                                                            .first;
-                                                                    _model.uploadedFileUrl =
-                                                                        downloadUrls
-                                                                            .first;
-                                                                  });
-                                                                  showUploadMessage(
-                                                                      context,
-                                                                      'Success!');
-                                                                } else {
-                                                                  setState(
-                                                                      () {});
-                                                                  showUploadMessage(
-                                                                      context,
-                                                                      'Failed to upload data');
-                                                                  return;
-                                                                }
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              width: 100.0,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Flexible(
-                                                        child: Stack(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0.0, 1.0),
-                                                          children: [
-                                                            Container(
-                                                              height: 120.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                              ),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                                child:
-                                                                    TextFormField(
-                                                                  controller: _model
-                                                                      .textController,
-                                                                  autofocus:
-                                                                      true,
-                                                                  obscureText:
-                                                                      false,
-                                                                  decoration:
-                                                                      InputDecoration(
-                                                                    labelStyle:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .labelMedium,
-                                                                    hintText:
-                                                                        'Add your tasting notes',
-                                                                    hintStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Poppins',
-                                                                          color:
-                                                                              Color(0xFF888888),
-                                                                        ),
-                                                                    enabledBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .alternate,
-                                                                        width:
-                                                                            2.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                    ),
-                                                                    focusedBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Color(
-                                                                            0x00000000),
-                                                                        width:
-                                                                            2.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                    ),
-                                                                    errorBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .error,
-                                                                        width:
-                                                                            2.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                    ),
-                                                                    focusedErrorBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .error,
-                                                                        width:
-                                                                            2.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                    ),
-                                                                    filled:
-                                                                        true,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        fontSize:
-                                                                            12.0,
-                                                                      ),
-                                                                  maxLines: 5,
-                                                                  validator: _model
-                                                                      .textControllerValidator
-                                                                      .asValidator(
-                                                                          context),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      1.0, 0.0),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        16.0,
-                                                                        16.0),
-                                                                child:
-                                                                    FFButtonWidget(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    await TastingDiaryRecord.createDoc(
-                                                                            currentUserReference!)
-                                                                        .set(
-                                                                            createTastingDiaryRecordData(
-                                                                      image: _model
-                                                                          .uploadedFileUrl,
-                                                                      tastingNotes: _model
-                                                                          .textController
-                                                                          .text,
-                                                                      venueReff:
-                                                                          widget
-                                                                              .selectedVenueReff,
-                                                                      date:
-                                                                          getCurrentTimestamp,
-                                                                    ));
-                                                                    setState(
-                                                                        () {
-                                                                      _model.isDataUploading =
-                                                                          false;
-                                                                      _model.uploadedLocalFile =
-                                                                          FFUploadedFile(
-                                                                              bytes: Uint8List.fromList([]));
-                                                                      _model.uploadedFileUrl =
-                                                                          '';
-                                                                    });
-
-                                                                    setState(
-                                                                        () {
-                                                                      _model
-                                                                          .textController
-                                                                          ?.clear();
-                                                                    });
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                      SnackBar(
-                                                                        content:
-                                                                            Text(
-                                                                          'Entry saved',
-                                                                          style:
-                                                                              GoogleFonts.getFont(
-                                                                            'Poppins',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).black,
-                                                                            fontSize:
-                                                                                12.0,
-                                                                          ),
-                                                                        ),
-                                                                        duration:
-                                                                            Duration(milliseconds: 500),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).magicMint,
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                  text: 'Save',
-                                                                  options:
-                                                                      FFButtonOptions(
-                                                                    width: 60.0,
-                                                                    height:
-                                                                        20.0,
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    iconPadding:
-                                                                        EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .cultured,
-                                                                    textStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Poppins',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).black,
-                                                                          fontSize:
-                                                                              8.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: Colors
-                                                                          .transparent,
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                  ),
-                                                                  showLoadingIndicator:
-                                                                      false,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),

@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -50,7 +51,9 @@ class _TourChatWidgetState extends State<TourChatWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -228,7 +231,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                                                         ),
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                -1.0, 0.0),
+                                                                -1.00, 0.00),
                                                         child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
@@ -404,7 +407,7 @@ class _TourChatWidgetState extends State<TourChatWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1.0, 0.0),
+                            alignment: AlignmentDirectional(1.00, 0.00),
                             child: Container(
                               width: 50.0,
                               height: 50.0,

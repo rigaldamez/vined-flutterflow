@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
-
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -115,7 +114,7 @@ class GETFindPlaceFromTextCall {
         'inputtype': "textquery",
         'input': inputVenueAddress,
         'key': googleApiKey,
-        'fields': "place_id,opening_hours",
+        'fields': "place_id,formatted_address,rating,opening_hours",
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -147,9 +146,9 @@ class GETFindPlaceFromTextCopyCall {
       headers: {},
       params: {
         'inputtype': "textquery",
-        'input': inputVenueAddress,
-        'key': googleApiKey,
-        'fields': "place_id,opening_hours",
+        'input': "Longview Vineyard",
+        'key': "AIzaSyA1rjhxywp_z2GbG-GNbGMnNMiB-YLH2C8",
+        'fields': "place_id,formatted_address,rating,opening_hours",
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -161,10 +160,16 @@ class GETFindPlaceFromTextCopyCall {
   static dynamic placeID(dynamic response) => getJsonField(
         response,
         r'''$.candidates[:].place_id''',
+        true,
       );
   static dynamic isOpenNow(dynamic response) => getJsonField(
         response,
         r'''$.candidates[:].opening_hours.open_now''',
+      );
+  static dynamic payloadJSON(dynamic response) => getJsonField(
+        response,
+        r'''$.candidates''',
+        true,
       );
 }
 

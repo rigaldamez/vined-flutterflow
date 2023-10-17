@@ -255,7 +255,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                         },
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.00, 1.00),
                         child: Container(
                           width: double.infinity,
                           height: MediaQuery.sizeOf(context).height * 0.8,
@@ -377,8 +377,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 ),
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0),
+                                                                        0.00,
+                                                                        0.00),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
@@ -449,7 +449,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                           );
                                                         },
                                                       ).then((value) =>
-                                                          setState(() {}));
+                                                          safeSetState(() {}));
                                                     },
                                                     child: Container(
                                                       width: 100.0,
@@ -473,7 +473,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     BorderRadius.circular(24.0),
                                               ),
                                               alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
+                                                  0.00, 0.00),
                                               child: Stack(
                                                 alignment: AlignmentDirectional(
                                                     0.0, 0.0),
@@ -520,8 +520,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 ),
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0),
+                                                                        0.00,
+                                                                        0.00),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
@@ -619,9 +619,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                 queryBuilder:
                                                     (selectedVenuesRecord) =>
                                                         selectedVenuesRecord
-                                                            .where('tourRef',
-                                                                isEqualTo: widget
-                                                                    .tourID),
+                                                            .where(
+                                                  'tourRef',
+                                                  isEqualTo: widget.tourID,
+                                                ),
                                               ),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -736,10 +737,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         borderRadius:
                                                                             BorderRadius.circular(24.0),
                                                                       ),
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              0.0,
-                                                                              0.0),
+                                                                      alignment: AlignmentDirectional(
+                                                                          0.00,
+                                                                          0.00),
                                                                       child:
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -885,8 +885,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 ),
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0),
+                                                                        0.00,
+                                                                        0.00),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
@@ -1023,7 +1023,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Stack(
                                                       alignment:
                                                           AlignmentDirectional(
@@ -1084,7 +1084,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                 );
                                                               },
                                                             ).then((value) =>
-                                                                setState(
+                                                                safeSetState(
                                                                     () {}));
                                                           },
                                                           child: Container(
@@ -1169,7 +1169,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       ),
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.0, 0.0),
+                                                              0.00, 0.00),
                                                       child: Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
@@ -1288,7 +1288,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         );
                                                                       },
                                                                     ).then((value) =>
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {}));
                                                                   },
                                                                 ),
@@ -1345,7 +1345,10 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             child:
                                                                                 StreamBuilder<List<UsersRecord>>(
                                                                               stream: queryUsersRecord(
-                                                                                queryBuilder: (usersRecord) => usersRecord.where('uid', isEqualTo: containerTourReffToursRecord.driverUid),
+                                                                                queryBuilder: (usersRecord) => usersRecord.where(
+                                                                                  'uid',
+                                                                                  isEqualTo: containerTourReffToursRecord.driverUid,
+                                                                                ),
                                                                               ),
                                                                               builder: (context, snapshot) {
                                                                                 // Customize what your widget looks like when it's loading.
@@ -1584,9 +1587,11 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           queryBuilder:
                                               (selectedVenuesRecord) =>
                                                   selectedVenuesRecord
-                                                      .where('tourRef',
-                                                          isEqualTo:
-                                                              widget.tourID)
+                                                      .where(
+                                                        'tourRef',
+                                                        isEqualTo:
+                                                            widget.tourID,
+                                                      )
                                                       .orderBy(
                                                           'reservationTime'),
                                         ),
@@ -1687,7 +1692,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               ),
                                                               alignment:
                                                                   AlignmentDirectional(
-                                                                      0.0, 0.0),
+                                                                      0.00,
+                                                                      0.00),
                                                               child: Text(
                                                                 functions.getTimeFromDate(
                                                                     listViewSelectedVenuesSelectedVenuesRecord
@@ -1794,10 +1800,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                       ),
                                                                     ),
                                                                     Align(
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              0.0,
-                                                                              1.0),
+                                                                      alignment: AlignmentDirectional(
+                                                                          0.00,
+                                                                          1.00),
                                                                       child:
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -2002,7 +2007,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                         );
                                                                       },
                                                                     ).then((value) =>
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {}));
                                                                   },
                                                                   child:
@@ -2078,7 +2083,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           );
                                                                         },
                                                                       ).then((value) =>
-                                                                          setState(
+                                                                          safeSetState(
                                                                               () {}));
                                                                     },
                                                                     child:
@@ -2116,7 +2121,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               ),
                                                                               if (!functions.isVenueOpen(rowSelectedVenueVenuesRecord.openDays.toList(), containerTourReffToursRecord))
                                                                                 Align(
-                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  alignment: AlignmentDirectional(0.00, 0.00),
                                                                                   child: Text(
                                                                                     'Venue closed',
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -2197,7 +2202,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Icon(
                                                       Icons.access_time_rounded,
                                                       color:
@@ -2257,7 +2262,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       ),
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.0, 0.0),
+                                                              0.00, 0.00),
                                                       child: Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
@@ -2402,7 +2407,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     ),
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Text(
                                                       '5.00 pm',
                                                       style:
@@ -2470,7 +2475,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         ),
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.0, 0.0),
+                                                                0.00, 0.00),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -2537,12 +2542,14 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.96),
+                        alignment: AlignmentDirectional(0.00, 0.96),
                         child: StreamBuilder<List<SelectedVenuesRecord>>(
                           stream: querySelectedVenuesRecord(
                             queryBuilder: (selectedVenuesRecord) =>
-                                selectedVenuesRecord.where('tourRef',
-                                    isEqualTo: widget.tourID),
+                                selectedVenuesRecord.where(
+                              'tourRef',
+                              isEqualTo: widget.tourID,
+                            ),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -2578,7 +2585,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                 borderRadius: BorderRadius.circular(38.0),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Stack(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   children: [

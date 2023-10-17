@@ -36,6 +36,11 @@ class TastingDiaryRecord extends FirestoreRecord {
   DateTime? get date => _date;
   bool hasDate() => _date != null;
 
+  // "rating" field.
+  int? _rating;
+  int get rating => _rating ?? 0;
+  bool hasRating() => _rating != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -43,6 +48,7 @@ class TastingDiaryRecord extends FirestoreRecord {
     _tastingNotes = snapshotData['tasting_notes'] as String?;
     _venueReff = snapshotData['venue_reff'] as DocumentReference?;
     _date = snapshotData['date'] as DateTime?;
+    _rating = castToType<int>(snapshotData['rating']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -89,6 +95,7 @@ Map<String, dynamic> createTastingDiaryRecordData({
   String? tastingNotes,
   DocumentReference? venueReff,
   DateTime? date,
+  int? rating,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -96,6 +103,7 @@ Map<String, dynamic> createTastingDiaryRecordData({
       'tasting_notes': tastingNotes,
       'venue_reff': venueReff,
       'date': date,
+      'rating': rating,
     }.withoutNulls,
   );
 
@@ -111,12 +119,13 @@ class TastingDiaryRecordDocumentEquality
     return e1?.image == e2?.image &&
         e1?.tastingNotes == e2?.tastingNotes &&
         e1?.venueReff == e2?.venueReff &&
-        e1?.date == e2?.date;
+        e1?.date == e2?.date &&
+        e1?.rating == e2?.rating;
   }
 
   @override
   int hash(TastingDiaryRecord? e) => const ListEquality()
-      .hash([e?.image, e?.tastingNotes, e?.venueReff, e?.date]);
+      .hash([e?.image, e?.tastingNotes, e?.venueReff, e?.date, e?.rating]);
 
   @override
   bool isValidKey(Object? o) => o is TastingDiaryRecord;

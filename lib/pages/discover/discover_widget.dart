@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -152,16 +153,23 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
     }
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).cultured,
         body: StreamBuilder<List<VenuesRecord>>(
           stream: queryVenuesRecord(
             queryBuilder: (venuesRecord) => venuesRecord
-                .where('country_state_display_name',
-                    isEqualTo: _model.choiceChipsValue)
-                .where('isActive', isEqualTo: true),
+                .where(
+                  'country_state_display_name',
+                  isEqualTo: _model.choiceChipsValue,
+                )
+                .where(
+                  'isActive',
+                  isEqualTo: true,
+                ),
           ),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
@@ -266,8 +274,10 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                     child: StreamBuilder<List<StatesRecord>>(
                                       stream: queryStatesRecord(
                                         queryBuilder: (statesRecord) =>
-                                            statesRecord.where('isServiced',
-                                                isEqualTo: true),
+                                            statesRecord.where(
+                                          'isServiced',
+                                          isEqualTo: true,
+                                        ),
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -402,6 +412,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                               FormFieldController<List<String>>(
                                             ['South Australia'],
                                           ),
+                                          wrapped: true,
                                         );
                                       },
                                     ),
@@ -462,8 +473,10 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                               child: StreamBuilder<List<HighlightsRecord>>(
                                 stream: queryHighlightsRecord(
                                   queryBuilder: (highlightsRecord) =>
-                                      highlightsRecord.where('is_active',
-                                          isEqualTo: true),
+                                      highlightsRecord.where(
+                                    'is_active',
+                                    isEqualTo: true,
+                                  ),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -603,7 +616,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                     width: 1.0,
                                   ),
                                 ),
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Stack(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   children: [
@@ -746,7 +759,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
@@ -861,7 +874,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.9),
+                                            AlignmentDirectional(0.00, 0.90),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -897,7 +910,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.00, 1.00),
                                         child: Container(
                                           height: 46.0,
                                           decoration: BoxDecoration(
@@ -907,8 +920,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                 BorderRadius.circular(40.0),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 1.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 1.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -922,7 +935,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Text(
                                                       functions
                                                           .upperCaseString(
@@ -1059,7 +1072,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.8, -0.5),
+                                            AlignmentDirectional(0.80, -0.50),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1120,11 +1133,15 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       await sortedVenuesByDistanceItem
                                                           .reference
                                                           .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'is_favourited_by':
+                                                                FieldValue
+                                                                    .arrayRemove([
+                                                              currentUserReference
+                                                            ]),
+                                                          },
+                                                        ),
                                                       });
                                                       setState(() {
                                                         _model.venuesSortedByDistancePS = _model
@@ -1137,11 +1154,15 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       await sortedVenuesByDistanceItem
                                                           .reference
                                                           .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'is_favourited_by':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              currentUserReference
+                                                            ]),
+                                                          },
+                                                        ),
                                                       });
                                                       setState(() {
                                                         _model.venuesSortedByDistancePS = _model
@@ -1192,7 +1213,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-0.8, -0.8),
+                                            AlignmentDirectional(-0.80, -0.80),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -1205,8 +1226,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                 BorderRadius.circular(50.0),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Text(
                                               sortedVenuesByDistanceItem
                                                   .regionName
@@ -1265,7 +1286,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
@@ -1297,10 +1318,18 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                       child: StreamBuilder<List<VenuesRecord>>(
                         stream: queryVenuesRecord(
                           queryBuilder: (venuesRecord) => venuesRecord
-                              .where('country_state_display_name',
-                                  isEqualTo: _model.choiceChipsValue)
-                              .where('isActive', isEqualTo: true)
-                              .where('featured_venue', isEqualTo: true),
+                              .where(
+                                'country_state_display_name',
+                                isEqualTo: _model.choiceChipsValue,
+                              )
+                              .where(
+                                'isActive',
+                                isEqualTo: true,
+                              )
+                              .where(
+                                'featured_venue',
+                                isEqualTo: true,
+                              ),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -1368,7 +1397,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.9),
+                                            AlignmentDirectional(0.00, 0.90),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1404,7 +1433,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.00, 1.00),
                                         child: Container(
                                           width: double.infinity,
                                           height: 46.0,
@@ -1415,8 +1444,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                 BorderRadius.circular(40.0),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 1.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 1.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -1430,7 +1459,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Text(
                                                       functions
                                                           .upperCaseString(
@@ -1567,7 +1596,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.8, -0.5),
+                                            AlignmentDirectional(0.80, -0.50),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1628,21 +1657,29 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       await listViewFeaturedVenuesRecord
                                                           .reference
                                                           .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'is_favourited_by':
+                                                                FieldValue
+                                                                    .arrayRemove([
+                                                              currentUserReference
+                                                            ]),
+                                                          },
+                                                        ),
                                                       });
                                                     } else {
                                                       await listViewFeaturedVenuesRecord
                                                           .reference
                                                           .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'is_favourited_by':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              currentUserReference
+                                                            ]),
+                                                          },
+                                                        ),
                                                       });
                                                     }
 
@@ -1684,7 +1721,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-0.8, -0.8),
+                                            AlignmentDirectional(-0.80, -0.80),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -1697,8 +1734,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                 BorderRadius.circular(50.0),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Text(
                                               listViewFeaturedVenuesRecord
                                                   .regionName
@@ -1756,7 +1793,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
@@ -1841,7 +1878,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.9),
+                                            AlignmentDirectional(0.00, 0.90),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1877,7 +1914,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.00, 1.00),
                                         child: Container(
                                           height: 40.0,
                                           decoration: BoxDecoration(
@@ -1887,10 +1924,10 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                 BorderRadius.circular(40.0),
                                           ),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.00, 0.00),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Text(
                                               functions
                                                   .upperCaseString(
@@ -1916,7 +1953,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.5, -0.64),
+                                            AlignmentDirectional(0.50, -0.64),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1977,21 +2014,29 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                       await trendingVenuesItem
                                                           .reference
                                                           .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayRemove([
-                                                          currentUserReference
-                                                        ]),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'is_favourited_by':
+                                                                FieldValue
+                                                                    .arrayRemove([
+                                                              currentUserReference
+                                                            ]),
+                                                          },
+                                                        ),
                                                       });
                                                     } else {
                                                       await trendingVenuesItem
                                                           .reference
                                                           .update({
-                                                        'is_favourited_by':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          currentUserReference
-                                                        ]),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'is_favourited_by':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              currentUserReference
+                                                            ]),
+                                                          },
+                                                        ),
                                                       });
                                                     }
 
@@ -2033,7 +2078,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-0.7, -0.8),
+                                            AlignmentDirectional(-0.70, -0.80),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -2046,8 +2091,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                 BorderRadius.circular(50.0),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Text(
                                               trendingVenuesItem.regionName
                                                   .maybeHandleOverflow(
@@ -2104,7 +2149,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Stack(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               children: [
@@ -2132,9 +2177,14 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                     StreamBuilder<List<VenuesRecord>>(
                       stream: queryVenuesRecord(
                         queryBuilder: (venuesRecord) => venuesRecord
-                            .where('country_state_display_name',
-                                isEqualTo: _model.choiceChipsValue)
-                            .where('isActive', isEqualTo: true),
+                            .where(
+                              'country_state_display_name',
+                              isEqualTo: _model.choiceChipsValue,
+                            )
+                            .where(
+                              'isActive',
+                              isEqualTo: true,
+                            ),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -2216,8 +2266,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.9),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.90),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(4.0, 0.0, 4.0, 0.0),
@@ -2255,8 +2305,8 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 1.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 1.00),
                                             child: Container(
                                               height: 40.0,
                                               decoration: BoxDecoration(
@@ -2267,10 +2317,10 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                     BorderRadius.circular(40.0),
                                               ),
                                               alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
+                                                  0.00, 0.00),
                                               child: Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Text(
                                                   functions
                                                       .upperCaseString(
@@ -2299,7 +2349,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                           ),
                                           Align(
                                             alignment: AlignmentDirectional(
-                                                0.5, -0.64),
+                                                0.50, -0.64),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -2364,21 +2414,29 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                           await popularVenuesItem
                                                               .reference
                                                               .update({
-                                                            'is_favourited_by':
-                                                                FieldValue
-                                                                    .arrayRemove([
-                                                              currentUserReference
-                                                            ]),
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'is_favourited_by':
+                                                                    FieldValue
+                                                                        .arrayRemove([
+                                                                  currentUserReference
+                                                                ]),
+                                                              },
+                                                            ),
                                                           });
                                                         } else {
                                                           await popularVenuesItem
                                                               .reference
                                                               .update({
-                                                            'is_favourited_by':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              currentUserReference
-                                                            ]),
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'is_favourited_by':
+                                                                    FieldValue
+                                                                        .arrayUnion([
+                                                                  currentUserReference
+                                                                ]),
+                                                              },
+                                                            ),
                                                           });
                                                         }
 
@@ -2461,8 +2519,12 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                                   lastVenueViewDate:
                                                       getCurrentTimestamp,
                                                 ),
-                                                'views_count':
-                                                    FieldValue.increment(1),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'views_count':
+                                                        FieldValue.increment(1),
+                                                  },
+                                                ),
                                               });
                                             },
                                             child: Container(
@@ -2481,7 +2543,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                           ),
                                           Align(
                                             alignment: AlignmentDirectional(
-                                                -0.7, -0.8),
+                                                -0.70, -0.80),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
@@ -2496,7 +2558,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                                               ),
                                               child: Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Text(
                                                   popularVenuesItem.regionName
                                                       .maybeHandleOverflow(
@@ -2560,7 +2622,7 @@ class _DiscoverWidgetState extends State<DiscoverWidget>
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Container(
                                 width: double.infinity,
                                 height:

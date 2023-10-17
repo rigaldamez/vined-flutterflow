@@ -79,7 +79,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                             fit: BoxFit.cover,
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.8),
+                            alignment: AlignmentDirectional(0.00, 0.80),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 context.pushNamed('Login');
@@ -114,7 +114,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     ],
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, -0.8),
+                    alignment: AlignmentDirectional(0.00, -0.80),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),

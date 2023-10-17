@@ -125,8 +125,10 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                   padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   child: StreamBuilder<List<RegionsRecord>>(
                     stream: queryRegionsRecord(
-                      queryBuilder: (regionsRecord) =>
-                          regionsRecord.where('isServiced', isEqualTo: true),
+                      queryBuilder: (regionsRecord) => regionsRecord.where(
+                        'isServiced',
+                        isEqualTo: true,
+                      ),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -161,7 +163,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                           return Stack(
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     context.pushNamed(
@@ -226,7 +228,7 @@ class _CreateNewTour1WidgetState extends State<CreateNewTour1Widget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Text(
                                   gridViewRegionsRecord.name,
                                   style: FlutterFlowTheme.of(context)

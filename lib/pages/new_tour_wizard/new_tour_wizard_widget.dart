@@ -131,8 +131,11 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                   10.0, 40.0, 10.0, 0.0),
                               child: StreamBuilder<List<RegionsRecord>>(
                                 stream: queryRegionsRecord(
-                                  queryBuilder: (regionsRecord) => regionsRecord
-                                      .where('isServiced', isEqualTo: true),
+                                  queryBuilder: (regionsRecord) =>
+                                      regionsRecord.where(
+                                    'isServiced',
+                                    isEqualTo: true,
+                                  ),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -207,8 +210,8 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: FFButtonWidget(
                                               onPressed: () async {
                                                 context
@@ -266,7 +269,7 @@ class _NewTourWizardWidgetState extends State<NewTourWizardWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, -1.0),
+                        alignment: AlignmentDirectional(0.00, -1.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 10.0),

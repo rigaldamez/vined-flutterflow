@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/serialization_util.dart';
 import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
@@ -128,6 +129,11 @@ class VenuesRecord extends FirestoreRecord {
   String get address => _address ?? '';
   bool hasAddress() => _address != null;
 
+  // "googlePlaceID" field.
+  String? _googlePlaceID;
+  String get googlePlaceID => _googlePlaceID ?? '';
+  bool hasGooglePlaceID() => _googlePlaceID != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _regionID = snapshotData['regionID'] as String?;
@@ -153,6 +159,7 @@ class VenuesRecord extends FirestoreRecord {
     _isActive = snapshotData['isActive'] as bool?;
     _venueDescription = snapshotData['venueDescription'] as String?;
     _address = snapshotData['address'] as String?;
+    _googlePlaceID = snapshotData['googlePlaceID'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -182,21 +189,36 @@ class VenuesRecord extends FirestoreRecord {
           'regionID': snapshot.data['regionID'],
           'image': snapshot.data['image'],
           'regionName': snapshot.data['regionName'],
-          'tastingFee': snapshot.data['tastingFee']?.toDouble(),
-          'capacity': snapshot.data['capacity']?.round(),
+          'tastingFee': convertAlgoliaParam(
+            snapshot.data['tastingFee'],
+            ParamType.double,
+            false,
+          ),
+          'capacity': convertAlgoliaParam(
+            snapshot.data['capacity'],
+            ParamType.int,
+            false,
+          ),
           'openDays': safeGet(
-            () => snapshot.data['openDays']
-                .map((i) => (i as num).round())
-                .toList(),
+            () => convertAlgoliaParam<int>(
+              snapshot.data['openDays'],
+              ParamType.int,
+              true,
+            ).toList(),
           ),
           'maxCapacityEnforced': snapshot.data['maxCapacityEnforced'],
           'mustAcknowledgeTCs': snapshot.data['mustAcknowledgeTCs'],
-          'region_Ref': safeGet(
-            () => toRef(snapshot.data['region_Ref']),
+          'region_Ref': convertAlgoliaParam(
+            snapshot.data['region_Ref'],
+            ParamType.DocumentReference,
+            false,
           ),
           'is_favourited_by': safeGet(
-            () =>
-                snapshot.data['is_favourited_by'].map((s) => toRef(s)).toList(),
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['is_favourited_by'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
           ),
           'country_state': snapshot.data['country_state'],
           'is_lunch_venue_only': snapshot.data['is_lunch_venue_only'],
@@ -204,21 +226,26 @@ class VenuesRecord extends FirestoreRecord {
               snapshot.data['large_group_early_seating_only'],
           'country_state_display_name':
               snapshot.data['country_state_display_name'],
-          'lat_long': safeGet(
-            () => LatLng(
-              snapshot.data['_geoloc']['lat'],
-              snapshot.data['_geoloc']['lng'],
-            ),
+          'lat_long': convertAlgoliaParam(
+            snapshot.data,
+            ParamType.LatLng,
+            false,
           ),
-          'views_count': snapshot.data['views_count']?.round(),
-          'last_venue_view_date': safeGet(
-            () => DateTime.fromMillisecondsSinceEpoch(
-                snapshot.data['last_venue_view_date']),
+          'views_count': convertAlgoliaParam(
+            snapshot.data['views_count'],
+            ParamType.int,
+            false,
+          ),
+          'last_venue_view_date': convertAlgoliaParam(
+            snapshot.data['last_venue_view_date'],
+            ParamType.DateTime,
+            false,
           ),
           'featured_venue': snapshot.data['featured_venue'],
           'isActive': snapshot.data['isActive'],
           'venueDescription': snapshot.data['venueDescription'],
           'address': snapshot.data['address'],
+          'googlePlaceID': snapshot.data['googlePlaceID'],
         },
         VenuesRecord.collection.doc(snapshot.objectID),
       );
@@ -275,6 +302,7 @@ Map<String, dynamic> createVenuesRecordData({
   bool? isActive,
   String? venueDescription,
   String? address,
+  String? googlePlaceID,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -298,6 +326,7 @@ Map<String, dynamic> createVenuesRecordData({
       'isActive': isActive,
       'venueDescription': venueDescription,
       'address': address,
+      'googlePlaceID': googlePlaceID,
     }.withoutNulls,
   );
 
@@ -331,7 +360,8 @@ class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
         e1?.featuredVenue == e2?.featuredVenue &&
         e1?.isActive == e2?.isActive &&
         e1?.venueDescription == e2?.venueDescription &&
-        e1?.address == e2?.address;
+        e1?.address == e2?.address &&
+        e1?.googlePlaceID == e2?.googlePlaceID;
   }
 
   @override
@@ -357,7 +387,8 @@ class VenuesRecordDocumentEquality implements Equality<VenuesRecord> {
         e?.featuredVenue,
         e?.isActive,
         e?.venueDescription,
-        e?.address
+        e?.address,
+        e?.googlePlaceID
       ]);
 
   @override

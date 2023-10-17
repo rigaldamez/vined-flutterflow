@@ -167,8 +167,8 @@ class _DelUpdateVenueBtmsheetWidgetState
                                             width: 230.0,
                                             height: 100.0,
                                             decoration: BoxDecoration(),
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                -1.00, 0.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -196,7 +196,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 20.0),
@@ -214,7 +214,8 @@ class _DelUpdateVenueBtmsheetWidgetState
                                           width: 1.0,
                                         ),
                                       ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
@@ -398,7 +399,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 20.0),
@@ -416,7 +417,8 @@ class _DelUpdateVenueBtmsheetWidgetState
                                           width: 1.0,
                                         ),
                                       ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
@@ -493,9 +495,13 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                     await columnSelectedVenuesRecord
                                                         .reference
                                                         .update({
-                                                      'is_lunch_venue':
-                                                          !columnSelectedVenuesRecord
-                                                              .isLunchVenue,
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'is_lunch_venue':
+                                                              !columnSelectedVenuesRecord
+                                                                  .isLunchVenue,
+                                                        },
+                                                      ),
                                                     });
                                                   },
                                                   value:
@@ -605,7 +611,7 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                       .getTodayTimestampZeroMinutes()),
                                             );
                                             if (_datePickedTime != null) {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.datePicked = DateTime(
                                                   functions
                                                       .getTodayTimestampZeroMinutes()
@@ -640,8 +646,10 @@ class _DelUpdateVenueBtmsheetWidgetState
                                 StreamBuilder<List<SelectedVenuesRecord>>(
                                   stream: querySelectedVenuesRecord(
                                     queryBuilder: (selectedVenuesRecord) =>
-                                        selectedVenuesRecord.where('tourRef',
-                                            isEqualTo: widget.tourReff),
+                                        selectedVenuesRecord.where(
+                                      'tourRef',
+                                      isEqualTo: widget.tourReff,
+                                    ),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -720,10 +728,15 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                                     .tastingFee)
                                                             .toDouble()),
                                                   ),
-                                                  'venues':
-                                                      FieldValue.arrayRemove([
-                                                    widget.venueDoc?.reference
-                                                  ]),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'venues': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .venueDoc?.reference
+                                                      ]),
+                                                    },
+                                                  ),
                                                 });
                                                 FFAppState().update(() {
                                                   FFAppState().lunchVenueReff =
@@ -765,13 +778,19 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                                       .platformTastingFee)
                                                               .toDouble()),
                                                     ),
-                                                    'venues':
-                                                        FieldValue.arrayRemove([
-                                                      widget.venueDoc?.reference
-                                                    ]),
-                                                    'large_group_venue_early_seating_count':
-                                                        FieldValue.increment(
-                                                            -(1)),
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'venues': FieldValue
+                                                            .arrayRemove([
+                                                          widget.venueDoc
+                                                              ?.reference
+                                                        ]),
+                                                        'large_group_venue_early_seating_count':
+                                                            FieldValue
+                                                                .increment(
+                                                                    -(1)),
+                                                      },
+                                                    ),
                                                   });
                                                   Navigator.pop(context);
                                                   await widget
@@ -808,10 +827,15 @@ class _DelUpdateVenueBtmsheetWidgetState
                                                                       .tastingFee)
                                                               .toDouble()),
                                                     ),
-                                                    'venues':
-                                                        FieldValue.arrayRemove([
-                                                      widget.venueDoc?.reference
-                                                    ]),
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'venues': FieldValue
+                                                            .arrayRemove([
+                                                          widget.venueDoc
+                                                              ?.reference
+                                                        ]),
+                                                      },
+                                                    ),
                                                   });
                                                   Navigator.pop(context);
                                                   await widget
