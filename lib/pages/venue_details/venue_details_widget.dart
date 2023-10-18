@@ -2069,20 +2069,19 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                               snapshot.data!;
                                                           if (lWTastingEntriesTastingDiaryRecordList
                                                               .isEmpty) {
-                                                            return Image.asset(
-                                                              'https://firebasestorage.googleapis.com/v0/b/vined-f38a6.appspot.com/o/appAssets%2FAdd_to_your_diary_empty_list.png?alt=media&token=499f973a-a9d6-444c-89d2-116904287496&_gl=1*rajsa7*_ga*MTIwMDY2NTg3LjE2MzU4Mjg5ODA.*_ga_CW55HF8NVT*MTY5NzUwNzkzNS44My4xLjE2OTc1MTM3NDguMjcuMC4w',
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.8,
-                                                              height: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .height *
-                                                                  0.8,
-                                                              fit: BoxFit
-                                                                  .contain,
+                                                            return Center(
+                                                              child:
+                                                                  Image.asset(
+                                                                'https://res.cloudinary.com/rigcloudinary/image/upload/v1697628185/CellarDweller/App%20Images/Add_to_your_diary_empty_list_blxqcd.png',
+                                                                width: double
+                                                                    .infinity,
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.8,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
                                                             );
                                                           }
                                                           return ListView
