@@ -2072,8 +2072,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                             return Center(
                                                               child:
                                                                   Image.asset(
-                                                                columnAppConfigRecord!
-                                                                    .emptyBeverageDiaryImgPath,
+                                                                'assets/images/Add_to_your_diary_empty_list.png',
                                                                 width: double
                                                                     .infinity,
                                                                 height: MediaQuery.sizeOf(
@@ -2081,7 +2080,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         .height *
                                                                     0.8,
                                                                 fit: BoxFit
-                                                                    .contain,
+                                                                    .cover,
                                                               ),
                                                             );
                                                           }
