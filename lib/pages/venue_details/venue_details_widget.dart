@@ -278,7 +278,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                 width: MediaQuery.sizeOf(
                                                                             context)
                                                                         .width *
-                                                                    0.8,
+                                                                    0.7,
                                                                 height: 50.0,
                                                                 decoration:
                                                                     BoxDecoration(
@@ -2182,7 +2182,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         children: [
                                                                           Text(
                                                                             lWTastingEntriesTastingDiaryRecord.tastingNotes.maybeHandleOverflow(
-                                                                              maxChars: 14,
+                                                                              maxChars: 10,
                                                                               replacement: '…',
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -2297,7 +2297,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                           child:
                                                                               Container(
                                                                             height:
-                                                                                MediaQuery.sizeOf(context).height * 0.6,
+                                                                                MediaQuery.sizeOf(context).height * 0.64,
                                                                             child:
                                                                                 AddDropBottomseetWidget(
                                                                               venueReff: widget.selectedVenueReff!,
