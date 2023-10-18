@@ -2072,7 +2072,8 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                             return Center(
                                                               child:
                                                                   Image.asset(
-                                                                'https://res.cloudinary.com/rigcloudinary/image/upload/v1697628185/CellarDweller/App%20Images/Add_to_your_diary_empty_list_blxqcd.png',
+                                                                columnAppConfigRecord!
+                                                                    .emptyBeverageDiaryImgPath,
                                                                 width: double
                                                                     .infinity,
                                                                 height: MediaQuery.sizeOf(

@@ -68,6 +68,11 @@ class AppConfigRecord extends FirestoreRecord {
   String get googleApiKey => _googleApiKey ?? '';
   bool hasGoogleApiKey() => _googleApiKey != null;
 
+  // "empty_beverage_diary_img_path" field.
+  String? _emptyBeverageDiaryImgPath;
+  String get emptyBeverageDiaryImgPath => _emptyBeverageDiaryImgPath ?? '';
+  bool hasEmptyBeverageDiaryImgPath() => _emptyBeverageDiaryImgPath != null;
+
   void _initializeFields() {
     _vinedMessengerURL = snapshotData['vinedMessengerURL'] as String?;
     _itineraryVenueLimit = castToType<int>(snapshotData['itineraryVenueLimit']);
@@ -82,6 +87,8 @@ class AppConfigRecord extends FirestoreRecord {
     _lunchVenueFee = castToType<double>(snapshotData['lunch_venue_fee']);
     _mapboxKey = snapshotData['mapbox_key'] as String?;
     _googleApiKey = snapshotData['google_api_key'] as String?;
+    _emptyBeverageDiaryImgPath =
+        snapshotData['empty_beverage_diary_img_path'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -129,6 +136,7 @@ Map<String, dynamic> createAppConfigRecordData({
   double? lunchVenueFee,
   String? mapboxKey,
   String? googleApiKey,
+  String? emptyBeverageDiaryImgPath,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -143,6 +151,7 @@ Map<String, dynamic> createAppConfigRecordData({
       'lunch_venue_fee': lunchVenueFee,
       'mapbox_key': mapboxKey,
       'google_api_key': googleApiKey,
+      'empty_beverage_diary_img_path': emptyBeverageDiaryImgPath,
     }.withoutNulls,
   );
 
@@ -164,7 +173,8 @@ class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
             e2?.largeGroupVenuesEarlySeatingThreshold &&
         e1?.lunchVenueFee == e2?.lunchVenueFee &&
         e1?.mapboxKey == e2?.mapboxKey &&
-        e1?.googleApiKey == e2?.googleApiKey;
+        e1?.googleApiKey == e2?.googleApiKey &&
+        e1?.emptyBeverageDiaryImgPath == e2?.emptyBeverageDiaryImgPath;
   }
 
   @override
@@ -178,7 +188,8 @@ class AppConfigRecordDocumentEquality implements Equality<AppConfigRecord> {
         e?.largeGroupVenuesEarlySeatingThreshold,
         e?.lunchVenueFee,
         e?.mapboxKey,
-        e?.googleApiKey
+        e?.googleApiKey,
+        e?.emptyBeverageDiaryImgPath
       ]);
 
   @override
