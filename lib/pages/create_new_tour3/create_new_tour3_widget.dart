@@ -12,6 +12,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_new_tour3_model.dart';
@@ -40,6 +41,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
     _model = createModel(context, () => CreateNewTour3Model());
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -52,6 +54,15 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return StreamBuilder<List<ToursRecord>>(
@@ -355,6 +366,7 @@ class _CreateNewTour3WidgetState extends State<CreateNewTour3Widget> {
                                   60.0, 0.0, 60.0, 0.0),
                               child: TextFormField(
                                 controller: _model.textController,
+                                focusNode: _model.textFieldFocusNode,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'unit number or letter',

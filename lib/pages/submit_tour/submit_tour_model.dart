@@ -19,6 +19,7 @@ class SubmitTourModel extends FlutterFlowModel<SubmitTourWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Stripe Payment] action in Container widget.
@@ -30,6 +31,7 @@ class SubmitTourModel extends FlutterFlowModel<SubmitTourWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

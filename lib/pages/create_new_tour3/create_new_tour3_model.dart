@@ -13,6 +13,7 @@ import 'create_new_tour3_widget.dart' show CreateNewTour3Widget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class CreateNewTour3Model extends FlutterFlowModel<CreateNewTour3Widget> {
 
   DateTime? datePicked;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for PlacePicker widget.
@@ -33,6 +35,7 @@ class CreateNewTour3Model extends FlutterFlowModel<CreateNewTour3Widget> {
   void initState(BuildContext context) {}
 
   void dispose() {
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

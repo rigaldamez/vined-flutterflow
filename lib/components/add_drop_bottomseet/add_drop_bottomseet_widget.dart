@@ -8,6 +8,7 @@ import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,6 +44,7 @@ class _AddDropBottomseetWidgetState extends State<AddDropBottomseetWidget> {
     _model = createModel(context, () => AddDropBottomseetModel());
 
     _model.tastingNotesFieldController ??= TextEditingController();
+    _model.tastingNotesFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -320,6 +322,8 @@ class _AddDropBottomseetWidgetState extends State<AddDropBottomseetWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.tastingNotesFieldController,
+                                        focusNode:
+                                            _model.tastingNotesFieldFocusNode,
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.tastingNotesFieldController',
                                           Duration(milliseconds: 2000),

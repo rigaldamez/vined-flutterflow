@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'login_email_widget.dart' show LoginEmailWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,7 @@ class LoginEmailModel extends FlutterFlowModel<LoginEmailWidget> {
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for Email_TextField widget.
+  FocusNode? emailTextFieldFocusNode;
   TextEditingController? emailTextFieldController;
   String? Function(BuildContext, String?)? emailTextFieldControllerValidator;
   String? _emailTextFieldControllerValidator(
@@ -25,6 +27,7 @@ class LoginEmailModel extends FlutterFlowModel<LoginEmailWidget> {
   }
 
   // State field(s) for Password_TextField1 widget.
+  FocusNode? passwordTextField1FocusNode;
   TextEditingController? passwordTextField1Controller;
   late bool passwordTextField1Visibility;
   String? Function(BuildContext, String?)?
@@ -48,7 +51,10 @@ class LoginEmailModel extends FlutterFlowModel<LoginEmailWidget> {
   }
 
   void dispose() {
+    emailTextFieldFocusNode?.dispose();
     emailTextFieldController?.dispose();
+
+    passwordTextField1FocusNode?.dispose();
     passwordTextField1Controller?.dispose();
   }
 

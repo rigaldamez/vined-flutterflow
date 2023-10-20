@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
     _model = createModel(context, () => CreateTourModel());
 
     _model.tourNameTextFieldController ??= TextEditingController();
+    _model.tourNameTextFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -47,6 +49,15 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -150,6 +161,8 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.tourNameTextFieldController,
+                                        focusNode:
+                                            _model.tourNameTextFieldFocusNode,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'eg; Wine Time Fun!',

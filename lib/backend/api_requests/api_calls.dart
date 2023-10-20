@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import '../../flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -11,7 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 class GETGeolocationFORAddressCall {
   static Future<ApiCallResponse> call({
     String? address = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Geolocation FOR Address',
       apiUrl:
@@ -31,7 +31,7 @@ class GETDistanceBetwenTwoGeopointsCall {
   static Future<ApiCallResponse> call({
     String? destinations = '',
     String? origins = '-34.92834680474008, 138.60001165070216',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Distance betwen two geopoints',
       apiUrl: 'https://maps.googleapis.com/maps/api/distancematrix/json?',
@@ -67,7 +67,7 @@ class GETMapboxDrivingDirectionsCall {
   static Future<ApiCallResponse> call({
     String? coordinates =
         '151.2149685,-33.857158999999996;151.069576,-33.846503',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Mapbox driving directions',
       apiUrl:
@@ -103,7 +103,7 @@ class GETFindPlaceFromTextCall {
   static Future<ApiCallResponse> call({
     String? inputVenueAddress = '',
     String? googleApiKey = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Find Place from Text',
       apiUrl:
@@ -137,7 +137,7 @@ class GETFindPlaceFromTextCopyCall {
   static Future<ApiCallResponse> call({
     String? inputVenueAddress = '',
     String? googleApiKey = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Find Place from Text Copy',
       apiUrl:
@@ -177,7 +177,7 @@ class GETPlaceDetailsCall {
   static Future<ApiCallResponse> call({
     String? placeId = '',
     String? googleApiKey = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'GET Place Details',
       apiUrl: 'https://maps.googleapis.com/maps/api/place/details/json',

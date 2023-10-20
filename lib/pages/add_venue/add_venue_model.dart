@@ -9,6 +9,7 @@ import 'add_venue_widget.dart' show AddVenueWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class AddVenueModel extends FlutterFlowModel<AddVenueWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for ListView widget.
@@ -32,7 +34,9 @@ class AddVenueModel extends FlutterFlowModel<AddVenueWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
+
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
   }

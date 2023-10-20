@@ -18,6 +18,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -81,6 +82,15 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
     if (currentUserLocationValue == null) {
       return Container(
@@ -2069,19 +2079,26 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                               snapshot.data!;
                                                           if (lWTastingEntriesTastingDiaryRecordList
                                                               .isEmpty) {
-                                                            return Center(
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/Add_to_your_diary_empty_list.png',
-                                                                width: double
-                                                                    .infinity,
-                                                                height: MediaQuery.sizeOf(
-                                                                            context)
-                                                                        .height *
-                                                                    0.8,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
+                                                            return CachedNetworkImage(
+                                                              fadeInDuration:
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          0),
+                                                              fadeOutDuration:
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          0),
+                                                              imageUrl:
+                                                                  columnAppConfigRecord!
+                                                                      .emptyBeverageDiaryImgPath,
+                                                              width: double
+                                                                  .infinity,
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  0.8,
+                                                              fit: BoxFit.cover,
                                                             );
                                                           }
                                                           return ListView

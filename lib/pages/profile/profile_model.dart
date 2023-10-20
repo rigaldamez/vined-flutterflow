@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'profile_widget.dart' show ProfileWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Tour_Name_TextField widget.
+  FocusNode? tourNameTextFieldFocusNode;
   TextEditingController? tourNameTextFieldController;
   String? Function(BuildContext, String?)? tourNameTextFieldControllerValidator;
   // State field(s) for TabBar widget.
@@ -27,7 +29,9 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   void initState(BuildContext context) {}
 
   void dispose() {
+    tourNameTextFieldFocusNode?.dispose();
     tourNameTextFieldController?.dispose();
+
     tabBarController?.dispose();
   }
 

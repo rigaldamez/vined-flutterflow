@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'signup_email_widget.dart' show SignupEmailWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,7 @@ class SignupEmailModel extends FlutterFlowModel<SignupEmailWidget> {
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for Email_TextField widget.
+  FocusNode? emailTextFieldFocusNode;
   TextEditingController? emailTextFieldController;
   String? Function(BuildContext, String?)? emailTextFieldControllerValidator;
   String? _emailTextFieldControllerValidator(
@@ -25,6 +27,7 @@ class SignupEmailModel extends FlutterFlowModel<SignupEmailWidget> {
   }
 
   // State field(s) for Password_TextField1 widget.
+  FocusNode? passwordTextField1FocusNode;
   TextEditingController? passwordTextField1Controller;
   late bool passwordTextField1Visibility;
   String? Function(BuildContext, String?)?
@@ -39,6 +42,7 @@ class SignupEmailModel extends FlutterFlowModel<SignupEmailWidget> {
   }
 
   // State field(s) for Password_TextField2 widget.
+  FocusNode? passwordTextField2FocusNode;
   TextEditingController? passwordTextField2Controller;
   late bool passwordTextField2Visibility;
   String? Function(BuildContext, String?)?
@@ -65,8 +69,13 @@ class SignupEmailModel extends FlutterFlowModel<SignupEmailWidget> {
   }
 
   void dispose() {
+    emailTextFieldFocusNode?.dispose();
     emailTextFieldController?.dispose();
+
+    passwordTextField1FocusNode?.dispose();
     passwordTextField1Controller?.dispose();
+
+    passwordTextField2FocusNode?.dispose();
     passwordTextField2Controller?.dispose();
   }
 

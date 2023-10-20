@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_tour_widget.dart' show CreateTourWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class CreateTourModel extends FlutterFlowModel<CreateTourWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for Tour_Name_TextField widget.
+  FocusNode? tourNameTextFieldFocusNode;
   TextEditingController? tourNameTextFieldController;
   String? Function(BuildContext, String?)? tourNameTextFieldControllerValidator;
   // State field(s) for ListView widget.
@@ -29,6 +31,7 @@ class CreateTourModel extends FlutterFlowModel<CreateTourWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    tourNameTextFieldFocusNode?.dispose();
     tourNameTextFieldController?.dispose();
 
     listViewPagingController?.dispose();

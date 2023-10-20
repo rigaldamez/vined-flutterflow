@@ -41,6 +41,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
     _model = createModel(context, () => SubmitTourModel());
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -53,6 +54,15 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
     final lottieAnimation2Controller = AnimationController(vsync: this);
     return GestureDetector(
@@ -755,6 +765,9 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                     controller:
                                                                         _model
                                                                             .textController,
+                                                                    focusNode:
+                                                                        _model
+                                                                            .textFieldFocusNode,
                                                                     textCapitalization:
                                                                         TextCapitalization
                                                                             .characters,

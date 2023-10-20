@@ -9,6 +9,7 @@ import 'add_drop_bottomseet_widget.dart' show AddDropBottomseetWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +28,7 @@ class AddDropBottomseetModel extends FlutterFlowModel<AddDropBottomseetWidget> {
   String uploadedFileUrl = '';
 
   // State field(s) for TastingNotesField widget.
+  FocusNode? tastingNotesFieldFocusNode;
   TextEditingController? tastingNotesFieldController;
   String? Function(BuildContext, String?)? tastingNotesFieldControllerValidator;
   // State field(s) for RatingBar widget.
@@ -37,6 +39,7 @@ class AddDropBottomseetModel extends FlutterFlowModel<AddDropBottomseetWidget> {
   void initState(BuildContext context) {}
 
   void dispose() {
+    tastingNotesFieldFocusNode?.dispose();
     tastingNotesFieldController?.dispose();
   }
 
