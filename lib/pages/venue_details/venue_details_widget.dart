@@ -2089,8 +2089,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                       milliseconds:
                                                                           0),
                                                               imageUrl:
-                                                                  columnAppConfigRecord!
-                                                                      .emptyBeverageDiaryImgPath,
+                                                                  'https://res.cloudinary.com/rigcloudinary/image/upload/v1697628185/CellarDweller/App%20Images/Add_to_your_diary_empty_list_blxqcd.png',
                                                               width: double
                                                                   .infinity,
                                                               height: MediaQuery
