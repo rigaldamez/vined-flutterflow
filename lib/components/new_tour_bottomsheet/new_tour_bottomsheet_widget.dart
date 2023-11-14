@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'new_tour_bottomsheet_model.dart';
 export 'new_tour_bottomsheet_model.dart';
 
@@ -33,6 +34,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
 
     _model.tourNameTextFieldController ??= TextEditingController();
     _model.tourNameTextFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -184,7 +186,8 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
-                                        return AlertDialog(
+                                        return WebViewAware(
+                                            child: AlertDialog(
                                           title: Text('Tour Name'),
                                           content: Text('can not be empty'),
                                           actions: [
@@ -194,7 +197,7 @@ class _NewTourBottomsheetWidgetState extends State<NewTourBottomsheetWidget> {
                                               child: Text('Ok'),
                                             ),
                                           ],
-                                        );
+                                        ));
                                       },
                                     );
                                     return;

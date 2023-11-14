@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_venue_model.dart';
 export 'add_venue_model.dart';
 
@@ -39,6 +40,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -608,7 +610,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 context,
                                                                             builder:
                                                                                 (alertDialogContext) {
-                                                                              return AlertDialog(
+                                                                              return WebViewAware(
+                                                                                  child: AlertDialog(
                                                                                 title: Text('Already Added'),
                                                                                 content: Text('This venue is already in your itinerary'),
                                                                                 actions: [
@@ -617,7 +620,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                     child: Text('Ok'),
                                                                                   ),
                                                                                 ],
-                                                                              );
+                                                                              ));
                                                                             },
                                                                           );
                                                                         } else {
@@ -629,7 +632,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               barrierColor: Color(0x00000000),
                                                                               context: context,
                                                                               builder: (context) {
-                                                                                return GestureDetector(
+                                                                                return WebViewAware(
+                                                                                    child: GestureDetector(
                                                                                   onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                   child: Padding(
                                                                                     padding: MediaQuery.viewInsetsOf(context),
@@ -644,7 +648,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                );
+                                                                                ));
                                                                               },
                                                                             ).then((value) =>
                                                                                 safeSetState(() {}));
@@ -657,7 +661,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 barrierColor: Color(0x00000000),
                                                                                 context: context,
                                                                                 builder: (context) {
-                                                                                  return GestureDetector(
+                                                                                  return WebViewAware(
+                                                                                      child: GestureDetector(
                                                                                     onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                     child: Padding(
                                                                                       padding: MediaQuery.viewInsetsOf(context),
@@ -672,7 +677,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                         ),
                                                                                       ),
                                                                                     ),
-                                                                                  );
+                                                                                  ));
                                                                                 },
                                                                               ).then((value) => safeSetState(() {}));
                                                                             } else {
@@ -683,7 +688,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   barrierColor: Color(0x00000000),
                                                                                   context: context,
                                                                                   builder: (context) {
-                                                                                    return GestureDetector(
+                                                                                    return WebViewAware(
+                                                                                        child: GestureDetector(
                                                                                       onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                       child: Padding(
                                                                                         padding: MediaQuery.viewInsetsOf(context),
@@ -698,14 +704,15 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                           ),
                                                                                         ),
                                                                                       ),
-                                                                                    );
+                                                                                    ));
                                                                                   },
                                                                                 ).then((value) => safeSetState(() {}));
                                                                               } else {
                                                                                 await showDialog(
                                                                                   context: context,
                                                                                   builder: (alertDialogContext) {
-                                                                                    return AlertDialog(
+                                                                                    return WebViewAware(
+                                                                                        child: AlertDialog(
                                                                                       title: Text('Can\'t add venue'),
                                                                                       content: Text('You already have an \'ealy-seating only\' venue for large groups in your itinerary'),
                                                                                       actions: [
@@ -714,7 +721,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                           child: Text('Ok'),
                                                                                         ),
                                                                                       ],
-                                                                                    );
+                                                                                    ));
                                                                                   },
                                                                                 );
                                                                               }
@@ -727,7 +734,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               context,
                                                                           builder:
                                                                               (alertDialogContext) {
-                                                                            return AlertDialog(
+                                                                            return WebViewAware(
+                                                                                child: AlertDialog(
                                                                               title: Text('Group Capacity Exceeded'),
                                                                               content: Text('Your tour group exceeds the max group capacity set by this venue'),
                                                                               actions: [
@@ -736,7 +744,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   child: Text('Ok'),
                                                                                 ),
                                                                               ],
-                                                                            );
+                                                                            ));
                                                                           },
                                                                         );
                                                                       }
@@ -746,7 +754,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             context,
                                                                         builder:
                                                                             (alertDialogContext) {
-                                                                          return AlertDialog(
+                                                                          return WebViewAware(
+                                                                              child: AlertDialog(
                                                                             title:
                                                                                 Text('Venue Limit Reached'),
                                                                             content:
@@ -757,7 +766,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 child: Text('Ok'),
                                                                               ),
                                                                             ],
-                                                                          );
+                                                                          ));
                                                                         },
                                                                       );
                                                                     }
@@ -900,7 +909,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             context,
                                                                         builder:
                                                                             (alertDialogContext) {
-                                                                          return AlertDialog(
+                                                                          return WebViewAware(
+                                                                              child: AlertDialog(
                                                                             title:
                                                                                 Text('Already Added'),
                                                                             content:
@@ -911,7 +921,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 child: Text('Ok'),
                                                                               ),
                                                                             ],
-                                                                          );
+                                                                          ));
                                                                         },
                                                                       );
                                                                     } else {
@@ -928,7 +938,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               context,
                                                                           builder:
                                                                               (context) {
-                                                                            return GestureDetector(
+                                                                            return WebViewAware(
+                                                                                child: GestureDetector(
                                                                               onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                               child: Padding(
                                                                                 padding: MediaQuery.viewInsetsOf(context),
@@ -943,7 +954,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                   ),
                                                                                 ),
                                                                               ),
-                                                                            );
+                                                                            ));
                                                                           },
                                                                         ).then((value) =>
                                                                             safeSetState(() {}));
@@ -962,7 +973,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 context,
                                                                             builder:
                                                                                 (context) {
-                                                                              return GestureDetector(
+                                                                              return WebViewAware(
+                                                                                  child: GestureDetector(
                                                                                 onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                 child: Padding(
                                                                                   padding: MediaQuery.viewInsetsOf(context),
@@ -977,7 +989,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                     ),
                                                                                   ),
                                                                                 ),
-                                                                              );
+                                                                              ));
                                                                             },
                                                                           ).then((value) =>
                                                                               safeSetState(() {}));
@@ -992,7 +1004,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               barrierColor: Color(0x00000000),
                                                                               context: context,
                                                                               builder: (context) {
-                                                                                return GestureDetector(
+                                                                                return WebViewAware(
+                                                                                    child: GestureDetector(
                                                                                   onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                   child: Padding(
                                                                                     padding: MediaQuery.viewInsetsOf(context),
@@ -1007,7 +1020,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                );
+                                                                                ));
                                                                               },
                                                                             ).then((value) =>
                                                                                 safeSetState(() {}));
@@ -1015,7 +1028,8 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                             await showDialog(
                                                                               context: context,
                                                                               builder: (alertDialogContext) {
-                                                                                return AlertDialog(
+                                                                                return WebViewAware(
+                                                                                    child: AlertDialog(
                                                                                   title: Text('Can\'t add venue'),
                                                                                   content: Text('You already have an \'ealy-seating only\' venue for large groups in your itinerary'),
                                                                                   actions: [
@@ -1024,7 +1038,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                       child: Text('Ok'),
                                                                                     ),
                                                                                   ],
-                                                                                );
+                                                                                ));
                                                                               },
                                                                             );
                                                                           }
@@ -1037,7 +1051,9 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                           context,
                                                                       builder:
                                                                           (alertDialogContext) {
-                                                                        return AlertDialog(
+                                                                        return WebViewAware(
+                                                                            child:
+                                                                                AlertDialog(
                                                                           title:
                                                                               Text('Group Capacity Exceeded'),
                                                                           content:
@@ -1048,7 +1064,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                               child: Text('Ok'),
                                                                             ),
                                                                           ],
-                                                                        );
+                                                                        ));
                                                                       },
                                                                     );
                                                                   }
@@ -1058,7 +1074,9 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                         context,
                                                                     builder:
                                                                         (alertDialogContext) {
-                                                                      return AlertDialog(
+                                                                      return WebViewAware(
+                                                                          child:
+                                                                              AlertDialog(
                                                                         title: Text(
                                                                             'Venue Limit Reached'),
                                                                         content:
@@ -1071,7 +1089,7 @@ class _AddVenueWidgetState extends State<AddVenueWidget> {
                                                                                 Text('Ok'),
                                                                           ),
                                                                         ],
-                                                                      );
+                                                                      ));
                                                                     },
                                                                   );
                                                                 }

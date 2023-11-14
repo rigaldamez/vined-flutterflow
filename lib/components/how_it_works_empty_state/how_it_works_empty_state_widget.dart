@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'how_it_works_empty_state_model.dart';
 export 'how_it_works_empty_state_model.dart';
 
@@ -160,13 +161,14 @@ class _HowItWorksEmptyStateWidgetState
                 barrierColor: Color(0x00000000),
                 context: context,
                 builder: (context) {
-                  return Padding(
+                  return WebViewAware(
+                      child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
                     child: Container(
                       height: 400.0,
                       child: NewTourBottomsheetWidget(),
                     ),
-                  );
+                  ));
                 },
               ).then((value) => safeSetState(() {}));
             },

@@ -29,8 +29,10 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget> {
 
     _model.emailTextFieldController ??= TextEditingController();
     _model.emailTextFieldFocusNode ??= FocusNode();
+
     _model.passwordTextField1Controller ??= TextEditingController();
     _model.passwordTextField1FocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

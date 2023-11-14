@@ -25,6 +25,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mapbox_search/mapbox_search.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'venue_details_model.dart';
 export 'venue_details_model.dart';
 
@@ -1085,7 +1086,8 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
-                                              return AlertDialog(
+                                              return WebViewAware(
+                                                  child: AlertDialog(
                                                 title: Text(
                                                     'Total number of views'),
                                                 actions: [
@@ -1096,7 +1098,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                     child: Text('Go it!'),
                                                   ),
                                                 ],
-                                              );
+                                              ));
                                             },
                                           );
                                         },
@@ -1204,7 +1206,8 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {
-                                            return AlertDialog(
+                                            return WebViewAware(
+                                                child: AlertDialog(
                                               title:
                                                   Text('Total number of tours'),
                                               content: Text(
@@ -1217,7 +1220,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                   child: Text('Got it!'),
                                                 ),
                                               ],
-                                            );
+                                            ));
                                           },
                                         );
                                       },
@@ -2301,7 +2304,9 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         context,
                                                                     builder:
                                                                         (context) {
-                                                                      return GestureDetector(
+                                                                      return WebViewAware(
+                                                                          child:
+                                                                              GestureDetector(
                                                                         onTap: () => _model.unfocusNode.canRequestFocus
                                                                             ? FocusScope.of(context).requestFocus(_model.unfocusNode)
                                                                             : FocusScope.of(context).unfocus(),
@@ -2319,7 +2324,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      );
+                                                                      ));
                                                                     },
                                                                   ).then((value) =>
                                                                       safeSetState(

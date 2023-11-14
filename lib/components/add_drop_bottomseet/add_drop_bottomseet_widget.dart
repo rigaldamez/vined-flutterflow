@@ -13,6 +13,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_drop_bottomseet_model.dart';
 export 'add_drop_bottomseet_model.dart';
 
@@ -45,6 +46,7 @@ class _AddDropBottomseetWidgetState extends State<AddDropBottomseetWidget> {
 
     _model.tastingNotesFieldController ??= TextEditingController();
     _model.tastingNotesFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -493,7 +495,8 @@ class _AddDropBottomseetWidgetState extends State<AddDropBottomseetWidget> {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
-                                    return AlertDialog(
+                                    return WebViewAware(
+                                        child: AlertDialog(
                                       title: Text('Upload a Photo and Rate it'),
                                       actions: [
                                         TextButton(
@@ -502,7 +505,7 @@ class _AddDropBottomseetWidgetState extends State<AddDropBottomseetWidget> {
                                           child: Text('Got it!'),
                                         ),
                                       ],
-                                    );
+                                    ));
                                   },
                                 );
                               }

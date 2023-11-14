@@ -37,6 +37,7 @@ class _CreateTourWidgetState extends State<CreateTourWidget> {
 
     _model.tourNameTextFieldController ??= TextEditingController();
     _model.tourNameTextFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

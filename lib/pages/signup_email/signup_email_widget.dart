@@ -29,10 +29,13 @@ class _SignupEmailWidgetState extends State<SignupEmailWidget> {
 
     _model.emailTextFieldController ??= TextEditingController();
     _model.emailTextFieldFocusNode ??= FocusNode();
+
     _model.passwordTextField1Controller ??= TextEditingController();
     _model.passwordTextField1FocusNode ??= FocusNode();
+
     _model.passwordTextField2Controller ??= TextEditingController();
     _model.passwordTextField2FocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

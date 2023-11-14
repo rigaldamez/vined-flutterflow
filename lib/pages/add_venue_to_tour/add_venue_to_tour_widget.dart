@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_venue_to_tour_model.dart';
 export 'add_venue_to_tour_model.dart';
 
@@ -375,7 +376,8 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
-                                              return AlertDialog(
+                                              return WebViewAware(
+                                                  child: AlertDialog(
                                                 title:
                                                     Text('Max Venues Reached'),
                                                 content: Text(
@@ -388,7 +390,7 @@ class _AddVenueToTourWidgetState extends State<AddVenueToTourWidget> {
                                                     child: Text('Ok'),
                                                   ),
                                                 ],
-                                              );
+                                              ));
                                             },
                                           );
                                         }

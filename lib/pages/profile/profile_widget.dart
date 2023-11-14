@@ -38,6 +38,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
 
     _model.tourNameTextFieldController ??= TextEditingController();
     _model.tourNameTextFieldFocusNode ??= FocusNode();
+
     _model.tabBarController = TabController(
       vsync: this,
       length: 3,

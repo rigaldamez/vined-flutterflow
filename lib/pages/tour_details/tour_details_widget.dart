@@ -16,6 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'tour_details_model.dart';
 export 'tour_details_model.dart';
 
@@ -444,7 +445,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                             Color(0x00000000),
                                                         context: context,
                                                         builder: (context) {
-                                                          return Padding(
+                                                          return WebViewAware(
+                                                              child: Padding(
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
                                                                     context),
@@ -456,7 +458,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     .tourID,
                                                               ),
                                                             ),
-                                                          );
+                                                          ));
                                                         },
                                                       ).then((value) =>
                                                           safeSetState(() {}));
@@ -796,7 +798,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               context: context,
                                                               builder:
                                                                   (alertDialogContext) {
-                                                                return AlertDialog(
+                                                                return WebViewAware(
+                                                                    child:
+                                                                        AlertDialog(
                                                                   title: Text(
                                                                       'Price Per Passenger'),
                                                                   content: Text(
@@ -810,7 +814,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           'Go it!'),
                                                                     ),
                                                                   ],
-                                                                );
+                                                                ));
                                                               },
                                                             );
                                                           },
@@ -949,7 +953,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                         context: context,
                                                         builder:
                                                             (alertDialogContext) {
-                                                          return AlertDialog(
+                                                          return WebViewAware(
+                                                              child:
+                                                                  AlertDialog(
                                                             title: Text(
                                                                 'Joined  Passengers'),
                                                             content: Text(
@@ -963,7 +969,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                     'Got it!'),
                                                               ),
                                                             ],
-                                                          );
+                                                          ));
                                                         },
                                                       );
                                                     },
@@ -1076,7 +1082,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                               context: context,
                                                               builder:
                                                                   (context) {
-                                                                return Padding(
+                                                                return WebViewAware(
+                                                                    child:
+                                                                        Padding(
                                                                   padding: MediaQuery
                                                                       .viewInsetsOf(
                                                                           context),
@@ -1091,7 +1099,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               .tourID,
                                                                     ),
                                                                   ),
-                                                                );
+                                                                ));
                                                               },
                                                             ).then((value) =>
                                                                 safeSetState(
@@ -1283,7 +1291,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           context,
                                                                       builder:
                                                                           (context) {
-                                                                        return Padding(
+                                                                        return WebViewAware(
+                                                                            child:
+                                                                                Padding(
                                                                           padding:
                                                                               MediaQuery.viewInsetsOf(context),
                                                                           child:
@@ -1295,7 +1305,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               tourID: widget.tourID,
                                                                             ),
                                                                           ),
-                                                                        );
+                                                                        ));
                                                                       },
                                                                     ).then((value) =>
                                                                         safeSetState(
@@ -2000,7 +2010,9 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                           context,
                                                                       builder:
                                                                           (context) {
-                                                                        return Padding(
+                                                                        return WebViewAware(
+                                                                            child:
+                                                                                Padding(
                                                                           padding:
                                                                               MediaQuery.viewInsetsOf(context),
                                                                           child:
@@ -2014,7 +2026,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                               selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord.reference,
                                                                             ),
                                                                           ),
-                                                                        );
+                                                                        ));
                                                                       },
                                                                     ).then((value) =>
                                                                         safeSetState(
@@ -2078,7 +2090,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                             context,
                                                                         builder:
                                                                             (context) {
-                                                                          return Padding(
+                                                                          return WebViewAware(
+                                                                              child: Padding(
                                                                             padding:
                                                                                 MediaQuery.viewInsetsOf(context),
                                                                             child:
@@ -2090,7 +2103,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                                                 selectedVenueReff: listViewSelectedVenuesSelectedVenuesRecord.reference,
                                                                               ),
                                                                             ),
-                                                                          );
+                                                                          ));
                                                                         },
                                                                       ).then((value) =>
                                                                           safeSetState(
@@ -2630,7 +2643,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
-                                              return AlertDialog(
+                                              return WebViewAware(
+                                                  child: AlertDialog(
                                                 title: Text(
                                                     'Your itinerary is empty'),
                                                 content: Text(
@@ -2643,7 +2657,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                     child: Text('Got it!'),
                                                   ),
                                                 ],
-                                              );
+                                              ));
                                             },
                                           );
                                         } else {
@@ -2684,7 +2698,8 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                             await showDialog(
                                               context: context,
                                               builder: (alertDialogContext) {
-                                                return AlertDialog(
+                                                return WebViewAware(
+                                                    child: AlertDialog(
                                                   title: Text('Review Tour'),
                                                   content: Text(
                                                       'review tour details before proceeding'),
@@ -2696,7 +2711,7 @@ class _TourDetailsWidgetState extends State<TourDetailsWidget> {
                                                       child: Text('Ok'),
                                                     ),
                                                   ],
-                                                );
+                                                ));
                                               },
                                             );
                                           }

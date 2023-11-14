@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'submit_tour_model.dart';
 export 'submit_tour_model.dart';
 
@@ -42,6 +43,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -1018,7 +1020,8 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                                 context,
                                                                             builder:
                                                                                 (alertDialogContext) {
-                                                                              return AlertDialog(
+                                                                              return WebViewAware(
+                                                                                  child: AlertDialog(
                                                                                 title: Text('Invalid!'),
                                                                                 content: Text('Promo has expired or already used'),
                                                                                 actions: [
@@ -1027,7 +1030,7 @@ class _SubmitTourWidgetState extends State<SubmitTourWidget>
                                                                                     child: Text('Ok'),
                                                                                   ),
                                                                                 ],
-                                                                              );
+                                                                              ));
                                                                             },
                                                                           );
                                                                         }

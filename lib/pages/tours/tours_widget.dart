@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'tours_model.dart';
 export 'tours_model.dart';
 
@@ -109,13 +110,14 @@ class _ToursWidgetState extends State<ToursWidget> {
                             barrierColor: Color(0x00000000),
                             context: context,
                             builder: (context) {
-                              return Padding(
+                              return WebViewAware(
+                                  child: Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
                                 child: Container(
                                   height: 400.0,
                                   child: NewTourBottomsheetWidget(),
                                 ),
-                              );
+                              ));
                             },
                           ).then((value) => safeSetState(() {}));
                         },
