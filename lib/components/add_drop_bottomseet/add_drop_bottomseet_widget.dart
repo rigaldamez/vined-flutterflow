@@ -434,7 +434,7 @@ class _AddDropBottomseetWidgetState extends State<AddDropBottomseetWidget> {
                                     ),
                                     direction: Axis.horizontal,
                                     initialRating: _model.ratingBarValue ??=
-                                        3.0,
+                                        0.0,
                                     unratedColor:
                                         FlutterFlowTheme.of(context).accent3,
                                     itemCount: 5,

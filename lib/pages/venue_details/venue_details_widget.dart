@@ -137,6 +137,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
             }
             final containerVenuesRecord = snapshot.data!;
             return Container(
+              height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -1362,7 +1363,6 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                             children: [
                               Container(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 1700.0,
                                 decoration: BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -1883,7 +1883,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                             .bodyMedium
                                                                             .override(
                                                                               fontFamily: 'Poppins',
-                                                                              fontSize: 12.0,
+                                                                              fontSize: 14.0,
                                                                             ),
                                                                       );
                                                                     },
@@ -2032,7 +2032,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                             .fromSTEB(0.0, 20.0,
                                                                 0.0, 0.0),
                                                     child: Container(
-                                                      height: 230.0,
+                                                      height: 240.0,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
@@ -2102,7 +2102,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                   lWTastingEntriesTastingDiaryRecordList[
                                                                       lWTastingEntriesIndex];
                                                               return Container(
-                                                                width: 100.0,
+                                                                width: 150.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: FlutterFlowTheme.of(
@@ -2179,7 +2179,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Poppins',
-                                                                                  fontSize: 12.0,
+                                                                                  fontSize: 14.0,
                                                                                 ),
                                                                           ),
                                                                         ],
@@ -2201,7 +2201,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                                 lWTastingEntriesTastingDiaryRecord.date!),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Poppins',
-                                                                                  fontSize: 8.0,
+                                                                                  fontSize: 10.0,
                                                                                 ),
                                                                           ),
                                                                         ],
@@ -2443,7 +2443,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
+                                          0.0, 10.0, 0.0, 40.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -2487,7 +2487,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                   fontFamily:
                                                                       'Poppins',
                                                                   fontSize:
-                                                                      12.0,
+                                                                      16.0,
                                                                 ),
                                                           ),
                                                           Text(
@@ -2499,7 +2499,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                   fontFamily:
                                                                       'Poppins',
                                                                   fontSize:
-                                                                      18.0,
+                                                                      24.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -2521,7 +2521,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                             unratedColor: Color(
                                                                 0xFFCCCCCC),
                                                             itemCount: 5,
-                                                            itemSize: 14.0,
+                                                            itemSize: 18.0,
                                                           ),
                                                         ],
                                                       ),
@@ -2533,7 +2533,6 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                             .fromSTEB(0.0, 10.0,
                                                                 0.0, 0.0),
                                                     child: Container(
-                                                      height: 150.0,
                                                       decoration:
                                                           BoxDecoration(),
                                                       child: StreamBuilder<
@@ -2623,8 +2622,8 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                               borderRadius: BorderRadius.circular(50.0),
                                                                               child: Image.network(
                                                                                 'https://picsum.photos/seed/323/600',
-                                                                                width: 20.0,
-                                                                                height: 20.0,
+                                                                                width: 26.0,
+                                                                                height: 26.0,
                                                                                 fit: BoxFit.cover,
                                                                               ),
                                                                             ),
@@ -2679,7 +2678,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         itemCount:
                                                                             5,
                                                                         itemSize:
-                                                                            12.0,
+                                                                            14.0,
                                                                       ),
                                                                     ],
                                                                   ),
@@ -2705,7 +2704,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                             listViewVenueRatingRecord.ratingComments,
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Poppins',
-                                                                                  fontSize: 10.0,
+                                                                                  fontSize: 14.0,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -2854,7 +2853,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                           child:
                                                                               Container(
                                                                             height:
-                                                                                MediaQuery.sizeOf(context).height * 0.5,
+                                                                                MediaQuery.sizeOf(context).height * 0.45,
                                                                             child:
                                                                                 RateVenueBottomseetWidget(
                                                                               venueReff: widget.selectedVenueReff!,
