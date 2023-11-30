@@ -25,6 +25,7 @@ import 'schema/venue_views_record.dart';
 import 'schema/highlights_record.dart';
 import 'schema/venue_features_record.dart';
 import 'schema/tasting_diary_record.dart';
+import 'schema/venue_rating_record.dart';
 import 'dart:async';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -54,6 +55,7 @@ export 'schema/venue_views_record.dart';
 export 'schema/highlights_record.dart';
 export 'schema/venue_features_record.dart';
 export 'schema/tasting_diary_record.dart';
+export 'schema/venue_rating_record.dart';
 
 /// Functions to query VenuesRecords (as a Stream and as a Future).
 Future<int> queryVenuesRecordCount({
@@ -1624,6 +1626,88 @@ Future<FFFirestorePage<TastingDiaryRecord>> queryTastingDiaryRecordPage({
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<TastingDiaryRecord> data) {
+          data.forEach((item) {
+            final itemIndexes = controller.itemList!
+                .asMap()
+                .map((k, v) => MapEntry(v.reference.id, k));
+            final index = itemIndexes[item.reference.id];
+            final items = controller.itemList!;
+            if (index != null) {
+              items.replaceRange(index, index + 1, [item]);
+              controller.itemList = {
+                for (var item in items) item.reference: item
+              }.values.toList();
+            }
+          });
+        });
+        streamSubscriptions?.add(streamSubscription);
+      }
+      return page;
+    });
+
+/// Functions to query VenueRatingRecords (as a Stream and as a Future).
+Future<int> queryVenueRatingRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      VenueRatingRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<VenueRatingRecord>> queryVenueRatingRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      VenueRatingRecord.collection(parent),
+      VenueRatingRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<VenueRatingRecord>> queryVenueRatingRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      VenueRatingRecord.collection(parent),
+      VenueRatingRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+Future<FFFirestorePage<VenueRatingRecord>> queryVenueRatingRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+  required PagingController<DocumentSnapshot?, VenueRatingRecord> controller,
+  List<StreamSubscription?>? streamSubscriptions,
+}) =>
+    queryCollectionPage(
+      VenueRatingRecord.collection(parent),
+      VenueRatingRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    ).then((page) {
+      controller.appendPage(
+        page.data,
+        page.nextPageMarker,
+      );
+      if (isStream) {
+        final streamSubscription =
+            (page.dataStream)?.listen((List<VenueRatingRecord> data) {
           data.forEach((item) {
             final itemIndexes = controller.itemList!
                 .asMap()

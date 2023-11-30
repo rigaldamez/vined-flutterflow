@@ -166,5 +166,17 @@ service cloud.firestore {
       allow write: if request.auth.uid == parent;
       allow delete: if false;
     }
+
+    match /venues/{parent}/venue_rating/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/venue_rating/{document} {
+      allow read: if true;
+    }
+
   }
 }
