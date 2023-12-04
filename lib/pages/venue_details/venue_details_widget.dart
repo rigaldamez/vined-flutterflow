@@ -2638,14 +2638,22 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                         .data!;
                                                                 if (listViewVenueRatingRecordList
                                                                     .isEmpty) {
-                                                                  return Image
-                                                                      .network(
-                                                                    columnAppConfigRecord!
-                                                                        .emptyVenueRatingImgPath,
+                                                                  return CachedNetworkImage(
+                                                                    fadeInDuration:
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                0),
+                                                                    fadeOutDuration:
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                0),
+                                                                    imageUrl:
+                                                                        columnAppConfigRecord!
+                                                                            .emptyVenueRatingImgPath,
                                                                     width: double
                                                                         .infinity,
                                                                     height:
-                                                                        100.0,
+                                                                        200.0,
                                                                     fit: BoxFit
                                                                         .contain,
                                                                   );
