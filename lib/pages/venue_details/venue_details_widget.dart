@@ -2641,7 +2641,7 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                   return Image
                                                                       .asset(
                                                                     columnAppConfigRecord!
-                                                                        .emptyVenueRatingImgPath,
+                                                                        .emptyBeverageDiaryImgPath,
                                                                     width: double
                                                                         .infinity,
                                                                     fit: BoxFit
