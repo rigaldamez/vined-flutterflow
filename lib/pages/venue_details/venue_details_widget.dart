@@ -2639,11 +2639,13 @@ class _VenueDetailsWidgetState extends State<VenueDetailsWidget>
                                                                 if (listViewVenueRatingRecordList
                                                                     .isEmpty) {
                                                                   return Image
-                                                                      .asset(
+                                                                      .network(
                                                                     columnAppConfigRecord!
-                                                                        .emptyBeverageDiaryImgPath,
+                                                                        .emptyVenueRatingImgPath,
                                                                     width: double
                                                                         .infinity,
+                                                                    height:
+                                                                        100.0,
                                                                     fit: BoxFit
                                                                         .contain,
                                                                   );
